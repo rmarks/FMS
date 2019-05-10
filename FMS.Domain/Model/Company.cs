@@ -20,5 +20,8 @@ namespace FMS.Domain.Model
         public string RegNo { get; set; }
 
         public List<Contact> Contacts { get; set; }
+
+        //--- legacy system fields ---
+        public int FMS_yksusid { get; set; }
     }
 }
