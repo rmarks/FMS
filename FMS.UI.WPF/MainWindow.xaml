@@ -1,0 +1,60 @@
+﻿<Window x:Class="FMS.UI.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FMS.UI.WPF"
+        xmlns:vm="clr-namespace:FMS.ViewModels;assembly=FMS.ViewModel"
+        mc:Ignorable="d"
+        Title="FMS - Juveel" Height="800" Width="1400" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Expander Grid.Row="0"
+                  Name="menuExpander"
+                  ExpandDirection="Right"
+                  Padding="10"
+                  Background="Gray"
+                  IsExpanded="True">
+            <Expander.Header>
+                <TextBlock Text="{Binding Path=IsExpanded, ElementName=menuExpander, Converter={StaticResource MenuIsExpandedToStringConverter}}"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           Foreground="White"
+                           Margin="0,10">
+                    <TextBlock.LayoutTransform>
+                        <RotateTransform Angle="90"/>
+                    </TextBlock.LayoutTransform>
+                </TextBlock>
+            </Expander.Header>
+            <Grid Width="230">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Background="#FF186FA0">
+                    <TextBlock Text="Menüü" 
+                           Foreground="White" 
+                           FontSize="30"
+                           HorizontalAlignment="Center"/>
+                </StackPanel>
+                <TreeView Grid.Row="1" ItemsSource="{Binding Path=Commands}"
+                      FontSize="20"
+                      IsTabStop="False">
+                    <TreeView.Resources>
+                        <DataTemplate DataType="{x:Type vm:CommandTreeGroupViewModel}">
+                            <TreeViewItem Header="{Binding Path=DisplayName}"
+                                          ItemsSource="{Binding Path=CommandTreeItems}"
+                                          IsExpanded="True"
+                                          Margin="-20,10,0,0"/>
+                        </DataTemplate>
+                    </TreeView.Resources>
+                </TreeView>
+            </Grid>
+        </Expander>
+        
+    </Grid>
+</Window>
