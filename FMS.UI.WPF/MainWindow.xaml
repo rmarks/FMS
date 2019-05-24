@@ -7,54 +7,98 @@
         xmlns:vm="clr-namespace:FMS.ViewModels;assembly=FMS.ViewModel"
         mc:Ignorable="d"
         Title="FMS - Juveel" Height="800" Width="1400" WindowState="Maximized">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
 
-        <Expander Grid.Row="0"
-                  Name="menuExpander"
-                  ExpandDirection="Right"
-                  Padding="10"
-                  Background="Gray"
-                  IsExpanded="True">
-            <Expander.Header>
-                <TextBlock Text="{Binding Path=IsExpanded, ElementName=menuExpander, Converter={StaticResource MenuIsExpandedToStringConverter}}"
+    <Window.Resources>
+        <DataTemplate x:Key="ClosableTabItemTemplate">
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Command="{Binding Path=CloseWorkspaceCommand}"
+                        Content="X"
+                        Padding="5,2"
+                        IsTabStop="False"/>
+                <ContentPresenter Content="{Binding Path=DisplayName}"
+                                  VerticalAlignment="Center"
+                                  TextElement.FontSize="18"
+                                  Margin="0,0,7,0"/>
+            </DockPanel>
+        </DataTemplate>
+
+        <Style TargetType="TabControl">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Items.Count, RelativeSource={RelativeSource Self}}"
+                                         Value="0">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Border Padding="0,10,10,10" Background="Gray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Expander Grid.Column="0"
+                      Name="menuExpander"
+                      ExpandDirection="Right"
+                      IsExpanded="True"
+                      Padding="10,0">
+                <Expander.Header>
+                    <TextBlock Text="{Binding Path=IsExpanded, ElementName=menuExpander, Converter={StaticResource MenuIsExpandedToStringConverter}}"
                            FontSize="20"
                            FontWeight="DemiBold"
                            Foreground="White"
                            Margin="0,10">
-                    <TextBlock.LayoutTransform>
-                        <RotateTransform Angle="90"/>
-                    </TextBlock.LayoutTransform>
-                </TextBlock>
-            </Expander.Header>
-            <Grid Width="230">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Background="#FF186FA0">
-                    <TextBlock Text="Menüü" 
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <Grid Width="230">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Background="#FF186FA0">
+                        <TextBlock Text="Menüü" 
                            Foreground="White" 
                            FontSize="30"
                            HorizontalAlignment="Center"/>
-                </StackPanel>
-                <TreeView Grid.Row="1" ItemsSource="{Binding Path=Commands}"
+                    </StackPanel>
+                    <TreeView Grid.Row="1" ItemsSource="{Binding Path=Commands}"
                       FontSize="20"
                       IsTabStop="False">
-                    <TreeView.Resources>
-                        <DataTemplate DataType="{x:Type vm:CommandTreeGroupViewModel}">
-                            <TreeViewItem Header="{Binding Path=DisplayName}"
-                                          ItemsSource="{Binding Path=CommandTreeItems}"
-                                          IsExpanded="True"
-                                          Margin="-20,10,0,0"/>
-                        </DataTemplate>
-                    </TreeView.Resources>
-                </TreeView>
-            </Grid>
-        </Expander>
-        
-    </Grid>
+                        <TreeView.Resources>
+                            <DataTemplate DataType="{x:Type vm:CommandTreeGroupViewModel}">
+                                <TreeViewItem Header="{Binding Path=DisplayName}"
+                                              ItemsSource="{Binding Path=CommandTreeItems}"
+                                              IsExpanded="True"
+                                              Margin="-20,10,0,0"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type vm:CommandTreeItemViewModel}">
+                                <TreeViewItem FontSize="18" 
+                                              Margin="-40,2">
+                                    <TreeViewItem.Header>
+                                        <Hyperlink Command="{Binding Path=Command}">
+                                            <TextBlock Text="{Binding Path=DisplayName}"/>
+                                        </Hyperlink>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </DataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </Grid>
+            </Expander>
+
+            <TabControl Grid.Column="1"
+                        ItemsSource="{Binding Path=Workspaces}"
+                        ItemTemplate="{StaticResource ClosableTabItemTemplate}"
+                        IsSynchronizedWithCurrentItem="True"
+                        SelectedItem="{Binding Path=SelectedWorkspace, Mode=TwoWay}">
+            </TabControl>
+        </Grid>
+    </Border>
+    
 </Window>
