@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FMS.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         #region Properties
         public virtual string DisplayName { get; protected set; }

@@ -1,21 +1,27 @@
 ﻿using FMS.ViewModel.Commands;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using FMS.ViewModel.Utils;
 using System.Windows.Input;
 
 namespace FMS.ViewModels
 {
-    public class WorkspaceViewModelBase : ViewModelBase
+    public abstract class WorkspaceViewModelBase : ViewModelBase
     {
+        private IWorkspaceManager _workspaceManager;
+
+        public WorkspaceViewModelBase(IWorkspaceManager workspaceManager)
+        {
+            _workspaceManager = workspaceManager;
+        }
+
         #region Commands
         ICommand _closeWorkspaceCommand;
         public ICommand CloseWorkspaceCommand => _closeWorkspaceCommand ?? 
-                                                (_closeWorkspaceCommand = new DelegateCommand(p => RequestCloseWorkspace?.Invoke(this)));
-        #endregion Commands
+                                                (_closeWorkspaceCommand = new DelegateCommand(p => Close()));
 
-        #region Events
-        public event Action<WorkspaceViewModelBase> RequestCloseWorkspace;
-        #endregion Events
+        private void Close()
+        {
+            _workspaceManager.CloseWorkspace(this);
+        }
+        #endregion Commands
     }
 }

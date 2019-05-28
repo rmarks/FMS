@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FMS.ViewModel.Utils;
 
 namespace FMS.ViewModels
 {
     public class CompaniesViewModel : WorkspaceViewModelBase
     {
-        public CompaniesViewModel()
+        public CompaniesViewModel(IWorkspaceManager workspaceManager) : base(workspaceManager)
         {
             DisplayName = "Firmad";
         }

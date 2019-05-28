@@ -96,8 +96,7 @@
             <TabControl Grid.Column="1"
                         ItemsSource="{Binding Path=Workspaces}"
                         ItemTemplate="{StaticResource ClosableTabItemTemplate}"
-                        IsSynchronizedWithCurrentItem="True"
-                        SelectedItem="{Binding Path=SelectedWorkspace, Mode=TwoWay}">
+                        IsSynchronizedWithCurrentItem="True">
             </TabControl>
         </Grid>
     </Border>

@@ -1,10 +1,7 @@
-﻿using FMS.ViewModels;
+﻿using FMS.ViewModel.Factories;
+using FMS.ViewModel.Utils;
+using FMS.ViewModels;
 using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FMS.UI.WPF
 {
@@ -15,6 +12,8 @@ namespace FMS.UI.WPF
         public BootStrapper()
         {
             BindViewModels();
+            BindFactories();
+            BindUtils();
         }
 
         public MainWindowViewModel MainWindowViewModel => _kernel.Get<MainWindowViewModel>();
@@ -23,6 +22,16 @@ namespace FMS.UI.WPF
         {
             _kernel.Bind<MainWindowViewModel>().ToSelf().InSingletonScope();
             _kernel.Bind<CompaniesViewModel>().ToSelf().InTransientScope();
+        }
+
+        private void BindFactories()
+        {
+            _kernel.Bind<ICompaniesWorkspaceFactory>().To<CompaniesWorkspaceFactory>().InTransientScope();
+        }
+
+        private void BindUtils()
+        {
+            _kernel.Bind<IWorkspaceManager>().To<WorkspaceManager>().InSingletonScope();
         }
     }
 }
