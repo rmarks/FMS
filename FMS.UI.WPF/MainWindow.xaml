@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:FMS.UI.WPF"
         xmlns:vm="clr-namespace:FMS.ViewModels;assembly=FMS.ViewModel"
         mc:Ignorable="d"
-        Title="FMS - Juveel" Height="800" Width="1400" WindowState="Maximized">
+        Title="FMS - Juveel" Height="800" Width="1400" WindowState="Maximized"
+        DataContext="{Binding Path=MainWindowViewModel, Source={StaticResource BootStrapper}}">
 
     <Window.Resources>
         <DataTemplate x:Key="ClosableTabItemTemplate">

@@ -1,6 +1,4 @@
-﻿using FMS.ViewModels;
-using Ninject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -15,13 +13,5 @@ namespace FMS.UI.WPF
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            IKernel kernel = new StandardKernel();
-
-            MainWindow = new MainWindow();
-            MainWindow.DataContext = kernel.Get<MainWindowViewModel>();
-            MainWindow.Show();
-        }
     }
 }

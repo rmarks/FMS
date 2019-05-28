@@ -1,4 +1,5 @@
 ﻿using FMS.ViewModel.Commands;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -49,9 +50,12 @@ namespace FMS.ViewModels
             AddWorkspace();
         }
 
+        [Inject]
+        public IKernel Kernel { private get; set; }
+
         private void AddWorkspace()
         {
-            var viewModel = new CompaniesViewModel();
+            var viewModel = Kernel.Get<CompaniesViewModel>();
 
             var workspace = Workspaces.FirstOrDefault(w => w.DisplayName == viewModel.DisplayName);
             if (workspace == null)
