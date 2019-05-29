@@ -1,17 +1,24 @@
 ﻿using FMS.ViewModel.Commands;
 using FMS.ViewModel.Factories;
 using FMS.ViewModel.Utils;
+using FMS.WPF.Application.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace FMS.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        #region Fields
+        private IDataTransferService _dataTransferService;
+        #endregion Fields
+
         #region Constructors
-        public MainWindowViewModel(IWorkspaceManager workspaceManager)
+        public MainWindowViewModel(IWorkspaceManager workspaceManager, IDataTransferService dataTransferService)
         {
             WorkspaceManager = workspaceManager;
+            _dataTransferService = dataTransferService;
             CreateCommands();
         }
         #endregion Constructors
@@ -23,6 +30,15 @@ namespace FMS.ViewModels
 
         public ObservableCollection<WorkspaceViewModelBase> Workspaces => WorkspaceManager.Workspaces;
         #endregion Properties
+
+        #region Commands
+        private ICommand _transferDataCommand;
+        public ICommand TransferDataCommand => _transferDataCommand ?? (_transferDataCommand = new DelegateCommand(p => TransferData()));
+        private void TransferData()
+        {
+            _dataTransferService.TransferData();
+        }
+        #endregion Commands
 
         #region Helpers
         private void CreateCommands()

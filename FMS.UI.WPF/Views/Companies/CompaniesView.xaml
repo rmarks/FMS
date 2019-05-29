@@ -6,7 +6,15 @@
              xmlns:local="clr-namespace:FMS.Views"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1400">
+    
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" 
+                        Content="{Binding Path=ListViewModel}"
+                        Margin="10"/>
     </Grid>
 </UserControl>

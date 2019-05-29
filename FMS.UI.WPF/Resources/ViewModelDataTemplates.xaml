@@ -7,5 +7,9 @@
     <DataTemplate DataType="{x:Type vm:CompaniesViewModel}">
         <vw:CompaniesView/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type vm:CompaniesListViewModel}">
+        <vw:CompaniesListView/>
+    </DataTemplate>
+
 </ResourceDictionary>

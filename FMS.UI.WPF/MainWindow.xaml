@@ -61,6 +61,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Background="#FF186FA0">
                         <TextBlock Text="Menüü" 
@@ -69,8 +70,8 @@
                            HorizontalAlignment="Center"/>
                     </StackPanel>
                     <TreeView Grid.Row="1" ItemsSource="{Binding Path=Commands}"
-                      FontSize="20"
-                      IsTabStop="False">
+                              FontSize="20"
+                              IsTabStop="False">
                         <TreeView.Resources>
                             <DataTemplate DataType="{x:Type vm:CommandTreeGroupViewModel}">
                                 <TreeViewItem Header="{Binding Path=DisplayName}"
@@ -90,6 +91,13 @@
                             </DataTemplate>
                         </TreeView.Resources>
                     </TreeView>
+                    <Button Grid.Row="2" 
+                            Content="Värskenda andmed"
+                            Command="{Binding Path=TransferDataCommand}"
+                            FontSize="16"
+                            FontWeight="DemiBold"
+                            Margin="0,10"
+                            Padding="10"/>
                 </Grid>
             </Expander>
 

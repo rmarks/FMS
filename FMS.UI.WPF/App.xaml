@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/ConverterResources.xaml"/>
                 <ResourceDictionary Source="/Resources/ViewModelDataTemplates.xaml"/>
+                <ResourceDictionary Source="/Resources/MainSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
