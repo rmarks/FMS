@@ -9,6 +9,7 @@
     
     <Grid>
         <DataGrid ItemsSource="{Binding Path=Items}"
+                  SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kood"

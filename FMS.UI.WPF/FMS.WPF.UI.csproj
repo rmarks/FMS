@@ -142,6 +142,9 @@
     <Compile Include="Views\Companies\CompaniesView.xaml.cs">
       <DependentUpon>CompaniesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Companies\CompanyCompoundView.xaml.cs">
+      <DependentUpon>CompanyCompoundView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -172,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Companies\CompaniesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Companies\CompanyCompoundView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

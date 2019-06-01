@@ -25,12 +25,14 @@ namespace FMS.WPF.UI
             _kernel.Bind<MainWindowViewModel>().ToSelf().InSingletonScope();
             _kernel.Bind<CompaniesViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompaniesListViewModel>().ToSelf().InTransientScope();
+            _kernel.Bind<CompanyCompoundViewModel>().ToSelf().InTransientScope();
         }
 
         private void BindFactories()
         {
             _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InTransientScope();
             _kernel.Bind<ICompaniesListViewModelFactory>().To<CompaniesListViewModelFactory>().InTransientScope();
+            _kernel.Bind<ICompanyCompoundViewModelFactory>().To<CompanyCompoundViewModelFactory>().InTransientScope();
         }
 
         private void BindUtils()

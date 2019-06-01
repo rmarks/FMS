@@ -16,5 +16,9 @@
         <ContentControl Grid.Row="0" 
                         Content="{Binding Path=ListViewModel}"
                         Margin="10"/>
+
+        <ContentControl Grid.Row="1" 
+                        Content="{Binding Path=ItemViewModel}"
+                        Margin="10"/>
     </Grid>
 </UserControl>

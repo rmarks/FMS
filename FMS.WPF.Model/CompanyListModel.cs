@@ -6,6 +6,8 @@ namespace FMS.WPF.Model
 {
     public class CompanyListModel
     {
+        public int CompanyId { get; set; }
+
         public string CompanyCode { get; set; }
 
         public string CompanyName { get; set; }

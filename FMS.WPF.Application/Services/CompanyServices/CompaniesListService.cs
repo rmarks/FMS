@@ -19,6 +19,7 @@ namespace FMS.WPF.Application.Services
                 .Where(c => c.IsBilling)
                 .Select(c => new CompanyListModel
                 {
+                    CompanyId = c.Company.CompanyId,
                     CompanyCode = c.Company.CompanyCode,
                     CompanyName = c.Company.CompanyName,
                     CountryName = c.Address.Country.CountryName,

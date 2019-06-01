@@ -3,11 +3,11 @@
 namespace FMS.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for CompaniesView.xaml
+    /// Interaction logic for CompanyCompoundView.xaml
     /// </summary>
-    public partial class CompaniesView : UserControl
+    public partial class CompanyCompoundView : UserControl
     {
-        public CompaniesView()
+        public CompanyCompoundView()
         {
             InitializeComponent();
         }
