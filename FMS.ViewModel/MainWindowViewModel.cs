@@ -1,12 +1,12 @@
-﻿using FMS.ViewModel.Commands;
-using FMS.ViewModel.Factories;
-using FMS.ViewModel.Utils;
+﻿using FMS.WPF.ViewModel.Commands;
+using FMS.WPF.ViewModel.Factories;
+using FMS.WPF.ViewModel.Utils;
 using FMS.WPF.Application.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace FMS.ViewModels
+namespace FMS.WPF.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
@@ -47,7 +47,7 @@ namespace FMS.ViewModels
             Commands.Add(groupPermanentData);
 
             CommandTreeItemViewModel commandCompanies = 
-                new CommandTreeItemViewModel("Firmad", new DelegateCommand(p => WorkspaceManager.OpenWorkspace<ICompaniesWorkspaceFactory>("Firmad")));
+                new CommandTreeItemViewModel("Firmad", new DelegateCommand(p => WorkspaceManager.OpenWorkspace<ICompaniesViewModelFactory>("Firmad")));
             groupPermanentData.CommandTreeItems.Add(commandCompanies);
         }
         #endregion Helpers

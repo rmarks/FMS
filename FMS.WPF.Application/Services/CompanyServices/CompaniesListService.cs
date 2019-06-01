@@ -14,13 +14,18 @@ namespace FMS.WPF.Application.Services
         {
             var context = new FMSDbContext();
 
-            return context.Companies
+            return context.CompanyAddresses
                 .AsNoTracking()
+                .Where(c => c.IsBilling)
                 .Select(c => new CompanyListModel
                 {
-                    CompanyId = c.CompanyId,
-                    CompanyName = c.CompanyName
+                    CompanyCode = c.Company.CompanyCode,
+                    CompanyName = c.Company.CompanyName,
+                    CountryName = c.Address.Country.CountryName,
+                    City = c.Address.City,
+                    Address1 = c.Address.Address1
                 })
+                .OrderBy(c => c.CompanyName)
                 .ToList();
         }
     }

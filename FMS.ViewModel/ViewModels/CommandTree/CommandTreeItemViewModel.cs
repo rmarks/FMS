@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace FMS.ViewModels
+namespace FMS.WPF.ViewModels
 {
     public class CommandTreeItemViewModel : CommandTreeNodeViewModelBase
     {

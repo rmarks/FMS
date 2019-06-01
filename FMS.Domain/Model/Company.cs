@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace FMS.Domain.Model
 {
     public class Company
     {
         public int CompanyId { get; set; }
+
+        [Required, MaxLength(4)]
+        public string CompanyCode { get; set; }
 
         [Required, MaxLength(70)]
         public string CompanyName { get; set; }
@@ -18,6 +19,11 @@ namespace FMS.Domain.Model
 
         [MaxLength(20)]
         public string RegNo { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
+
+        //-----------------------------------------
+        public List<CompanyAddress> AddressesLink { get; set; }
 
         public List<Contact> Contacts { get; set; }
 

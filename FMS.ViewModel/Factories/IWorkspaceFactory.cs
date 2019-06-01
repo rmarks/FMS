@@ -1,9 +1,9 @@
-﻿using FMS.ViewModels;
+﻿using FMS.WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FMS.ViewModel.Factories
+namespace FMS.WPF.ViewModel.Factories
 {
     public interface IWorkspaceFactory
     {

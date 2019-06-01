@@ -1,10 +1,10 @@
-﻿using FMS.ViewModel.Factories;
-using FMS.ViewModel.Utils;
-using FMS.ViewModels;
+﻿using FMS.WPF.ViewModel.Factories;
+using FMS.WPF.ViewModel.Utils;
+using FMS.WPF.ViewModels;
 using FMS.WPF.Application.Services;
 using Ninject;
 
-namespace FMS.UI.WPF
+namespace FMS.WPF.UI
 {
     public class BootStrapper
     {
@@ -29,7 +29,7 @@ namespace FMS.UI.WPF
 
         private void BindFactories()
         {
-            _kernel.Bind<ICompaniesWorkspaceFactory>().To<CompaniesWorkspaceFactory>().InTransientScope();
+            _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InTransientScope();
             _kernel.Bind<ICompaniesListViewModelFactory>().To<CompaniesListViewModelFactory>().InTransientScope();
         }
 

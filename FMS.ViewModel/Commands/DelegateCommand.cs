@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace FMS.ViewModel.Commands
+namespace FMS.WPF.ViewModel.Commands
 {
     public class DelegateCommand : ICommand
     {

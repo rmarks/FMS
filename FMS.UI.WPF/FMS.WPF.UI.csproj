@@ -204,9 +204,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FMS.ViewModel\FMS.ViewModel.csproj">
+    <ProjectReference Include="..\FMS.ViewModel\FMS.WPF.ViewModel.csproj">
       <Project>{443EF77B-F469-4BD5-900F-53498AE403A3}</Project>
-      <Name>FMS.ViewModel</Name>
+      <Name>FMS.WPF.ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj">
       <Project>{54F8726E-811D-4825-BCDD-B6CF220DC8B6}</Project>

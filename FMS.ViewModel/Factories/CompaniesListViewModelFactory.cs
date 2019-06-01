@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using FMS.ViewModels;
+using FMS.WPF.ViewModels;
 using Ninject;
 
-namespace FMS.ViewModel.Factories
+namespace FMS.WPF.ViewModel.Factories
 {
     public class CompaniesListViewModelFactory : ICompaniesListViewModelFactory
     {

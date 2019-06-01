@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using FMS.ViewModel.Factories;
-using FMS.ViewModels;
+using FMS.WPF.ViewModel.Factories;
+using FMS.WPF.ViewModels;
 
-namespace FMS.ViewModel.Utils
+namespace FMS.WPF.ViewModel.Utils
 {
     public interface IWorkspaceManager
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FMS.ViewModels
+namespace FMS.WPF.ViewModels
 {
     public abstract class GenericListViewModelBase<TModel> : ViewModelBase
     {

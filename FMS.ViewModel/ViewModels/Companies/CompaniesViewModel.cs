@@ -1,7 +1,7 @@
-﻿using FMS.ViewModel.Factories;
-using FMS.ViewModel.Utils;
+﻿using FMS.WPF.ViewModel.Factories;
+using FMS.WPF.ViewModel.Utils;
 
-namespace FMS.ViewModels
+namespace FMS.WPF.ViewModels
 {
     public class CompaniesViewModel : WorkspaceViewModelBase
     {

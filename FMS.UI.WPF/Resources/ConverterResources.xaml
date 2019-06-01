@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:FMS.UI.WPF.Resources"
-                    xmlns:converter="clr-namespace:FMS.UI.WPF.Converters">
+                    xmlns:local="clr-namespace:FMS.WPF.UI.Resources"
+                    xmlns:converter="clr-namespace:FMS.WPF.UI.Converters">
 
     <converter:MenuIsExpandedToStringConverter x:Key="MenuIsExpandedToStringConverter"/>
 

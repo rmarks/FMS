@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FMS.ViewModels
+namespace FMS.WPF.ViewModels
 {
     public class CompaniesListViewModel : GenericListViewModelBase<CompanyListModel>
     {

@@ -1,8 +1,8 @@
-﻿using FMS.ViewModel.Commands;
-using FMS.ViewModel.Utils;
+﻿using FMS.WPF.ViewModel.Commands;
+using FMS.WPF.ViewModel.Utils;
 using System.Windows.Input;
 
-namespace FMS.ViewModels
+namespace FMS.WPF.ViewModels
 {
     public abstract class WorkspaceViewModelBase : ViewModelBase
     {

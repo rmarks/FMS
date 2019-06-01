@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace FMS.UI.WPF.Converters
+namespace FMS.WPF.UI.Converters
 {
     public class MenuIsExpandedToStringConverter : IValueConverter
     {

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace FMS.WPF.ViewModel.Factories
 {
-    public interface ICompaniesListViewModelFactory
+    public interface ICompaniesViewModelFactory : IWorkspaceFactory
     {
-        CompaniesListViewModel CreateInstance();
+        CompaniesViewModel CreateInstance();
     }
 }

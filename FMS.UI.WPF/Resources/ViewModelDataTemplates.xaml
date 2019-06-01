@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:FMS.UI.WPF.Resources"
-                    xmlns:vm="clr-namespace:FMS.ViewModels;assembly=FMS.ViewModel"
-                    xmlns:vw="clr-namespace:FMS.Views">
+                    xmlns:local="clr-namespace:FMS.WPF.UI.Resources"
+                    xmlns:vm="clr-namespace:FMS.WPF.ViewModels;assembly=FMS.WPF.ViewModel"
+                    xmlns:vw="clr-namespace:FMS.WPF.Views">
 
     <DataTemplate DataType="{x:Type vm:CompaniesViewModel}">
         <vw:CompaniesView/>

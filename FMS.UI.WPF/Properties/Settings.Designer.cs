@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FMS.UI.WPF.Properties
+namespace FMS.WPF.UI.Properties
 {
 
 

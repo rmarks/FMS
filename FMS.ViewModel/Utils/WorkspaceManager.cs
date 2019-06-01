@@ -1,12 +1,12 @@
-﻿using FMS.ViewModel.Factories;
-using FMS.ViewModels;
+﻿using FMS.WPF.ViewModel.Factories;
+using FMS.WPF.ViewModels;
 using Ninject;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 
-namespace FMS.ViewModel.Utils
+namespace FMS.WPF.ViewModel.Utils
 {
     public class WorkspaceManager : IWorkspaceManager
     {

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using FMS.ViewModels;
+using FMS.WPF.ViewModels;
 using Ninject;
 
-namespace FMS.ViewModel.Factories
+namespace FMS.WPF.ViewModel.Factories
 {
-    public class CompaniesWorkspaceFactory : ICompaniesWorkspaceFactory
+    public class CompaniesViewModelFactory : ICompaniesViewModelFactory
     {
         private IKernel _kernel;
 
-        public CompaniesWorkspaceFactory(IKernel kernel)
+        public CompaniesViewModelFactory(IKernel kernel)
         {
             _kernel = kernel;
         }
