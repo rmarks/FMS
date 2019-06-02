@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FMS.WPF.ViewModels;
+﻿using FMS.WPF.ViewModels;
 using Ninject;
 
 namespace FMS.WPF.ViewModel.Factories
 {
-    public class CompaniesListViewModelFactory : ICompaniesListViewModelFactory
+    public class CompaniesListViewModelFactory : ViewModelFactoryBase, IViewModelFactory<CompaniesListViewModel>
     {
-        private IKernel _kernel;
-
-        public CompaniesListViewModelFactory(IKernel kernel)
+        public CompaniesListViewModelFactory(IKernel kernel) : base(kernel)
         {
-            _kernel = kernel;
         }
 
-        public CompaniesListViewModel CreateInstance()
-        {
-            return _kernel.Get<CompaniesListViewModel>();
-        }
+        public CompaniesListViewModel CreateInstance(int Id = 0) => _kernel.Get<CompaniesListViewModel>();
     }
 }

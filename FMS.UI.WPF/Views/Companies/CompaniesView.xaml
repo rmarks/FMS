@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ContentControl Grid.Row="0" 
+        <ContentControl Grid.Row="0"
                         Content="{Binding Path=ListViewModel}"
                         Margin="10"/>
 

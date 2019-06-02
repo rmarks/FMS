@@ -1,8 +1,5 @@
 ﻿using FMS.WPF.Application.Services;
 using FMS.WPF.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FMS.WPF.ViewModels
 {

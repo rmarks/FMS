@@ -6,16 +6,13 @@ using Ninject;
 
 namespace FMS.WPF.ViewModel.Factories
 {
-    public class CompaniesViewModelFactory : ICompaniesViewModelFactory
+    public class CompaniesViewModelFactory : ViewModelFactoryBase, IWorkspaceViewModelFactory<CompaniesViewModel>
     {
-        private IKernel _kernel;
-
-        public CompaniesViewModelFactory(IKernel kernel)
+        public CompaniesViewModelFactory(IKernel kernel) : base(kernel)
         {
-            _kernel = kernel;
         }
 
-        public CompaniesViewModel CreateInstance() => _kernel.Get<CompaniesViewModel>();
+        public CompaniesViewModel CreateInstance(int Id = 0) => _kernel.Get<CompaniesViewModel>();
 
         public WorkspaceViewModelBase CreateWorkspace() => CreateInstance();
     }

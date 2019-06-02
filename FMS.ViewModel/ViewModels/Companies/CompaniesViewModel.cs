@@ -1,27 +1,29 @@
 ﻿using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
+using System.Linq;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompaniesViewModel : WorkspaceViewModelBase
     {
         #region Fields
-        private ICompaniesListViewModelFactory _companiesListViewModelFactory;
-        private ICompanyCompoundViewModelFactory _companyCompoundViewModelFactory;
+        private IViewModelFactory<CompaniesListViewModel> _companiesListViewModelFactory;
+        private IViewModelFactory<CompanyViewModel> _companyViewModelFactory;
         #endregion Fields
 
         #region Constructors
         public CompaniesViewModel(IWorkspaceManager workspaceManager, 
-                                  ICompaniesListViewModelFactory companiesListViewModelFactory,
-                                  ICompanyCompoundViewModelFactory companyCompoundViewModelFactory)
+                                  IViewModelFactory<CompaniesListViewModel> companiesListViewModelFactory,
+                                  IViewModelFactory<CompanyViewModel> companyViewModelFactory)
             : base(workspaceManager)
         {
             _companiesListViewModelFactory = companiesListViewModelFactory;
-            _companyCompoundViewModelFactory = companyCompoundViewModelFactory;
+            _companyViewModelFactory = companyViewModelFactory;
 
             DisplayName = "Firmad";
 
             ListViewModel.SelectedItemChanged += ListViewModel_SelectedItemChanged;
+            ListViewModel.SelectedItem = ListViewModel.Items.FirstOrDefault();
         }
         #endregion Constructors
 
@@ -29,13 +31,13 @@ namespace FMS.WPF.ViewModels
         private CompaniesListViewModel _listViewModel;
         public CompaniesListViewModel ListViewModel => _listViewModel ?? (_listViewModel = _companiesListViewModelFactory.CreateInstance());
 
-        public CompanyCompoundViewModel ItemViewModel { get; private set; }
+        public CompanyViewModel ItemViewModel { get; private set; }
         #endregion Properties
 
         #region Event Handlers
         private void ListViewModel_SelectedItemChanged()
         {
-            ItemViewModel = _companyCompoundViewModelFactory.CreateInstance(ListViewModel.SelectedItem.CompanyId);
+            ItemViewModel = _companyViewModelFactory.CreateInstance(ListViewModel.SelectedItem.CompanyId);
         }
         #endregion Event Handlers
     }

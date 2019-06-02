@@ -12,8 +12,20 @@
         <vw:CompaniesListView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:CompanyCompoundViewModel}">
-        <vw:CompanyCompoundView/>
+    <DataTemplate DataType="{x:Type vm:CompanyViewModel}">
+        <vw:CompanyView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyBasicsViewModel}">
+        <vw:CompanyBasicsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyAddressesViewModel}">
+        <vw:CompanyAddressesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyContactsViewModel}">
+        <vw:CompanyContactsView/>
     </DataTemplate>
 
 </ResourceDictionary>

@@ -47,7 +47,7 @@ namespace FMS.WPF.ViewModels
             Commands.Add(groupPermanentData);
 
             CommandTreeItemViewModel commandCompanies = 
-                new CommandTreeItemViewModel("Firmad", new DelegateCommand(p => WorkspaceManager.OpenWorkspace<ICompaniesViewModelFactory>("Firmad")));
+                new CommandTreeItemViewModel("Firmad", new DelegateCommand(p => WorkspaceManager.OpenWorkspace<IWorkspaceViewModelFactory<CompaniesViewModel>>("Firmad")));
             groupPermanentData.CommandTreeItems.Add(commandCompanies);
         }
         #endregion Helpers

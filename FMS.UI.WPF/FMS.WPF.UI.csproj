@@ -142,8 +142,17 @@
     <Compile Include="Views\Companies\CompaniesView.xaml.cs">
       <DependentUpon>CompaniesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Companies\CompanyCompoundView.xaml.cs">
-      <DependentUpon>CompanyCompoundView.xaml</DependentUpon>
+    <Compile Include="Views\Companies\CompanyAddressesView.xaml.cs">
+      <DependentUpon>CompanyAddressesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Companies\CompanyBasicsView.xaml.cs">
+      <DependentUpon>CompanyBasicsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Companies\CompanyContactsView.xaml.cs">
+      <DependentUpon>CompanyContactsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Companies\CompanyView.xaml.cs">
+      <DependentUpon>CompanyView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -178,7 +187,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Companies\CompanyCompoundView.xaml">
+    <Page Include="Views\Companies\CompanyAddressesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Companies\CompanyBasicsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Companies\CompanyContactsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Companies\CompanyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
