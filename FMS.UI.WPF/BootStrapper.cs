@@ -47,6 +47,9 @@ namespace FMS.WPF.UI
         {
             _kernel.Bind<IDataTransferService>().To<DataTransferService>().InTransientScope();
             _kernel.Bind<ICompaniesListService>().To<CompaniesListService>().InTransientScope();
+            _kernel.Bind<ICompanyBasicsService>().To<CompanyBasicsService>().InTransientScope();
+            _kernel.Bind<ICompanyAddressesService>().To<CompanyAddressesService>().InTransientScope();
+            _kernel.Bind<ICompanyContactsService>().To<CompanyContactsService>().InTransientScope();
         }
     }
 }

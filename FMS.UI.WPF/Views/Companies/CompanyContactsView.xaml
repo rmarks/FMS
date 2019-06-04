@@ -8,10 +8,33 @@
              d:DesignHeight="400" d:DesignWidth="1000">
     
     <Grid>
-        <Label Content="{Binding Path=CompanyTab}"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-               FontSize="30"
-               FontWeight="Bold"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- List -->
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Path=Models}" 
+                  Style="{StaticResource MainDataGridStyle}"
+                  Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nimi" 
+                                    Binding="{Binding Path=ContactName}" 
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Amet" 
+                                    Binding="{Binding Path=Job}" 
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Mobiil" 
+                                    Binding="{Binding Path=Mobile}" 
+                                    Width="*"/>
+                <DataGridTextColumn Header="Telefon" 
+                                    Binding="{Binding Path=Phone}" 
+                                    Width="*"/>
+                <DataGridTextColumn Header="E-post" 
+                                    Binding="{Binding Path=Email}" 
+                                    Width="3*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

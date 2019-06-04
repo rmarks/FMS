@@ -6,12 +6,67 @@
              xmlns:local="clr-namespace:FMS.WPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+    </UserControl.Resources>
     
     <Grid>
-        <Label Content="{Binding Path=CompanyTab}"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-               FontSize="30"
-               FontWeight="Bold"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Company Basics -->
+        <Grid Grid.Row="1" IsEnabled="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- First column -->
+            <StackPanel Grid.Column="0" Margin="20">
+                <TextBlock Text="Kood"/>
+                <TextBox Text="{Binding Path=Model.CompanyCode}"/>
+
+                <TextBlock Text="Nimetus"/>
+                <TextBox Text="{Binding Path=Model.CompanyName}"/>
+
+                <TextBlock Text="KMKR"/>
+                <TextBox Text="{Binding Path=Model.VATNo}"/>
+
+                <TextBlock Text="Registrikood"/>
+                <TextBox Text="{Binding Path=Model.RegNo}"/>
+
+                <TextBlock Text="Loodud"/>
+                <TextBlock Text="{Binding Path=Model.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"/>
+            </StackPanel>
+
+            <!-- Second column -->
+            <StackPanel Grid.Column="1" Margin="20">
+                <TextBlock Text="Riik"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Countries}" 
+                          DisplayMemberPath="CountryName" 
+                          SelectedValuePath="CountryId" 
+                          SelectedValue="{Binding Path=Model.BillingAddress.CountryId}"/>
+
+                <!--<TextBlock Text="Riik"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.CountryName}"/>-->
+
+                <TextBlock Text="Linn/vald"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.City}"/>
+
+                <TextBlock Text="Aadress"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.Address}"/>
+
+                <TextBlock Text="Indeks"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.PostCode}"/>
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </UserControl>

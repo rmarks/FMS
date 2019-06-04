@@ -1,6 +1,5 @@
 ﻿using FMS.Domain.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace FMS.DAL.EFCore
 {
@@ -8,18 +7,12 @@ namespace FMS.DAL.EFCore
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<CompanyAddress> CompanyAddresses { get; set; }
         public DbSet<Country> Countries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=DELL-PC\SQLEXPRESS2014;Database=FMS;Trusted_Connection=True;MultipleActiveResultSets=True;");
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CompanyAddress>().HasKey(x => new { x.CompanyId, x.AddressId });
         }
     }
 }

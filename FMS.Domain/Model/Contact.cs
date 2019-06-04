@@ -9,6 +9,8 @@ namespace FMS.Domain.Model
     {
         public int ContactId { get; set; }
 
+        public int CompanyId { get; set; }
+
         [Required, MaxLength(50)]
         public string ContactName { get; set; }
 
@@ -24,7 +26,7 @@ namespace FMS.Domain.Model
         [MaxLength(100)]
         public string Email { get; set; }
 
-        public int CompanyId { get; set; }
+        //----------------------------------
         public Company Company { get; set; }
     }
 }

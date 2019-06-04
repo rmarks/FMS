@@ -23,8 +23,7 @@ namespace FMS.Domain.Model
         public DateTime? CreatedOn { get; set; }
 
         //-----------------------------------------
-        public List<CompanyAddress> AddressesLink { get; set; }
-
+        public List<CompanyAddress> Addresses { get; set; }
         public List<Contact> Contacts { get; set; }
 
         //--- legacy system fields ---

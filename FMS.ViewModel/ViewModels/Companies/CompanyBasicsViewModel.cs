@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FMS.WPF.Application.Services;
+using FMS.WPF.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,12 +8,16 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyBasicsViewModel : ViewModelBase
     {
-        public CompanyBasicsViewModel(int companyId)
+        private ICompanyBasicsService _service;
+
+        public CompanyBasicsViewModel(int companyId, ICompanyBasicsService service)
         {
             DisplayName = "Üldandmed";
-            CompanyTab = $"{DisplayName}: {companyId}";
+
+            _service = service;
+            Model = _service.GetCompanyBasicsModel(companyId);
         }
 
-        public string CompanyTab { get; set; }
+        public CompanyBasicsModel Model { get; private set; }
     }
 }

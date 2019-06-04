@@ -1,10 +1,8 @@
 ﻿using FMS.DAL.EFCore;
 using FMS.WPF.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FMS.WPF.Application.Services
 {
@@ -14,9 +12,13 @@ namespace FMS.WPF.Application.Services
         {
             var context = new FMSDbContext();
 
-            return context.CompanyAddresses
+            return context.Companies
                 .AsNoTracking()
-                .Where(c => c.IsBilling)
+                .Select(c => new
+                {
+                    Company = c,
+                    Address = c.Addresses.FirstOrDefault(a => a.IsBilling)
+                })
                 .Select(c => new CompanyListModel
                 {
                     CompanyId = c.Company.CompanyId,
@@ -24,7 +26,7 @@ namespace FMS.WPF.Application.Services
                     CompanyName = c.Company.CompanyName,
                     CountryName = c.Address.Country.CountryName,
                     City = c.Address.City,
-                    Address1 = c.Address.Address1
+                    Address = c.Address.Address
                 })
                 .OrderBy(c => c.CompanyName)
                 .ToList();

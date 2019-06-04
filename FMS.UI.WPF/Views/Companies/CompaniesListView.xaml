@@ -25,7 +25,7 @@
                                     Binding="{Binding Path=City}"
                                     Width="2*"/>
                 <DataGridTextColumn Header="Aadress"
-                                    Binding="{Binding Path=Address1}"
+                                    Binding="{Binding Path=Address}"
                                     Width="3*"/>
             </DataGrid.Columns>
         </DataGrid>

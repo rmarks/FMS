@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FMS.WPF.Application.Services;
+using FMS.WPF.Model;
+using System.Collections.ObjectModel;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyAddressesViewModel : ViewModelBase
     {
-        public CompanyAddressesViewModel(int companyId)
+        private ICompanyAddressesService _service;
+
+        public CompanyAddressesViewModel(int companyId, ICompanyAddressesService service)
         {
-            DisplayName = "Aadressid";
-            CompanyTab = $"{DisplayName}: {companyId}";
+            DisplayName = "Saajad";
+
+            _service = service;
+            Models = new ObservableCollection<CompanyAddressModel>(_service.GetCompanyAddressModels(companyId));
         }
 
-        public string CompanyTab { get; set; }
+        public ObservableCollection<CompanyAddressModel> Models { get; }
     }
 }

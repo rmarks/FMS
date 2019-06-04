@@ -8,10 +8,33 @@
              d:DesignHeight="400" d:DesignWidth="1000">
     
     <Grid>
-        <Label Content="{Binding Path=CompanyTab}"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-               FontSize="30"
-               FontWeight="Bold"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- List -->
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Path=Models}" 
+                  Style="{StaticResource MainDataGridStyle}"
+                  Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Kirjeldus" 
+                                    Binding="{Binding Path=Description}" 
+                                    Width="3*"/>
+                <DataGridTextColumn Header="Riik" 
+                                    Binding="{Binding Path=CountryName}" 
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Linn" 
+                                    Binding="{Binding Path=City}" 
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Aadress" 
+                                    Binding="{Binding Path=Address}" 
+                                    Width="3*"/>
+                <DataGridTextColumn Header="Indeks" 
+                                    Binding="{Binding Path=PostCode}" 
+                                    Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

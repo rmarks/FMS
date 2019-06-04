@@ -5,11 +5,11 @@ namespace FMS.WPF.ViewModels
 {
     public class CompaniesListViewModel : GenericListViewModelBase<CompanyListModel>
     {
-        private ICompaniesListService _companiesListService;
+        private ICompaniesListService _service;
 
-        public CompaniesListViewModel(ICompaniesListService companiesListService)
+        public CompaniesListViewModel(ICompaniesListService service)
         {
-            _companiesListService = companiesListService;
+            _service = service;
             Refresh();
         }
 
@@ -21,7 +21,7 @@ namespace FMS.WPF.ViewModels
         #region Helpers
         private void LoadData()
         {
-            Items = _companiesListService.GetCompaniesList();
+            Items = _service.GetCompaniesList();
         }
         #endregion Helpers
     }

@@ -2,6 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:FMS.WPF.UI.Resources">
 
+    <Style x:Key="MainTextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+
+    <Style x:Key="MainTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style x:Key="MainComboBoxStyle" TargetType="{x:Type ComboBox}">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
     <Style x:Key="MainDataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="FontSize" Value="15"/>
