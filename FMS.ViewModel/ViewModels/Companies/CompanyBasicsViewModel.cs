@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompanyBasicsViewModel : ViewModelBase
+    public class CompanyBasicsViewModel : GenericEditableViewModelBase<CompanyBasicsModel>
     {
         private ICompanyBasicsService _service;
 
@@ -17,7 +17,5 @@ namespace FMS.WPF.ViewModels
             _service = service;
             Model = _service.GetCompanyBasicsModel(companyId);
         }
-
-        public CompanyBasicsModel Model { get; private set; }
     }
 }

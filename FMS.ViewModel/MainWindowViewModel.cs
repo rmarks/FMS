@@ -33,7 +33,7 @@ namespace FMS.WPF.ViewModels
 
         #region Commands
         private ICommand _transferDataCommand;
-        public ICommand TransferDataCommand => _transferDataCommand ?? (_transferDataCommand = new DelegateCommand(p => TransferData()));
+        public ICommand TransferDataCommand => _transferDataCommand ?? (_transferDataCommand = new RelayCommand(TransferData));
         private void TransferData()
         {
             _dataTransferService.TransferData();
@@ -47,7 +47,7 @@ namespace FMS.WPF.ViewModels
             Commands.Add(groupPermanentData);
 
             CommandTreeItemViewModel commandCompanies = 
-                new CommandTreeItemViewModel("Firmad", new DelegateCommand(p => WorkspaceManager.OpenWorkspace<IWorkspaceViewModelFactory<CompaniesViewModel>>("Firmad")));
+                new CommandTreeItemViewModel("Firmad", new RelayCommand<string>(p => WorkspaceManager.OpenWorkspace<IWorkspaceViewModelFactory<CompaniesViewModel>>("Firmad")));
             groupPermanentData.CommandTreeItems.Add(commandCompanies);
         }
         #endregion Helpers

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FMS.WPF.Views"
+             xmlns:controls="clr-namespace:FMS.WPF.UI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="1000">
 
@@ -20,8 +21,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Taskbar -->
+        <controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
+                                  EditCommand="{Binding Path=EditCommand}"
+                                  CancelCommand="{Binding Path=CancelCommand}"
+                                  SaveCommand="{Binding Path=SaveCommand}"
+                                  DeleteCommand="{Binding Path=DeleteCommand}"
+                                  IsEditMode="{Binding Path=IsEditMode}"/>
+
         <!-- Company Basics -->
-        <Grid Grid.Row="1" IsEnabled="False">
+        <Grid Grid.Row="1" IsEnabled="{Binding Path=IsEditMode}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -32,56 +41,56 @@
             <!-- First column -->
             <StackPanel Grid.Column="0" Margin="20">
                 <TextBlock Text="Kood"/>
-                <TextBox Text="{Binding Path=Model.CompanyCode}"/>
+                <TextBox Text="{Binding Path=EditableModel.CompanyCode}"/>
 
                 <TextBlock Text="Nimetus"/>
-                <TextBox Text="{Binding Path=Model.CompanyName}"/>
+                <TextBox Text="{Binding Path=EditableModel.CompanyName}"/>
 
                 <TextBlock Text="KMKR"/>
-                <TextBox Text="{Binding Path=Model.VATNo}"/>
+                <TextBox Text="{Binding Path=EditableModel.VATNo}"/>
 
                 <TextBlock Text="Registrikood"/>
-                <TextBox Text="{Binding Path=Model.RegNo}"/>
+                <TextBox Text="{Binding Path=EditableModel.RegNo}"/>
 
                 <TextBlock Text="Loodud"/>
-                <TextBlock Text="{Binding Path=Model.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"/>
+                <TextBlock Text="{Binding Path=EditableModel.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"/>
             </StackPanel>
 
             <!-- Second column -->
             <StackPanel Grid.Column="1" Margin="20">
                 <TextBlock Text="Riik"/>
-                <ComboBox ItemsSource="{Binding Path=Model.Countries}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.Countries}" 
                           DisplayMemberPath="CountryName" 
                           SelectedValuePath="CountryId" 
-                          SelectedValue="{Binding Path=Model.BillingAddress.CountryId}"/>
+                          SelectedValue="{Binding Path=EditableModel.BillingAddress.CountryId}"/>
 
                 <TextBlock Text="Linn/vald"/>
-                <TextBox Text="{Binding Path=Model.BillingAddress.City}"/>
+                <TextBox Text="{Binding Path=EditableModel.BillingAddress.City}"/>
 
                 <TextBlock Text="Aadress"/>
-                <TextBox Text="{Binding Path=Model.BillingAddress.Address}"/>
+                <TextBox Text="{Binding Path=EditableModel.BillingAddress.Address}"/>
 
                 <TextBlock Text="Indeks"/>
-                <TextBox Text="{Binding Path=Model.BillingAddress.PostCode}"/>
+                <TextBox Text="{Binding Path=EditableModel.BillingAddress.PostCode}"/>
             </StackPanel>
 
             <!-- Third column -->
             <StackPanel Grid.Column="2" Margin="20">
                 <TextBlock Text="Valuuta"/>
-                <ComboBox ItemsSource="{Binding Path=Model.Currencies}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.Currencies}" 
                           DisplayMemberPath="CurrencyCode" 
                           SelectedValuePath="CurrencyCode" 
-                          SelectedValue="{Binding Path=Model.CurrencyCode}"/>
+                          SelectedValue="{Binding Path=EditableModel.CurrencyCode}"/>
 
                 <TextBlock Text="Püsisoodustus"/>
-                <TextBox Text="{Binding Path=Model.FixedDiscountPercent, StringFormat=0;;#, Converter={StaticResource IntConverter}}"/>
+                <TextBox Text="{Binding Path=EditableModel.FixedDiscountPercent, StringFormat=0;;#, Converter={StaticResource IntConverter}}"/>
             </StackPanel>
 
             <!-- Fourth column -->
             <StackPanel Grid.Column="3" Margin="20">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Käibemaks"/>
-                    <CheckBox IsChecked="{Binding Path=Model.IsVAT, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox IsChecked="{Binding Path=EditableModel.IsVAT, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </StackPanel>
 

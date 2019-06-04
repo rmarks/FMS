@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FMS.WPF.Model
 {
-    public class CompanyBasicsModel
+    public class CompanyBasicsModel :EditableModelBase
     {
         public int CompanyId { get; set; }
 
@@ -29,5 +28,38 @@ namespace FMS.WPF.Model
         public IList<CountryModel>  Countries { get; set; }
 
         public IList<CurrencyModel> Currencies { get; set; }
+
+
+        public override void Merge(EditableModelBase source)
+        {
+            if (source is CompanyBasicsModel s)
+            {
+                CompanyId = s.CompanyId;
+                CompanyCode = s.CompanyCode;
+                CompanyName = s.CompanyName;
+                VATNo = s.VATNo;
+                RegNo = s.RegNo;
+                CurrencyCode = s.CurrencyCode;
+                IsVAT = s.IsVAT;
+                FixedDiscountPercent = s.FixedDiscountPercent;
+                CreatedOn = s.CreatedOn;
+
+                BillingAddress = new CompanyAddressModel
+                {
+                    CompanyAddressId = s.BillingAddress.CompanyAddressId,
+                    CompanyId = s.BillingAddress.CompanyId,
+                    Description = s.BillingAddress.Description,
+                    CountryId = s.BillingAddress.CountryId,
+                    CountryName = s.BillingAddress.CountryName,
+                    City = s.BillingAddress.City,
+                    Address = s.BillingAddress.Address,
+                    PostCode = s.BillingAddress.PostCode
+                };
+
+                Countries = s.Countries;
+
+                Currencies = s.Currencies;
+            }
+        }
     }
 }

@@ -15,8 +15,7 @@ namespace FMS.WPF.ViewModels
 
         #region Commands
         ICommand _closeWorkspaceCommand;
-        public ICommand CloseWorkspaceCommand => _closeWorkspaceCommand ?? 
-                                                (_closeWorkspaceCommand = new DelegateCommand(p => Close()));
+        public ICommand CloseWorkspaceCommand => _closeWorkspaceCommand ?? (_closeWorkspaceCommand = new RelayCommand(Close));
 
         private void Close()
         {

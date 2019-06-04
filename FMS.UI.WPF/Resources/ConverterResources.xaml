@@ -5,5 +5,7 @@
 
     <converter:MenuIsExpandedToStringConverter x:Key="MenuIsExpandedToStringConverter"/>
     <converter:IntConverter x:Key="IntConverter"/>
+    <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 
 </ResourceDictionary>
