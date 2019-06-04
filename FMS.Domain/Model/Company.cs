@@ -20,6 +20,18 @@ namespace FMS.Domain.Model
         [MaxLength(20)]
         public string RegNo { get; set; }
 
+        [Required, MaxLength(3)]
+        public string CurrencyCode { get; set; }
+
+        public bool IsVAT { get; set; }
+
+        //public int PaymentDays { get; set; }
+
+        //[MaxLength(50)]
+        //public string DeliveryTermName { get; set; }
+
+        public int FixedDiscountPercent { get; set; }
+
         public DateTime? CreatedOn { get; set; }
 
         //-----------------------------------------

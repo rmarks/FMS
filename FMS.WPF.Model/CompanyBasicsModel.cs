@@ -16,10 +16,18 @@ namespace FMS.WPF.Model
 
         public string RegNo { get; set; }
 
+        public string CurrencyCode { get; set; }
+
+        public bool IsVAT { get; set; }
+
+        public int FixedDiscountPercent { get; set; }
+
         public DateTime? CreatedOn { get; set; }
 
         public CompanyAddressModel BillingAddress { get; set; }
 
         public IList<CountryModel>  Countries { get; set; }
+
+        public IList<CurrencyModel> Currencies { get; set; }
     }
 }

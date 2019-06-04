@@ -4,5 +4,6 @@
                     xmlns:converter="clr-namespace:FMS.WPF.UI.Converters">
 
     <converter:MenuIsExpandedToStringConverter x:Key="MenuIsExpandedToStringConverter"/>
+    <converter:IntConverter x:Key="IntConverter"/>
 
 </ResourceDictionary>

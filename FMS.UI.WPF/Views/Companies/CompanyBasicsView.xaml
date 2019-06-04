@@ -11,6 +11,7 @@
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MainCheckBoxStyle}"/>
     </UserControl.Resources>
     
     <Grid>
@@ -54,9 +55,6 @@
                           SelectedValuePath="CountryId" 
                           SelectedValue="{Binding Path=Model.BillingAddress.CountryId}"/>
 
-                <!--<TextBlock Text="Riik"/>
-                <TextBox Text="{Binding Path=Model.BillingAddress.CountryName}"/>-->
-
                 <TextBlock Text="Linn/vald"/>
                 <TextBox Text="{Binding Path=Model.BillingAddress.City}"/>
 
@@ -65,6 +63,26 @@
 
                 <TextBlock Text="Indeks"/>
                 <TextBox Text="{Binding Path=Model.BillingAddress.PostCode}"/>
+            </StackPanel>
+
+            <!-- Third column -->
+            <StackPanel Grid.Column="2" Margin="20">
+                <TextBlock Text="Valuuta"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Currencies}" 
+                          DisplayMemberPath="CurrencyCode" 
+                          SelectedValuePath="CurrencyCode" 
+                          SelectedValue="{Binding Path=Model.CurrencyCode}"/>
+
+                <TextBlock Text="Püsisoodustus"/>
+                <TextBox Text="{Binding Path=Model.FixedDiscountPercent, StringFormat=0;;#, Converter={StaticResource IntConverter}}"/>
+            </StackPanel>
+
+            <!-- Fourth column -->
+            <StackPanel Grid.Column="3" Margin="20">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Käibemaks"/>
+                    <CheckBox IsChecked="{Binding Path=Model.IsVAT, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
             </StackPanel>
 
         </Grid>

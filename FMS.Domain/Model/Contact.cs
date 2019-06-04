@@ -26,6 +26,8 @@ namespace FMS.Domain.Model
         [MaxLength(100)]
         public string Email { get; set; }
 
+        public DateTime? CreatedOn { get; set; }
+
         //----------------------------------
         public Company Company { get; set; }
     }

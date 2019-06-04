@@ -9,6 +9,7 @@ namespace FMS.DAL.EFCore
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<CompanyAddress> CompanyAddresses { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

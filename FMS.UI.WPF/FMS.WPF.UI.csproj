@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5BA37326-ECA9-4FD4-BA1C-ECB767D4C3D8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>FMS.UI.WPF</RootNamespace>
-    <AssemblyName>FMS.UI.WPF</AssemblyName>
+    <RootNamespace>FMS.WPF.UI</RootNamespace>
+    <AssemblyName>FMS.WPF.UI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -136,6 +136,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BootStrapper.cs" />
+    <Compile Include="Converters\IntConverter.cs" />
     <Compile Include="Views\Companies\CompaniesListView.xaml.cs">
       <DependentUpon>CompaniesListView.xaml</DependentUpon>
     </Compile>
