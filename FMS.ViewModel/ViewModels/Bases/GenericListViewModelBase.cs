@@ -25,7 +25,7 @@ namespace FMS.WPF.ViewModels
         #endregion Events
 
         #region Abstract Members
-        protected abstract void Refresh();
+        public abstract void Refresh();
         #endregion Abstract Members
     }
 }

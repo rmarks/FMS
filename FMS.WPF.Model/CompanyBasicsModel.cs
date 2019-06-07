@@ -48,12 +48,14 @@ namespace FMS.WPF.Model
                 {
                     CompanyAddressId = s.BillingAddress.CompanyAddressId,
                     CompanyId = s.BillingAddress.CompanyId,
-                    Description = s.BillingAddress.Description,
                     CountryId = s.BillingAddress.CountryId,
                     CountryName = s.BillingAddress.CountryName,
                     City = s.BillingAddress.City,
                     Address = s.BillingAddress.Address,
-                    PostCode = s.BillingAddress.PostCode
+                    PostCode = s.BillingAddress.PostCode,
+                    Description = s.BillingAddress.Description,
+                    IsBilling = s.BillingAddress.IsBilling,
+                    CreatedOn = s.CreatedOn
                 };
 
                 Countries = s.Countries;

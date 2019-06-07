@@ -142,8 +142,9 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\IntConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Views\Companies\CompaniesListView.xaml.cs">
-      <DependentUpon>CompaniesListView.xaml</DependentUpon>
+    <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Views\Companies\CompanyListView.xaml.cs">
+      <DependentUpon>CompanyListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Companies\CompaniesView.xaml.cs">
       <DependentUpon>CompaniesView.xaml</DependentUpon>
@@ -189,7 +190,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Companies\CompaniesListView.xaml">
+    <Page Include="Views\Companies\CompanyListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,24 +1,28 @@
 ﻿using FMS.WPF.Application.Services;
 using FMS.WPF.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyContactsViewModel : ViewModelBase
     {
-        private ICompanyContactsService _service;
+        private ICompanyService _companyService;
 
-        public CompanyContactsViewModel(int companyId, ICompanyContactsService service)
+        public CompanyContactsViewModel(ICompanyService companyService)
         {
             DisplayName = "Kontaktid";
 
-            _service = service;
-            Models = new ObservableCollection<CompanyContactModel>(_service.GetCompanyContactModels(companyId));
+            _companyService = companyService;
+            
         }
 
-        public ObservableCollection<CompanyContactModel> Models { get; }
+        public void Load(int companyId)
+        {
+            Models = companyId > 0 
+                ? new ObservableCollection<CompanyContactModel>(_companyService.GetCompanyContactModels(companyId)) 
+                : null;
+        }
+
+        public ObservableCollection<CompanyContactModel> Models { get; private set; }
     }
 }

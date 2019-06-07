@@ -21,5 +21,11 @@ namespace FMS.WPF.Model
         public string PostCode { get; set; }
 
         public string Description { get; set; }
+
+        public bool IsBilling { get; set; }
+
+        public bool IsShipping { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
     }
 }

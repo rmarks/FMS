@@ -3,6 +3,8 @@ using FMS.WPF.ViewModel.Utils;
 using FMS.WPF.ViewModels;
 using FMS.WPF.Application.Services;
 using Ninject;
+using FMS.WPF.ViewModel.Services;
+using FMS.WPF.UI.Services;
 
 namespace FMS.WPF.UI
 {
@@ -14,7 +16,7 @@ namespace FMS.WPF.UI
         {
             BindViewModels();
             BindFactories();
-            BindUtils();
+            BindInfra();
             BindApplicationServices();
         }
 
@@ -24,7 +26,7 @@ namespace FMS.WPF.UI
         {
             _kernel.Bind<MainWindowViewModel>().ToSelf().InSingletonScope();
             _kernel.Bind<CompaniesViewModel>().ToSelf().InTransientScope();
-            _kernel.Bind<CompaniesListViewModel>().ToSelf().InTransientScope();
+            _kernel.Bind<CompanyListViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompanyViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompanyBasicsViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompanyAddressesViewModel>().ToSelf().InTransientScope();
@@ -34,22 +36,18 @@ namespace FMS.WPF.UI
         private void BindFactories()
         {
             _kernel.Bind<IWorkspaceViewModelFactory<CompaniesViewModel>>().To<CompaniesViewModelFactory>().InTransientScope();
-            _kernel.Bind<IViewModelFactory<CompaniesListViewModel>>().To<CompaniesListViewModelFactory>().InTransientScope();
-            _kernel.Bind<IViewModelFactory<CompanyViewModel>>().To<CompanyViewModelFactory>().InTransientScope();
         }
 
-        private void BindUtils()
+        private void BindInfra()
         {
             _kernel.Bind<IWorkspaceManager>().To<WorkspaceManager>().InSingletonScope();
+            _kernel.Bind<IDialogService>().To<DialogService>().InTransientScope();
         }
 
         private void BindApplicationServices()
         {
             _kernel.Bind<IDataTransferService>().To<DataTransferService>().InTransientScope();
-            _kernel.Bind<ICompaniesListService>().To<CompaniesListService>().InTransientScope();
-            _kernel.Bind<ICompanyBasicsService>().To<CompanyBasicsService>().InTransientScope();
-            _kernel.Bind<ICompanyAddressesService>().To<CompanyAddressesService>().InTransientScope();
-            _kernel.Bind<ICompanyContactsService>().To<CompanyContactsService>().InTransientScope();
+            _kernel.Bind<ICompanyService>().To<CompanyService>().InTransientScope();
         }
     }
 }

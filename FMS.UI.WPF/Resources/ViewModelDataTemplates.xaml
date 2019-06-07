@@ -8,8 +8,8 @@
         <vw:CompaniesView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:CompaniesListViewModel}">
-        <vw:CompaniesListView/>
+    <DataTemplate DataType="{x:Type vm:CompanyListViewModel}">
+        <vw:CompanyListView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:CompanyViewModel}">

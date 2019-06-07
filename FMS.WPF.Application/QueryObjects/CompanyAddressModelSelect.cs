@@ -6,7 +6,7 @@ namespace FMS.WPF.Application.QueryObjects
 {
     public static class CompanyAddressModelSelect
     {
-        public static IQueryable<CompanyAddressModel> MapToCompanyAddressModel(this IQueryable<CompanyAddress> companyAddresses)
+        public static IQueryable<CompanyAddressModel> MapCompanyAddressQueryToModelQuery(this IQueryable<CompanyAddress> companyAddresses)
         {
             return companyAddresses.Select(c => new CompanyAddressModel
             {
@@ -17,8 +17,26 @@ namespace FMS.WPF.Application.QueryObjects
                 CountryName = c.Country.CountryName,
                 City = c.City,
                 Address = c.Address,
-                PostCode = c.PostCode
+                PostCode = c.PostCode,
+                IsBilling = c.IsBilling,
+                CreatedOn = c.CreatedOn
             });
+        }
+
+        public static CompanyAddress MapModelToCompanyAddress(this CompanyAddressModel model)
+        {
+            return new CompanyAddress
+            {
+                CompanyAddressId = model.CompanyAddressId,
+                CompanyId = model.CompanyId,
+                Description = model.Description,
+                CountryId = model.CountryId,
+                City = model.City,
+                Address = model.Address,
+                PostCode = model.PostCode,
+                IsBilling = model.IsBilling,
+                CreatedOn = model.CreatedOn
+            };
         }
     }
 }

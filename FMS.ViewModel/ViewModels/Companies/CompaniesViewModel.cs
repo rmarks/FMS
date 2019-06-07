@@ -1,43 +1,46 @@
-﻿using FMS.WPF.ViewModel.Factories;
+﻿using FMS.WPF.Application.Services;
+using FMS.WPF.ViewModel.Services;
 using FMS.WPF.ViewModel.Utils;
-using System.Linq;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompaniesViewModel : WorkspaceViewModelBase
     {
-        #region Fields
-        private IViewModelFactory<CompaniesListViewModel> _companiesListViewModelFactory;
-        private IViewModelFactory<CompanyViewModel> _companyViewModelFactory;
-        #endregion Fields
-
         #region Constructors
-        public CompaniesViewModel(IWorkspaceManager workspaceManager, 
-                                  IViewModelFactory<CompaniesListViewModel> companiesListViewModelFactory,
-                                  IViewModelFactory<CompanyViewModel> companyViewModelFactory)
+        public CompaniesViewModel(IWorkspaceManager workspaceManager, ICompanyService companyService, IDialogService dialogService) 
             : base(workspaceManager)
         {
-            _companiesListViewModelFactory = companiesListViewModelFactory;
-            _companyViewModelFactory = companyViewModelFactory;
-
             DisplayName = "Firmad";
 
-            ListViewModel.SelectedItemChanged += ListViewModel_SelectedItemChanged;
-            ListViewModel.SelectedItem = ListViewModel.Items.FirstOrDefault();
+            CompanyListViewModel = new CompanyListViewModel(companyService);
+            CompanyViewModel = new CompanyViewModel(companyService, dialogService);
+
+            CompanyListViewModel.SelectedItemChanged += CompanyListViewModel_SelectedItemChanged;
+            CompanyViewModel.RequestListRefresh += CompanyViewModel_RequestListRefresh;
+
+            CompanyListViewModel.Load();
         }
         #endregion Constructors
 
         #region Properties
-        private CompaniesListViewModel _listViewModel;
-        public CompaniesListViewModel ListViewModel => _listViewModel ?? (_listViewModel = _companiesListViewModelFactory.CreateInstance());
+        public CompanyListViewModel CompanyListViewModel { get; }
 
-        public CompanyViewModel ItemViewModel { get; private set; }
+        public CompanyViewModel CompanyViewModel { get; }
+
+        public bool IsCompanyAvailable => CompanyListViewModel.SelectedItem != null;
         #endregion Properties
 
         #region Event Handlers
-        private void ListViewModel_SelectedItemChanged()
+        private void CompanyListViewModel_SelectedItemChanged()
         {
-            ItemViewModel = _companyViewModelFactory.CreateInstance(ListViewModel.SelectedItem.CompanyId);
+            int companyId = CompanyListViewModel.SelectedItem?.CompanyId ?? 0;
+            CompanyViewModel.Load(companyId);
+            RaisePropertyChanged(nameof(IsCompanyAvailable));
+        }
+
+        private void CompanyViewModel_RequestListRefresh()
+        {
+            CompanyListViewModel.Refresh();
         }
         #endregion Event Handlers
     }

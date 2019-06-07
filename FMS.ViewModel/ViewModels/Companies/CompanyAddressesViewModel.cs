@@ -6,16 +6,22 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyAddressesViewModel : ViewModelBase
     {
-        private ICompanyAddressesService _service;
+        private ICompanyService _companyService;
 
-        public CompanyAddressesViewModel(int companyId, ICompanyAddressesService service)
+        public CompanyAddressesViewModel(ICompanyService companyService)
         {
             DisplayName = "Saajad";
 
-            _service = service;
-            Models = new ObservableCollection<CompanyAddressModel>(_service.GetCompanyAddressModels(companyId));
+            _companyService = companyService;
         }
 
-        public ObservableCollection<CompanyAddressModel> Models { get; }
+        public void Load(int companyId)
+        {
+            Models = companyId > 0 
+                ? new ObservableCollection<CompanyAddressModel>(_companyService.GetCompanyAddressModels(companyId)) 
+                : null;
+        }
+
+        public ObservableCollection<CompanyAddressModel> Models { get; private set; }
     }
 }

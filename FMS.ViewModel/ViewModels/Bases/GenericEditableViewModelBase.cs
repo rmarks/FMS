@@ -1,5 +1,6 @@
 ﻿using FMS.WPF.Model;
 using FMS.WPF.ViewModel.Commands;
+using System;
 using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
@@ -51,13 +52,32 @@ namespace FMS.WPF.ViewModels
         {
             if (IsEditMode)
             {
-                Model.Merge(EditableModel);
-                EditableModel = Model;
+                if (SaveItem(EditableModel))
+                {
+                    Model.Merge(EditableModel);
+                    EditableModel = Model;
+                }
+                IsEditMode = false;
             }
-            IsEditMode = false;
+        }
+
+        public ICommand DeleteCommand => new RelayCommand(Delete);
+        private void Delete()
+        {
+            if (!IsEditMode)
+            {
+                if (ConfirmDelete())
+                {
+                    DeleteItem(Model);
+                }
+            }
         }
         #endregion Commands
 
-
+        #region Abstract Members
+        protected abstract bool SaveItem(TModel model);
+        protected abstract void DeleteItem(TModel model);
+        protected abstract bool ConfirmDelete();
+        #endregion Abstract Members
     }
 }
