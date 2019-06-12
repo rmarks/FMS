@@ -7,5 +7,6 @@
     <converter:IntConverter x:Key="IntConverter"/>
     <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+    <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
 
 </ResourceDictionary>

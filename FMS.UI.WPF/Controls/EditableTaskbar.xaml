@@ -6,53 +6,63 @@
              xmlns:local="clr-namespace:FMS.WPF.UI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="36" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+    </UserControl.Resources>
     
     <StackPanel Grid.Row="0" Orientation="Horizontal" Height="36">
+        <Button x:Name="buttonAdd" 
+                Click="Button_Click"
+                Visibility="{Binding Path=IsAddVisible, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Style="{StaticResource MainImageLabelButtonStyle}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../images/add.png"/>
+                <TextBlock Text="Uus" />
+            </StackPanel>
+        </Button>
+        
         <Button x:Name="buttonEdit" 
                 Click="Button_Click"
-                Visibility="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                Visibility="{Binding Path=IsEditVisible, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Style="{StaticResource MainImageLabelButtonStyle}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../images/edit.png"/>
-                <TextBlock Text="Muuda" FontSize="15"
-                               VerticalAlignment="Center"
-                               Margin="5,0"/>
+                <TextBlock Text="Muuda" />
             </StackPanel>
         </Button>
 
         <Button x:Name="buttonDelete"
                 Click="Button_Click"
                 Style="{StaticResource MainImageLabelButtonStyle}"
-                Visibility="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                Visibility="{Binding Path=IsDeleteVisible, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../images/delete.png"/>
-                <TextBlock Text="Kustuta" FontSize="15"
-                               VerticalAlignment="Center"
-                               Margin="5,0"/>
+                <TextBlock Text="Kustuta" />
             </StackPanel>
         </Button>
 
         <Button x:Name="buttonCancel"
                 Click="Button_Click"
                 Style="{StaticResource MainImageLabelButtonStyle}"
-                Visibility="{Binding Path=IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding Path=IsCancelVisible, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../images/cancel.png"/>
-                <TextBlock Text="Katkesta" FontSize="15"
-                               VerticalAlignment="Center"
-                               Margin="5,0"/>
+                <TextBlock Text="Katkesta" />
             </StackPanel>
         </Button>
 
         <Button x:Name="buttonSave"
                 Click="Button_Click"
                 Style="{StaticResource MainImageLabelButtonStyle}"
-                Visibility="{Binding Path=IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding Path=IsSaveVisible, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../images/save.png"/>
-                <TextBlock Text="Salvesta" FontSize="15"
-                               VerticalAlignment="Center"
-                               Margin="5,0"/>
+                <TextBlock Text="Salvesta" />
             </StackPanel>
         </Button>
     </StackPanel>

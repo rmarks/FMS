@@ -12,13 +12,14 @@ namespace FMS.WPF.Application.QueryObjects
             {
                 CompanyAddressId = c.CompanyAddressId,
                 CompanyId = c.CompanyId,
-                Description = c.Description,
                 CountryId = c.CountryId,
                 CountryName = c.Country.CountryName,
                 City = c.City,
                 Address = c.Address,
                 PostCode = c.PostCode,
+                Description = c.Description,
                 IsBilling = c.IsBilling,
+                IsShipping = c.IsShipping,
                 CreatedOn = c.CreatedOn
             });
         }
@@ -29,12 +30,13 @@ namespace FMS.WPF.Application.QueryObjects
             {
                 CompanyAddressId = model.CompanyAddressId,
                 CompanyId = model.CompanyId,
-                Description = model.Description,
                 CountryId = model.CountryId,
                 City = model.City,
                 Address = model.Address,
                 PostCode = model.PostCode,
+                Description = model.Description,
                 IsBilling = model.IsBilling,
+                IsShipping = model.IsShipping,
                 CreatedOn = model.CreatedOn
             };
         }

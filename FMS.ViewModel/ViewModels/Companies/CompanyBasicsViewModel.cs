@@ -1,7 +1,9 @@
-﻿using FMS.WPF.Application.Services;
+﻿using FMS.WPF.Application.Common;
+using FMS.WPF.Application.Services;
 using FMS.WPF.Model;
 using FMS.WPF.ViewModel.Services;
 using System;
+using System.Collections.Generic;
 
 namespace FMS.WPF.ViewModels
 {
@@ -26,6 +28,11 @@ namespace FMS.WPF.ViewModels
                 ? _companyService.GetCompanyBasicsModel(companyId) 
                 : null;
         }
+
+        #region Properties
+        public IList<CountryModel> Countries => CompanyDropdownTablesProxy.Instance.Countries;
+        public IList<CurrencyModel> Currencies => CompanyDropdownTablesProxy.Instance.Currencies;
+        #endregion Properties
 
         #region Events
         public event Action ItemSavedOrDeleted;

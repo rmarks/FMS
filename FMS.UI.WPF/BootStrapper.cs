@@ -5,6 +5,7 @@ using FMS.WPF.Application.Services;
 using Ninject;
 using FMS.WPF.ViewModel.Services;
 using FMS.WPF.UI.Services;
+using FMS.WPF.Application.Common;
 
 namespace FMS.WPF.UI
 {
@@ -25,6 +26,7 @@ namespace FMS.WPF.UI
         private void BindViewModels()
         {
             _kernel.Bind<MainWindowViewModel>().ToSelf().InSingletonScope();
+
             _kernel.Bind<CompaniesViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompanyListViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompanyViewModel>().ToSelf().InTransientScope();
@@ -47,7 +49,9 @@ namespace FMS.WPF.UI
         private void BindApplicationServices()
         {
             _kernel.Bind<IDataTransferService>().To<DataTransferService>().InTransientScope();
+            
             _kernel.Bind<ICompanyService>().To<CompanyService>().InTransientScope();
+            _kernel.Bind<ICompanyDropdownTables>().To<CompanyDropdownTables>().InTransientScope();
         }
     }
 }

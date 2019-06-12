@@ -5,11 +5,19 @@ namespace FMS.WPF.Application.Services
 {
     public interface ICompanyService
     {
-        void DeleteCompanyBasics(int companyId);
-        IList<CompanyAddressModel> GetCompanyAddressModels(int companyId);
-        CompanyBasicsModel GetCompanyBasicsModel(int companyId);
-        IList<CompanyContactModel> GetCompanyContactModels(int companyId);
         List<CompanyListModel> GetCompanyList();
+
+        CompanyBasicsModel GetCompanyBasicsModel(int companyId);
         CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model);
+        void DeleteCompanyBasics(int companyId);
+
+        IList<CompanyAddressModel> GetCompanyAddressModelsForShipping(int companyId);
+        CompanyAddressModel GetCompanyAddressModelForBilling(int companyId);
+        int SaveCompanyAddress(CompanyAddressModel model);
+        void DeleteCompanyAddress(int companyAddressId);
+
+        IList<CompanyContactModel> GetCompanyContactModels(int companyId);
+        
+        
     }
 }

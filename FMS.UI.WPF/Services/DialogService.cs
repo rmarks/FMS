@@ -1,4 +1,6 @@
 ﻿using FMS.WPF.ViewModel.Services;
+using FMS.WPF.ViewModels;
+using FMS.WPF.Views;
 using System.Windows;
 
 namespace FMS.WPF.UI.Services
@@ -25,6 +27,16 @@ namespace FMS.WPF.UI.Services
             MessageBoxResult result = MessageBox.Show(content, title, msgButtons);
 
             return (result == MessageBoxResult.OK || result == MessageBoxResult.Yes) ? true : false;
+        }
+
+        public void ShowDialog(ViewModelBase viewModel)
+        {
+            var dialog = new DialogView { DataContext = viewModel };
+            dialog.Owner = System.Windows.Application.Current.MainWindow;
+            dialog.SizeToContent = SizeToContent.WidthAndHeight;
+            dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            dialog.Title = viewModel.DisplayName;
+            dialog.ShowDialog();
         }
     }
 }

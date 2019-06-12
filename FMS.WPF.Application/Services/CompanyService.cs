@@ -2,6 +2,7 @@
 using FMS.WPF.Application.QueryObjects;
 using FMS.WPF.Model;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -39,10 +40,18 @@ namespace FMS.WPF.Application.Services
         {
             var context = new FMSDbContext();
 
-            return context.Companies
+            var model = context.Companies
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
-                .MapCompanyBasicsQueryToModel();
+                .MapCompanyBasicsQueryToModelQuery()
+                .FirstOrDefault();
+
+            if (model != null)
+            {
+                model.BillingAddress = GetCompanyAddressModelForBilling(companyId);
+            }
+
+            return model;
         }
 
         public CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model)
@@ -71,7 +80,7 @@ namespace FMS.WPF.Application.Services
         }
 
         //--- CompanyAddresses
-        public IList<CompanyAddressModel> GetCompanyAddressModels(int companyId)
+        public IList<CompanyAddressModel> GetCompanyAddressModelsForShipping(int companyId)
         {
             var context = new FMSDbContext();
 
@@ -80,6 +89,49 @@ namespace FMS.WPF.Application.Services
                 .Where(c => c.CompanyId == companyId && c.IsShipping)
                 .MapCompanyAddressQueryToModelQuery()
                 .ToList();
+        }
+
+        public CompanyAddressModel GetCompanyAddressModelForBilling(int companyId)
+        {
+            var context = new FMSDbContext();
+
+            return context.CompanyAddresses
+                .AsNoTracking()
+                .Where(c => c.CompanyId == companyId && c.IsBilling)
+                .MapCompanyAddressQueryToModelQuery()
+                .FirstOrDefault();
+        }
+
+        public int SaveCompanyAddress(CompanyAddressModel model)
+        {
+            var context = new FMSDbContext();
+
+            var address = model.MapModelToCompanyAddress();
+
+            if (address.CompanyAddressId == 0)
+            {
+                address.IsShipping = true;
+                address.CreatedOn = DateTime.Now;
+
+                context.Add(address);
+            }
+            else
+            {
+                context.Update(address);
+            }
+            context.SaveChanges();
+
+            return address.CompanyAddressId;
+        }
+
+        public void DeleteCompanyAddress(int companyAddressId)
+        {
+            var context = new FMSDbContext();
+
+            var companyAddress = context.CompanyAddresses.Find(companyAddressId);
+
+            context.Remove(companyAddress);
+            context.SaveChanges();
         }
 
         //--- CompanyContacts

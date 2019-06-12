@@ -4,6 +4,9 @@
 
     <Style x:Key="MainTextBlockStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style x:Key="MainItemCaptionTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}">
         <Setter Property="Margin" Value="0,10,0,0"/>
     </Style>
 
@@ -26,6 +29,20 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Margin" Value="5,0"/>
+    </Style>
+
+    <Style x:Key="MainButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="12,5"/>
+        <Setter Property="BorderBrush" Value="#CCCCCC"/>
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#1BA0E1"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="MainDataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">

@@ -32,6 +32,9 @@ namespace FMS.WPF.UI.Controls
                     case "buttonSave":
                         SaveCommand?.Execute(null);
                         break;
+                    case "buttonAdd":
+                        AddCommand?.Execute(null);
+                        break;
                 }
             }
         }
@@ -76,14 +79,64 @@ namespace FMS.WPF.UI.Controls
         public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(EditableTaskbar));
         #endregion
 
-        #region IsEditMode
-        public bool IsEditMode
+        #region AddCommand
+        public ICommand AddCommand
         {
-            get { return (bool)GetValue(IsEditModeProperty); }
-            set { SetValue(IsEditModeProperty, value); }
+            get { return (ICommand)GetValue(AddCommandProperty); }
+            set { SetValue(AddCommandProperty, value); }
         }
 
-        public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(nameof(IsEditMode), typeof(bool), typeof(EditableTaskbar));
-        #endregion
+        public static readonly DependencyProperty AddCommandProperty = DependencyProperty.Register(nameof(AddCommand), typeof(ICommand), typeof(EditableTaskbar));
+        #endregion AddCommand
+
+        #region IsEditVisible
+        public bool IsEditVisible
+        {
+            get { return (bool)GetValue(IsEditVisibleProperty); }
+            set { SetValue(IsEditVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsEditVisibleProperty = DependencyProperty.Register(nameof(IsEditVisible), typeof(bool), typeof(EditableTaskbar));
+        #endregion IsEditVisible
+
+        #region IsDeleteVisible
+        public bool IsDeleteVisible
+        {
+            get { return (bool)GetValue(IsDeleteVisibleProperty); }
+            set { SetValue(IsDeleteVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsDeleteVisibleProperty = DependencyProperty.Register(nameof(IsDeleteVisible), typeof(bool), typeof(EditableTaskbar));
+        #endregion IsDeleteVisible
+
+        #region IsSaveVisible
+        public bool IsSaveVisible
+        {
+            get { return (bool)GetValue(IsSaveVisibleProperty); }
+            set { SetValue(IsSaveVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsSaveVisibleProperty = DependencyProperty.Register(nameof(IsSaveVisible), typeof(bool), typeof(EditableTaskbar));
+        #endregion IsSaveVisible
+
+        #region IsCancelVisible
+        public bool IsCancelVisible
+        {
+            get { return (bool)GetValue(IsCancelVisibleProperty); }
+            set { SetValue(IsCancelVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsCancelVisibleProperty = DependencyProperty.Register(nameof(IsCancelVisible), typeof(bool), typeof(EditableTaskbar));
+        #endregion IsCancelVisible
+
+        #region IsAddVisible
+        public bool IsAddVisible
+        {
+            get { return (bool)GetValue(IsAddVisibleProperty); }
+            set { SetValue(IsAddVisibleProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsAddVisibleProperty = DependencyProperty.Register(nameof(IsAddVisible), typeof(bool), typeof(EditableTaskbar));
+        #endregion IsAddVisible
     }
 }

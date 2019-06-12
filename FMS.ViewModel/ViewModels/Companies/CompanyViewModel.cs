@@ -10,7 +10,7 @@ namespace FMS.WPF.ViewModels
         public CompanyViewModel(ICompanyService companyService, IDialogService dialogService)
         {
             CompanyBasicsViewModel = new CompanyBasicsViewModel(companyService, dialogService);
-            CompanyAddressesViewModel = new CompanyAddressesViewModel(companyService);
+            CompanyAddressesViewModel = new CompanyAddressesViewModel(companyService, dialogService);
             CompanyContactsViewModel = new CompanyContactsViewModel(companyService);
 
             LoadCompanyTabs();

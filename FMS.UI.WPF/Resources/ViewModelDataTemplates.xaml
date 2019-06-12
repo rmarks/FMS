@@ -24,6 +24,10 @@
         <vw:CompanyAddressesView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:CompanyAddressViewModel}">
+        <vw:CompanyAddressView/>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:CompanyContactsViewModel}">
         <vw:CompanyContactsView/>
     </DataTemplate>

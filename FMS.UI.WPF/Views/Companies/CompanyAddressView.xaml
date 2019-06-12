@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="FMS.WPF.Views.CompanyAddressView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             mc:Ignorable="d" 
+             Height="Auto" Width="400">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
+    </UserControl.Resources>
+    
+    <StackPanel Margin="20"
+                IsEnabled="{Binding Path=IsEditMode}">
+        <TextBlock Text="Kirjeldus"/>
+        <TextBox Text="{Binding Path=EditableModel.Description}"/>
+        
+        <TextBlock Text="Riik"/>
+        <ComboBox ItemsSource="{Binding Path=Countries}" 
+                          DisplayMemberPath="CountryName" 
+                          SelectedValuePath="CountryId" 
+                          SelectedValue="{Binding Path=EditableModel.CountryId}"/>
+
+        <TextBlock Text="Linn/vald"/>
+        <TextBox Text="{Binding Path=EditableModel.City}"/>
+
+        <TextBlock Text="Aadress"/>
+        <TextBox Text="{Binding Path=EditableModel.Address}"/>
+
+        <TextBlock Text="Indeks"/>
+        <TextBox Text="{Binding Path=EditableModel.PostCode}"/>
+
+        <TextBlock Text="Loodud"/>
+        <TextBlock Text="{Binding Path=EditableModel.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"
+                   Style="{StaticResource MainTextBlockStyle}"
+                   Foreground="DarkGray"/>
+
+        <Grid Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Katkesta"
+                    Command="{Binding Path=CancelCommand}"/>
+            <Button Content="Salvesta" Grid.Column="2"
+                    Command="{Binding Path=SaveCommand}"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

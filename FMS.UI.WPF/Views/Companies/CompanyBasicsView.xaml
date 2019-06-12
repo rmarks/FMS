@@ -24,10 +24,13 @@
         <!-- Taskbar -->
         <controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
                                   EditCommand="{Binding Path=EditCommand}"
+                                  IsEditVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"
                                   CancelCommand="{Binding Path=CancelCommand}"
+                                  IsCancelVisible="{Binding Path=IsEditMode}"
                                   SaveCommand="{Binding Path=SaveCommand}"
+                                  IsSaveVisible="{Binding Path=IsEditMode}"
                                   DeleteCommand="{Binding Path=DeleteCommand}"
-                                  IsEditMode="{Binding Path=IsEditMode}"/>
+                                  IsDeleteVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"/>
 
         <!-- Company Basics -->
         <Grid Grid.Row="1" IsEnabled="{Binding Path=IsEditMode}">
@@ -59,7 +62,7 @@
             <!-- Second column -->
             <StackPanel Grid.Column="1" Margin="20">
                 <TextBlock Text="Riik"/>
-                <ComboBox ItemsSource="{Binding Path=EditableModel.Countries}" 
+                <ComboBox ItemsSource="{Binding Path=Countries}" 
                           DisplayMemberPath="CountryName" 
                           SelectedValuePath="CountryId" 
                           SelectedValue="{Binding Path=EditableModel.BillingAddress.CountryId}"/>
@@ -77,7 +80,7 @@
             <!-- Third column -->
             <StackPanel Grid.Column="2" Margin="20">
                 <TextBlock Text="Valuuta"/>
-                <ComboBox ItemsSource="{Binding Path=EditableModel.Currencies}" 
+                <ComboBox ItemsSource="{Binding Path=Currencies}" 
                           DisplayMemberPath="CurrencyCode" 
                           SelectedValuePath="CurrencyCode" 
                           SelectedValue="{Binding Path=EditableModel.CurrencyCode}"/>

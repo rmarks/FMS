@@ -57,10 +57,6 @@ namespace FMS.WPF.Model
                     IsBilling = s.BillingAddress.IsBilling,
                     CreatedOn = s.CreatedOn
                 };
-
-                Countries = s.Countries;
-
-                Currencies = s.Currencies;
             }
         }
     }

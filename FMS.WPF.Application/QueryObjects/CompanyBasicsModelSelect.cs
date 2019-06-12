@@ -1,7 +1,5 @@
-﻿using FMS.DAL.EFCore;
-using FMS.Domain.Model;
+﻿using FMS.Domain.Model;
 using FMS.WPF.Model;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,9 +7,9 @@ namespace FMS.WPF.Application.QueryObjects
 {
     public static class CompanyBasicsModelSelect
     {
-        public static CompanyBasicsModel MapCompanyBasicsQueryToModel(this IQueryable<Company> companies)
+        public static IQueryable<CompanyBasicsModel> MapCompanyBasicsQueryToModelQuery(this IQueryable<Company> companies)
         {
-            var model = companies.Select(c => new CompanyBasicsModel
+            return companies.Select(c => new CompanyBasicsModel
             {
                 CompanyId = c.CompanyId,
                 CompanyCode = c.CompanyCode,
@@ -22,31 +20,7 @@ namespace FMS.WPF.Application.QueryObjects
                 IsVAT = c.IsVAT,
                 FixedDiscountPercent = c.FixedDiscountPercent,
                 CreatedOn = c.CreatedOn,
-            })
-            .FirstOrDefault();
-
-            if (model != null)
-            {
-                var context = new FMSDbContext();
-
-                model.BillingAddress = context.CompanyAddresses
-                    .AsNoTracking()
-                    .Where(c => c.CompanyId == model.CompanyId && c.IsBilling)
-                    .MapCompanyAddressQueryToModelQuery()
-                    .FirstOrDefault();
-
-                model.Countries = context.Countries
-                    .AsNoTracking()
-                    .MapToCountryModel()
-                    .ToList();
-
-                model.Currencies = context.Currencies
-                    .AsNoTracking()
-                    .MapToCurrencyModel()
-                    .ToList();
-            }
-            
-            return model;
+            });
         }
 
         public static Company MapModelToCompanyBasics(this CompanyBasicsModel model)
