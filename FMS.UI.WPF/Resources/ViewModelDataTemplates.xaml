@@ -32,4 +32,8 @@
         <vw:CompanyContactsView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:CompanyContactViewModel}">
+        <vw:CompanyContactView/>
+    </DataTemplate>
+
 </ResourceDictionary>

@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="FMS.WPF.Views.CompanyContactView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             mc:Ignorable="d" 
+             Height="Auto" Width="400">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
+    </UserControl.Resources>
+    
+    <StackPanel Margin="20"
+                IsEnabled="{Binding Path=IsEditMode}">
+        <TextBlock Text="Nimi"/>
+        <TextBox Text="{Binding Path=EditableModel.ContactName}"/>
+
+        <TextBlock Text="Amet"/>
+        <TextBox Text="{Binding Path=EditableModel.Job}"/>
+
+        <TextBlock Text="Mobiil"/>
+        <TextBox Text="{Binding Path=EditableModel.Mobile}"/>
+
+        <TextBlock Text="Telefon"/>
+        <TextBox Text="{Binding Path=EditableModel.Phone}"/>
+
+        <TextBlock Text="E-post"/>
+        <TextBox Text="{Binding Path=EditableModel.Email}"/>
+
+        <TextBlock Text="Loodud"/>
+        <TextBlock Text="{Binding Path=EditableModel.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"
+                   Style="{StaticResource MainTextBlockStyle}"
+                   Foreground="DarkGray"/>
+
+        <Grid Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Katkesta"
+                    Command="{Binding Path=CancelCommand}"/>
+            <Button Content="Salvesta" Grid.Column="2"
+                    Command="{Binding Path=SaveCommand}"/>
+        </Grid>
+
+    </StackPanel>
+</UserControl>

@@ -11,7 +11,7 @@ namespace FMS.WPF.ViewModels
         private ICompanyService _companyService;
         private IDialogService _dialogService;
 
-        public CompanyAddressViewModel(CompanyAddressModel model, ICompanyService companyService , IDialogService dialogService)
+        public CompanyAddressViewModel(CompanyAddressModel model, ICompanyService companyService, IDialogService dialogService)
         {
             DisplayName = "Saaja aadress";
 

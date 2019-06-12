@@ -142,17 +142,40 @@ namespace FMS.WPF.Application.Services
             return context.Contacts
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
-                .Select(c => new CompanyContactModel
-                {
-                    ContactId = c.ContactId,
-                    ContactName = c.ContactName,
-                    Job = c.Job,
-                    Phone = c.Phone,
-                    Mobile = c.Mobile,
-                    Email = c.Email,
-                    CompanyId = c.CompanyId
-                })
+                .MapCompanyContactQueryToModelQuery()
                 .ToList();
+        }
+
+        public int SaveCompanyContact(CompanyContactModel model)
+        {
+            var context = new FMSDbContext();
+
+            var contact = model.MapModelToCompanyContact();
+
+            if (contact.ContactId == 0)
+            {
+                contact.CreatedOn = DateTime.Now;
+
+                context.Add(contact);
+            }
+            else
+            {
+                context.Update(contact);
+            }
+
+            context.SaveChanges();
+
+            return contact.ContactId;
+        }
+
+        public void DeleteCompanyContact(int contactId)
+        {
+            var context = new FMSDbContext();
+
+            var contact = context.Contacts.Find(contactId);
+
+            context.Remove(contact);
+            context.SaveChanges();
         }
     }
 }
