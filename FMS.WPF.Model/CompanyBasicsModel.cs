@@ -19,6 +19,8 @@ namespace FMS.WPF.Model
 
         public bool IsVAT { get; set; }
 
+        public int PaymentDays { get; set; }
+
         public string DeliveryTermName { get; set; }
 
         public int FixedDiscountPercent { get; set; }
@@ -43,6 +45,7 @@ namespace FMS.WPF.Model
                 RegNo = s.RegNo;
                 CurrencyCode = s.CurrencyCode;
                 IsVAT = s.IsVAT;
+                PaymentDays = s.PaymentDays;
                 DeliveryTermName = s.DeliveryTermName;
                 FixedDiscountPercent = s.FixedDiscountPercent;
                 CreatedOn = s.CreatedOn;

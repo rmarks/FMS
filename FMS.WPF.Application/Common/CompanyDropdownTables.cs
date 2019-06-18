@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FMS.DAL.EFCore;
 using FMS.WPF.Application.QueryObjects;
@@ -18,6 +17,9 @@ namespace FMS.WPF.Application.Common
 
         private IList<DeliveryTermModel> _deliveryTerms;
         public IList<DeliveryTermModel> DeliveryTerms => _deliveryTerms ?? (_deliveryTerms = GetDeliveryTerms());
+
+        private IList<PaymentTermDropdownModel> _paymentTerms;
+        public IList<PaymentTermDropdownModel> PaymentTerms => _paymentTerms ?? (_paymentTerms = GetPaymentTerms());
 
         #region Helpers
         private IList<CountryModel> GetCountries()
@@ -47,6 +49,16 @@ namespace FMS.WPF.Application.Common
             return context.DeliveryTerms
                 .AsNoTracking()
                 .MapToDeliveryTermModel()
+                .ToList();
+        }
+
+        private IList<PaymentTermDropdownModel> GetPaymentTerms()
+        {
+            var context = new FMSDbContext();
+
+            return context.PaymentTerms
+                .AsNoTracking()
+                .MapToPaymentTermDropdownModel()
                 .ToList();
         }
         #endregion Helpers

@@ -9,7 +9,7 @@
              d:DesignHeight="400" d:DesignWidth="1000">
 
     <UserControl.Resources>
-        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
         <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MainCheckBoxStyle}"/>
@@ -91,9 +91,13 @@
                           Text="{Binding Path=EditableModel.DeliveryTermName}"
                           IsEditable="True" 
                           IsTextSearchEnabled="True"/>
-                          <!--SelectedValuePath="DeliveryTermName"
-                          SelectedValue="{Binding Path=EditableModel.DeliveryTermName}"/>-->
 
+                <TextBlock Text="MakseTingimus"/>
+                <ComboBox ItemsSource="{Binding Path=PaymentTerms}" 
+                          DisplayMemberPath="PaymentTermName" 
+                          SelectedValuePath="PaymentDays" 
+                          SelectedValue="{Binding Path=EditableModel.PaymentDays}"/>
+                
                 <TextBlock Text="Püsisoodustus"/>
                 <TextBox Text="{Binding Path=EditableModel.FixedDiscountPercent, StringFormat=0;;#, Converter={StaticResource IntConverter}}"/>
             </StackPanel>

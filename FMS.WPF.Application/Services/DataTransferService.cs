@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 
 namespace FMS.WPF.Application.Services
@@ -25,7 +26,7 @@ namespace FMS.WPF.Application.Services
                     var sqlFiles = Directory.GetFiles(@"C:\Temp\juveel\scripts", "*.sql").OrderBy(x => x);
                     foreach (string file in sqlFiles)
                     {
-                        context.Database.ExecuteSqlCommand(File.ReadAllText(file));
+                        context.Database.ExecuteSqlCommand(File.ReadAllText(file, Encoding.Default));
                     }
 
                     MessageBox.Show("Andmed värskendatud!");

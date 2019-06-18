@@ -33,6 +33,7 @@ namespace FMS.WPF.ViewModels
         public IList<CountryModel> Countries => CompanyDropdownTablesProxy.Instance.Countries;
         public IList<CurrencyModel> Currencies => CompanyDropdownTablesProxy.Instance.Currencies;
         public IList<DeliveryTermModel> DeliveryTerms => CompanyDropdownTablesProxy.Instance.DeliveryTerms;
+        public IList<PaymentTermDropdownModel> PaymentTerms => CompanyDropdownTablesProxy.Instance.PaymentTerms;
         #endregion Properties
 
         #region Events

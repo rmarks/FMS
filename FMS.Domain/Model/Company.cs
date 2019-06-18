@@ -25,7 +25,7 @@ namespace FMS.Domain.Model
 
         public bool IsVAT { get; set; }
 
-        //public int PaymentDays { get; set; }
+        public int PaymentDays { get; set; }
 
         [MaxLength(50)]
         public string DeliveryTermName { get; set; }

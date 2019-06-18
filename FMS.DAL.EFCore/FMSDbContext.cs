@@ -11,6 +11,7 @@ namespace FMS.DAL.EFCore
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<DeliveryTerm> DeliveryTerms { get; set; }
+        public DbSet<PaymentTerm> PaymentTerms { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
