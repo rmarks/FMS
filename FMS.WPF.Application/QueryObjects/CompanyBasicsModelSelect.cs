@@ -18,6 +18,7 @@ namespace FMS.WPF.Application.QueryObjects
                 RegNo = c.RegNo,
                 CurrencyCode = c.CurrencyCode,
                 IsVAT = c.IsVAT,
+                DeliveryTermName = c.DeliveryTermName,
                 FixedDiscountPercent = c.FixedDiscountPercent,
                 CreatedOn = c.CreatedOn,
             });
@@ -34,6 +35,7 @@ namespace FMS.WPF.Application.QueryObjects
                 RegNo = model.RegNo,
                 CurrencyCode = model.CurrencyCode,
                 IsVAT = model.IsVAT,
+                DeliveryTermName = model.DeliveryTermName,
                 FixedDiscountPercent = model.FixedDiscountPercent,
                 CreatedOn = model.CreatedOn,
             };

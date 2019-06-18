@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FMS.DAL.EFCore;
 using FMS.WPF.Application.QueryObjects;
@@ -14,6 +15,9 @@ namespace FMS.WPF.Application.Common
 
         private IList<CurrencyModel> _currencies;
         public IList<CurrencyModel> Currencies => _currencies ?? (_currencies = GetCurrencies());
+
+        private IList<DeliveryTermModel> _deliveryTerms;
+        public IList<DeliveryTermModel> DeliveryTerms => _deliveryTerms ?? (_deliveryTerms = GetDeliveryTerms());
 
         #region Helpers
         private IList<CountryModel> GetCountries()
@@ -33,6 +37,16 @@ namespace FMS.WPF.Application.Common
             return context.Currencies
                 .AsNoTracking()
                 .MapToCurrencyModel()
+                .ToList();
+        }
+
+        private IList<DeliveryTermModel> GetDeliveryTerms()
+        {
+            var context = new FMSDbContext();
+
+            return context.DeliveryTerms
+                .AsNoTracking()
+                .MapToDeliveryTermModel()
                 .ToList();
         }
         #endregion Helpers

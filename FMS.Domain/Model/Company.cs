@@ -27,8 +27,8 @@ namespace FMS.Domain.Model
 
         //public int PaymentDays { get; set; }
 
-        //[MaxLength(50)]
-        //public string DeliveryTermName { get; set; }
+        [MaxLength(50)]
+        public string DeliveryTermName { get; set; }
 
         public int FixedDiscountPercent { get; set; }
 

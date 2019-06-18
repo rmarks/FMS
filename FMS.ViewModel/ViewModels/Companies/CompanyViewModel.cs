@@ -15,7 +15,7 @@ namespace FMS.WPF.ViewModels
 
             LoadCompanyTabs();
 
-            CompanyBasicsViewModel.ItemSavedOrDeleted += () => RequestListRefresh?.Invoke(); ;
+            CompanyBasicsViewModel.ItemSavedOrDeleted += () => RequestListRefresh?.Invoke();
         }
 
         public void Load(int companyId)

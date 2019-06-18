@@ -7,6 +7,7 @@ namespace FMS.WPF.Application.Common
     {
         IList<CountryModel> Countries { get; }
         IList<CurrencyModel> Currencies { get; }
+        IList<DeliveryTermModel> DeliveryTerms { get; }
     }
 
     public class CompanyDropdownTablesProxy

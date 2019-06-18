@@ -85,6 +85,15 @@
                           SelectedValuePath="CurrencyCode" 
                           SelectedValue="{Binding Path=EditableModel.CurrencyCode}"/>
 
+                <TextBlock Text="Tarnetingimus"/>
+                <ComboBox ItemsSource="{Binding Path=DeliveryTerms}" 
+                          DisplayMemberPath="DeliveryTermName" 
+                          Text="{Binding Path=EditableModel.DeliveryTermName}"
+                          IsEditable="True" 
+                          IsTextSearchEnabled="True"/>
+                          <!--SelectedValuePath="DeliveryTermName"
+                          SelectedValue="{Binding Path=EditableModel.DeliveryTermName}"/>-->
+
                 <TextBlock Text="Püsisoodustus"/>
                 <TextBox Text="{Binding Path=EditableModel.FixedDiscountPercent, StringFormat=0;;#, Converter={StaticResource IntConverter}}"/>
             </StackPanel>
