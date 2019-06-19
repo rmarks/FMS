@@ -19,5 +19,7 @@ namespace FMS.WPF.Application.Services
         IList<CompanyContactModel> GetCompanyContactModels(int companyId);
         int SaveCompanyContact(CompanyContactModel model);
         void DeleteCompanyContact(int contactId);
+
+        IList<CompanySalesOrderListModel> GetCompanySalesOrderList(int companyId);
     }
 }

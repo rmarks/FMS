@@ -91,4 +91,10 @@
         <Setter Property="CellStyle" Value="{StaticResource MainDataGridCellStyle}"/>
     </Style>
 
+    <Style x:Key="MainDataGridColumnHeaderCenterStyle" 
+           TargetType="{x:Type DataGridColumnHeader}" 
+           BasedOn="{StaticResource MainDataGridColumnHeaderStyle}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+
 </ResourceDictionary>

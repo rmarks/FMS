@@ -36,4 +36,8 @@
         <vw:CompanyContactView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:CompanySalesOrderListViewModel}">
+        <vw:CompanySalesOrderListView/>
+    </DataTemplate>
+
 </ResourceDictionary>

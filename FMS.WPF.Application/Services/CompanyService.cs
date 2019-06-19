@@ -177,5 +177,18 @@ namespace FMS.WPF.Application.Services
             context.Remove(contact);
             context.SaveChanges();
         }
+
+        //--- CompanySalesOrders
+        public IList<CompanySalesOrderListModel> GetCompanySalesOrderList(int companyId)
+        {
+            var context = new FMSDbContext();
+
+            return context.SalesOrders
+                .AsNoTracking()
+                .Where(c => c.CompanyId == companyId)
+                .OrderByDescending(c => c.OrderNo)
+                .MapSalesOrderQueryToCompanySalesOrderListModelQuery()
+                .ToList();
+        }
     }
 }
