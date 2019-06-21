@@ -21,7 +21,7 @@ namespace FMS.Domain.Model
         public string PostCode { get; set; }
 
         [MaxLength(50)]
-        public string Description { get; set; }
+        public string ConsigneeName { get; set; }
 
         public bool IsBilling { get; set; }
 
@@ -32,5 +32,12 @@ namespace FMS.Domain.Model
         //----------------------------------
         public Company Company { get; set; }
         public Country Country { get; set; }
+
+        //--- legacy system fields ---
+        public int FMS_yksusid { get; set; }
+        [Required, MaxLength(4)]
+        public string FMS_ykood { get; set; }
+        [Required, MaxLength(6)]
+        public string FMS_skood { get; set; }
     }
 }

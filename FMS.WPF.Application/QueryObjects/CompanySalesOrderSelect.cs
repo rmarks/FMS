@@ -12,10 +12,10 @@ namespace FMS.WPF.Application.QueryObjects
             {
                 SalesOrderId = s.SalesOrderId,
                 OrderNo = s.OrderNo,
-                CompanyCode = s.Company.CompanyCode,
-                CompanyName = s.Company.CompanyName,
                 OrderDate = s.OrderDate,
                 OrderDeliveryDate = s.OrderDeliveryDate,
+                BuyerName = s.Company.CompanyName,
+                ConsigneeName = $"{(s.BillingAddressId == s.ShippingAddressId ? s.Company.CompanyName : s.ShippingAddress.ConsigneeName)}",
                 IsClosed = s.IsClosed
             });
         }

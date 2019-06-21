@@ -16,8 +16,8 @@
     
     <StackPanel Margin="20"
                 IsEnabled="{Binding Path=IsEditMode}">
-        <TextBlock Text="Kirjeldus"/>
-        <TextBox Text="{Binding Path=EditableModel.Description}"/>
+        <TextBlock Text="Saaja"/>
+        <TextBox Text="{Binding Path=EditableModel.ConsigneeName}"/>
         
         <TextBlock Text="Riik"/>
         <ComboBox ItemsSource="{Binding Path=Countries}" 

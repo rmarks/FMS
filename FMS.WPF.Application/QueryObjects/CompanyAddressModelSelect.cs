@@ -17,7 +17,7 @@ namespace FMS.WPF.Application.QueryObjects
                 City = c.City,
                 Address = c.Address,
                 PostCode = c.PostCode,
-                Description = c.Description,
+                ConsigneeName = c.ConsigneeName,
                 IsBilling = c.IsBilling,
                 IsShipping = c.IsShipping,
                 CreatedOn = c.CreatedOn
@@ -34,7 +34,7 @@ namespace FMS.WPF.Application.QueryObjects
                 City = model.City,
                 Address = model.Address,
                 PostCode = model.PostCode,
-                Description = model.Description,
+                ConsigneeName = model.ConsigneeName,
                 IsBilling = model.IsBilling,
                 IsShipping = model.IsShipping,
                 CreatedOn = model.CreatedOn

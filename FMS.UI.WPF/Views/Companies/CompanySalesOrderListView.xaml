@@ -15,18 +15,18 @@
                 <DataGridTextColumn Header="Tellimuse nr."
                                     Binding="{Binding Path=OrderNo}"
                                     Width="*"/>
-                <DataGridTextColumn Header="Kood"
-                                    Binding="{Binding Path=CompanyCode}"
-                                    Width="*"/>
-                <DataGridTextColumn Header="Nimi"
-                                    Binding="{Binding Path=CompanyName}"
-                                    Width="3*"/>
                 <DataGridTextColumn Header="Kuupäev"
                                     Binding="{Binding Path=OrderDate, StringFormat='\{0:dd.MM.yyyy\}'}"
                                     Width="*"/>
                 <DataGridTextColumn Header="Tarneaeg"
                                     Binding="{Binding Path=OrderDeliveryDate, StringFormat='\{0:dd.MM.yyyy\}'}"
                                     Width="*"/>
+                <DataGridTextColumn Header="Ostja"
+                                    Binding="{Binding Path=BuyerName}"
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Saaja"
+                                    Binding="{Binding Path=ConsigneeName}"
+                                    Width="2*"/>
                 <DataGridCheckBoxColumn Header="Suletud"
                                         Binding="{Binding Path=IsClosed}"
                                         HeaderStyle="{StaticResource MainDataGridColumnHeaderCenterStyle}"

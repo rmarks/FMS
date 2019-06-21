@@ -8,13 +8,13 @@ namespace FMS.WPF.Model
 
         public string OrderNo { get; set; }
 
-        public string CompanyCode { get; set; }
-
-        public string CompanyName { get; set; }
-
         public DateTime OrderDate { get; set; }
 
         public DateTime? OrderDeliveryDate { get; set; }
+
+        public string BuyerName { get; set; }
+
+        public string ConsigneeName { get; set; }
 
         public bool IsClosed { get; set; }
     }

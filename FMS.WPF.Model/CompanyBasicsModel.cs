@@ -59,7 +59,7 @@ namespace FMS.WPF.Model
                     City = s.BillingAddress.City,
                     Address = s.BillingAddress.Address,
                     PostCode = s.BillingAddress.PostCode,
-                    Description = s.BillingAddress.Description,
+                    ConsigneeName = s.BillingAddress.ConsigneeName,
                     IsBilling = s.BillingAddress.IsBilling,
                     CreatedOn = s.CreatedOn
                 };

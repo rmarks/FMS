@@ -30,8 +30,8 @@
                   Style="{StaticResource MainDataGridStyle}"
                   Margin="10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Kirjeldus" 
-                                    Binding="{Binding Path=Description}" 
+                <DataGridTextColumn Header="Saaja" 
+                                    Binding="{Binding Path=ConsigneeName}" 
                                     Width="3*"/>
                 <DataGridTextColumn Header="Riik" 
                                     Binding="{Binding Path=CountryName}" 

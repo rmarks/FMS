@@ -18,7 +18,7 @@ namespace FMS.WPF.Model
 
         public string PostCode { get; set; }
 
-        public string Description { get; set; }
+        public string ConsigneeName { get; set; }
 
         public bool IsBilling { get; set; }
 
@@ -38,7 +38,7 @@ namespace FMS.WPF.Model
                 City = s.City;
                 Address = s.Address;
                 PostCode = s.PostCode;
-                Description = s.Description;
+                ConsigneeName = s.ConsigneeName;
                 IsBilling = s.IsBilling;
                 IsShipping = s.IsShipping;
                 CreatedOn = s.CreatedOn;
