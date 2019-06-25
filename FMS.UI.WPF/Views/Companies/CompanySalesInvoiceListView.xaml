@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="FMS.WPF.Views.CompanySalesInvoiceListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="1000">
+    <Grid Margin="20">
+        <DataGrid ItemsSource="{Binding Path=Items}"
+                  SelectedItem="{Binding Path=SelectedItem}"
+                  Style="{StaticResource MainDataGridStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Arve nr."
+                                    Binding="{Binding Path=InvoiceNo}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Kuupäev"
+                                    Binding="{Binding Path=InvoiceDate, StringFormat='\{0:dd.MM.yyyy\}'}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Ostja"
+                                    Binding="{Binding Path=BuyerName}"
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Saaja"
+                                    Binding="{Binding Path=ConsigneeName}"
+                                    Width="2*"/>
+                <DataGridCheckBoxColumn Header="Suletud"
+                                        Binding="{Binding Path=IsClosed}"
+                                        HeaderStyle="{StaticResource MainDataGridColumnHeaderCenterStyle}"
+                                        Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

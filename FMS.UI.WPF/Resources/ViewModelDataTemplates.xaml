@@ -40,4 +40,8 @@
         <vw:CompanySalesOrderListView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:CompanySalesInvoiceListViewModel}">
+        <vw:CompanySalesInvoiceListView/>
+    </DataTemplate>
+
 </ResourceDictionary>

@@ -190,5 +190,18 @@ namespace FMS.WPF.Application.Services
                 .MapSalesOrderQueryToCompanySalesOrderListModelQuery()
                 .ToList();
         }
+
+        //--- CompanySalesInvoices
+        public IList<CompanySalesInvoiceListModel> GetCompanySalesInvoiceList(int companyId)
+        {
+            var context = new FMSDbContext();
+
+            return context.SalesInvoices
+                .AsNoTracking()
+                .Where(c => c.CompanyId == companyId)
+                .OrderByDescending(c => c.InvoiceNo)
+                .MapSalesInvoiceQueryToCompanySalesInvoiceListModelQuery()
+                .ToList();
+        }
     }
 }
