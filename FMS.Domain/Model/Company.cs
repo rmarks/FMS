@@ -36,7 +36,12 @@ namespace FMS.Domain.Model
 
         //-----------------------------------------
         public List<CompanyAddress> Addresses { get; set; }
+
         public List<Contact> Contacts { get; set; }
+
+        public List<SalesOrder> SalesOrders { get; set; }
+
+        public List<SalesInvoice> SalesInvoices { get; set; }
 
         //--- legacy system fields ---
         public int FMS_yksusid { get; set; }

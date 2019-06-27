@@ -70,12 +70,34 @@ namespace FMS.WPF.Application.Services
         {
             var context = new FMSDbContext();
 
-            var company = context.Companies
-                .Include(c => c.Addresses)
-                .Include(c => c.Contacts)
-                .FirstOrDefault(c => c.CompanyId == companyId);
+            //var company = context.Companies
+            //    .Include(c => c.Addresses)
+            //    .Include(c => c.Contacts)
+            //    .FirstOrDefault(c => c.CompanyId == companyId);
 
+            var company = context.Companies.Find(companyId);
             context.Remove(company);
+
+            foreach (var address in context.CompanyAddresses.Where(a => a.CompanyId == companyId))
+            {
+                context.Remove(address);
+            }
+
+            foreach (var contact in context.Contacts.Where(c => c.CompanyId == companyId))
+            {
+                context.Remove(contact);
+            }
+
+            foreach (var salesOrder in context.SalesOrders.Where(o => o.CompanyId == companyId))
+            {
+                context.Remove(salesOrder);
+            }
+
+            foreach (var salesInvoice in context.SalesInvoices.Where(i => i.CompanyId == companyId))
+            {
+                context.Remove(salesInvoice);
+            }
+
             context.SaveChanges();
         }
 

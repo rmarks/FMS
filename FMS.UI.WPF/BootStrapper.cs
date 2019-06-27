@@ -44,6 +44,7 @@ namespace FMS.WPF.UI
         {
             _kernel.Bind<IWorkspaceManager>().To<WorkspaceManager>().InSingletonScope();
             _kernel.Bind<IDialogService>().To<DialogService>().InTransientScope();
+            _kernel.Bind<IProgressBarService>().To<ProgressBarService>().InTransientScope();
         }
 
         private void BindApplicationServices()

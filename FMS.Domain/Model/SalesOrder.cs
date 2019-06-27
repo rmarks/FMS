@@ -30,8 +30,10 @@ namespace FMS.Domain.Model
 
         //----------------------------------
         public Company Company { get; set; }
+
         [ForeignKey(nameof(BillingAddressId))]
         public CompanyAddress BillingAddress { get; set; }
+
         [ForeignKey(nameof(ShippingAddressId))]
         public CompanyAddress ShippingAddress { get; set; }
     }
