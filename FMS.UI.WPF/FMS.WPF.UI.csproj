@@ -289,10 +289,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FMS.ViewModel\FMS.WPF.ViewModel.csproj">
-      <Project>{443EF77B-F469-4BD5-900F-53498AE403A3}</Project>
-      <Name>FMS.WPF.ViewModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj">
       <Project>{54F8726E-811D-4825-BCDD-B6CF220DC8B6}</Project>
       <Name>FMS.WPF.Application</Name>
@@ -300,6 +296,10 @@
     <ProjectReference Include="..\FMS.WPF.Model\FMS.WPF.Model.csproj">
       <Project>{2eeb8fc3-e9d2-49e6-a3ca-875f341e0762}</Project>
       <Name>FMS.WPF.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FMS.WPF.ViewModel\FMS.WPF.ViewModel.csproj">
+      <Project>{02D5252B-45A4-401E-83D7-B4A1DDF9B6EE}</Project>
+      <Name>FMS.WPF.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
