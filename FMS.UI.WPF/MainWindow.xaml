@@ -27,7 +27,7 @@
         <Style TargetType="TabControl">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Items.Count, RelativeSource={RelativeSource Self}}"
-                                         Value="0">
+                             Value="0">
                     <Setter Property="Visibility" Value="Hidden"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -57,10 +57,12 @@
                         </TextBlock.LayoutTransform>
                     </TextBlock>
                 </Expander.Header>
-                <Grid Width="230">
+                <Grid Width="230"
+                      Background="White">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Background="#FF186FA0">
@@ -69,9 +71,11 @@
                            FontSize="30"
                            HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <TreeView Grid.Row="1" ItemsSource="{Binding Path=Commands}"
+                    <TreeView Grid.Row="1" 
+                              ItemsSource="{Binding Path=Commands}"
                               FontSize="20"
-                              IsTabStop="False">
+                              IsTabStop="False"
+                              BorderThickness="0">
                         <TreeView.Resources>
                             <DataTemplate DataType="{x:Type vm:CommandTreeGroupViewModel}">
                                 <TreeViewItem Header="{Binding Path=DisplayName}"
@@ -91,12 +95,20 @@
                             </DataTemplate>
                         </TreeView.Resources>
                     </TreeView>
-                    <Button Grid.Row="2" 
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Andmed seisuga:"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=DataTransferDateTime}"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Grid.Row="3" 
                             Content="Värskenda andmed"
                             Command="{Binding Path=TransferDataCommand}"
                             FontSize="16"
                             FontWeight="DemiBold"
-                            Margin="0,10"
+                            Margin="10"
                             Padding="10"/>
                 </Grid>
             </Expander>

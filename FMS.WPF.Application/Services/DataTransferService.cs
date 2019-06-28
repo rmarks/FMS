@@ -8,18 +8,14 @@ namespace FMS.WPF.Application.Services
 {
     public class DataTransferService : IDataTransferService
     {
-        public void  ClearDatabase()
-        {
-            var context = new FMSDbContext();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
-        }
-
         public bool TransferData()
         {
             try
             {
                 var context = new FMSDbContext();
+
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
 
                 var sqlFiles = Directory.GetFiles(@"C:\Temp\juveel\scripts", "*.sql").OrderBy(x => x);
                 foreach (string file in sqlFiles)

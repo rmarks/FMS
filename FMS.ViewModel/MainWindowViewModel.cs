@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using FMS.WPF.ViewModel.Services;
 using System.Threading.Tasks;
+using System;
+using System.Configuration;
 
 namespace FMS.WPF.ViewModels
 {
@@ -39,6 +41,8 @@ namespace FMS.WPF.ViewModels
         public IWorkspaceManager WorkspaceManager { get; }
 
         public ObservableCollection<WorkspaceViewModelBase> Workspaces => WorkspaceManager.Workspaces;
+
+        public string DataTransferDateTime => ConfigurationManager.AppSettings["DataTransferDateTime"];
         #endregion Properties
 
         #region Commands
@@ -46,19 +50,20 @@ namespace FMS.WPF.ViewModels
         public ICommand TransferDataCommand => _transferDataCommand ?? (_transferDataCommand = new RelayCommand(TransferData));
         private async void TransferData()
         {
-            if (_dialogService.ShowMessageBox("Kas kustutame praegused andmed?", "Kustutamine", "YesNo"))
+            if (_dialogService.ShowMessageBox("Kas värskendame andmed?", "Teade", "YesNo"))
             {
-                _progressBarService.ShowInDeterminateProgressBar("Andmete kustutamine");
-                await Task.Run(() => _dataTransferService.ClearDatabase());
+                _progressBarService.ShowInDeterminateProgressBar("Andmete värskendamine");
+                bool isSuccess = await Task.Run(() => _dataTransferService.TransferData());
                 _progressBarService.CloseProgressBar();
 
-                if (_dialogService.ShowMessageBox("Andmed kustutatud. Kas kopeerime värsked andmed?", "Teade", "YesNo"))
+                if (isSuccess)
                 {
-                    _progressBarService.ShowInDeterminateProgressBar("Andmete värskendamine");
-                    bool isSuccess = await Task.Run(() => _dataTransferService.TransferData());
-                    _progressBarService.CloseProgressBar();
-
-                    _dialogService.ShowMessageBox(isSuccess ? "Andmed värskendatud!" : "Andmete värskendamine ebaõnnestus!");
+                    _dialogService.ShowMessageBox("Andmed värskendatud!");
+                    UpdateDataTransferDateTime();
+                }
+                else
+                {
+                    _dialogService.ShowMessageBox("Andmete värskendamine ebaõnnestus!");
                 }
             }
         }
@@ -73,6 +78,17 @@ namespace FMS.WPF.ViewModels
             CommandTreeItemViewModel commandCompanies = 
                 new CommandTreeItemViewModel("Firmad", new RelayCommand<string>(p => WorkspaceManager.OpenWorkspace<IWorkspaceViewModelFactory<CompaniesViewModel>>("Firmad")));
             groupPermanentData.CommandTreeItems.Add(commandCompanies);
+        }
+
+        private void UpdateDataTransferDateTime()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings.Remove("DataTransferDateTime");
+            config.AppSettings.Settings.Add("DataTransferDateTime", DateTime.Now.ToString());
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+
+            RaisePropertyChanged(nameof(DataTransferDateTime));
         }
         #endregion Helpers
     }
