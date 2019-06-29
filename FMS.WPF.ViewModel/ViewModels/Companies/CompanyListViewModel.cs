@@ -1,5 +1,5 @@
 ﻿using FMS.WPF.Application.Services;
-using FMS.WPF.Model;
+using FMS.WPF.Models;
 using System.Linq;
 
 namespace FMS.WPF.ViewModels

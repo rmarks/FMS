@@ -43,20 +43,22 @@
 
             <!-- First column -->
             <StackPanel Grid.Column="0" Margin="20">
-                <TextBlock Text="Kood"/>
-                <TextBox Text="{Binding Path=EditableModel.CompanyCode}"/>
+                <TextBlock Text="Id"/>
+                <TextBox Text="{Binding Path=EditableModel.CompanyId}"
+                         IsEnabled="False"/>
 
                 <TextBlock Text="Nimetus"/>
                 <TextBox Text="{Binding Path=EditableModel.CompanyName}"/>
 
+                <TextBlock Text="Registrikood"/>
+                <TextBox Text="{Binding Path=EditableModel.RegNo}"/>
+                
                 <TextBlock Text="KMKR"/>
                 <TextBox Text="{Binding Path=EditableModel.VATNo}"/>
 
-                <TextBlock Text="Registrikood"/>
-                <TextBox Text="{Binding Path=EditableModel.RegNo}"/>
-
-                <TextBlock Text="Loodud"/>
-                <TextBlock Text="{Binding Path=EditableModel.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"/>
+                <TextBlock Text="Sisestatud"/>
+                <TextBox Text="{Binding Path=EditableModel.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"
+                         IsEnabled="False"/>
             </StackPanel>
 
             <!-- Second column -->
@@ -67,6 +69,9 @@
                           SelectedValuePath="CountryId" 
                           SelectedValue="{Binding Path=EditableModel.BillingAddress.CountryId}"/>
 
+                <TextBlock Text="Maakond"/>
+                <TextBox Text="{Binding Path=EditableModel.BillingAddress.County}"/>
+                
                 <TextBlock Text="Linn/vald"/>
                 <TextBox Text="{Binding Path=EditableModel.BillingAddress.City}"/>
 
@@ -85,6 +90,21 @@
                           SelectedValuePath="CurrencyCode" 
                           SelectedValue="{Binding Path=EditableModel.CurrencyCode}"/>
 
+                <TextBlock Text="Hinnakiri"/>
+                <ComboBox ItemsSource="{Binding Path=PriceLists}" 
+                          DisplayMemberPath="PriceListName" 
+                          SelectedValuePath="PriceListId" 
+                          SelectedValue="{Binding Path=EditableModel.PriceListId}"/>
+
+                <TextBlock Text="Ladu"/>
+                <ComboBox ItemsSource="{Binding Path=Locations}" 
+                          DisplayMemberPath="LocationName" 
+                          SelectedValuePath="LocationId" 
+                          SelectedValue="{Binding Path=EditableModel.LocationId}"/>
+            </StackPanel>
+
+            <!-- Fourth column -->
+            <StackPanel Grid.Column="3" Margin="20">
                 <TextBlock Text="Tarnetingimus"/>
                 <ComboBox ItemsSource="{Binding Path=DeliveryTerms}" 
                           DisplayMemberPath="DeliveryTermName" 
@@ -92,18 +112,16 @@
                           IsEditable="True" 
                           IsTextSearchEnabled="True"/>
 
-                <TextBlock Text="MakseTingimus"/>
+                <TextBlock Text="Maksetingimus"/>
                 <ComboBox ItemsSource="{Binding Path=PaymentTerms}" 
                           DisplayMemberPath="PaymentTermName" 
                           SelectedValuePath="PaymentDays" 
                           SelectedValue="{Binding Path=EditableModel.PaymentDays}"/>
-                
+
                 <TextBlock Text="Püsisoodustus"/>
                 <TextBox Text="{Binding Path=EditableModel.FixedDiscountPercent, StringFormat=0;;#, Converter={StaticResource IntConverter}}"/>
-            </StackPanel>
 
-            <!-- Fourth column -->
-            <StackPanel Grid.Column="3" Margin="20">
+                <TextBlock/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Käibemaks"/>
                     <CheckBox IsChecked="{Binding Path=EditableModel.IsVAT, UpdateSourceTrigger=PropertyChanged}"/>

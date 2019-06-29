@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace FMS.Domain.Model
@@ -13,5 +13,7 @@ namespace FMS.Domain.Model
         public int PaymentDays { get; set; }
 
         public bool IsActive { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
     }
 }

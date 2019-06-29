@@ -1,5 +1,5 @@
 ﻿using FMS.Domain.Model;
-using FMS.WPF.Model;
+using FMS.WPF.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,15 +12,16 @@ namespace FMS.WPF.Application.QueryObjects
             return companies.Select(c => new CompanyBasicsModel
             {
                 CompanyId = c.CompanyId,
-                CompanyCode = c.CompanyCode,
                 CompanyName = c.CompanyName,
                 VATNo = c.VATNo,
                 RegNo = c.RegNo,
                 CurrencyCode = c.CurrencyCode,
-                IsVAT = c.IsVAT,
+                PriceListId = c.PriceListId,
+                LocationId = c.LocationId,
                 PaymentDays = c.PaymentDays,
                 DeliveryTermName = c.DeliveryTermName,
                 FixedDiscountPercent = c.FixedDiscountPercent,
+                IsVAT = c.IsVAT,
                 CreatedOn = c.CreatedOn,
             });
         }
@@ -30,15 +31,16 @@ namespace FMS.WPF.Application.QueryObjects
             var company = new Company
             {
                 CompanyId = model.CompanyId,
-                CompanyCode = model.CompanyCode,
                 CompanyName = model.CompanyName,
                 VATNo = model.VATNo,
                 RegNo = model.RegNo,
                 CurrencyCode = model.CurrencyCode,
-                IsVAT = model.IsVAT,
+                PriceListId = model.PriceListId,
+                LocationId = model.LocationId,
                 PaymentDays = model.PaymentDays,
                 DeliveryTermName = model.DeliveryTermName,
                 FixedDiscountPercent = model.FixedDiscountPercent,
+                IsVAT = model.IsVAT,
                 CreatedOn = model.CreatedOn,
             };
 

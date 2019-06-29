@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FMS.WPF.Model
+namespace FMS.WPF.Models
 {
     public class CompanyAddressModel : EditableModelBase
     {
@@ -9,6 +9,8 @@ namespace FMS.WPF.Model
         public int CompanyId { get; set; }
 
         public int CountryId { get; set; }
+
+        public string County { get; set; }
 
         public string CountryName { get; set; }
 
@@ -35,6 +37,7 @@ namespace FMS.WPF.Model
                 CompanyId = s.CompanyId;
                 CountryId = s.CountryId;
                 CountryName = s.CountryName;
+                County = s.County;
                 City = s.City;
                 Address = s.Address;
                 PostCode = s.PostCode;

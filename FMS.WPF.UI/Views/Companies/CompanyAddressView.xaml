@@ -34,7 +34,7 @@
         <TextBlock Text="Indeks"/>
         <TextBox Text="{Binding Path=EditableModel.PostCode}"/>
 
-        <TextBlock Text="Loodud"/>
+        <TextBlock Text="Sisestatud"/>
         <TextBlock Text="{Binding Path=EditableModel.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"
                    Style="{StaticResource MainTextBlockStyle}"
                    Foreground="DarkGray"/>

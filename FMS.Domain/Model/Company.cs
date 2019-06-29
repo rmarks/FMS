@@ -8,9 +8,6 @@ namespace FMS.Domain.Model
     {
         public int CompanyId { get; set; }
 
-        [Required, MaxLength(4)]
-        public string CompanyCode { get; set; }
-
         [Required, MaxLength(70)]
         public string CompanyName { get; set; }
 
@@ -23,7 +20,9 @@ namespace FMS.Domain.Model
         [Required, MaxLength(3)]
         public string CurrencyCode { get; set; }
 
-        public bool IsVAT { get; set; }
+        public int? PriceListId { get; set; }
+
+        public int? LocationId { get; set; }
 
         public int PaymentDays { get; set; }
 
@@ -32,9 +31,15 @@ namespace FMS.Domain.Model
 
         public int FixedDiscountPercent { get; set; }
 
+        public bool IsVAT { get; set; }
+
         public DateTime? CreatedOn { get; set; }
 
         //-----------------------------------------
+        public PriceList PriceList { get; set; }
+
+        public Location Location { get; set;}
+
         public List<CompanyAddress> Addresses { get; set; }
 
         public List<Contact> Contacts { get; set; }
@@ -44,6 +49,9 @@ namespace FMS.Domain.Model
         public List<SalesInvoice> SalesInvoices { get; set; }
 
         //--- legacy system fields ---
-        public int FMS_yksusid { get; set; }
+        public int? FMS_yksusid { get; set; }
+
+        [MaxLength(4)]
+        public string FMS_ykood { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace FMS.Domain.Model
 {
@@ -11,5 +9,7 @@ namespace FMS.Domain.Model
 
         [Required, MaxLength(50)]
         public string DeliveryTermName { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
     }
 }

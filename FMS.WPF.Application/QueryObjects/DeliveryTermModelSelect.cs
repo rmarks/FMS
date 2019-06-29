@@ -1,5 +1,5 @@
 ﻿using FMS.Domain.Model;
-using FMS.WPF.Model;
+using FMS.WPF.Models;
 using System.Linq;
 
 namespace FMS.WPF.Application.QueryObjects

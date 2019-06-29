@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace FMS.WPF.Model
+namespace FMS.WPF.Models
 {
     public abstract class EditableModelBase : INotifyPropertyChanged
     {

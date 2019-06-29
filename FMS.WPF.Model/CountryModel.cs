@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FMS.WPF.Model
+namespace FMS.WPF.Models
 {
     public class CountryModel
     {

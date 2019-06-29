@@ -12,8 +12,8 @@
                   SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Kood"
-                                    Binding="{Binding Path=CompanyCode}"
+                <DataGridTextColumn Header="Id"
+                                    Binding="{Binding Path=CompanyId}"
                                     Width="*"/>
                 <DataGridTextColumn Header="Nimi"
                                     Binding="{Binding Path=CompanyName}"

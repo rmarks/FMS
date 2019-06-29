@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Model;
+﻿using FMS.WPF.Models;
 using System.Collections.Generic;
 
 namespace FMS.WPF.Application.Common
@@ -7,6 +7,8 @@ namespace FMS.WPF.Application.Common
     {
         IList<CountryModel> Countries { get; }
         IList<CurrencyModel> Currencies { get; }
+        IList<PriceListDropdownModel> PriceLists { get; }
+        IList<LocationDropdownModel> Locations { get; }
         IList<DeliveryTermModel> DeliveryTerms { get; }
         IList<PaymentTermDropdownModel> PaymentTerms { get; }
     }

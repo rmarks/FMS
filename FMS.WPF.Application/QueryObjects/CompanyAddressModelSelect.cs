@@ -1,5 +1,5 @@
 ﻿using FMS.Domain.Model;
-using FMS.WPF.Model;
+using FMS.WPF.Models;
 using System.Linq;
 
 namespace FMS.WPF.Application.QueryObjects
@@ -14,6 +14,7 @@ namespace FMS.WPF.Application.QueryObjects
                 CompanyId = c.CompanyId,
                 CountryId = c.CountryId,
                 CountryName = c.Country.CountryName,
+                County = c.County,
                 City = c.City,
                 Address = c.Address,
                 PostCode = c.PostCode,
@@ -31,6 +32,7 @@ namespace FMS.WPF.Application.QueryObjects
                 CompanyAddressId = model.CompanyAddressId,
                 CompanyId = model.CompanyId,
                 CountryId = model.CountryId,
+                County = model.County,
                 City = model.City,
                 Address = model.Address,
                 PostCode = model.PostCode,

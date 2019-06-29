@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FMS.WPF.Model
+namespace FMS.WPF.Models
 {
     public class CompanySalesInvoiceListModel
     {

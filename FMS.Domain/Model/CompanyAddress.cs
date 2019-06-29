@@ -11,6 +11,9 @@ namespace FMS.Domain.Model
 
         public int CountryId { get; set; }
 
+        [MaxLength(30)]
+        public string County { get; set; }
+
         [Required, MaxLength(50)]
         public string City { get; set; }
 
@@ -34,10 +37,12 @@ namespace FMS.Domain.Model
         public Country Country { get; set; }
 
         //--- legacy system fields ---
-        public int FMS_yksusid { get; set; }
-        [Required, MaxLength(4)]
+        public int? FMS_yksusid { get; set; }
+
+        [MaxLength(4)]
         public string FMS_ykood { get; set; }
-        [Required, MaxLength(6)]
+
+        [MaxLength(6)]
         public string FMS_skood { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     public interface IDataTransferService
     {
+        void ClearDatabase();
         bool TransferData();
     }
 }

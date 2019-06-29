@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using FMS.WPF.Model;
+using FMS.WPF.Models;
 
 namespace FMS.WPF.Application.Services
 {

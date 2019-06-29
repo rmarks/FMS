@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FMS.Domain.Model
 {
@@ -10,6 +11,8 @@ namespace FMS.Domain.Model
         public string CountryName { get; set; }
 
         public bool IsEU { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
 
         //--- legacy system fields ---
         public int FMS_rkood { get; set; }

@@ -1,6 +1,6 @@
 ﻿using FMS.DAL.EFCore;
 using FMS.WPF.Application.QueryObjects;
-using FMS.WPF.Model;
+using FMS.WPF.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,6 @@ namespace FMS.WPF.Application.Services
                 .Select(c => new CompanyListModel
                 {
                     CompanyId = c.Company.CompanyId,
-                    CompanyCode = c.Company.CompanyCode,
                     CompanyName = c.Company.CompanyName,
                     CountryName = c.Address.Country.CountryName,
                     City = c.Address.City,

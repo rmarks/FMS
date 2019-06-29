@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace FMS.WPF.Model
+namespace FMS.WPF.Models
 {
     public class CompanyBasicsModel :EditableModelBase
     {
         public int CompanyId { get; set; }
-
-        public string CompanyCode { get; set; }
 
         public string CompanyName { get; set; }
 
@@ -17,7 +14,9 @@ namespace FMS.WPF.Model
 
         public string CurrencyCode { get; set; }
 
-        public bool IsVAT { get; set; }
+        public int? PriceListId { get; set; }
+
+        public int? LocationId { get; set; }
 
         public int PaymentDays { get; set; }
 
@@ -25,13 +24,11 @@ namespace FMS.WPF.Model
 
         public int FixedDiscountPercent { get; set; }
 
+        public bool IsVAT { get; set; }
+
         public DateTime? CreatedOn { get; set; }
 
         public CompanyAddressModel BillingAddress { get; set; }
-
-        public IList<CountryModel>  Countries { get; set; }
-
-        public IList<CurrencyModel> Currencies { get; set; }
 
 
         public override void Merge(EditableModelBase source)
@@ -39,15 +36,16 @@ namespace FMS.WPF.Model
             if (source is CompanyBasicsModel s)
             {
                 CompanyId = s.CompanyId;
-                CompanyCode = s.CompanyCode;
                 CompanyName = s.CompanyName;
                 VATNo = s.VATNo;
                 RegNo = s.RegNo;
                 CurrencyCode = s.CurrencyCode;
-                IsVAT = s.IsVAT;
+                PriceListId = s.PriceListId;
+                LocationId = s.LocationId;
                 PaymentDays = s.PaymentDays;
                 DeliveryTermName = s.DeliveryTermName;
                 FixedDiscountPercent = s.FixedDiscountPercent;
+                IsVAT = s.IsVAT;
                 CreatedOn = s.CreatedOn;
 
                 BillingAddress = new CompanyAddressModel
@@ -56,6 +54,7 @@ namespace FMS.WPF.Model
                     CompanyId = s.BillingAddress.CompanyId,
                     CountryId = s.BillingAddress.CountryId,
                     CountryName = s.BillingAddress.CountryName,
+                    County = s.BillingAddress.County,
                     City = s.BillingAddress.City,
                     Address = s.BillingAddress.Address,
                     PostCode = s.BillingAddress.PostCode,

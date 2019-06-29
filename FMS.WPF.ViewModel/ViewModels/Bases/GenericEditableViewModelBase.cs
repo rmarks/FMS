@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Model;
+﻿using FMS.WPF.Models;
 using FMS.WPF.ViewModel.Commands;
 using System;
 using System.Windows.Input;

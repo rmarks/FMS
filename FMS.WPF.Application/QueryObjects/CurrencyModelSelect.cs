@@ -1,5 +1,5 @@
 ﻿using FMS.Domain.Model;
-using FMS.WPF.Model;
+using FMS.WPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

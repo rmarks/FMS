@@ -50,20 +50,29 @@ namespace FMS.WPF.ViewModels
         public ICommand TransferDataCommand => _transferDataCommand ?? (_transferDataCommand = new RelayCommand(TransferData));
         private async void TransferData()
         {
-            if (_dialogService.ShowMessageBox("Kas värskendame andmed?", "Teade", "YesNo"))
+            if (_dialogService.ShowMessageBox("Kas kustutame vanad andmed?", "Kustutamine", "YesNo"))
             {
-                _progressBarService.ShowInDeterminateProgressBar("Andmete värskendamine");
-                bool isSuccess = await Task.Run(() => _dataTransferService.TransferData());
+                _progressBarService.ShowInDeterminateProgressBar("Andmete kustutamine");
+                await Task.Run(() => _dataTransferService.ClearDatabase());
                 _progressBarService.CloseProgressBar();
 
-                if (isSuccess)
+                UpdateDataTransferDateTime(isOnlyClearNeeded: true);
+
+                if (_dialogService.ShowMessageBox("Kas kopeerime uued andmed?", "Teade", "YesNo"))
                 {
-                    _dialogService.ShowMessageBox("Andmed värskendatud!");
-                    UpdateDataTransferDateTime();
-                }
-                else
-                {
-                    _dialogService.ShowMessageBox("Andmete värskendamine ebaõnnestus!");
+                    _progressBarService.ShowInDeterminateProgressBar("Andmete värskendamine");
+                    bool isSuccess = await Task.Run(() => _dataTransferService.TransferData());
+                    _progressBarService.CloseProgressBar();
+
+                    if (isSuccess)
+                    {
+                        _dialogService.ShowMessageBox("Andmed värskendatud!");
+                        UpdateDataTransferDateTime();
+                    }
+                    else
+                    {
+                        _dialogService.ShowMessageBox("Andmete värskendamine ebaõnnestus!");
+                    }
                 }
             }
         }
@@ -80,11 +89,14 @@ namespace FMS.WPF.ViewModels
             groupPermanentData.CommandTreeItems.Add(commandCompanies);
         }
 
-        private void UpdateDataTransferDateTime()
+        private void UpdateDataTransferDateTime(bool isOnlyClearNeeded = false)
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings.Remove("DataTransferDateTime");
-            config.AppSettings.Settings.Add("DataTransferDateTime", DateTime.Now.ToString());
+            if (!isOnlyClearNeeded)
+            {
+                config.AppSettings.Settings.Add("DataTransferDateTime", DateTime.Now.ToString());
+            }
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
 
