@@ -22,7 +22,7 @@ namespace FMS.WPF.ViewModels
         }
 
         #region GenericListViewModelBase Members
-        public override void Refresh()
+        public override void Refresh(bool selectFirstItem = false)
         {
             Items = _companyService.GetCompanySalesOrderList(_companyId);
         }

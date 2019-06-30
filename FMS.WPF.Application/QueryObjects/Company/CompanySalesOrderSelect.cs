@@ -6,7 +6,7 @@ namespace FMS.WPF.Application.QueryObjects
 {
     public static class CompanySalesOrderSelect
     {
-        public static IQueryable<CompanySalesOrderListModel> MapSalesOrderQueryToCompanySalesOrderListModelQuery(this IQueryable<SalesOrder> salesOrders)
+        public static IQueryable<CompanySalesOrderListModel> MapToCompanySalesOrderListModel(this IQueryable<SalesOrder> salesOrders)
         {
             return salesOrders.Select(s => new CompanySalesOrderListModel
             {

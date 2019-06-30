@@ -7,7 +7,7 @@ namespace FMS.WPF.Application.QueryObjects
 {
     public static class CompanyBasicsModelSelect
     {
-        public static IQueryable<CompanyBasicsModel> MapCompanyBasicsQueryToModelQuery(this IQueryable<Company> companies)
+        public static IQueryable<CompanyBasicsModel> MapToCompanyBasicsModel(this IQueryable<Company> companies)
         {
             return companies.Select(c => new CompanyBasicsModel
             {
@@ -26,7 +26,7 @@ namespace FMS.WPF.Application.QueryObjects
             });
         }
 
-        public static Company MapModelToCompanyBasics(this CompanyBasicsModel model)
+        public static Company MapToCompanyBasics(this CompanyBasicsModel model)
         {
             var company = new Company
             {
@@ -45,7 +45,7 @@ namespace FMS.WPF.Application.QueryObjects
             };
 
             company.Addresses = new List<CompanyAddress>();
-            company.Addresses.Add(model.BillingAddress.MapModelToCompanyAddress());
+            company.Addresses.Add(model.BillingAddress.MapToCompanyAddress());
 
             return company;
         }

@@ -6,9 +6,74 @@
              xmlns:local="clr-namespace:FMS.WPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="1000">
-    
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5,0" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <ControlTemplate x:Key="WatermarkedTextBoxTemplate" TargetType="{x:Type TextBox}">
+            <Grid Background="White">
+                <Label x:Name="labelDefaultMessage" 
+                       Content="{TemplateBinding Tag}"
+                       VerticalAlignment="Center"
+                       Foreground="Gray"
+                       Visibility="Collapsed"/>
+                <TextBox x:Name="textBoxSearch" 
+                         Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+                         Width="{Binding Path=Width, RelativeSource={RelativeSource TemplatedParent}}"
+                         Height="{Binding Path=Height, RelativeSource={RelativeSource TemplatedParent}}"
+                         VerticalContentAlignment="Center"
+                         Background="Transparent"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Text" Value=""/>
+                        <Condition Property="IsKeyboardFocusWithin" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Visibility" TargetName="labelDefaultMessage" Value="Visible"/>
+                </MultiTrigger>
+                <!--https://stackoverflow.com/questions/17571225/focus-handling-with-controls-inside-controltemplate-->
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter TargetName="textBoxSearch" 
+                            Property="FocusManager.FocusedElement" 
+                            Value="{Binding ElementName=textBoxSearch}" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=Items}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Margin="20,10"
+                    Height="36"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <TextBox Text="{Binding Path=Query, UpdateSourceTrigger=PropertyChanged}"
+                     Width="400" Height="34"
+                     Tag="{Binding Path=QueryDefaultText}"
+                     Template="{StaticResource WatermarkedTextBoxTemplate}">
+                <TextBox.InputBindings>
+                    <KeyBinding Gesture="Enter" Command="{Binding Path=RefreshCommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button x:Name="buttonRefresh" 
+                    Style="{StaticResource MainImageLabelButtonStyle}"
+                    Command="{Binding Path=RefreshCommand}">
+                <Image Source="/images/refresh4.png"/>
+            </Button>
+        </StackPanel>
+        
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Path=Items}"
                   SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>

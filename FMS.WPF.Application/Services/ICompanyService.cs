@@ -5,7 +5,7 @@ namespace FMS.WPF.Application.Services
 {
     public interface ICompanyService
     {
-        List<CompanyListModel> GetCompanyList();
+        List<CompanyListModel> GetCompanyList(string query);
 
         CompanyBasicsModel GetCompanyBasicsModel(int companyId);
         CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model);

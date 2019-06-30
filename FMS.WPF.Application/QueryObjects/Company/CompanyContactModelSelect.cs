@@ -9,7 +9,7 @@ namespace FMS.WPF.Application.QueryObjects
 {
     public static class CompanyContactModelSelect
     {
-        public static IQueryable<CompanyContactModel> MapCompanyContactQueryToModelQuery(this IQueryable<Contact> contacts)
+        public static IQueryable<CompanyContactModel> MapToCompanyContactModel(this IQueryable<Contact> contacts)
         {
             return contacts.Select(c => new CompanyContactModel
             {
@@ -24,7 +24,7 @@ namespace FMS.WPF.Application.QueryObjects
             });
         }
 
-        public static Contact MapModelToCompanyContact(this CompanyContactModel model)
+        public static Contact MapToCompanyContact(this CompanyContactModel model)
         {
             return new Contact
             {

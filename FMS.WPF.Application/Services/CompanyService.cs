@@ -11,12 +11,13 @@ namespace FMS.WPF.Application.Services
     public class CompanyService : ICompanyService
     {
         //--- CompanyList
-        public List<CompanyListModel> GetCompanyList()
+        public List<CompanyListModel> GetCompanyList(string query)
         {
             var context = new FMSDbContext();
 
             return context.Companies
                 .AsNoTracking()
+                .FilterBy(query)
                 .Select(c => new
                 {
                     Company = c,
@@ -42,7 +43,7 @@ namespace FMS.WPF.Application.Services
             var model = context.Companies
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
-                .MapCompanyBasicsQueryToModelQuery()
+                .MapToCompanyBasicsModel()
                 .FirstOrDefault();
 
             if (model != null)
@@ -57,7 +58,7 @@ namespace FMS.WPF.Application.Services
         {
             var context = new FMSDbContext();
 
-            var company = model.MapModelToCompanyBasics();
+            var company = model.MapToCompanyBasics();
 
             context.Update(company);
             context.SaveChanges();
@@ -108,7 +109,8 @@ namespace FMS.WPF.Application.Services
             return context.CompanyAddresses
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId && c.IsShipping)
-                .MapCompanyAddressQueryToModelQuery()
+                .MapToCompanyAddressModel()
+                .OrderBy(c => c.ConsigneeName)
                 .ToList();
         }
 
@@ -119,7 +121,7 @@ namespace FMS.WPF.Application.Services
             return context.CompanyAddresses
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId && c.IsBilling)
-                .MapCompanyAddressQueryToModelQuery()
+                .MapToCompanyAddressModel()
                 .FirstOrDefault();
         }
 
@@ -127,7 +129,7 @@ namespace FMS.WPF.Application.Services
         {
             var context = new FMSDbContext();
 
-            var address = model.MapModelToCompanyAddress();
+            var address = model.MapToCompanyAddress();
 
             if (address.CompanyAddressId == 0)
             {
@@ -163,7 +165,8 @@ namespace FMS.WPF.Application.Services
             return context.Contacts
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
-                .MapCompanyContactQueryToModelQuery()
+                .MapToCompanyContactModel()
+                .OrderBy(c => c.ContactName)
                 .ToList();
         }
 
@@ -171,7 +174,7 @@ namespace FMS.WPF.Application.Services
         {
             var context = new FMSDbContext();
 
-            var contact = model.MapModelToCompanyContact();
+            var contact = model.MapToCompanyContact();
 
             if (contact.ContactId == 0)
             {
@@ -208,7 +211,7 @@ namespace FMS.WPF.Application.Services
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
                 .OrderByDescending(c => c.OrderNo)
-                .MapSalesOrderQueryToCompanySalesOrderListModelQuery()
+                .MapToCompanySalesOrderListModel()
                 .ToList();
         }
 
@@ -221,7 +224,7 @@ namespace FMS.WPF.Application.Services
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
                 .OrderByDescending(c => c.InvoiceNo)
-                .MapSalesInvoiceQueryToCompanySalesInvoiceListModelQuery()
+                .MapToCompanySalesInvoiceListModel()
                 .ToList();
         }
     }

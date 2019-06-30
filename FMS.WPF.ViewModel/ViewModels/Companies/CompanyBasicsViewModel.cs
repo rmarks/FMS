@@ -4,7 +4,6 @@ using FMS.WPF.Models;
 using FMS.WPF.ViewModel.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FMS.WPF.ViewModels
 {
