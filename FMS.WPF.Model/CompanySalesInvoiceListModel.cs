@@ -14,6 +14,12 @@ namespace FMS.WPF.Models
 
         public string ConsigneeName { get; set; }
 
+        public int TotalQuantity { get; set; }
+
+        public decimal Sum { get; set; }
+
+        public decimal SumWithVAT { get; set; }
+
         public bool IsClosed { get; set; }
     }
 }

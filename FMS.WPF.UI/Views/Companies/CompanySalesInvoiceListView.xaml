@@ -23,6 +23,21 @@
                 <DataGridTextColumn Header="Saaja"
                                     Binding="{Binding Path=ConsigneeName}"
                                     Width="2*"/>
+                <DataGridTextColumn Header="Kogus" 
+                                    Binding="{Binding Path=TotalQuantity, StringFormat=0;;#}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Summa" 
+                                    Binding="{Binding Path=Sum, StringFormat=0.00;;#.##}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Summa km" 
+                                    Binding="{Binding Path=SumWithVAT, StringFormat=0.00;;#.##}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
                 <DataGridCheckBoxColumn Header="Suletud"
                                         Binding="{Binding Path=IsClosed}"
                                         HeaderStyle="{StaticResource MainDataGridColumnHeaderCenterStyle}"

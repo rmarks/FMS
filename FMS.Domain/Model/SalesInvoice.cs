@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,11 +28,19 @@ namespace FMS.Domain.Model
 
         public DateTime? CreatedOn { get; set; }
 
+        public IList<SalesInvoiceLine> SalesInvoiceLines { get; set; }
+
         //----------------------------------
         public Company Company { get; set; }
         [ForeignKey(nameof(BillingAddressId))]
         public CompanyAddress BillingAddress { get; set; }
         [ForeignKey(nameof(ShippingAddressId))]
         public CompanyAddress ShippingAddress { get; set; }
+
+        //--- legacy system fields ---
+        [MaxLength(2)]
+        public string FMS_doktyyp { get; set; }
+        [MaxLength(8)]
+        public string FMS_doknr { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace FMS.DAL.EFCore
         public DbSet<SalesOrder> SalesOrders { get; set; }
         public DbSet<SalesOrderLine> SalesOrderLines { get; set; }
         public DbSet<SalesInvoice> SalesInvoices { get; set; }
+        public DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
         public DbSet<Location> Locations { get; set; }
 
