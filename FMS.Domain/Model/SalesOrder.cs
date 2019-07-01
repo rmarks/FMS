@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,6 +28,8 @@ namespace FMS.Domain.Model
         public bool IsClosed { get; set; }
 
         public DateTime? CreatedOn { get; set; }
+
+        public IList<SalesOrderLine> SalesOrderLines { get; set; }
 
         //----------------------------------
         public Company Company { get; set; }

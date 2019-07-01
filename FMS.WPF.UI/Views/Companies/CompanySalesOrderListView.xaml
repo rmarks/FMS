@@ -12,7 +12,7 @@
                   SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Tellimuse nr."
+                <DataGridTextColumn Header="Tell. nr."
                                     Binding="{Binding Path=OrderNo}"
                                     Width="*"/>
                 <DataGridTextColumn Header="Kuupäev"
@@ -27,10 +27,40 @@
                 <DataGridTextColumn Header="Saaja"
                                     Binding="{Binding Path=ConsigneeName}"
                                     Width="2*"/>
+                <DataGridTextColumn Header="Tellitud" 
+                                    Binding="{Binding Path=TotalOrderedQuantity, StringFormat=0;;#}" 
+                                    Width="0.8*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Summa" 
+                                    Binding="{Binding Path=OrderedSum, StringFormat=0.00;;#.##}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Tarnitud" 
+                                    Binding="{Binding Path=TotalInvoicedQuantity, StringFormat=0;;#}" 
+                                    Width="0.8*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Reserv." 
+                                    Binding="{Binding Path=TotalReservedQuantity, StringFormat=0;;#}" 
+                                    Width="0.8*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Puudu" 
+                                    Binding="{Binding Path=TotalMissingQuantity, StringFormat=0;;#}" 
+                                    Width="0.8*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Summa" 
+                                    Binding="{Binding Path=MissingSum, StringFormat=0.00;;#.##}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
                 <DataGridCheckBoxColumn Header="Suletud"
                                         Binding="{Binding Path=IsClosed}"
                                         HeaderStyle="{StaticResource MainDataGridColumnHeaderCenterStyle}"
-                                        Width="*"/>
+                                        Width="0.8*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

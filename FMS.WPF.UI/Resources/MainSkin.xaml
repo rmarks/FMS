@@ -97,4 +97,16 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>
 
+    <Style x:Key="MainDataGridColumnHeaderRightStyle" 
+           TargetType="{x:Type DataGridColumnHeader}" 
+           BasedOn="{StaticResource MainDataGridColumnHeaderStyle}">
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+    </Style>
+
+    <Style x:Key="MainDataGridCellRightStyle" 
+           TargetType="{x:Type DataGridCell}" 
+           BasedOn="{StaticResource MainDataGridCellStyle}">
+        <Setter Property="TextBlock.TextAlignment" Value="Right" />
+    </Style>
+
 </ResourceDictionary>

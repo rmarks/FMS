@@ -210,8 +210,8 @@ namespace FMS.WPF.Application.Services
             return context.SalesOrders
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
-                .OrderByDescending(c => c.OrderNo)
                 .MapToCompanySalesOrderListModel()
+                .OrderByDescending(c => c.OrderNo)
                 .ToList();
         }
 
