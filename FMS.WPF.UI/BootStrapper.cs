@@ -37,7 +37,7 @@ namespace FMS.WPF.UI
 
         private void BindFactories()
         {
-            _kernel.Bind<IWorkspaceViewModelFactory<CompaniesViewModel>>().To<CompaniesViewModelFactory>().InTransientScope();
+            _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
         }
 
         private void BindInfra()

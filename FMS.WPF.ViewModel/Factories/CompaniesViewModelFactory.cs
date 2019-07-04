@@ -4,19 +4,20 @@ using Ninject;
 
 namespace FMS.WPF.ViewModel.Factories
 {
-    public class CompaniesViewModelFactory : ViewModelFactoryBase, IWorkspaceViewModelFactory<CompaniesViewModel>
+    public class CompaniesViewModelFactory : ICompaniesViewModelFactory
     {
-        public CompaniesViewModelFactory(IKernel kernel) : base(kernel)
+        private IKernel _kernel;
+
+        public CompaniesViewModelFactory(IKernel kernel)
         {
+            _kernel = kernel;
         }
 
-        public CompaniesViewModel CreateInstance(int Id = 0)
+        public WorkspaceViewModelBase CreateInstance()
         {
             CompanyDropdownTablesProxy.Instance = _kernel.Get<ICompanyDropdownTables>();
 
             return _kernel.Get<CompaniesViewModel>();
         }
-
-        public WorkspaceViewModelBase CreateWorkspace() => CreateInstance();
     }
 }

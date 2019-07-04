@@ -21,8 +21,10 @@ namespace FMS.WPF.Application.Services
             try
             {
                 var context = new FMSDbContext();
+                context.Database.SetCommandTimeout(5 * 60);
 
                 var sqlFiles = Directory.GetFiles(@"C:\Temp\juveel\scripts", "*.sql").OrderBy(x => x);
+
                 foreach (string file in sqlFiles)
                 {
                     context.Database.ExecuteSqlCommand(File.ReadAllText(file, Encoding.Default));

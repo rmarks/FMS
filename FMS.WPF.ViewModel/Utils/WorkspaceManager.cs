@@ -28,7 +28,7 @@ namespace FMS.WPF.ViewModel.Utils
             if (workspace == null)
             {
                 var factory = _kernel.Get<T>();
-                workspace = factory.CreateWorkspace();
+                workspace = factory.CreateInstance();
                 Workspaces.Add(workspace);
             }
 
