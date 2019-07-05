@@ -25,21 +25,10 @@ namespace FMS.WPF.Application.Services
             {
                 var listService = new ListCompaniesService(context);
 
-                return listService.GetCompanies(query)
-                    .Select(c => new
-                    {
-                        Company = c,
-                        Address = c.Addresses.FirstOrDefault(a => a.IsBilling)
-                    })
-                .Select(c => new CompanyListModel
-                {
-                    CompanyId = c.Company.CompanyId,
-                    CompanyName = c.Company.CompanyName,
-                    CountryName = c.Address.Country.CountryName,
-                    City = c.Address.City,
-                    Address = c.Address.Address
-                })
-                .ToList();
+                return listService
+                    .GetCompaniesWithBillingAddress(query)
+                    .MapToCompanyListModel()
+                    .ToList();
             }
         }
 
@@ -213,27 +202,29 @@ namespace FMS.WPF.Application.Services
         //--- CompanySalesOrders
         public IList<CompanySalesOrderListModel> GetCompanySalesOrderList(int companyId)
         {
-            var context = new SQLServerDbContext();
+            using (var context = _contextFactory.CreateContext())
+            {
+                var listService = new ListCompanySalesOrdersService(context);
 
-            return context.SalesOrders
-                .AsNoTracking()
-                .Where(c => c.CompanyId == companyId)
-                .MapToCompanySalesOrderListModel()
-                .OrderByDescending(c => c.OrderNo)
-                .ToList();
+                return listService
+                    .GetCompanySalesOrders(companyId)
+                    .MapToCompanySalesOrderListModel()
+                    .ToList();
+            }
         }
 
         //--- CompanySalesInvoices
         public IList<CompanySalesInvoiceListModel> GetCompanySalesInvoiceList(int companyId)
         {
-            var context = new SQLServerDbContext();
+            using (var context = _contextFactory.CreateContext())
+            {
+                var listService = new ListCompanySalesInvoicesService(context);
 
-            return context.SalesInvoices
-                .AsNoTracking()
-                .Where(c => c.CompanyId == companyId)
-                .OrderByDescending(c => c.InvoiceNo)
-                .MapToCompanySalesInvoiceListModel()
-                .ToList();
+                return listService
+                    .GetCompanySalesInvoices(companyId)
+                    .MapToCompanySalesInvoiceListModel()
+                    .ToList();
+            }
         }
     }
 }

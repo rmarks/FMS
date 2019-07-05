@@ -15,12 +15,12 @@ namespace FMS.ServiceLayer.CompanyServices
             _context = context;
         }
 
-        public IQueryable<Company> GetCompanies(string query)
+        public IQueryable<CompanyAddress> GetCompaniesWithBillingAddress(string query)
         {
-            return _context.Companies
+            return _context.CompanyAddresses
                 .AsNoTracking()
                 .FilterBy(query)
-                .OrderBy(c => c.CompanyName);
+                .OrderBy(a => a.Company.CompanyName);
         }
     }
 }
