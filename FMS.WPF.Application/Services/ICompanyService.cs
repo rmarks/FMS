@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FMS.WPF.Models;
 
 namespace FMS.WPF.Application.Services
 {
     public interface ICompanyService
     {
-        List<CompanyListModel> GetCompanyList(string query);
+        Task<List<CompanyListModel>> GetCompanyListAsync(string query);
 
         CompanyBasicsModel GetCompanyBasicsModel(int companyId);
         CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model);
@@ -20,8 +21,8 @@ namespace FMS.WPF.Application.Services
         int SaveCompanyContact(CompanyContactModel model);
         void DeleteCompanyContact(int contactId);
 
-        IList<CompanySalesOrderListModel> GetCompanySalesOrderList(int companyId);
+        Task<IList<CompanySalesOrderListModel>> GetCompanySalesOrderListAsync(int companyId);
 
-        IList<CompanySalesInvoiceListModel> GetCompanySalesInvoiceList(int companyId);
+        Task<IList<CompanySalesInvoiceListModel>> GetCompanySalesInvoiceListAsync(int companyId);
     }
 }

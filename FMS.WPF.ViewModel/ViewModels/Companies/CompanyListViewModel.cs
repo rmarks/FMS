@@ -19,11 +19,11 @@ namespace FMS.WPF.ViewModels
         }
 
         #region GenericListViewModelBase Members
-        public override void Refresh(bool selectFirstItem = false)
+        public override async void Refresh(bool selectFirstItem = false)
         {
             var oldSelectedItem = SelectedItem;
             
-            Items = _companyService.GetCompanyList(Query);
+            Items = await _companyService.GetCompanyListAsync(Query);
 
             SelectedItem = selectFirstItem ? Items.FirstOrDefault() 
                                            : Items.FirstOrDefault(i => i.CompanyId == oldSelectedItem.CompanyId);

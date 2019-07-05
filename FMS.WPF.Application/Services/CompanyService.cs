@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FMS.WPF.Application.Services
 {
@@ -19,16 +20,16 @@ namespace FMS.WPF.Application.Services
         }
 
         //--- CompanyList
-        public List<CompanyListModel> GetCompanyList(string query)
+        public async Task<List<CompanyListModel>> GetCompanyListAsync(string query)
         {
             using (var context = _contextFactory.CreateContext())
             {
                 var listService = new ListCompaniesService(context);
 
-                return listService
+                return await listService
                     .GetCompaniesWithBillingAddress(query)
                     .MapToCompanyListModel()
-                    .ToList();
+                    .ToListAsync();
             }
         }
 
@@ -200,30 +201,30 @@ namespace FMS.WPF.Application.Services
         }
 
         //--- CompanySalesOrders
-        public IList<CompanySalesOrderListModel> GetCompanySalesOrderList(int companyId)
+        public async Task<IList<CompanySalesOrderListModel>> GetCompanySalesOrderListAsync(int companyId)
         {
             using (var context = _contextFactory.CreateContext())
             {
                 var listService = new ListCompanySalesOrdersService(context);
 
-                return listService
+                return await listService
                     .GetCompanySalesOrders(companyId)
                     .MapToCompanySalesOrderListModel()
-                    .ToList();
+                    .ToListAsync();
             }
         }
 
         //--- CompanySalesInvoices
-        public IList<CompanySalesInvoiceListModel> GetCompanySalesInvoiceList(int companyId)
+        public async Task<IList<CompanySalesInvoiceListModel>> GetCompanySalesInvoiceListAsync(int companyId)
         {
             using (var context = _contextFactory.CreateContext())
             {
                 var listService = new ListCompanySalesInvoicesService(context);
 
-                return listService
+                return await listService
                     .GetCompanySalesInvoices(companyId)
                     .MapToCompanySalesInvoiceListModel()
-                    .ToList();
+                    .ToListAsync();
             }
         }
     }

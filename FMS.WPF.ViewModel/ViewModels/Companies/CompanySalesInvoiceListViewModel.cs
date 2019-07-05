@@ -22,9 +22,9 @@ namespace FMS.WPF.ViewModels
         }
 
         #region GenericListViewModelBase Members
-        public override void Refresh(bool selectFirstItem = false)
+        public override async void Refresh(bool selectFirstItem = false)
         {
-            Items = _companyService.GetCompanySalesInvoiceList(_companyId);
+            Items = await _companyService.GetCompanySalesInvoiceListAsync(_companyId);
         }
         #endregion GenericListViewModelBase Members
     }
