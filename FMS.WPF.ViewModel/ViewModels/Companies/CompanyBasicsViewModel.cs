@@ -22,10 +22,10 @@ namespace FMS.WPF.ViewModels
             _dialogService = dialogService;
         }
 
-        public void Load(int companyId)
+        public async void Load(int companyId)
         {
             Model = companyId > 0
-                ? _companyService.GetCompanyBasicsModel(companyId)
+                ? await _companyService.GetCompanyBasicsModelAsync(companyId)
                 : null;
         }
 

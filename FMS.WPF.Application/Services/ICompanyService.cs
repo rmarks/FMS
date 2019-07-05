@@ -8,16 +8,15 @@ namespace FMS.WPF.Application.Services
     {
         Task<List<CompanyListModel>> GetCompanyListAsync(string query);
 
-        CompanyBasicsModel GetCompanyBasicsModel(int companyId);
+        Task<CompanyBasicsModel> GetCompanyBasicsModelAsync(int companyId);
         CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model);
         void DeleteCompanyBasics(int companyId);
 
-        IList<CompanyAddressModel> GetCompanyAddressModelsForShipping(int companyId);
-        CompanyAddressModel GetCompanyAddressModelForBilling(int companyId);
+        Task<IList<CompanyAddressModel>> GetCompanyAddressModelsForShippingAsync(int companyId);
         int SaveCompanyAddress(CompanyAddressModel model);
         void DeleteCompanyAddress(int companyAddressId);
 
-        IList<CompanyContactModel> GetCompanyContactModels(int companyId);
+        Task<IList<CompanyContactModel>> GetCompanyContactModelsAsync(int companyId);
         int SaveCompanyContact(CompanyContactModel model);
         void DeleteCompanyContact(int contactId);
 

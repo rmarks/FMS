@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FMS.WPF.Application.QueryObjects
 {
-    public static class CompanyAddressModelSelect
+    public static class CompanyAddressSelect
     {
         public static IQueryable<CompanyAddressModel> MapToCompanyAddressModel(this IQueryable<CompanyAddress> companyAddresses)
         {
@@ -23,6 +23,25 @@ namespace FMS.WPF.Application.QueryObjects
                 IsShipping = c.IsShipping,
                 CreatedOn = c.CreatedOn
             });
+        }
+
+        public static CompanyAddressModel MapToCompanyAddressModel(this CompanyAddress address)
+        {
+            return new CompanyAddressModel
+            {
+                CompanyAddressId = address.CompanyAddressId,
+                CompanyId = address.CompanyId,
+                CountryId = address.CountryId,
+                //CountryName = address.Country.CountryName,
+                County = address.County,
+                City = address.City,
+                Address = address.Address,
+                PostCode = address.PostCode,
+                ConsigneeName = address.ConsigneeName,
+                IsBilling = address.IsBilling,
+                IsShipping = address.IsShipping,
+                CreatedOn = address.CreatedOn
+            };
         }
 
         public static CompanyAddress MapToCompanyAddress(this CompanyAddressModel model)

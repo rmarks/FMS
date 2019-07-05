@@ -1,13 +1,10 @@
 ﻿using FMS.Domain.Model;
 using FMS.WPF.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FMS.WPF.Application.QueryObjects
 {
-    public static class CompanyContactModelSelect
+    public static class CompanyContactSelect
     {
         public static IQueryable<CompanyContactModel> MapToCompanyContactModel(this IQueryable<Contact> contacts)
         {

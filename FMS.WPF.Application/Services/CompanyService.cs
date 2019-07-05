@@ -34,22 +34,17 @@ namespace FMS.WPF.Application.Services
         }
 
         //--- CompanyBasics
-        public CompanyBasicsModel GetCompanyBasicsModel(int companyId)
+        public async Task<CompanyBasicsModel> GetCompanyBasicsModelAsync(int companyId)
         {
-            var context = new SQLServerDbContext();
-
-            var model = context.Companies
-                .AsNoTracking()
-                .Where(c => c.CompanyId == companyId)
-                .MapToCompanyBasicsModel()
-                .FirstOrDefault();
-
-            if (model != null)
+            using (var context = _contextFactory.CreateContext())
             {
-                model.BillingAddress = GetCompanyAddressModelForBilling(companyId);
-            }
+                var findService = new FindCompanyBasicsService(context);
 
-            return model;
+                return await findService
+                    .GetCompanyBasics(companyId)
+                    .MapToCompanyBasicsModel()
+                    .FirstOrDefaultAsync();
+            }
         }
 
         public CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model)
@@ -61,7 +56,8 @@ namespace FMS.WPF.Application.Services
             context.Update(company);
             context.SaveChanges();
 
-            return GetCompanyBasicsModel(company.CompanyId);
+            //return await GetCompanyBasicsModelAsync(company.CompanyId);
+            return company.MapToCompanyBasicsModel();
         }
 
         public void DeleteCompanyBasics(int companyId)
@@ -100,27 +96,17 @@ namespace FMS.WPF.Application.Services
         }
 
         //--- CompanyAddresses
-        public IList<CompanyAddressModel> GetCompanyAddressModelsForShipping(int companyId)
+        public async Task<IList<CompanyAddressModel>> GetCompanyAddressModelsForShippingAsync(int companyId)
         {
-            var context = new SQLServerDbContext();
+            using (var context = _contextFactory.CreateContext())
+            {
+                var listService = new ListCompanyAddresses(context);
 
-            return context.CompanyAddresses
-                .AsNoTracking()
-                .Where(c => c.CompanyId == companyId && c.IsShipping)
-                .MapToCompanyAddressModel()
-                .OrderBy(c => c.ConsigneeName)
-                .ToList();
-        }
-
-        public CompanyAddressModel GetCompanyAddressModelForBilling(int companyId)
-        {
-            var context = new SQLServerDbContext();
-
-            return context.CompanyAddresses
-                .AsNoTracking()
-                .Where(c => c.CompanyId == companyId && c.IsBilling)
-                .MapToCompanyAddressModel()
-                .FirstOrDefault();
+                return await listService
+                    .GetCompanyShippingAddresses(companyId)
+                    .MapToCompanyAddressModel()
+                    .ToListAsync();
+            }
         }
 
         public int SaveCompanyAddress(CompanyAddressModel model)
@@ -156,16 +142,17 @@ namespace FMS.WPF.Application.Services
         }
 
         //--- CompanyContacts
-        public IList<CompanyContactModel> GetCompanyContactModels(int companyId)
+        public async Task<IList<CompanyContactModel>> GetCompanyContactModelsAsync(int companyId)
         {
-            var context = new SQLServerDbContext();
+            using (var context = _contextFactory.CreateContext())
+            {
+                var listService = new ListCompanyContacts(context);
 
-            return context.Contacts
-                .AsNoTracking()
-                .Where(c => c.CompanyId == companyId)
-                .MapToCompanyContactModel()
-                .OrderBy(c => c.ContactName)
-                .ToList();
+                return await listService
+                    .GetCompanyContacts(companyId)
+                    .MapToCompanyContactModel()
+                    .ToListAsync();
+            }
         }
 
         public int SaveCompanyContact(CompanyContactModel model)

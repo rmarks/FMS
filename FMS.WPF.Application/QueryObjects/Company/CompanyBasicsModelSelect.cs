@@ -23,7 +23,28 @@ namespace FMS.WPF.Application.QueryObjects
                 FixedDiscountPercent = c.FixedDiscountPercent,
                 IsVAT = c.IsVAT,
                 CreatedOn = c.CreatedOn,
+                BillingAddress = c.Addresses.FirstOrDefault(a => a.IsBilling).MapToCompanyAddressModel()
             });
+        }
+
+        public static CompanyBasicsModel MapToCompanyBasicsModel(this Company company)
+        {
+            return new CompanyBasicsModel
+            {
+                CompanyId = company.CompanyId,
+                CompanyName = company.CompanyName,
+                VATNo = company.VATNo,
+                RegNo = company.RegNo,
+                CurrencyCode = company.CurrencyCode,
+                PriceListId = company.PriceListId,
+                LocationId = company.LocationId,
+                PaymentDays = company.PaymentDays,
+                DeliveryTermName = company.DeliveryTermName,
+                FixedDiscountPercent = company.FixedDiscountPercent,
+                IsVAT = company.IsVAT,
+                CreatedOn = company.CreatedOn,
+                BillingAddress = company.Addresses.FirstOrDefault(a => a.IsBilling).MapToCompanyAddressModel()
+            };
         }
 
         public static Company MapToCompanyBasics(this CompanyBasicsModel model)

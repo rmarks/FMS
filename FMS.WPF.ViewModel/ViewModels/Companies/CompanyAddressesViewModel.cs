@@ -22,12 +22,12 @@ namespace FMS.WPF.ViewModels
             _dialogService = dialogService;
         }
 
-        public void Load(int companyId)
+        public async void Load(int companyId)
         {
             _companyId = companyId;
 
             Models = _companyId > 0 
-                ? new ObservableCollection<CompanyAddressModel>(_companyService.GetCompanyAddressModelsForShipping(_companyId)) 
+                ? new ObservableCollection<CompanyAddressModel>(await _companyService.GetCompanyAddressModelsForShippingAsync(_companyId)) 
                 : null;
         }
 

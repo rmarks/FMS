@@ -24,12 +24,12 @@ namespace FMS.WPF.ViewModels
             _dialogService = dialogService;
         }
 
-        public void Load(int companyId)
+        public async void Load(int companyId)
         {
             _companyId = companyId;
 
             Models = companyId > 0 
-                ? new ObservableCollection<CompanyContactModel>(_companyService.GetCompanyContactModels(companyId)) 
+                ? new ObservableCollection<CompanyContactModel>(await _companyService.GetCompanyContactModelsAsync(companyId)) 
                 : null;
         }
 
