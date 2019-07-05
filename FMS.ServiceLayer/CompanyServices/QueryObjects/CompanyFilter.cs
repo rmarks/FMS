@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace FMS.WPF.Application.QueryObjects
+namespace FMS.ServiceLayer.CompanyServices.QueryObjects
 {
     public static class CompanyFilter
     {
@@ -26,7 +26,7 @@ namespace FMS.WPF.Application.QueryObjects
             query = query.Trim();
 
             Expression<Func<Company, bool>> filter =
-                company => company.CompanyName.Contains(query) 
+                company => company.CompanyName.Contains(query)
                            || company.Addresses.Any(a => a.IsBilling && (a.Country.CountryName.Contains(query)
                                                                          || a.City.Contains(query)
                                                                          || a.Address.Contains(query)))

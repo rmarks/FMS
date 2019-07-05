@@ -6,6 +6,7 @@ using Ninject;
 using FMS.WPF.ViewModel.Services;
 using FMS.WPF.UI.Services;
 using FMS.WPF.Application.Common;
+using FMS.DAL.EFCore;
 
 namespace FMS.WPF.UI
 {
@@ -19,9 +20,15 @@ namespace FMS.WPF.UI
             BindFactories();
             BindInfra();
             BindApplicationServices();
+            BindDataContexts();
         }
 
         public MainWindowViewModel MainWindowViewModel => _kernel.Get<MainWindowViewModel>();
+
+        private void BindDataContexts()
+        {
+            _kernel.Bind<SQLServerDbContext>().ToSelf().InTransientScope();
+        }
 
         private void BindViewModels()
         {
@@ -38,6 +45,8 @@ namespace FMS.WPF.UI
         private void BindFactories()
         {
             _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
+
+            _kernel.Bind<IDataContextFactory>().To<SQLServerDbContextFactory>().InSingletonScope();
         }
 
         private void BindInfra()

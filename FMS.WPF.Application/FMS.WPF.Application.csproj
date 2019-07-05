@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj" />
+    <ProjectReference Include="..\FMS.ServiceLayer\FMS.ServiceLayer.csproj" />
     <ProjectReference Include="..\FMS.WPF.Model\FMS.WPF.Model.csproj" />
   </ItemGroup>
 

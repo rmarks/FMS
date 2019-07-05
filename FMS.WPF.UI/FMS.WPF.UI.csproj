@@ -289,6 +289,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj">
+      <Project>{72776730-29E6-4CA4-BA7D-11AF5DD91323}</Project>
+      <Name>FMS.DAL.EFCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj">
       <Project>{54F8726E-811D-4825-BCDD-B6CF220DC8B6}</Project>
       <Name>FMS.WPF.Application</Name>

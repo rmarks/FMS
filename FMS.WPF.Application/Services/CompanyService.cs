@@ -1,4 +1,5 @@
 ﻿using FMS.DAL.EFCore;
+using FMS.ServiceLayer.CompanyServices;
 using FMS.WPF.Application.QueryObjects;
 using FMS.WPF.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,19 +11,26 @@ namespace FMS.WPF.Application.Services
 {
     public class CompanyService : ICompanyService
     {
+        private IDataContextFactory _contextFactory;
+
+        public CompanyService(IDataContextFactory contextFactory)
+        {
+            _contextFactory = contextFactory;
+        }
+
         //--- CompanyList
         public List<CompanyListModel> GetCompanyList(string query)
         {
-            var context = new FMSDbContext();
+            using (var context = _contextFactory.CreateContext())
+            {
+                var listService = new ListCompaniesService(context);
 
-            return context.Companies
-                .AsNoTracking()
-                .FilterBy(query)
-                .Select(c => new
-                {
-                    Company = c,
-                    Address = c.Addresses.FirstOrDefault(a => a.IsBilling)
-                })
+                return listService.GetCompanies(query)
+                    .Select(c => new
+                    {
+                        Company = c,
+                        Address = c.Addresses.FirstOrDefault(a => a.IsBilling)
+                    })
                 .Select(c => new CompanyListModel
                 {
                     CompanyId = c.Company.CompanyId,
@@ -31,14 +39,14 @@ namespace FMS.WPF.Application.Services
                     City = c.Address.City,
                     Address = c.Address.Address
                 })
-                .OrderBy(c => c.CompanyName)
                 .ToList();
+            }
         }
 
         //--- CompanyBasics
         public CompanyBasicsModel GetCompanyBasicsModel(int companyId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             var model = context.Companies
                 .AsNoTracking()
@@ -56,7 +64,7 @@ namespace FMS.WPF.Application.Services
 
         public CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             var company = model.MapToCompanyBasics();
 
@@ -68,7 +76,7 @@ namespace FMS.WPF.Application.Services
 
         public void DeleteCompanyBasics(int companyId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             //var company = context.Companies
             //    .Include(c => c.Addresses)
@@ -104,7 +112,7 @@ namespace FMS.WPF.Application.Services
         //--- CompanyAddresses
         public IList<CompanyAddressModel> GetCompanyAddressModelsForShipping(int companyId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.CompanyAddresses
                 .AsNoTracking()
@@ -116,7 +124,7 @@ namespace FMS.WPF.Application.Services
 
         public CompanyAddressModel GetCompanyAddressModelForBilling(int companyId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.CompanyAddresses
                 .AsNoTracking()
@@ -127,7 +135,7 @@ namespace FMS.WPF.Application.Services
 
         public int SaveCompanyAddress(CompanyAddressModel model)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             var address = model.MapToCompanyAddress();
 
@@ -149,7 +157,7 @@ namespace FMS.WPF.Application.Services
 
         public void DeleteCompanyAddress(int companyAddressId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             var companyAddress = context.CompanyAddresses.Find(companyAddressId);
 
@@ -160,7 +168,7 @@ namespace FMS.WPF.Application.Services
         //--- CompanyContacts
         public IList<CompanyContactModel> GetCompanyContactModels(int companyId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.Contacts
                 .AsNoTracking()
@@ -172,7 +180,7 @@ namespace FMS.WPF.Application.Services
 
         public int SaveCompanyContact(CompanyContactModel model)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             var contact = model.MapToCompanyContact();
 
@@ -194,7 +202,7 @@ namespace FMS.WPF.Application.Services
 
         public void DeleteCompanyContact(int contactId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             var contact = context.Contacts.Find(contactId);
 
@@ -205,7 +213,7 @@ namespace FMS.WPF.Application.Services
         //--- CompanySalesOrders
         public IList<CompanySalesOrderListModel> GetCompanySalesOrderList(int companyId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.SalesOrders
                 .AsNoTracking()
@@ -218,7 +226,7 @@ namespace FMS.WPF.Application.Services
         //--- CompanySalesInvoices
         public IList<CompanySalesInvoiceListModel> GetCompanySalesInvoiceList(int companyId)
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.SalesInvoices
                 .AsNoTracking()

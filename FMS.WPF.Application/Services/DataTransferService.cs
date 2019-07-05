@@ -10,7 +10,7 @@ namespace FMS.WPF.Application.Services
     {
         public void ClearDatabase()
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
@@ -20,7 +20,7 @@ namespace FMS.WPF.Application.Services
         {
             try
             {
-                var context = new FMSDbContext();
+                var context = new SQLServerDbContext();
                 context.Database.SetCommandTimeout(5 * 60);
 
                 var sqlFiles = Directory.GetFiles(@"C:\Temp\juveel\scripts", "*.sql").OrderBy(x => x);

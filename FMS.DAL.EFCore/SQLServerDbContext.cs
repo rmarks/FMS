@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FMS.DAL.EFCore
 {
-    public class FMSDbContext : DbContext
+    public class SQLServerDbContext : DbContext, IDataContext
     {
         public DbSet<Company> Companies { get; set; }
         public DbSet<Contact> Contacts { get; set; }

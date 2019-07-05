@@ -32,7 +32,7 @@ namespace FMS.WPF.Application.Common
         #region Helpers
         private IList<CountryModel> GetCountries()
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.Countries
                 .AsNoTracking()
@@ -43,7 +43,7 @@ namespace FMS.WPF.Application.Common
 
         private IList<CurrencyModel> GetCurrencies()
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.Currencies
                 .AsNoTracking()
@@ -54,7 +54,7 @@ namespace FMS.WPF.Application.Common
 
         private IList<PriceListDropdownModel> GetPriceLists()
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.PriceLists
                 .AsNoTracking()
@@ -65,7 +65,7 @@ namespace FMS.WPF.Application.Common
 
         private IList<LocationDropdownModel> GetLocations()
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.Locations
                 .AsNoTracking()
@@ -76,7 +76,7 @@ namespace FMS.WPF.Application.Common
 
         private IList<DeliveryTermModel> GetDeliveryTerms()
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.DeliveryTerms
                 .AsNoTracking()
@@ -87,7 +87,7 @@ namespace FMS.WPF.Application.Common
 
         private IList<PaymentTermDropdownModel> GetPaymentTerms()
         {
-            var context = new FMSDbContext();
+            var context = new SQLServerDbContext();
 
             return context.PaymentTerms
                 .AsNoTracking()
