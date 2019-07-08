@@ -4,6 +4,7 @@
                     xmlns:vm="clr-namespace:FMS.WPF.ViewModels;assembly=FMS.WPF.ViewModel"
                     xmlns:vw="clr-namespace:FMS.WPF.Views">
 
+    <!--Company-->
     <DataTemplate DataType="{x:Type vm:CompaniesViewModel}">
         <vw:CompaniesView/>
     </DataTemplate>
@@ -42,6 +43,11 @@
 
     <DataTemplate DataType="{x:Type vm:CompanySalesInvoiceListViewModel}">
         <vw:CompanySalesInvoiceListView/>
+    </DataTemplate>
+    
+    <!--Products-->
+    <DataTemplate DataType="{x:Type vm:ProductsViewModel}">
+        <vw:ProductsView/>
     </DataTemplate>
 
 </ResourceDictionary>

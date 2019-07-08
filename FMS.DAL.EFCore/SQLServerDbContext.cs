@@ -19,6 +19,8 @@ namespace FMS.DAL.EFCore
         public DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<ProductBase> ProductBases { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

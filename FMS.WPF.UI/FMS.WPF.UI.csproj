@@ -183,6 +183,9 @@
     <Compile Include="Views\Companies\CompanyView.xaml.cs">
       <DependentUpon>CompanyView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Product\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\EditableTaskbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +263,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Product\ProductsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -292,6 +299,14 @@
     <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj">
       <Project>{72776730-29E6-4CA4-BA7D-11AF5DD91323}</Project>
       <Name>FMS.DAL.EFCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FMS.ServiceLayer.Interfaces\FMS.ServiceLayer.Interfaces.csproj">
+      <Project>{F702CFF7-3278-4B61-9283-72DE427E46AD}</Project>
+      <Name>FMS.ServiceLayer.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FMS.ServiceLayer\FMS.ServiceLayer.csproj">
+      <Project>{A55D06CA-3B8B-4021-9DFB-30EA595BA764}</Project>
+      <Name>FMS.ServiceLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj">
       <Project>{54F8726E-811D-4825-BCDD-B6CF220DC8B6}</Project>

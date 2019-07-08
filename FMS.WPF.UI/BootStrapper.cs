@@ -7,6 +7,8 @@ using FMS.WPF.ViewModel.Services;
 using FMS.WPF.UI.Services;
 using FMS.WPF.Application.Common;
 using FMS.DAL.EFCore;
+using FMS.ServiceLayer.Interfaces.ProductServices;
+using FMS.ServiceLayer.ProductServices;
 
 namespace FMS.WPF.UI
 {
@@ -21,12 +23,14 @@ namespace FMS.WPF.UI
             BindInfra();
             BindApplicationServices();
             BindDataContexts();
+            BindServiceLayerServices();
         }
 
         public MainWindowViewModel MainWindowViewModel => _kernel.Get<MainWindowViewModel>();
 
         private void BindDataContexts()
         {
+            _kernel.Bind<IDataContext>().To<SQLServerDbContext>().InTransientScope();
             _kernel.Bind<SQLServerDbContext>().ToSelf().InTransientScope();
         }
 
@@ -40,13 +44,18 @@ namespace FMS.WPF.UI
             _kernel.Bind<CompanyBasicsViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompanyAddressesViewModel>().ToSelf().InTransientScope();
             _kernel.Bind<CompanyContactsViewModel>().ToSelf().InTransientScope();
+
+            _kernel.Bind<ProductsViewModel>().ToSelf().InTransientScope();
+            _kernel.Bind<ProductListViewModel>().ToSelf().InTransientScope();
         }
 
         private void BindFactories()
         {
-            _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
+            //_kernel.Bind<IDataContextFactory>().To<SQLServerDbContextFactory>().InSingletonScope();
+            _kernel.Bind<IDataContextFactory>().To<DataContextFactory>().InSingletonScope();
 
-            _kernel.Bind<IDataContextFactory>().To<SQLServerDbContextFactory>().InSingletonScope();
+            _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
+            _kernel.Bind<IProductsViewModelFactory>().To<ProductsViewModelFactory>().InSingletonScope();
         }
 
         private void BindInfra()
@@ -62,6 +71,13 @@ namespace FMS.WPF.UI
             
             _kernel.Bind<ICompanyService>().To<CompanyService>().InTransientScope();
             _kernel.Bind<ICompanyDropdownTables>().To<CompanyDropdownTables>().InTransientScope();
+
+            _kernel.Bind<IProductsService>().To<ProductsService>().InTransientScope();
+        }
+
+        private void BindServiceLayerServices()
+        {
+            _kernel.Bind<IListProductsService>().To<ListProductsService>().InTransientScope();
         }
     }
 }

@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj" />
     <ProjectReference Include="..\FMS.Domain\FMS.Domain.csproj" />
-    <ProjectReference Include="..\FMS.ServiceLayer.Interfaces\FMS.ServiceLayer.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

@@ -20,6 +20,8 @@ namespace FMS.DAL.EFCore
         DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
         DbSet<PriceList> PriceLists { get; set; }
         DbSet<Location> Locations { get; set; }
+        DbSet<ProductBase> ProductBases { get; set; }
+        DbSet<Product> Products { get; set; }
 
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;
