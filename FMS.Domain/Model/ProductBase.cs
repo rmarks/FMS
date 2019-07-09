@@ -11,5 +11,22 @@ namespace FMS.Domain.Model
 
         [Required, MaxLength(50)]
         public string ProductBaseName { get; set; }
+
+        public int? ProductSourceTypeId { get; set; }
+
+        public int? ProductDestinationTypeId { get; set; }
+
+        public int? ProductBrandId { get; set; }
+
+        public int? ProductCollectionId { get; set; }
+
+        public int? ProductDesignId { get; set; }
+
+        //---------------------------------------------
+        public ProductSourceType ProductSourceType { get; set; }
+        public ProductDestinationType ProductDestinationType { get; set; }
+        public ProductBrand ProductBrand { get; set; }
+        public ProductCollection ProductCollection { get; set; }
+        public ProductDesign ProductDesign { get; set; }
     }
 }

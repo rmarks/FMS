@@ -21,6 +21,11 @@ namespace FMS.DAL.EFCore
         public DbSet<Location> Locations { get; set; }
         public DbSet<ProductBase> ProductBases { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductSourceType> ProductSourceTypes { get; set; }
+        public DbSet<ProductDestinationType> ProductDestinationTypes { get; set; }
+        public DbSet<ProductBrand> ProductBrands { get; set; }
+        public DbSet<ProductCollection> ProductCollections { get; set; }
+        public DbSet<ProductDesign> ProductDesigns { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

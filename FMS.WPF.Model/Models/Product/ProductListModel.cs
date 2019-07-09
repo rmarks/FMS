@@ -8,6 +8,8 @@
 
         public string ProductBaseName { get; set; }
 
+        public string ProductBrandAndCollectionName { get; set; }
+
         public string ProductSourceTypeName { get; set; }
 
         public string ProductDestinationTypeName { get; set; }

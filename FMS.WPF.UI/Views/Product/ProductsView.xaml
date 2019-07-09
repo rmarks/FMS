@@ -26,12 +26,15 @@
                 <DataGridTextColumn Header="Nimi"
                                     Binding="{Binding Path=ProductBaseName}"
                                     Width="3*"/>
+                <DataGridTextColumn Header="Kaubamärk/Kollektsioon"
+                                    Binding="{Binding Path=ProductBrandAndCollectionName}"
+                                    Width="2*"/>
                 <DataGridTextColumn Header="Lähtetüüp"
                                     Binding="{Binding Path=ProductSourceTypeName}"
-                                    Width="2*"/>
+                                    Width="*"/>
                 <DataGridTextColumn Header="Sihttüüp"
                                     Binding="{Binding Path=ProductDestinationTypeName}"
-                                    Width="2*"/>
+                                    Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

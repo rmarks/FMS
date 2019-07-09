@@ -22,6 +22,11 @@ namespace FMS.DAL.EFCore
         DbSet<Location> Locations { get; set; }
         DbSet<ProductBase> ProductBases { get; set; }
         DbSet<Product> Products { get; set; }
+        DbSet<ProductSourceType> ProductSourceTypes { get; set; }
+        DbSet<ProductDestinationType> ProductDestinationTypes { get; set; }
+        DbSet<ProductBrand> ProductBrands { get; set; }
+        DbSet<ProductCollection> ProductCollections { get; set; }
+        DbSet<ProductDesign> ProductDesigns { get; set; }
 
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;

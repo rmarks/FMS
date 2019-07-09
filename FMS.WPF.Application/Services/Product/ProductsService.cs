@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper.QueryableExtensions;
 using FMS.ServiceLayer.Interfaces.ProductServices;
 using FMS.WPF.Models;
 
@@ -18,12 +19,7 @@ namespace FMS.WPF.Application.Services
         {
             return _listService
                 .GetProductBases()
-                .Select(p => new ProductListModel
-                {
-                    ProductBaseId = p.ProductBaseId,
-                    ProductBaseCode = p.ProductBaseCode,
-                    ProductBaseName = p.ProductBaseName
-                })
+                .ProjectTo<ProductListModel>()
                 .ToList();
         }
     }
