@@ -1,5 +1,5 @@
-﻿using FMS.DAL.EFCore;
-using FMS.ServiceLayer.CompanyServices;
+﻿using FMS.DAL.Interfaces;
+using FMS.ServiceLayer.Services;
 using FMS.WPF.Application.QueryObjects;
 using FMS.WPF.Models;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +49,7 @@ namespace FMS.WPF.Application.Services
 
         public CompanyBasicsModel SaveCompanyBasics(CompanyBasicsModel model)
         {
-            var context = new SQLServerDbContext();
+            var context = _contextFactory.CreateContext();
 
             var company = model.MapToCompanyBasics();
 
@@ -62,7 +62,7 @@ namespace FMS.WPF.Application.Services
 
         public void DeleteCompanyBasics(int companyId)
         {
-            var context = new SQLServerDbContext();
+            var context = _contextFactory.CreateContext();
 
             //var company = context.Companies
             //    .Include(c => c.Addresses)
@@ -111,7 +111,7 @@ namespace FMS.WPF.Application.Services
 
         public int SaveCompanyAddress(CompanyAddressModel model)
         {
-            var context = new SQLServerDbContext();
+            var context = _contextFactory.CreateContext();
 
             var address = model.MapToCompanyAddress();
 
@@ -133,7 +133,7 @@ namespace FMS.WPF.Application.Services
 
         public void DeleteCompanyAddress(int companyAddressId)
         {
-            var context = new SQLServerDbContext();
+            var context = _contextFactory.CreateContext();
 
             var companyAddress = context.CompanyAddresses.Find(companyAddressId);
 
@@ -157,7 +157,7 @@ namespace FMS.WPF.Application.Services
 
         public int SaveCompanyContact(CompanyContactModel model)
         {
-            var context = new SQLServerDbContext();
+            var context = _contextFactory.CreateContext();
 
             var contact = model.MapToCompanyContact();
 
@@ -179,7 +179,7 @@ namespace FMS.WPF.Application.Services
 
         public void DeleteCompanyContact(int contactId)
         {
-            var context = new SQLServerDbContext();
+            var context = _contextFactory.CreateContext();
 
             var contact = context.Contacts.Find(contactId);
 

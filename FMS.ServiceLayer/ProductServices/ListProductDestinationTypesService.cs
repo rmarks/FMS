@@ -1,13 +1,13 @@
-﻿using FMS.DAL.EFCore;
+﻿using FMS.DAL.Interfaces;
 using FMS.Domain.Model;
 using FMS.ServiceLayer.Dtos;
 using FMS.ServiceLayer.Extensions;
-using FMS.ServiceLayer.Interfaces.ProductServices;
+using FMS.ServiceLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FMS.ServiceLayer.ProductServices
+namespace FMS.ServiceLayer.Services
 {
     public class ListProductDestinationTypesService : IListProductDestinationTypesService
     {

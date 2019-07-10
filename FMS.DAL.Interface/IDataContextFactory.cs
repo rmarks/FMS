@@ -1,4 +1,4 @@
-﻿namespace FMS.DAL.EFCore
+﻿namespace FMS.DAL.Interfaces
 {
     public interface IDataContextFactory
     {

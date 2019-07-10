@@ -1,4 +1,5 @@
-﻿using FMS.Domain.Model;
+﻿using FMS.DAL.Interfaces;
+using FMS.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 

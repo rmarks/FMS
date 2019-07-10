@@ -1,12 +1,12 @@
 ﻿using AutoMapper.QueryableExtensions;
-using FMS.DAL.EFCore;
+using FMS.DAL.Interfaces;
 using FMS.ServiceLayer.Dtos;
 using FMS.ServiceLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FMS.ServiceLayer.ProductServices
+namespace FMS.ServiceLayer.Services
 {
     public class ListProductSourceTypesService : IListProductSourceTypesService
     {

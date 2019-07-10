@@ -3,9 +3,9 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace FMS.ServiceLayer.CompanyServices.QueryObjects
+namespace FMS.ServiceLayer.QueryObjects
 {
-    public static class CompanyFilter
+    public static class CompanyWhere
     {
         public static IQueryable<CompanyAddress> FilterBy(this IQueryable<CompanyAddress> addresses, string query)
         {

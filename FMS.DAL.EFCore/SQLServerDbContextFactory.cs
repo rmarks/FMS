@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using FMS.DAL.Interfaces;
+using Ninject;
 
 namespace FMS.DAL.EFCore
 {

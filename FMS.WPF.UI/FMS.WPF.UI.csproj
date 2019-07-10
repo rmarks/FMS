@@ -307,10 +307,6 @@
       <Project>{72776730-29E6-4CA4-BA7D-11AF5DD91323}</Project>
       <Name>FMS.DAL.EFCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FMS.ServiceLayer.Interfaces\FMS.ServiceLayer.Interfaces.csproj">
-      <Project>{F702CFF7-3278-4B61-9283-72DE427E46AD}</Project>
-      <Name>FMS.ServiceLayer.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FMS.ServiceLayer\FMS.ServiceLayer.csproj">
       <Project>{A55D06CA-3B8B-4021-9DFB-30EA595BA764}</Project>
       <Name>FMS.ServiceLayer</Name>

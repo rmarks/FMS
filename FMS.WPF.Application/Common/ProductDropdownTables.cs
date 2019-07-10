@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using FMS.DAL.EFCore;
+using FMS.DAL.Interfaces;
 using FMS.ServiceLayer.Dtos;
-using FMS.ServiceLayer.ProductServices;
+using FMS.ServiceLayer.Services;
 using FMS.WPF.Application.QueryObjects;
 using FMS.WPF.Models;
 

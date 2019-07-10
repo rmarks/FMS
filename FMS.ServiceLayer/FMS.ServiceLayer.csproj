@@ -6,12 +6,14 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+    <PackageReference Include="Ninject" Version="3.3.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj" />
+    <ProjectReference Include="..\FMS.DAL.Interface\FMS.DAL.Interface.csproj" />
     <ProjectReference Include="..\FMS.Domain\FMS.Domain.csproj" />
-    <ProjectReference Include="..\FMS.ServiceLayer.Interfaces\FMS.ServiceLayer.Interfaces.csproj" />
+    <ProjectReference Include="..\FMS.ServiceLayer.Interface\FMS.ServiceLayer.Interface.csproj" />
   </ItemGroup>
 
 </Project>

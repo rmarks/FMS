@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace FMS.ServiceLayer.ProductServices.QueryObjects
+namespace FMS.ServiceLayer.QueryObjects
 {
     public static class ProductWhere
     {

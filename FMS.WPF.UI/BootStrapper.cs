@@ -6,33 +6,27 @@ using Ninject;
 using FMS.WPF.ViewModel.Services;
 using FMS.WPF.UI.Services;
 using FMS.WPF.Application.Common;
-using FMS.DAL.EFCore;
-using FMS.ServiceLayer.Interfaces;
-using FMS.ServiceLayer.ProductServices;
+using FMS.DAL.EFCore.Utils;
+using FMS.ServiceLayer.Utils;
 
 namespace FMS.WPF.UI
 {
     public class BootStrapper
     {
-        private IKernel _kernel = new StandardKernel();
+        private IKernel _kernel;
 
         public BootStrapper()
         {
+            _kernel = new StandardKernel(new NinjectBindingsForDAL(), 
+                                         new NinjectBindingsForServiceLayer());
+
             BindViewModels();
             BindFactories();
             BindInfra();
             BindApplicationServices();
-            BindDataContexts();
-            BindServiceLayerServices();
         }
 
         public MainWindowViewModel MainWindowViewModel => _kernel.Get<MainWindowViewModel>();
-
-        private void BindDataContexts()
-        {
-            _kernel.Bind<IDataContext>().To<SQLServerDbContext>().InTransientScope();
-            _kernel.Bind<SQLServerDbContext>().ToSelf().InTransientScope();
-        }
 
         private void BindViewModels()
         {
@@ -51,9 +45,6 @@ namespace FMS.WPF.UI
 
         private void BindFactories()
         {
-            //_kernel.Bind<IDataContextFactory>().To<SQLServerDbContextFactory>().InSingletonScope();
-            _kernel.Bind<IDataContextFactory>().To<DataContextFactory>().InSingletonScope();
-
             _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
             _kernel.Bind<IProductsViewModelFactory>().To<ProductsViewModelFactory>().InSingletonScope();
             _kernel.Bind<IProductListViewModelFactory>().To<ProductListViewModelFactory>().InSingletonScope();
@@ -75,11 +66,6 @@ namespace FMS.WPF.UI
 
             _kernel.Bind<IProductsService>().To<ProductsService>().InTransientScope();
             _kernel.Bind<IProductDropdownTables>().To<ProductDropdownTables>().InTransientScope();
-        }
-
-        private void BindServiceLayerServices()
-        {
-            _kernel.Bind<IListProductsService>().To<ListProductsService>().InTransientScope();
         }
     }
 }

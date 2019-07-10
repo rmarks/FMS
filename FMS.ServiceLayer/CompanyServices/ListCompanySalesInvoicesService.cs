@@ -1,9 +1,9 @@
-﻿using FMS.DAL.EFCore;
+﻿using FMS.DAL.Interfaces;
 using FMS.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace FMS.ServiceLayer.CompanyServices
+namespace FMS.ServiceLayer.Services
 {
     public class ListCompanySalesInvoicesService
     {

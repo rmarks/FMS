@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 
-namespace FMS.DAL.EFCore
+namespace FMS.DAL.Interfaces
 {
     public interface IDataContext : IDisposable
     {
