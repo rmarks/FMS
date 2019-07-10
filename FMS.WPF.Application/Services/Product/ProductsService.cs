@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AutoMapper.QueryableExtensions;
-using FMS.ServiceLayer.Interfaces.ProductServices;
+using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interfaces;
+using FMS.WPF.Application.QueryObjects;
 using FMS.WPF.Models;
 
 namespace FMS.WPF.Application.Services
@@ -15,11 +16,11 @@ namespace FMS.WPF.Application.Services
             _listService = listService;
         }
 
-        public IList<ProductListModel> GetProductList()
+        public IList<ProductListModel> GetProductList(ProductListOptionsModel options)
         {
             return _listService
-                .GetProductBases()
-                .ProjectTo<ProductListModel>()
+                .GetProducts(options.MapTo<ProductListOptionsDto>())
+                .MapBetween<ProductListDto, ProductListModel>()
                 .ToList();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FMS.ServiceLayer.Utils;
 using FMS.WPF.Application.Utils;
 using System.Windows;
 
@@ -20,7 +21,8 @@ namespace FMS.WPF.UI
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<ModelMappingProfile>();
+                cfg.AddProfile<DtoModelMappingProfile>();
+                cfg.AddProfile<EntityDtoMappingProfile>();
             });
         }
     }

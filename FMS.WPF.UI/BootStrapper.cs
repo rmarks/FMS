@@ -7,7 +7,7 @@ using FMS.WPF.ViewModel.Services;
 using FMS.WPF.UI.Services;
 using FMS.WPF.Application.Common;
 using FMS.DAL.EFCore;
-using FMS.ServiceLayer.Interfaces.ProductServices;
+using FMS.ServiceLayer.Interfaces;
 using FMS.ServiceLayer.ProductServices;
 
 namespace FMS.WPF.UI
@@ -56,6 +56,7 @@ namespace FMS.WPF.UI
 
             _kernel.Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
             _kernel.Bind<IProductsViewModelFactory>().To<ProductsViewModelFactory>().InSingletonScope();
+            _kernel.Bind<IProductListViewModelFactory>().To<ProductListViewModelFactory>().InSingletonScope();
         }
 
         private void BindInfra()
@@ -73,6 +74,7 @@ namespace FMS.WPF.UI
             _kernel.Bind<ICompanyDropdownTables>().To<CompanyDropdownTables>().InTransientScope();
 
             _kernel.Bind<IProductsService>().To<ProductsService>().InTransientScope();
+            _kernel.Bind<IProductDropdownTables>().To<ProductDropdownTables>().InTransientScope();
         }
 
         private void BindServiceLayerServices()

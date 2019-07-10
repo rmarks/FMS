@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace FMS.ServiceLayer.Interfaces
 {
-    public interface IListProductsService
+    public interface IListProductSourceTypesService
     {
-        IList<ProductListDto> GetProducts(ProductListOptionsDto options);
+        IList<ProductSourceTypeDto> GetProductSourceTypes();
     }
 }

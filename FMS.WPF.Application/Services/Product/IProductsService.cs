@@ -5,6 +5,6 @@ namespace FMS.WPF.Application.Services
 {
     public interface IProductsService
     {
-        IList<ProductListModel> GetProductList();
+        IList<ProductListModel> GetProductList(ProductListOptionsModel options);
     }
 }

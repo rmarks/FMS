@@ -6,15 +6,62 @@
              xmlns:local="clr-namespace:FMS.WPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1400">
-    
-    <Grid>
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainOptionComboBoxStyle}"/>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainOptionCaptionLabelStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
+    </UserControl.Resources>
+
+    <Grid DataContext="{Binding Path=ProductListViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Second column-->
+            <Label Grid.Row="0" Grid.Column="2" 
+                   Content="Lähtetüüp"/>
+            <ComboBox Grid.Row="0" Grid.Column="3" 
+                      ItemsSource="{Binding Path=DropdownTables.ProductSourceTypes}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductSourceTypeId" 
+                      SelectedValue="{Binding Path=Options.ProductSourceTypeId}"/>
+
+            <Label Grid.Row="1" Grid.Column="2" 
+                   Content="Sihttüüp"/>
+            <ComboBox Grid.Row="1" Grid.Column="3" 
+                      ItemsSource="{Binding Path=DropdownTables.ProductDestinationTypes}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductDestinationTypeId" 
+                      SelectedValue="{Binding Path=Options.ProductDestinationTypeId}"/>
+
+            <Button Grid.Row="0" Grid.Column="8" Grid.RowSpan="2"
+                    Content="Otsi"
+                    Command="{Binding Path=RefreshCommand}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+        </Grid>
+
         <DataGrid Grid.Row="1" 
-                  DataContext="{Binding Path=ProductListViewModel}"
                   ItemsSource="{Binding Path=Items}"
                   SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}"
