@@ -1,9 +1,9 @@
-﻿using FMS.WPF.Application.Common;
-using FMS.WPF.Application.Services;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.Models;
+using FMS.WPF.ViewModel.Extensions;
 using FMS.WPF.ViewModel.Services;
 using System;
-using System.Collections.Generic;
 
 namespace FMS.WPF.ViewModels
 {
@@ -12,30 +12,33 @@ namespace FMS.WPF.ViewModels
         #region Fields
         private ICompanyService _companyService;
         private IDialogService _dialogService;
+        private ICompanyDropdownsService _dropdownsService;
         #endregion Fields
 
-        public CompanyBasicsViewModel(ICompanyService companyService, IDialogService dialogService)
+        public CompanyBasicsViewModel(ICompanyService companyService, 
+                                      IDialogService dialogService,
+                                      ICompanyDropdownsService dropdownsService)
         {
             DisplayName = "Üldandmed";
 
             _companyService = companyService;
             _dialogService = dialogService;
+            _dropdownsService = dropdownsService;
+
+            InitializeDropdowns();
         }
 
         public async void Load(int companyId)
         {
-            Model = companyId > 0
-                ? await _companyService.GetCompanyBasicsModelAsync(companyId)
+            var dto = companyId > 0
+                ? await _companyService.GetCompanyAsync(companyId)
                 : null;
+
+            Model = dto?.MapTo<CompanyBasicsModel>();
         }
 
         #region Properties
-        public IList<CountryModel> Countries => CompanyDropdownTablesProxy.Instance.Countries;
-        public IList<CurrencyModel> Currencies => CompanyDropdownTablesProxy.Instance.Currencies;
-        public IList<PriceListDropdownModel> PriceLists => CompanyDropdownTablesProxy.Instance.PriceLists;
-        public IList<LocationDropdownModel> Locations => CompanyDropdownTablesProxy.Instance.Locations;
-        public IList<DeliveryTermModel> DeliveryTerms => CompanyDropdownTablesProxy.Instance.DeliveryTerms;
-        public IList<PaymentTermDropdownModel> PaymentTerms => CompanyDropdownTablesProxy.Instance.PaymentTerms;
+        public CompanyDropdownsDto Dropdowns { get; private set; }
         #endregion Properties
 
         #region Events
@@ -45,7 +48,9 @@ namespace FMS.WPF.ViewModels
         #region GenericEditableViewModelBase Members
         protected override bool SaveItem(CompanyBasicsModel model)
         {
-            model = _companyService.SaveCompanyBasics(model);
+            var dto = _companyService.SaveCompany(model.MapTo<CompanyDto>());
+            model = dto.MapTo<CompanyBasicsModel>();
+
             ItemSavedOrDeleted?.Invoke();
 
             return true;
@@ -58,9 +63,16 @@ namespace FMS.WPF.ViewModels
 
         protected override void DeleteItem(CompanyBasicsModel model)
         {
-            _companyService.DeleteCompanyBasics(model.CompanyId);
+            _companyService.DeleteCompany(model.CompanyId);
             ItemSavedOrDeleted?.Invoke();
         }
         #endregion GenericEditableViewModelBase Members
+
+        #region Helpers
+        private async void InitializeDropdowns()
+        {
+            Dropdowns = await _dropdownsService.GetCompanyDropdownsAsync();
+        }
+        #endregion Helpers
     }
 }

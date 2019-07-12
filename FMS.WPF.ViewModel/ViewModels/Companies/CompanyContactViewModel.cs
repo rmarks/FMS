@@ -1,9 +1,8 @@
-﻿using FMS.WPF.Application.Services;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.Models;
+using FMS.WPF.ViewModel.Extensions;
 using FMS.WPF.ViewModel.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FMS.WPF.ViewModels
 {
@@ -39,7 +38,7 @@ namespace FMS.WPF.ViewModels
 
         protected override bool SaveItem(CompanyContactModel model)
         {
-            Model.ContactId = _companyService.SaveCompanyContact(model);
+            Model.ContactId = _companyService.SaveCompanyContact(model.MapTo<CompanyContactDto>());
 
             return false;
         }

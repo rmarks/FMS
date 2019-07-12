@@ -307,17 +307,13 @@
       <Project>{72776730-29E6-4CA4-BA7D-11AF5DD91323}</Project>
       <Name>FMS.DAL.EFCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FMS.ServiceLayer.Interface\FMS.ServiceLayer.Interface.csproj">
+      <Project>{7ac21aba-33ae-487c-974b-bb70c115b1dc}</Project>
+      <Name>FMS.ServiceLayer.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FMS.ServiceLayer\FMS.ServiceLayer.csproj">
       <Project>{A55D06CA-3B8B-4021-9DFB-30EA595BA764}</Project>
       <Name>FMS.ServiceLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj">
-      <Project>{54F8726E-811D-4825-BCDD-B6CF220DC8B6}</Project>
-      <Name>FMS.WPF.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FMS.WPF.Model\FMS.WPF.Model.csproj">
-      <Project>{2eeb8fc3-e9d2-49e6-a3ca-875f341e0762}</Project>
-      <Name>FMS.WPF.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.ViewModel\FMS.WPF.ViewModel.csproj">
       <Project>{02D5252B-45A4-401E-83D7-B4A1DDF9B6EE}</Project>

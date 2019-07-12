@@ -1,6 +1,8 @@
-﻿using FMS.WPF.Application.Services;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.Models;
 using FMS.WPF.ViewModel.Commands;
+using FMS.WPF.ViewModel.Extensions;
 using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,22 +14,30 @@ namespace FMS.WPF.ViewModels
     {
         private ICompanyService _companyService;
         private IDialogService _dialogService;
+        private ICompanyDropdownsService _dropdownsService;
         private int _companyId;
 
-        public CompanyAddressesViewModel(ICompanyService companyService, IDialogService dialogService)
+        public CompanyAddressesViewModel(ICompanyService companyService, 
+                                         IDialogService dialogService,
+                                         ICompanyDropdownsService dropdownsService)
         {
             DisplayName = "Saajad";
 
             _companyService = companyService;
             _dialogService = dialogService;
+            _dropdownsService = dropdownsService;
         }
 
         public async void Load(int companyId)
         {
             _companyId = companyId;
 
-            Models = _companyId > 0 
-                ? new ObservableCollection<CompanyAddressModel>(await _companyService.GetCompanyAddressModelsForShippingAsync(_companyId)) 
+            var dtos = _companyId > 0 
+                ? await _companyService.GetCompanyShippingAddressesAsync(_companyId) 
+                : null;
+
+            Models = dtos != null
+                ? new ObservableCollection<CompanyAddressModel>(dtos.MapBetween<CompanyAddressDto, CompanyAddressModel>())
                 : null;
         }
 
@@ -56,7 +66,7 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                var viewModel = new CompanyAddressViewModel(SelectedModel, _companyService, _dialogService);
+                var viewModel = new CompanyAddressViewModel(SelectedModel, _companyService, _dialogService, _dropdownsService);
                 viewModel.IsEditMode = false;
                 viewModel.DeleteCommand?.Execute(null);
                 if (SelectedModel.CompanyAddressId == 0)
@@ -70,7 +80,7 @@ namespace FMS.WPF.ViewModels
         #region Helpers
         private void ShowAddress(CompanyAddressModel model)
         {
-            var viewModel = new CompanyAddressViewModel(model, _companyService, _dialogService);
+            var viewModel = new CompanyAddressViewModel(model, _companyService, _dialogService, _dropdownsService);
             _dialogService.ShowDialog(viewModel);
 
             Load(_companyId);

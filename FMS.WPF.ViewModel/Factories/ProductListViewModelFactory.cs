@@ -1,5 +1,4 @@
-﻿using FMS.WPF.Application.Common;
-using FMS.WPF.ViewModels;
+﻿using FMS.WPF.ViewModels;
 using Ninject;
 
 namespace FMS.WPF.ViewModel.Factories
@@ -15,10 +14,7 @@ namespace FMS.WPF.ViewModel.Factories
 
         public ProductListViewModel CreateInstance()
         {
-            var vm = _kernel.Get<ProductListViewModel>();
-            vm.DropdownTables = _kernel.Get<IProductDropdownTables>();
-
-            return vm;
+            return _kernel.Get<ProductListViewModel>();
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using FMS.WPF.Application.Services;
-using FMS.WPF.Models;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interfaces;
 using System.Linq;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompanyListViewModel : GenericListViewModelBase<CompanyListModel>
+    public class CompanyListViewModel : GenericListViewModelBase<CompanyListDto>
     {
         private ICompanyService _companyService;
 
@@ -22,8 +22,8 @@ namespace FMS.WPF.ViewModels
         public override async void Refresh(bool selectFirstItem = false)
         {
             var oldSelectedItem = SelectedItem;
-            
-            Items = await _companyService.GetCompanyListAsync(Query);
+
+            Items = await _companyService.GetCompaniesAsync(Query);
 
             SelectedItem = selectFirstItem ? Items.FirstOrDefault() 
                                            : Items.FirstOrDefault(i => i.CompanyId == oldSelectedItem.CompanyId);

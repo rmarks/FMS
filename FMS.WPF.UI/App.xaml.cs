@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FMS.ServiceLayer.Utils;
-using FMS.WPF.Application.Utils;
+using FMS.WPF.ViewModel.Utils;
 using System.Windows;
 
 namespace FMS.WPF.UI

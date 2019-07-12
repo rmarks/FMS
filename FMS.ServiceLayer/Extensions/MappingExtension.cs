@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using System.Linq;
 
 namespace FMS.ServiceLayer.Extensions
@@ -9,6 +10,11 @@ namespace FMS.ServiceLayer.Extensions
         {
             return sources
                 .ProjectTo<TDest>();
+        }
+
+        public static TDest MapTo<TDest>(this object source)
+        {
+            return Mapper.Map<TDest>(source);
         }
     }
 }

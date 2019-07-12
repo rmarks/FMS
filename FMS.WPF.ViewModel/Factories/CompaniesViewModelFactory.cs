@@ -1,5 +1,4 @@
-﻿using FMS.WPF.Application.Common;
-using FMS.WPF.ViewModels;
+﻿using FMS.WPF.ViewModels;
 using Ninject;
 
 namespace FMS.WPF.ViewModel.Factories
@@ -15,8 +14,6 @@ namespace FMS.WPF.ViewModel.Factories
 
         public WorkspaceViewModelBase CreateInstance()
         {
-            CompanyDropdownTablesProxy.Instance = _kernel.Get<ICompanyDropdownTables>();
-
             return _kernel.Get<CompaniesViewModel>();
         }
     }

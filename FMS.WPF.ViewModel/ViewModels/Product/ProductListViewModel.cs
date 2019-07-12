@@ -1,26 +1,38 @@
-﻿using FMS.WPF.Application.Common;
-using FMS.WPF.Application.Services;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Extensions;
+using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.Models;
 
 namespace FMS.WPF.ViewModels
 {
-    public class ProductListViewModel : GenericListViewModelBase<ProductListModel>
+    public class ProductListViewModel : GenericListViewModelBase<ProductListDto>
     {
-        private IProductsService _productsService;
+        private IProductService _productService;
+        private IProductDropdownsService _dropdownsService;
 
-        public ProductListViewModel(IProductsService productsService)
+        public ProductListViewModel(IProductService productService,
+                                    IProductDropdownsService dropdownsService)
         {
-            _productsService = productsService;
-            Refresh();
+            _productService = productService;
+            _dropdownsService = dropdownsService;
+
+            InitializeDropdowns();
         }
 
-        public ProductListOptionsModel Options { get; set; } = new ProductListOptionsModel();
+        public ProductListOptionsModel Options { get; } = new ProductListOptionsModel();
 
-        public IProductDropdownTables DropdownTables { get; set; }
+        public ProductDropdownsDto Dropdowns { get; private set; }
 
         public override void Refresh(bool selectFirstItem = false)
         {
-            Items = _productsService.GetProductList(Options);
+            Items = _productService.GetProducts(Options.MapTo<ProductListOptionsDto>());
         }
+
+        #region Helpers
+        private async void InitializeDropdowns()
+        {
+            Dropdowns = await _dropdownsService.GetProductDropdownsAsync();
+        }
+        #endregion Helpers
     }
 }

@@ -5,6 +5,6 @@ namespace FMS.ServiceLayer.Interfaces
 {
     public interface IListProductSourceTypesService
     {
-        IList<ProductSourceTypeDto> GetProductSourceTypes();
+        IList<ProductSourceTypeDropdownDto> GetProductSourceTypes();
     }
 }

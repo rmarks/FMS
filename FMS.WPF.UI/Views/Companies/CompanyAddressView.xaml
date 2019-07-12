@@ -20,7 +20,7 @@
         <TextBox Text="{Binding Path=EditableModel.ConsigneeName}"/>
         
         <TextBlock Text="Riik"/>
-        <ComboBox ItemsSource="{Binding Path=Countries}" 
+        <ComboBox ItemsSource="{Binding Path=Dropdowns.Countries}" 
                           DisplayMemberPath="CountryName" 
                           SelectedValuePath="CountryId" 
                           SelectedValue="{Binding Path=EditableModel.CountryId}"/>

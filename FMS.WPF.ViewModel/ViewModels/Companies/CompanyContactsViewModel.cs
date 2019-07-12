@@ -1,6 +1,8 @@
-﻿using FMS.WPF.Application.Services;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.Models;
 using FMS.WPF.ViewModel.Commands;
+using FMS.WPF.ViewModel.Extensions;
 using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -28,8 +30,12 @@ namespace FMS.WPF.ViewModels
         {
             _companyId = companyId;
 
-            Models = companyId > 0 
-                ? new ObservableCollection<CompanyContactModel>(await _companyService.GetCompanyContactModelsAsync(companyId)) 
+            var dtos = _companyId > 0
+                ? await _companyService.GetCompanyContactsAsync(companyId)
+                : null;
+
+            Models = dtos != null
+                ? new ObservableCollection<CompanyContactModel>(dtos.MapBetween<CompanyContactDto, CompanyContactModel>())
                 : null;
         }
 

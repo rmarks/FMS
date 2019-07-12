@@ -5,6 +5,6 @@ namespace FMS.ServiceLayer.Interfaces
 {
     public interface IListProductDestinationTypesService
     {
-        IList<ProductDestinationTypeDto> GetProductDestinationTypes();
+        IList<ProductDestinationTypeDropdownDto> GetProductDestinationTypes();
     }
 }

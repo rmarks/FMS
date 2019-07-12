@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Application.Services;
+﻿using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.ViewModel.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -7,15 +7,17 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyViewModel : ViewModelBase
     {
-        public CompanyViewModel(ICompanyService companyService, IDialogService dialogService)
+        public CompanyViewModel(ICompanyService companyService, 
+                                IDialogService dialogService,
+                                ICompanyDropdownsService dropdownsService)
         {
-            CompanyBasicsViewModel = new CompanyBasicsViewModel(companyService, dialogService);
-            CompanyAddressesViewModel = new CompanyAddressesViewModel(companyService, dialogService);
+            CompanyBasicsViewModel = new CompanyBasicsViewModel(companyService, dialogService, dropdownsService);
+            CompanyAddressesViewModel = new CompanyAddressesViewModel(companyService, dialogService, dropdownsService);
             CompanyContactsViewModel = new CompanyContactsViewModel(companyService, dialogService);
             CompanySalesOrderListViewModel = new CompanySalesOrderListViewModel(companyService);
             CompanySalesInvoiceListViewModel = new CompanySalesInvoiceListViewModel(companyService);
 
-            LoadCompanyTabs();
+            InitializeCompanyTabs();
 
             CompanyBasicsViewModel.ItemSavedOrDeleted += () => RequestListRefresh?.Invoke();
         }
@@ -48,7 +50,7 @@ namespace FMS.WPF.ViewModels
         #endregion Events
 
         #region Helpers
-        private void LoadCompanyTabs()
+        private void InitializeCompanyTabs()
         {
             CompanyTabs = new ObservableCollection<ViewModelBase>();
             CompanyTabs.Add(CompanyBasicsViewModel);

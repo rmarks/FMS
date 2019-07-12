@@ -1,9 +1,9 @@
-﻿using FMS.WPF.Application.Services;
-using FMS.WPF.Models;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interfaces;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompanySalesInvoiceListViewModel : GenericListViewModelBase<CompanySalesInvoiceListModel>
+    public class CompanySalesInvoiceListViewModel : GenericListViewModelBase<CompanySalesInvoiceListDto>
     {
         private ICompanyService _companyService;
         private int _companyId;
@@ -24,7 +24,7 @@ namespace FMS.WPF.ViewModels
         #region GenericListViewModelBase Members
         public override async void Refresh(bool selectFirstItem = false)
         {
-            Items = await _companyService.GetCompanySalesInvoiceListAsync(_companyId);
+            Items = await _companyService.GetCompanySalesInvoicesAsync(_companyId);
         }
         #endregion GenericListViewModelBase Members
     }

@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Application.Services;
+﻿using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.ViewModel.Services;
 using FMS.WPF.ViewModel.Utils;
 
@@ -7,13 +7,15 @@ namespace FMS.WPF.ViewModels
     public class CompaniesViewModel : WorkspaceViewModelBase
     {
         #region Constructors
-        public CompaniesViewModel(IWorkspaceManager workspaceManager, ICompanyService companyService, IDialogService dialogService) 
-            : base(workspaceManager)
+        public CompaniesViewModel(IWorkspaceManager workspaceManager,
+                                  ICompanyService companyService,
+                                  IDialogService dialogService,
+                                  ICompanyDropdownsService dropdownsService) : base(workspaceManager)
         {
             DisplayName = "Firmad";
 
             CompanyListViewModel = new CompanyListViewModel(companyService);
-            CompanyViewModel = new CompanyViewModel(companyService, dialogService);
+            CompanyViewModel = new CompanyViewModel(companyService, dialogService, dropdownsService);
 
             CompanyListViewModel.SelectedItemChanged += CompanyListViewModel_SelectedItemChanged;
             CompanyViewModel.RequestListRefresh += CompanyViewModel_RequestListRefresh;

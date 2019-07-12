@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj" />
     <ProjectReference Include="..\FMS.DAL.Interface\FMS.DAL.Interface.csproj" />
     <ProjectReference Include="..\FMS.Domain\FMS.Domain.csproj" />
     <ProjectReference Include="..\FMS.ServiceLayer.Interface\FMS.ServiceLayer.Interface.csproj" />

@@ -8,9 +8,13 @@ namespace FMS.ServiceLayer.Utils
     {
         public override void Load()
         {
-            Bind<IListProductsService>().To<ListProductsService>().InTransientScope();
-            Bind<IListProductSourceTypesService>().To<ListProductSourceTypesService>().InTransientScope();
-            Bind<IListProductDestinationTypesService>().To<ListProductDestinationTypesService>().InTransientScope();
+            Bind<IDataTransferService>().To<DataTransferService>().InTransientScope();
+
+            Bind<ICompanyService>().To<CompanyService>().InTransientScope();
+            Bind<ICompanyDropdownsService>().To<CompanyDropdownsService>().InTransientScope();
+
+            Bind<IProductService>().To<ProductService>().InTransientScope();
+            Bind<IProductDropdownsService>().To<ProductDropdownsService>().InTransientScope();
         }
     }
 }

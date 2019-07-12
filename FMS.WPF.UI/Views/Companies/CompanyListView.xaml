@@ -81,10 +81,10 @@
                                     Binding="{Binding Path=CompanyId}"
                                     Width="*"/>
                 <DataGridTextColumn Header="Nimi"
-                                    Binding="{Binding Path=CompanyName}"
+                                    Binding="{Binding Path=CompanyCompanyName}"
                                     Width="3*"/>
                 <DataGridTextColumn Header="Riik"
-                                    Binding="{Binding Path=CountryName}"
+                                    Binding="{Binding Path=CountryCountryName}"
                                     Width="2*"/>
                 <DataGridTextColumn Header="Linn"
                                     Binding="{Binding Path=City}"

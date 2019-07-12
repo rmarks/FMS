@@ -18,12 +18,12 @@ namespace FMS.ServiceLayer.Services
             _context = context;
         }
 
-        public IList<ProductDestinationTypeDto> GetProductDestinationTypes()
+        public IList<ProductDestinationTypeDropdownDto> GetProductDestinationTypes()
         {
             return _context.ProductDestinationTypes
                 .AsNoTracking()
                 .OrderBy(pd => pd.Name)
-                .ProjectBetween<ProductDestinationType, ProductDestinationTypeDto>()
+                .ProjectBetween<ProductDestinationType, ProductDestinationTypeDropdownDto>()
                 .ToList();
         }
     }

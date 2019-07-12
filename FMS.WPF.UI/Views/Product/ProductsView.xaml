@@ -41,7 +41,7 @@
             <Label Grid.Row="0" Grid.Column="2" 
                    Content="Lähtetüüp"/>
             <ComboBox Grid.Row="0" Grid.Column="3" 
-                      ItemsSource="{Binding Path=DropdownTables.ProductSourceTypes}" 
+                      ItemsSource="{Binding Path=Dropdowns.ProductSourceTypes}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductSourceTypeId" 
                       SelectedValue="{Binding Path=Options.ProductSourceTypeId}"/>
@@ -49,7 +49,7 @@
             <Label Grid.Row="1" Grid.Column="2" 
                    Content="Sihttüüp"/>
             <ComboBox Grid.Row="1" Grid.Column="3" 
-                      ItemsSource="{Binding Path=DropdownTables.ProductDestinationTypes}" 
+                      ItemsSource="{Binding Path=Dropdowns.ProductDestinationTypes}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductDestinationTypeId" 
                       SelectedValue="{Binding Path=Options.ProductDestinationTypeId}"/>

@@ -1,7 +1,6 @@
 ﻿using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
-using FMS.WPF.Application.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -9,6 +8,7 @@ using FMS.WPF.ViewModel.Services;
 using System.Threading.Tasks;
 using System;
 using System.Configuration;
+using FMS.ServiceLayer.Utils;
 
 namespace FMS.WPF.ViewModels
 {

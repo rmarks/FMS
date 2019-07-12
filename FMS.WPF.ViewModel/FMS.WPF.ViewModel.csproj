@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="PropertyChanged.Fody" Version="2.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj" />
-    <ProjectReference Include="..\FMS.WPF.Model\FMS.WPF.Model.csproj" />
+    <ProjectReference Include="..\FMS.ServiceLayer\FMS.ServiceLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

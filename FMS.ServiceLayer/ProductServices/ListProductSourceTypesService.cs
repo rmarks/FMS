@@ -17,12 +17,12 @@ namespace FMS.ServiceLayer.Services
             _context = context;
         }
 
-        public IList<ProductSourceTypeDto> GetProductSourceTypes()
+        public IList<ProductSourceTypeDropdownDto> GetProductSourceTypes()
         {
             return _context.ProductSourceTypes
                 .AsNoTracking()
                 .OrderBy(st => st.Name)
-                .ProjectTo<ProductSourceTypeDto>()
+                .ProjectTo<ProductSourceTypeDropdownDto>()
                 .ToList();
         }
     }
