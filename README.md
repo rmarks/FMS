@@ -6,11 +6,10 @@ A factory management system
    - FMS.DAL.EFCore
 
 - Domain Layer
+   - FMS.DAL.Interface
    - FMS.Domain
-
-- Application Layer
-   - FMS.WPF.Application
-   - FMS.WPF.Model
+   - FMS.ServiceLayer
+   - FMS.ServiceLayer.Interface
 
 - Presentation Layer
    - FMS.WPF.ViewModel
