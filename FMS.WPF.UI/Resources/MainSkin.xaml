@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:FMS.WPF.UI.Resources">
 
     <Style x:Key="MainTextBlockStyle" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="14"/>
     </Style>
 
     <Style x:Key="MainItemCaptionTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}">
@@ -18,16 +18,16 @@
 
     <Style x:Key="MainOptionCaptionLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MainLabelStyle}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Margin" Value="0,0,20,0"/>
+        <Setter Property="Margin" Value="20,0,20,0"/>
     </Style>
 
     <Style x:Key="MainTextBoxStyle" TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="5"/>
     </Style>
 
     <Style x:Key="MainComboBoxStyle" TargetType="{x:Type ComboBox}">
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="5"/>
     </Style>
 

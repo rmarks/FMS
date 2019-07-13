@@ -9,6 +9,7 @@ namespace FMS.WPF.ViewModels
     {
         #region Properties
         public IList<TModel> Items { get; set; }
+        public int? ItemsCount { get; set; }
 
         public string Query { get; set; }
 
@@ -32,10 +33,13 @@ namespace FMS.WPF.ViewModels
 
         #region Commands
         public ICommand RefreshCommand => new RelayCommand(() => Refresh(selectFirstItem: true));
+        public ICommand ResetCommand => new RelayCommand(Reset);
         #endregion Commands
 
-        #region Abstract Members
+        #region Abstract or Virtual Members
         public abstract void Refresh(bool selectFirstItem = false);
+
+        protected virtual void Reset() {}
         #endregion Abstract Members
     }
 }

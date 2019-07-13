@@ -1,5 +1,4 @@
 ﻿using FMS.ServiceLayer.Dtos;
-using FMS.ServiceLayer.Extensions;
 using FMS.ServiceLayer.Interfaces;
 using FMS.WPF.Models;
 
@@ -16,23 +15,41 @@ namespace FMS.WPF.ViewModels
             _productService = productService;
             _dropdownsService = dropdownsService;
 
-            InitializeDropdowns();
+            InitializeOptionsModel();
         }
 
-        public ProductListOptionsModel Options { get; } = new ProductListOptionsModel();
+        public ProductListOptionsModel OptionsModel { get; private set; }
 
-        public ProductDropdownsDto Dropdowns { get; private set; }
-
+        #region overrides
         public override void Refresh(bool selectFirstItem = false)
         {
-            Items = _productService.GetProducts(Options.MapTo<ProductListOptionsDto>());
+            Items = _productService.GetProducts(OptionsModel.OptionsDto);
+            ItemsCount = Items.Count;
         }
 
-        #region Helpers
-        private async void InitializeDropdowns()
+        protected override void Reset()
         {
-            Dropdowns = await _dropdownsService.GetProductDropdownsAsync();
+            OptionsModel.Reset();
+            ClearItems();
         }
-        #endregion Helpers
+        #endregion overrides
+
+        #region helpers
+        private async void InitializeOptionsModel()
+        {
+            OptionsModel = new ProductListOptionsModel
+            {
+                OptionsDto = new ProductListOptionsDto(),
+                Dropdowns = await _dropdownsService.GetProductListOptionsDropdownsAsync()
+            };
+            OptionsModel.OptionsChanged += ClearItems;
+        }
+
+        private void ClearItems()
+        {
+            Items = null;
+            ItemsCount = null;
+        }
+        #endregion helpers
     }
 }

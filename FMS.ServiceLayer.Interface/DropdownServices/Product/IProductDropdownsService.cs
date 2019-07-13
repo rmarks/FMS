@@ -5,6 +5,6 @@ namespace FMS.ServiceLayer.Interfaces
 {
     public interface IProductDropdownsService
     {
-        Task<ProductDropdownsDto> GetProductDropdownsAsync();
+        Task<ProductListOptionsDropdownsDto> GetProductListOptionsDropdownsAsync();
     }
 }

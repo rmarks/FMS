@@ -1,8 +1,8 @@
 ﻿namespace FMS.ServiceLayer.Dtos
 {
-    public class ProductBrandDropdownDto
+    public class ProductTypeDropdownDto
     {
-        public int? ProductBrandId { get; set; }
+        public int? ProductTypeId { get; set; }
 
         public string Name { get; set; }
     }

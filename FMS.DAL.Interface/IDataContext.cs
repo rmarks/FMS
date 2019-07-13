@@ -24,9 +24,14 @@ namespace FMS.DAL.Interfaces
         DbSet<Product> Products { get; set; }
         DbSet<ProductSourceType> ProductSourceTypes { get; set; }
         DbSet<ProductDestinationType> ProductDestinationTypes { get; set; }
+        DbSet<ProductStatus> ProductStatuses { get; set; }
+        DbSet<ProductMaterial> ProductMaterials { get; set; }
+        DbSet<ProductType> ProductTypes { get; set; }
+        DbSet<ProductGroup> ProductGroups { get; set; }
         DbSet<ProductBrand> ProductBrands { get; set; }
         DbSet<ProductCollection> ProductCollections { get; set; }
         DbSet<ProductDesign> ProductDesigns { get; set; }
+        DbSet<BusinessLine> BusinessLines { get; set; }
 
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;

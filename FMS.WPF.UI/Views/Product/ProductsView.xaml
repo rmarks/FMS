@@ -12,16 +12,19 @@
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainOptionComboBoxStyle}"/>
         <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainOptionCaptionLabelStyle}"/>
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
     </UserControl.Resources>
 
     <Grid DataContext="{Binding Path=ProductListViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Margin="20">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -37,28 +40,101 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!--First column-->
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="Äriliin"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" 
+                      ItemsSource="{Binding Path=OptionsModel.BusinessLines}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="BusinessLineId" 
+                      SelectedValue="{Binding Path=OptionsModel.BusinessLineId}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" 
+                   Content="Olek"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductStatuses}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductStatusId" 
+                      SelectedValue="{Binding Path=OptionsModel.ProductStatusId}"/>
+
             <!--Second column-->
             <Label Grid.Row="0" Grid.Column="2" 
                    Content="Lähtetüüp"/>
             <ComboBox Grid.Row="0" Grid.Column="3" 
-                      ItemsSource="{Binding Path=Dropdowns.ProductSourceTypes}" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductSourceTypes}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductSourceTypeId" 
-                      SelectedValue="{Binding Path=Options.ProductSourceTypeId}"/>
+                      SelectedValue="{Binding Path=OptionsModel.ProductSourceTypeId}"/>
 
             <Label Grid.Row="1" Grid.Column="2" 
                    Content="Sihttüüp"/>
             <ComboBox Grid.Row="1" Grid.Column="3" 
-                      ItemsSource="{Binding Path=Dropdowns.ProductDestinationTypes}" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductDestinationTypes}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductDestinationTypeId" 
-                      SelectedValue="{Binding Path=Options.ProductDestinationTypeId}"/>
+                      SelectedValue="{Binding Path=OptionsModel.ProductDestinationTypeId}"/>
 
-            <Button Grid.Row="0" Grid.Column="8" Grid.RowSpan="2"
-                    Content="Otsi"
+            <!--Third column-->
+            <Label Grid.Row="0" Grid.Column="4" 
+                   Content="Materjal"/>
+            <ComboBox Grid.Row="0" Grid.Column="5" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductMaterials}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductMaterialId" 
+                      SelectedValue="{Binding Path=OptionsModel.ProductMaterialId}"/>
+
+            <Label Grid.Row="1" Grid.Column="4" 
+                   Content="Tüüp"/>
+            <ComboBox Grid.Row="1" Grid.Column="5" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductTypes}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductTypeId" 
+                      SelectedValue="{Binding Path=OptionsModel.ProductTypeId}"/>
+
+            <Label Grid.Row="2" Grid.Column="4" 
+                   Content="Grupp"/>
+            <ComboBox Grid.Row="2" Grid.Column="5" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductGroups}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductGroupId" 
+                      SelectedValue="{Binding Path=OptionsModel.ProductGroupId}"/>
+
+            <!--Fourht column-->
+            <Label Grid.Row="0" Grid.Column="6" 
+                   Content="Kaubamärk"/>
+            <ComboBox Grid.Row="0" Grid.Column="7" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductBrands}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductBrandId" 
+                      SelectedValue="{Binding Path=OptionsModel.ProductBrandId}"/>
+
+            <Label Grid.Row="1" Grid.Column="6" 
+                   Content="Kollektsioon"/>
+            <ComboBox Grid.Row="1" Grid.Column="7" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductCollections}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductCollectionId" 
+                      SelectedValue="{Binding Path=OptionsModel.ProductCollectionId}"/>
+
+            <Label Grid.Row="2" Grid.Column="6" 
+                   Content="Disain"/>
+            <ComboBox Grid.Row="2" Grid.Column="7" 
+                      ItemsSource="{Binding Path=OptionsModel.ProductDesigns}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="ProductDesignId" 
+                      SelectedValue="{Binding Path=OptionsModel.ProductDesignId}"/>
+
+            <!--Fifth column-->
+            <StackPanel Grid.Row="0" Grid.Column="8" Grid.RowSpan="3"
+                        VerticalAlignment="Center">
+                <Button Content="Otsi"
                     Command="{Binding Path=RefreshCommand}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"/>
+                    HorizontalAlignment="Center"/>
+                <Button Content="Tühjenda"
+                    Command="{Binding Path=ResetCommand}"
+                    HorizontalAlignment="Center"/>
+            </StackPanel>
+            
         </Grid>
 
         <DataGrid Grid.Row="1" 
@@ -84,5 +160,12 @@
                                     Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    Margin="20">
+            <TextBlock Text="Toodete arv: " FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding Path=ItemsCount}" FontWeight="SemiBold"/>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -2,7 +2,7 @@
 {
     public class ProductDestinationTypeDropdownDto
     {
-        public int ProductDestinationTypeId { get; set; }
+        public int? ProductDestinationTypeId { get; set; }
 
         public string Name { get; set; }
     }
