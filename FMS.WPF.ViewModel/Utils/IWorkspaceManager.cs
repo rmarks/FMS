@@ -9,6 +9,7 @@ namespace FMS.WPF.ViewModel.Utils
         ObservableCollection<WorkspaceViewModelBase> Workspaces { get; }
 
         void OpenWorkspace<T>(string displayName) where T : IWorkspaceFactory;
+        void OpenWorkspace<T>(int id) where T : IItemWorkspaceFactory;
 
         void CloseWorkspace(WorkspaceViewModelBase workspace);
     }

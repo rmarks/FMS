@@ -104,12 +104,12 @@ namespace FMS.WPF.Models
             GetType().GetProperties().Where(pi => pi.PropertyType == typeof(int?)).ToList().ForEach(pi => pi.SetValue(this, null));
         }
 
-        public event Action OptionsChanged;
+        public event Action OptionChanged;
 
         public override void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
             base.RaisePropertyChanged(propertyName);
-            OptionsChanged?.Invoke();
+            OptionChanged?.Invoke();
         }
         #endregion options reset and change
 

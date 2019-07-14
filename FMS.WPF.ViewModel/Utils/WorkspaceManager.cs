@@ -35,6 +35,20 @@ namespace FMS.WPF.ViewModel.Utils
             _workspaceCollectionView.MoveCurrentTo(workspace);
         }
 
+        public void OpenWorkspace<T>(int id) where T : IItemWorkspaceFactory
+        {
+            var factory = _kernel.Get<T>();
+            var newWorkspace = factory.CreateInstance(id);
+
+            var workspace = Workspaces.FirstOrDefault(w => w.DisplayName == newWorkspace.DisplayName);
+            if (workspace == null)
+            {
+                Workspaces.Add(newWorkspace);
+            }
+
+            _workspaceCollectionView.MoveCurrentTo(workspace ?? newWorkspace);
+        }
+
         public void CloseWorkspace(WorkspaceViewModelBase workspace)
         {
             Workspaces.Remove(workspace);

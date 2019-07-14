@@ -6,21 +6,21 @@ namespace FMS.WPF.ViewModels
 {
     public abstract class WorkspaceViewModelBase : ViewModelBase
     {
-        private IWorkspaceManager _workspaceManager;
-
         public WorkspaceViewModelBase(IWorkspaceManager workspaceManager)
         {
-            _workspaceManager = workspaceManager;
+            WorkspaceManager = workspaceManager;
         }
 
-        #region Commands
+        protected IWorkspaceManager WorkspaceManager { get; set; }
+
+        #region commands
         ICommand _closeWorkspaceCommand;
         public ICommand CloseWorkspaceCommand => _closeWorkspaceCommand ?? (_closeWorkspaceCommand = new RelayCommand(Close));
 
         private void Close()
         {
-            _workspaceManager.CloseWorkspace(this);
+            WorkspaceManager.CloseWorkspace(this);
         }
-        #endregion Commands
+        #endregion
     }
 }

@@ -29,11 +29,13 @@ namespace FMS.WPF.ViewModels
 
         #region Events
         public event Action SelectedItemChanged;
+        public event Action<TModel> RequestOpenItem;
         #endregion Events
 
         #region Commands
         public ICommand RefreshCommand => new RelayCommand(() => Refresh(selectFirstItem: true));
         public ICommand ResetCommand => new RelayCommand(Reset);
+        public ICommand OpenItemCommand => new RelayCommand(() => RequestOpenItem?.Invoke(SelectedItem));
         #endregion Commands
 
         #region Abstract or Virtual Members

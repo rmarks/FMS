@@ -50,4 +50,8 @@
         <vw:ProductsView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:ProductViewModel}">
+        <vw:ProductView/>
+    </DataTemplate>
+
 </ResourceDictionary>

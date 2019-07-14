@@ -142,6 +142,12 @@
                   SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}"
                   Margin="20">
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick"
+                              Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
+                <KeyBinding Gesture="Enter"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kood"
                                     Binding="{Binding Path=ProductBaseCode}"

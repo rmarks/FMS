@@ -1,4 +1,5 @@
-﻿using FMS.WPF.ViewModel.Factories;
+﻿using FMS.ServiceLayer.Dtos;
+using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
 
 namespace FMS.WPF.ViewModels
@@ -11,8 +12,16 @@ namespace FMS.WPF.ViewModels
             DisplayName = "Tooted";
 
             ProductListViewModel = productListViewModelFactory.CreateInstance();
+            ProductListViewModel.RequestOpenItem += ProductListViewModel_RequestOpenItem;
         }
 
         public ProductListViewModel ProductListViewModel { get; set; }
+
+        #region event handlers
+        private void ProductListViewModel_RequestOpenItem(ProductListDto dto)
+        {
+            WorkspaceManager.OpenWorkspace<IProductViewModelFactory>(dto?.ProductBaseId ?? 0);
+        }
+        #endregion
     }
 }
