@@ -6,10 +6,103 @@
              xmlns:local="clr-namespace:FMS.WPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <Style x:Key="CaptionTextBlockSyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#FF808080"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+
+        <Style x:Key="BigTextBoxSyle" TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="10,0"/>
+        </Style>
+    </UserControl.Resources>
     
     <Grid>
-        <TextBlock Text="{Binding Path=DisplayName}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--product header (picture, code, name, etc.)-->
+        <Grid Grid.Row="0" Margin="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--product picture-->
+                <Border Grid.Column="0" 
+                        Background="White" 
+                        BorderBrush="Gray" 
+                        BorderThickness="1">
+                    <Image Source="{Binding Path=ProductInfoViewModel.Model.PictureLocation, Mode=OneTime, IsAsync=True}" 
+                           Height="128" 
+                           Width="160"/>
+                </Border>
+
+                <!--product code, name, etc.-->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                           Text="Kood" 
+                           Style="{StaticResource CaptionTextBlockSyle}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                           Text="Nimetus" 
+                           Style="{StaticResource CaptionTextBlockSyle}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" 
+                           Text="Olek" 
+                           Style="{StaticResource CaptionTextBlockSyle}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" 
+                           Text="Sisestatud" 
+                           Style="{StaticResource CaptionTextBlockSyle}"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="0" 
+                           Text="{Binding Path=ProductInfoViewModel.Model.ProductBaseCode, Mode=OneWay}" 
+                           Style="{StaticResource BigTextBoxSyle}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                           Text="{Binding Path=ProductInfoViewModel.Model.ProductBaseName, Mode=OneWay}" 
+                           Style="{StaticResource BigTextBoxSyle}"/>
+                    <TextBox Grid.Row="1" Grid.Column="2" 
+                           Text="{Binding Path=ProductInfoViewModel.Model.ProductStatusName, Mode=OneWay}" 
+                           Style="{StaticResource BigTextBoxSyle}"/>
+                    <TextBox Grid.Row="1" Grid.Column="3" 
+                           Text="{Binding Path=ProductInfoViewModel.Model.CreatedOn, Mode=OneWay, StringFormat='\{0:dd.MM.yyyy\}'}" 
+                           Style="{StaticResource BigTextBoxSyle}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        
+        <TabControl Grid.Row="1" 
+                    ItemsSource="{Binding Path=ProductTabs}"
+                    IsSynchronizedWithCurrentItem="True"
+                    Margin="4">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Path=DisplayName}"
+                                    FontSize="14"/>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
     </Grid>
 </UserControl>

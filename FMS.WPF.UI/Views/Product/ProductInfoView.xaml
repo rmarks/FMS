@@ -1,0 +1,178 @@
+﻿<UserControl x:Class="FMS.WPF.Views.ProductInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             xmlns:controls="clr-namespace:FMS.WPF.UI.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Taskbar -->
+        <controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
+                                  EditCommand="{Binding Path=EditCommand}"
+                                  IsEditVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"
+                                  CancelCommand="{Binding Path=CancelCommand}"
+                                  IsCancelVisible="{Binding Path=IsEditMode}"
+                                  SaveCommand="{Binding Path=SaveCommand}"
+                                  IsSaveVisible="{Binding Path=IsEditMode}"/>
+
+        <!--Product Info-->
+        <Grid Grid.Row="1" 
+              Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Product Code, Names and Grouping-->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Product Code and Names-->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                <TextBlock Text="Kood"/>
+                                <TextBox Text="{Binding Path=Model.ProductBaseCode}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Mudel"/>
+                                <TextBox Text="{Binding Path=Model.Model}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="Nimi"/>
+                        <TextBox Text="{Binding Path=Model.ProductBaseName}"/>
+                        
+                        <TextBlock Text="Nimi i.k."/>
+                        <TextBox Text="{Binding Path=Model.ProductBaseNameEng}"/>
+                        
+                        <TextBlock Text="Nimi s.k."/>
+                        <TextBox Text="{Binding Path=Model.ProductBaseNameGer}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!--Product Grouping-->
+                <Grid Grid.Row="1" 
+                      Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- First column -->
+                    <StackPanel Grid.Column="0" Margin="20">
+                        <TextBlock Text="Äriliin"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.BusinessLines}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="BusinessLineId" 
+                          SelectedValue="{Binding Path=EditableModel.BusinessLineId}"/>
+
+                        <TextBlock Text="Olek"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductStatuses}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductStatusId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductStatusId}"/>
+
+                        <TextBlock Text="Lähtetüüp"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductSourceTypes}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductSourceTypeId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductSourceTypeId}"/>
+
+                        <TextBlock Text="Sihttüüp"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductDestinationTypes}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductDestinationTypeId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductDestinationTypeId}"/>
+                    </StackPanel>
+
+                    <!-- Second column -->
+                    <StackPanel Grid.Column="1" Margin="20">
+                        <TextBlock Text="Materjal"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductMaterials}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductMaterialId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductMaterialId}"/>
+
+                        <TextBlock Text="Tüüp"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductTypes}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductTypeId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductTypeId}"/>
+
+                        <TextBlock Text="Grupp"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.ProductGroups}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductGroupId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductGroupId}"/>
+                    </StackPanel>
+
+                    <!-- Third column -->
+                    <StackPanel Grid.Column="2" Margin="20">
+                        <TextBlock Text="Kaubamärk"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductBrands}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductBrandId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductBrandId}"/>
+
+                        <TextBlock Text="Kollektsioon"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.ProductCollections}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductCollectionId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductCollectionId}"/>
+
+                        <TextBlock Text="Disain"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.ProductDesigns}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="ProductDesignId" 
+                          SelectedValue="{Binding Path=EditableModel.ProductDesignId}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <!--Product Comments-->
+            <Grid Grid.Column="1"
+                  Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" 
+                               Text="Lisainfo"/>
+                <TextBox Grid.Row="1" 
+                             Text="{Binding Path=EditableModel.Comments}"
+                             TextWrapping="Wrap" 
+                             VerticalScrollBarVisibility="Auto" 
+                             AcceptsReturn="True"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

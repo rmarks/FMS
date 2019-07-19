@@ -22,6 +22,7 @@ namespace FMS.ServiceLayer.Utils
             //product
             CreateMap<ProductBase, ProductListDto>()
                 .ForMember(d => d.ProductBrandAndCollectionName, o => o.MapFrom(s => $"{s.ProductBrand.Name}{(s.ProductCollection.Name == null ? "" : "/" + s.ProductCollection.Name)}"));
+            CreateMap<ProductBase, ProductInfoDto>().ReverseMap();
 
             //dropdowns
             CreateMap<BusinessLine, BusinessLineDropdownDto>();

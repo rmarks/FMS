@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FMS.Domain.Model
 {
@@ -37,6 +38,13 @@ namespace FMS.Domain.Model
         public int? ProductCollectionId { get; set; }
 
         public int? ProductDesignId { get; set; }
+
+        [MaxLength(4)]
+        public string Model { get; set; }
+
+        public string Comments { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
 
         //---------------------------------------------
         public BusinessLine BusinessLine { get; set; }

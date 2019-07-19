@@ -19,11 +19,11 @@ namespace FMS.ServiceLayer.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<ProductListOptionsDropdownsDto> GetProductListOptionsDropdownsAsync()
+        public async Task<ProductDropdownsDto> GetProductDropdownsAsync()
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var dto = new ProductListOptionsDropdownsDto();
+                var dto = new ProductDropdownsDto();
 
                 dto.BusinessLines = await GetBusinessLinesAsync(context);
                 dto.ProductSourceTypes = await GetProductSourceTypesAsync(context);

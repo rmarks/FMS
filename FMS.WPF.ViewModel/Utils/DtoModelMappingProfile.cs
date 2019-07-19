@@ -13,6 +13,8 @@ namespace FMS.WPF.ViewModel.Utils
             CreateMap<CompanyContactDto, CompanyContactModel>().ReverseMap();
 
             CreateMap<ProductListOptionsModel, ProductListOptionsDto>();
+            CreateMap<ProductInfoDto, ProductInfoModel>().ReverseMap();
+            CreateMap<ProductInfoModel, ProductInfoModel>().ReverseMap();
         }
     }
 }

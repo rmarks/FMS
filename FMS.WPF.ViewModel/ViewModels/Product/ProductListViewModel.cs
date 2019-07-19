@@ -40,7 +40,7 @@ namespace FMS.WPF.ViewModels
             OptionsModel = new ProductListOptionsModel
             {
                 OptionsDto = new ProductListOptionsDto(),
-                Dropdowns = await _dropdownsService.GetProductListOptionsDropdownsAsync()
+                Dropdowns = await _dropdownsService.GetProductDropdownsAsync()
             };
             OptionsModel.OptionChanged += ClearItems;
         }

@@ -9,7 +9,7 @@ namespace FMS.WPF.Models
     public class ProductListOptionsModel : EditableModelBase
     {
         public ProductListOptionsDto OptionsDto { get; set; }
-        public ProductListOptionsDropdownsDto Dropdowns { get; set; }
+        public ProductDropdownsDto Dropdowns { get; set; }
 
         #region options
         public int? BusinessLineId

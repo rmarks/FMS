@@ -2,7 +2,7 @@
 
 namespace FMS.ServiceLayer.Dtos
 {
-    public class ProductListOptionsDropdownsDto
+    public class ProductDropdownsDto
     {
         public IList<BusinessLineDropdownDto> BusinessLines { get; set; }
 
