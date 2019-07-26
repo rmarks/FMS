@@ -22,8 +22,8 @@ namespace FMS.ServiceLayer.Services
             _dropdownsService = dropdownsService;
         }
 
-        //product list
-        public IList<ProductListDto> GetProducts(ProductListOptionsDto options)
+        //product base list
+        public IList<ProductListDto> GetProductBases(ProductListOptionsDto options)
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -42,16 +42,30 @@ namespace FMS.ServiceLayer.Services
             return await _dropdownsService.GetProductDropdownsAsync();
         }
 
-        //product
-        public ProductInfoDto GetProduct(int productBaseId)
+        //product base
+        public ProductBaseDto GetProductBase(int productBaseId)
         {
             using (var context = _contextFactory.CreateContext())
             {
                 return context.ProductBases
                     .AsNoTracking()
                     .Where(p => p.ProductBaseId == productBaseId)
-                    .ProjectBetween<ProductBase, ProductInfoDto>()
+                    .ProjectBetween<ProductBase, ProductBaseDto>()
                     .FirstOrDefault();
+            }
+        }
+
+        //product list (product sizes)
+        public IList<ProductDto> GetProducts(int productBaseId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Products
+                    .AsNoTracking()
+                    .Where(p => p.ProductBaseId == productBaseId)
+                    .OrderBy(p => p.ProductCode)
+                    .ProjectBetween<Product, ProductDto>()
+                    .ToList();
             }
         }
     }

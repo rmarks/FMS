@@ -1,8 +1,9 @@
-﻿using System;
+﻿using FMS.WPF.Application.Interface.Models;
+using System;
 
 namespace FMS.WPF.Models
 {
-    public class CompanyAddressModel : EditableModelBase
+    public class CompanyAddressModel : ModelBase
     {
         public int CompanyAddressId { get; set; }
 
@@ -29,23 +30,23 @@ namespace FMS.WPF.Models
         public DateTime? CreatedOn { get; set; }
 
 
-        public override void Merge(EditableModelBase source)
-        {
-            if (source is CompanyAddressModel s)
-            {
-                CompanyAddressId = s.CompanyAddressId;
-                CompanyId = s.CompanyId;
-                CountryId = s.CountryId;
-                CountryCountryName = s.CountryCountryName;
-                County = s.County;
-                City = s.City;
-                Address = s.Address;
-                PostCode = s.PostCode;
-                ConsigneeName = s.ConsigneeName;
-                IsBilling = s.IsBilling;
-                IsShipping = s.IsShipping;
-                CreatedOn = s.CreatedOn;
-            }
-        }
+        //public override void Merge(EditableModelBase source)
+        //{
+        //    if (source is CompanyAddressModel s)
+        //    {
+        //        CompanyAddressId = s.CompanyAddressId;
+        //        CompanyId = s.CompanyId;
+        //        CountryId = s.CountryId;
+        //        CountryCountryName = s.CountryCountryName;
+        //        County = s.County;
+        //        City = s.City;
+        //        Address = s.Address;
+        //        PostCode = s.PostCode;
+        //        ConsigneeName = s.ConsigneeName;
+        //        IsBilling = s.IsBilling;
+        //        IsShipping = s.IsShipping;
+        //        CreatedOn = s.CreatedOn;
+        //    }
+        //}
     }
 }

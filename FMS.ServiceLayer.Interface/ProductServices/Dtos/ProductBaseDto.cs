@@ -2,7 +2,7 @@
 
 namespace FMS.ServiceLayer.Dtos
 {
-    public class ProductInfoDto
+    public class ProductBaseDto
     {
         public int ProductBaseId { get; set; }
 
@@ -14,6 +14,7 @@ namespace FMS.ServiceLayer.Dtos
 
         public int? BusinessLineId { get; set; }
         public int? ProductStatusId { get; set; }
+        public string ProductStatusName { get; set; }
 
         public int? ProductSourceTypeId { get; set; }
         public int? ProductDestinationTypeId { get; set; }
@@ -27,6 +28,7 @@ namespace FMS.ServiceLayer.Dtos
         public int? ProductDesignId { get; set; }
 
         public string Model { get; set; }
+        public bool HasSize { get; set; }
         public string Comments { get; set; }
 
         public DateTime? CreatedOn { get; set; }

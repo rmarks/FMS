@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace FMS.WPF.Models
 {
-    public abstract class EditableModelBase : INotifyPropertyChanged
+    public abstract class EditableModelBaseOld : INotifyPropertyChanged
     {
-        public abstract void Merge(EditableModelBase source);
+        public abstract void Merge(EditableModelBaseOld source);
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

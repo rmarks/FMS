@@ -186,8 +186,11 @@
     <Compile Include="Views\Companies\CompanyView.xaml.cs">
       <DependentUpon>CompanyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Product\ProductInfoView.xaml.cs">
-      <DependentUpon>ProductInfoView.xaml</DependentUpon>
+    <Compile Include="Views\Product\ProductBaseView.xaml.cs">
+      <DependentUpon>ProductBaseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Product\ProductSizesView.xaml.cs">
+      <DependentUpon>ProductSizesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Product\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
@@ -272,7 +275,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Product\ProductInfoView.xaml">
+    <Page Include="Views\Product\ProductBaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Product\ProductSizesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -328,6 +335,14 @@
     <ProjectReference Include="..\FMS.ServiceLayer\FMS.ServiceLayer.csproj">
       <Project>{A55D06CA-3B8B-4021-9DFB-30EA595BA764}</Project>
       <Name>FMS.ServiceLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FMS.WPF.Application.Interface\FMS.WPF.Application.Interface.csproj">
+      <Project>{c0b80d6f-289f-465b-97cd-13a468898f6f}</Project>
+      <Name>FMS.WPF.Application.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj">
+      <Project>{572C7922-D62E-4E7C-8D1C-F76DD7F6938F}</Project>
+      <Name>FMS.WPF.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.ViewModel\FMS.WPF.ViewModel.csproj">
       <Project>{02D5252B-45A4-401E-83D7-B4A1DDF9B6EE}</Project>

@@ -8,5 +8,10 @@ namespace FMS.WPF.ViewModel.Utils
         {
             Mapper.Map<TSource, TDest>(source, dest);
         }
+
+        public static TDest MapTo<TDest>(object source)
+        {
+            return Mapper.Map<TDest>(source);
+        }
     }
 }

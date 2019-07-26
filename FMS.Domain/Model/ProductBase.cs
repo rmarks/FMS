@@ -42,6 +42,8 @@ namespace FMS.Domain.Model
         [MaxLength(4)]
         public string Model { get; set; }
 
+        public bool HasSize { get; set; }
+
         public string Comments { get; set; }
 
         public DateTime? CreatedOn { get; set; }

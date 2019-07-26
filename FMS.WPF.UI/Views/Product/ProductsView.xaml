@@ -22,6 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!--product list options-->
         <Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -44,7 +45,7 @@
             <Label Grid.Row="0" Grid.Column="0" 
                    Content="Äriliin"/>
             <ComboBox Grid.Row="0" Grid.Column="1" 
-                      ItemsSource="{Binding Path=OptionsModel.BusinessLines}" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.BusinessLines}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="BusinessLineId" 
                       SelectedValue="{Binding Path=OptionsModel.BusinessLineId}"/>
@@ -52,7 +53,7 @@
             <Label Grid.Row="1" Grid.Column="0" 
                    Content="Olek"/>
             <ComboBox Grid.Row="1" Grid.Column="1" 
-                      ItemsSource="{Binding Path=OptionsModel.ProductStatuses}" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.ProductStatuses}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductStatusId" 
                       SelectedValue="{Binding Path=OptionsModel.ProductStatusId}"/>
@@ -61,7 +62,7 @@
             <Label Grid.Row="0" Grid.Column="2" 
                    Content="Lähtetüüp"/>
             <ComboBox Grid.Row="0" Grid.Column="3" 
-                      ItemsSource="{Binding Path=OptionsModel.ProductSourceTypes}" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.ProductSourceTypes}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductSourceTypeId" 
                       SelectedValue="{Binding Path=OptionsModel.ProductSourceTypeId}"/>
@@ -69,7 +70,7 @@
             <Label Grid.Row="1" Grid.Column="2" 
                    Content="Sihttüüp"/>
             <ComboBox Grid.Row="1" Grid.Column="3" 
-                      ItemsSource="{Binding Path=OptionsModel.ProductDestinationTypes}" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.ProductDestinationTypes}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductDestinationTypeId" 
                       SelectedValue="{Binding Path=OptionsModel.ProductDestinationTypeId}"/>
@@ -78,7 +79,7 @@
             <Label Grid.Row="0" Grid.Column="4" 
                    Content="Materjal"/>
             <ComboBox Grid.Row="0" Grid.Column="5" 
-                      ItemsSource="{Binding Path=OptionsModel.ProductMaterials}" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.ProductMaterials}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductMaterialId" 
                       SelectedValue="{Binding Path=OptionsModel.ProductMaterialId}"/>
@@ -86,7 +87,7 @@
             <Label Grid.Row="1" Grid.Column="4" 
                    Content="Tüüp"/>
             <ComboBox Grid.Row="1" Grid.Column="5" 
-                      ItemsSource="{Binding Path=OptionsModel.ProductTypes}" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.ProductTypes}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductTypeId" 
                       SelectedValue="{Binding Path=OptionsModel.ProductTypeId}"/>
@@ -103,7 +104,7 @@
             <Label Grid.Row="0" Grid.Column="6" 
                    Content="Kaubamärk"/>
             <ComboBox Grid.Row="0" Grid.Column="7" 
-                      ItemsSource="{Binding Path=OptionsModel.ProductBrands}" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.ProductBrands}" 
                       DisplayMemberPath="Name" 
                       SelectedValuePath="ProductBrandId" 
                       SelectedValue="{Binding Path=OptionsModel.ProductBrandId}"/>
@@ -137,6 +138,7 @@
             
         </Grid>
 
+        <!--product list-->
         <DataGrid Grid.Row="1" 
                   ItemsSource="{Binding Path=Items}"
                   SelectedItem="{Binding Path=SelectedItem}"
@@ -167,6 +169,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <!--summary-->
         <StackPanel Grid.Row="2" 
                     Orientation="Horizontal" 
                     Margin="20">

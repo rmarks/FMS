@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FMS.WPF.Views.ProductInfoView"
+﻿<UserControl x:Class="FMS.WPF.Views.ProductBaseView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -59,22 +59,27 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Margin="0,0,10,0">
                                 <TextBlock Text="Kood"/>
-                                <TextBox Text="{Binding Path=Model.ProductBaseCode}"/>
+                                <TextBox Text="{Binding Path=EditableModel.ProductBaseCode}"
+                                         IsEnabled="{Binding Path=IsEditMode}"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
                                 <TextBlock Text="Mudel"/>
-                                <TextBox Text="{Binding Path=Model.Model}"/>
+                                <TextBox Text="{Binding Path=EditableModel.Model}"
+                                         IsEnabled="{Binding Path=IsEditMode}"/>
                             </StackPanel>
                         </Grid>
 
                         <TextBlock Text="Nimi"/>
-                        <TextBox Text="{Binding Path=Model.ProductBaseName}"/>
+                        <TextBox Text="{Binding Path=EditableModel.ProductBaseName}"
+                                 IsEnabled="{Binding Path=IsEditMode}"/>
                         
                         <TextBlock Text="Nimi i.k."/>
-                        <TextBox Text="{Binding Path=Model.ProductBaseNameEng}"/>
+                        <TextBox Text="{Binding Path=EditableModel.ProductBaseNameEng}"
+                                 IsEnabled="{Binding Path=IsEditMode}"/>
                         
                         <TextBlock Text="Nimi s.k."/>
-                        <TextBox Text="{Binding Path=Model.ProductBaseNameGer}"/>
+                        <TextBox Text="{Binding Path=EditableModel.ProductBaseNameGer}"
+                                 IsEnabled="{Binding Path=IsEditMode}"/>
                     </StackPanel>
                 </Grid>
 
@@ -91,69 +96,79 @@
                     <StackPanel Grid.Column="0" Margin="20">
                         <TextBlock Text="Äriliin"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.BusinessLines}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="BusinessLineId" 
-                          SelectedValue="{Binding Path=EditableModel.BusinessLineId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="BusinessLineId" 
+                                  SelectedValue="{Binding Path=EditableModel.BusinessLineId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Olek"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductStatuses}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductStatusId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductStatusId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductStatusId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductStatusId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Lähtetüüp"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductSourceTypes}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductSourceTypeId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductSourceTypeId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductSourceTypeId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductSourceTypeId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Sihttüüp"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductDestinationTypes}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductDestinationTypeId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductDestinationTypeId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductDestinationTypeId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductDestinationTypeId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
                     </StackPanel>
 
                     <!-- Second column -->
                     <StackPanel Grid.Column="1" Margin="20">
                         <TextBlock Text="Materjal"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductMaterials}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductMaterialId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductMaterialId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductMaterialId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductMaterialId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Tüüp"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductTypes}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductTypeId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductTypeId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductTypeId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductTypeId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Grupp"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.ProductGroups}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductGroupId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductGroupId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductGroupId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductGroupId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
                     </StackPanel>
 
                     <!-- Third column -->
                     <StackPanel Grid.Column="2" Margin="20">
                         <TextBlock Text="Kaubamärk"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductBrands}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductBrandId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductBrandId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductBrandId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductBrandId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Kollektsioon"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.ProductCollections}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductCollectionId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductCollectionId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductCollectionId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductCollectionId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Disain"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.ProductDesigns}" 
-                          DisplayMemberPath="Name" 
-                          SelectedValuePath="ProductDesignId" 
-                          SelectedValue="{Binding Path=EditableModel.ProductDesignId}"/>
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductDesignId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductDesignId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -166,12 +181,13 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" 
-                               Text="Lisainfo"/>
+                           Text="Lisainfo"/>
                 <TextBox Grid.Row="1" 
-                             Text="{Binding Path=EditableModel.Comments}"
-                             TextWrapping="Wrap" 
-                             VerticalScrollBarVisibility="Auto" 
-                             AcceptsReturn="True"/>
+                         Text="{Binding Path=EditableModel.Comments}"
+                         TextWrapping="Wrap" 
+                         VerticalScrollBarVisibility="Auto" 
+                         AcceptsReturn="True"
+                         IsEnabled="{Binding Path=IsEditMode}"/>
             </Grid>
         </Grid>
     </Grid>

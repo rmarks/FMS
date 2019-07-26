@@ -1,6 +1,6 @@
-﻿namespace FMS.ServiceLayer.Dtos
+﻿namespace FMS.WPF.Application.Interface.Models
 {
-    public class ProductListDto
+    public class ProductListModel
     {
         public int ProductBaseId { get; set; }
 
@@ -15,5 +15,7 @@
         public string ProductSourceTypeName { get; set; }
 
         public string ProductDestinationTypeName { get; set; }
+
+        public string ProductBrandAndCollectionName => $"{ProductBrandName}{(ProductCollectionName == null ? "" : "/" + ProductCollectionName)}";
     }
 }

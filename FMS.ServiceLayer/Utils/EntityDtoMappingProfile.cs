@@ -18,11 +18,11 @@ namespace FMS.ServiceLayer.Utils
             CreateMap<CompanyDto, Company>()
                 .ForMember(d => d.Addresses, o => o.MapFrom(s => new List<CompanyAddressDto>(new[] { s.BillingAddress })));
             CreateMap<Contact, CompanyContactDto>().ReverseMap();
-            
+
             //product
-            CreateMap<ProductBase, ProductListDto>()
-                .ForMember(d => d.ProductBrandAndCollectionName, o => o.MapFrom(s => $"{s.ProductBrand.Name}{(s.ProductCollection.Name == null ? "" : "/" + s.ProductCollection.Name)}"));
-            CreateMap<ProductBase, ProductInfoDto>().ReverseMap();
+            CreateMap<ProductBase, ProductListDto>();
+            CreateMap<ProductBase, ProductBaseDto>().ReverseMap();
+            CreateMap<Product, ProductDto>();
 
             //dropdowns
             CreateMap<BusinessLine, BusinessLineDropdownDto>();

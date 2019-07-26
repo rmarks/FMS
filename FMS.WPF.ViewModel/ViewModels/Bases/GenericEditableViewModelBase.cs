@@ -1,13 +1,13 @@
-﻿using FMS.WPF.Models;
+﻿using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.ViewModel.Commands;
-using System;
+using FMS.WPF.ViewModel.Utils;
 using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
-    public abstract class GenericEditableViewModelBase<TModel> : ViewModelBase where TModel : EditableModelBase, new()
+    public abstract class GenericEditableViewModelBase<TModel> : ViewModelBase where TModel : ModelBase, new()
     {
-        #region Properties
+        #region properties
         private TModel _model;
         public TModel Model
         {
@@ -22,9 +22,9 @@ namespace FMS.WPF.ViewModels
         public TModel EditableModel { get; set; }
 
         public bool IsEditMode { get; set; }
-        #endregion Properties
+        #endregion
 
-        #region Commands
+        #region commands
         public ICommand EditCommand => new RelayCommand(BeginEdit);
         private void BeginEdit()
         {
@@ -32,8 +32,9 @@ namespace FMS.WPF.ViewModels
             {
                 IsEditMode = true;
 
-                EditableModel = new TModel();
-                EditableModel.Merge(Model);
+                //EditableModel = new TModel();
+                //EditableModel.Merge(Model);
+                EditableModel = MappingFactory.MapTo<TModel>(Model);
             }
         }
 
@@ -54,7 +55,8 @@ namespace FMS.WPF.ViewModels
             {
                 if (SaveItem(EditableModel))
                 {
-                    Model.Merge(EditableModel);
+                    //Model.Merge(EditableModel);
+                    MappingFactory.MapTo<TModel, TModel>(EditableModel, Model);
                     EditableModel = Model;
                 }
                 IsEditMode = false;
@@ -72,12 +74,12 @@ namespace FMS.WPF.ViewModels
                 }
             }
         }
-        #endregion Commands
+        #endregion
 
-        #region Abstract Members
-        protected abstract bool SaveItem(TModel model);
-        protected abstract void DeleteItem(TModel model);
-        protected abstract bool ConfirmDelete();
-        #endregion Abstract Members
+        #region virtuals
+        protected virtual bool SaveItem(TModel model) { return false; }
+        protected virtual void DeleteItem(TModel model) { }
+        protected virtual bool ConfirmDelete() { return false; }
+        #endregion
     }
 }

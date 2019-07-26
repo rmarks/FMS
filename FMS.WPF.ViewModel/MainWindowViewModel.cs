@@ -1,5 +1,4 @@
 ﻿using FMS.WPF.ViewModel.Commands;
-using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using System;
 using System.Configuration;
 using FMS.ServiceLayer.Utils;
+using FMS.WPF.ViewModel.Factories;
 
 namespace FMS.WPF.ViewModels
 {

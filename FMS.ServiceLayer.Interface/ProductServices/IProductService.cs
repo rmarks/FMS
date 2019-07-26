@@ -6,10 +6,12 @@ namespace FMS.ServiceLayer.Interfaces
 {
     public interface IProductService
     {
-        IList<ProductListDto> GetProducts(ProductListOptionsDto options);
+        IList<ProductListDto> GetProductBases(ProductListOptionsDto options);
 
         Task<ProductDropdownsDto> GetProductDropdownsAsync();
 
-        ProductInfoDto GetProduct(int productBaseId);
+        ProductBaseDto GetProductBase(int productBaseId);
+
+        IList<ProductDto> GetProducts(int productBaseId);
     }
 }

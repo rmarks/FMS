@@ -1,4 +1,4 @@
-﻿using FMS.ServiceLayer.Dtos;
+﻿using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
 
@@ -15,10 +15,10 @@ namespace FMS.WPF.ViewModels
             ProductListViewModel.RequestOpenItem += ProductListViewModel_RequestOpenItem;
         }
 
-        public ProductListViewModel ProductListViewModel { get; set; }
+        public ProductListViewModel ProductListViewModel { get; }
 
         #region event handlers
-        private void ProductListViewModel_RequestOpenItem(ProductListDto dto)
+        private void ProductListViewModel_RequestOpenItem(ProductListModel dto)
         {
             WorkspaceManager.OpenWorkspace<IProductViewModelFactory>(dto?.ProductBaseId ?? 0);
         }

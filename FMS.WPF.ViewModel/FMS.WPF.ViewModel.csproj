@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FMS.ServiceLayer\FMS.ServiceLayer.csproj" />
+    <ProjectReference Include="..\FMS.WPF.Application.Interface\FMS.WPF.Application.Interface.csproj" />
   </ItemGroup>
 
   <ItemGroup>

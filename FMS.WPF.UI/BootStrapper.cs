@@ -5,6 +5,7 @@ using FMS.WPF.ViewModel.Services;
 using FMS.WPF.UI.Services;
 using FMS.DAL.EFCore.Utils;
 using FMS.ServiceLayer.Utils;
+using FMS.WPF.Application.Utils;
 
 namespace FMS.WPF.UI
 {
@@ -16,6 +17,7 @@ namespace FMS.WPF.UI
         {
             _kernel = new StandardKernel(new NinjectBindingsForDAL(), 
                                          new NinjectBindingsForServiceLayer(),
+                                         new NinjectBindingsForApplicationLayer(),
                                          new NinjectBindingsForViewModel());
 
             _kernel.Bind<IDialogService>().To<DialogService>().InTransientScope();

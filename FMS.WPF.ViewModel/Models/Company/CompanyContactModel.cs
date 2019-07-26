@@ -1,8 +1,9 @@
-﻿using System;
+﻿using FMS.WPF.Application.Interface.Models;
+using System;
 
 namespace FMS.WPF.Models
 {
-    public class CompanyContactModel : EditableModelBase
+    public class CompanyContactModel : ModelBase
     {
         public int ContactId { get; set; }
 
@@ -20,19 +21,19 @@ namespace FMS.WPF.Models
 
         public DateTime? CreatedOn { get; set; }
 
-        public override void Merge(EditableModelBase source)
-        {
-            if (source is CompanyContactModel s)
-            {
-                ContactId = s.ContactId;
-                CompanyId = s.CompanyId;
-                ContactName = s.ContactName;
-                Job = s.Job;
-                Phone = s.Phone;
-                Mobile = s.Mobile;
-                Email = s.Email;
-                CreatedOn = s.CreatedOn;
-            }
-        }
+        //public override void Merge(EditableModelBase source)
+        //{
+        //    if (source is CompanyContactModel s)
+        //    {
+        //        ContactId = s.ContactId;
+        //        CompanyId = s.CompanyId;
+        //        ContactName = s.ContactName;
+        //        Job = s.Job;
+        //        Phone = s.Phone;
+        //        Mobile = s.Mobile;
+        //        Email = s.Email;
+        //        CreatedOn = s.CreatedOn;
+        //    }
+        //}
     }
 }

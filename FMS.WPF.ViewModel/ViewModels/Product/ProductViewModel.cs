@@ -1,4 +1,4 @@
-﻿using FMS.ServiceLayer.Interfaces;
+﻿using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Utils;
 using System.Collections.ObjectModel;
 
@@ -6,28 +6,37 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductViewModel : WorkspaceViewModelBase
     {
+        private IProductVmService _productVmService;
+
         public ProductViewModel(int productBaseId, 
                                 IWorkspaceManager workspaceManager,
-                                IProductService productService) : base(workspaceManager)
+                                IProductVmService productVmService) : base(workspaceManager)
         {
-            ProductInfoViewModel = new ProductInfoViewModel(productBaseId, productService);
+            _productVmService = productVmService;
 
-            InitializeProductTabs();
+            InitializeProductTabs(productBaseId);
         }
 
         #region properties
-        public override string DisplayName => $"Toode {ProductInfoViewModel.Model?.ProductBaseCode}";
+        public override string DisplayName => $"Toode {ProductBaseViewModel.Model?.ProductBaseCode}";
 
         public ObservableCollection<ViewModelBase> ProductTabs { get; private set; }
 
-        public ProductInfoViewModel ProductInfoViewModel { get; }
+        public ProductBaseViewModel ProductBaseViewModel { get; private set; }
         #endregion
 
         #region helpers
-        private void InitializeProductTabs()
+        private void InitializeProductTabs(int productBaseId)
         {
             ProductTabs = new ObservableCollection<ViewModelBase>();
-            ProductTabs.Add(ProductInfoViewModel);
+
+            ProductBaseViewModel = new ProductBaseViewModel(productBaseId, _productVmService);
+            ProductTabs.Add(ProductBaseViewModel);
+
+            if (ProductBaseViewModel.Model.HasSize)
+            {
+                ProductTabs.Add(new ProductSizesViewModel(productBaseId, _productVmService));
+            }
         }
         #endregion
     }

@@ -46,7 +46,7 @@
                         Background="White" 
                         BorderBrush="Gray" 
                         BorderThickness="1">
-                    <Image Source="{Binding Path=ProductInfoViewModel.Model.PictureLocation, Mode=OneTime, IsAsync=True}" 
+                    <Image Source="{Binding Path=ProductBaseViewModel.PictureLocation, Mode=OneTime, IsAsync=True}" 
                            Height="128" 
                            Width="160"/>
                 </Border>
@@ -78,16 +78,16 @@
                            Style="{StaticResource CaptionTextBlockSyle}"/>
 
                     <TextBox Grid.Row="1" Grid.Column="0" 
-                           Text="{Binding Path=ProductInfoViewModel.Model.ProductBaseCode, Mode=OneWay}" 
+                           Text="{Binding Path=ProductBaseViewModel.Model.ProductBaseCode, Mode=OneWay}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
                     <TextBox Grid.Row="1" Grid.Column="1" 
-                           Text="{Binding Path=ProductInfoViewModel.Model.ProductBaseName, Mode=OneWay}" 
+                           Text="{Binding Path=ProductBaseViewModel.Model.ProductBaseName, Mode=OneWay}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
                     <TextBox Grid.Row="1" Grid.Column="2" 
-                           Text="{Binding Path=ProductInfoViewModel.Model.ProductStatusName, Mode=OneWay}" 
+                           Text="{Binding Path=ProductBaseViewModel.Model.ProductStatusName, Mode=OneWay}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
                     <TextBox Grid.Row="1" Grid.Column="3" 
-                           Text="{Binding Path=ProductInfoViewModel.Model.CreatedOn, Mode=OneWay, StringFormat='\{0:dd.MM.yyyy\}'}" 
+                           Text="{Binding Path=ProductBaseViewModel.Model.CreatedOn, Mode=OneWay, StringFormat='\{0:dd.MM.yyyy\}'}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
                 </Grid>
             </Grid>

@@ -54,8 +54,12 @@
         <vw:ProductView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ProductInfoViewModel}">
-        <vw:ProductInfoView/>
+    <DataTemplate DataType="{x:Type vm:ProductBaseViewModel}">
+        <vw:ProductBaseView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ProductSizesViewModel}">
+        <vw:ProductSizesView/>
     </DataTemplate>
 
 </ResourceDictionary>
