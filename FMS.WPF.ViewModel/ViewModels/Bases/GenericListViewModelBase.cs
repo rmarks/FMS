@@ -22,13 +22,13 @@ namespace FMS.WPF.ViewModels
             set
             {
                 _selectedItem = value;
-                SelectedItemChanged?.Invoke();
+                SelectedItemChanged?.Invoke(_selectedItem);
             }
         }
         #endregion Properties
 
         #region Events
-        public event Action SelectedItemChanged;
+        public event Action<TModel> SelectedItemChanged;
         public event Action<TModel> RequestOpenItem;
         #endregion Events
 

@@ -18,9 +18,9 @@ namespace FMS.WPF.ViewModels
         public ProductListViewModel ProductListViewModel { get; }
 
         #region event handlers
-        private void ProductListViewModel_RequestOpenItem(ProductListModel dto)
+        private void ProductListViewModel_RequestOpenItem(ProductListModel model)
         {
-            WorkspaceManager.OpenWorkspace<IProductViewModelFactory>(dto?.ProductBaseId ?? 0);
+            WorkspaceManager.OpenWorkspace<IProductViewModelFactory>(model?.ProductBaseId ?? 0);
         }
         #endregion
     }

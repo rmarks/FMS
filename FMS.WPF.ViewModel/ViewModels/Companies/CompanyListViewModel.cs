@@ -1,16 +1,16 @@
-﻿using FMS.ServiceLayer.Dtos;
-using FMS.ServiceLayer.Interfaces;
+﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Application.Interface.Services;
 using System.Linq;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompanyListViewModel : GenericListViewModelBase<CompanyListDto>
+    public class CompanyListViewModel : GenericListViewModelBase<CompanyListModel>
     {
-        private ICompanyService _companyService;
+        private ICompanyListVmService _companyListService;
 
-        public CompanyListViewModel(ICompanyService companyService)
+        public CompanyListViewModel(ICompanyListVmService companyListService)
         {
-            _companyService = companyService;
+            _companyListService = companyListService;
         }
 
         public void Load()
@@ -19,11 +19,11 @@ namespace FMS.WPF.ViewModels
         }
 
         #region GenericListViewModelBase Members
-        public override async void Refresh(bool selectFirstItem = false)
+        public override void Refresh(bool selectFirstItem = false)
         {
             var oldSelectedItem = SelectedItem;
 
-            Items = await _companyService.GetCompaniesAsync(Query);
+            Items = _companyListService.GetCompanyListModels(Query);
 
             SelectedItem = selectFirstItem ? Items.FirstOrDefault() 
                                            : Items.FirstOrDefault(i => i.CompanyId == oldSelectedItem.CompanyId);

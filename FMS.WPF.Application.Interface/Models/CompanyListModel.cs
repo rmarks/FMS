@@ -1,6 +1,6 @@
-﻿namespace FMS.ServiceLayer.Interface.Dtos
+﻿namespace FMS.WPF.Application.Interface.Models
 {
-    public class CompanyListDto
+    public class CompanyListModel
     {
         public int CompanyId { get; set; }
 

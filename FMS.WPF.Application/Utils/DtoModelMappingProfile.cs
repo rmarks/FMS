@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interface.Dtos;
 using FMS.WPF.Application.Interface.Models;
 
 namespace FMS.WPF.Application.Utils
@@ -8,6 +8,8 @@ namespace FMS.WPF.Application.Utils
     {
         public DtoModelMappingProfile()
         {
+            CreateMap<CompanyListDto, CompanyListModel>();
+
             CreateMap<ProductListOptionsModel, ProductListOptionsDto>();
             CreateMap<ProductListDto, ProductListModel>();
 

@@ -1,5 +1,5 @@
-﻿using FMS.ServiceLayer.Dtos;
-using FMS.ServiceLayer.Interfaces;
+﻿using FMS.ServiceLayer.Interface.Dtos;
+using FMS.ServiceLayer.Interface.Services;
 using FMS.WPF.Models;
 using FMS.WPF.ViewModel.Extensions;
 using FMS.WPF.ViewModel.Services;

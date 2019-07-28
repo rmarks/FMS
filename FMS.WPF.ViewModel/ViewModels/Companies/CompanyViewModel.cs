@@ -1,4 +1,4 @@
-﻿using FMS.ServiceLayer.Interfaces;
+﻿using FMS.ServiceLayer.Interface.Services;
 using FMS.WPF.ViewModel.Services;
 using System;
 using System.Collections.ObjectModel;

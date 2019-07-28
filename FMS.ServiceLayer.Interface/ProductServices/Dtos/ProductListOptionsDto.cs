@@ -1,4 +1,4 @@
-﻿namespace FMS.ServiceLayer.Dtos
+﻿namespace FMS.ServiceLayer.Interface.Dtos
 {
     public class ProductListOptionsDto
     {

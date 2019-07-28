@@ -1,8 +1,8 @@
-﻿using FMS.ServiceLayer.Dtos;
+﻿using FMS.ServiceLayer.Interface.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FMS.ServiceLayer.Interfaces
+namespace FMS.ServiceLayer.Interface.Services
 {
     public interface ICompanyService
     {

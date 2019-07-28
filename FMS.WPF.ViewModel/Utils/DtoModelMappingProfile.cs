@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interface.Dtos;
 using FMS.WPF.Models;
 
 namespace FMS.WPF.ViewModel.Utils

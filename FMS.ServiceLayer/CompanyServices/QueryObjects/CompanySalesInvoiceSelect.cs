@@ -1,5 +1,5 @@
 ﻿using FMS.Domain.Model;
-using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interface.Dtos;
 using System;
 using System.Linq;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FMS.ServiceLayer.Dtos
+namespace FMS.ServiceLayer.Interface.Dtos
 {
     public class CompanyDropdownsDto
     {

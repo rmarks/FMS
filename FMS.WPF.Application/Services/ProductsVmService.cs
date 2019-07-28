@@ -1,5 +1,5 @@
-﻿using FMS.ServiceLayer.Dtos;
-using FMS.ServiceLayer.Interfaces;
+﻿using FMS.ServiceLayer.Interface.Dtos;
+using FMS.ServiceLayer.Interface.Services;
 using FMS.WPF.Application.Extensions;
 using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.Application.Interface.Services;
@@ -15,7 +15,7 @@ namespace FMS.WPF.Application.Services
         private IProductDropdownsService _dropdownsService;
 
         public ProductsVmService(IProductService productService,
-                                IProductDropdownsService dropdownsService)
+                                 IProductDropdownsService dropdownsService)
         {
             _productService = productService;
             _dropdownsService = dropdownsService;

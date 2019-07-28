@@ -1,8 +1,8 @@
 ﻿using FMS.DAL.Interfaces;
 using FMS.Domain.Model;
-using FMS.ServiceLayer.Dtos;
+using FMS.ServiceLayer.Interface.Dtos;
 using FMS.ServiceLayer.Extensions;
-using FMS.ServiceLayer.Interfaces;
+using FMS.ServiceLayer.Interface.Services;
 using FMS.ServiceLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

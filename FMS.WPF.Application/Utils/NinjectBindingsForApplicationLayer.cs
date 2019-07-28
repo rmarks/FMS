@@ -8,6 +8,8 @@ namespace FMS.WPF.Application.Utils
     {
         public override void Load()
         {
+            Bind<ICompanyListVmService>().To<CompanyListVmService>().InTransientScope();
+
             Bind<IProductsVmService>().To<ProductsVmService>().InTransientScope();
             Bind<IProductVmService>().To<ProductVmService>().InTransientScope();
         }

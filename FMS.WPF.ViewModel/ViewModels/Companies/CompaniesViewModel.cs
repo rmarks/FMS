@@ -1,4 +1,6 @@
-﻿using FMS.ServiceLayer.Interfaces;
+﻿using FMS.ServiceLayer.Interface.Services;
+using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Services;
 using FMS.WPF.ViewModel.Utils;
 
@@ -10,11 +12,12 @@ namespace FMS.WPF.ViewModels
         public CompaniesViewModel(IWorkspaceManager workspaceManager,
                                   ICompanyService companyService,
                                   IDialogService dialogService,
-                                  ICompanyDropdownsService dropdownsService) : base(workspaceManager)
+                                  ICompanyDropdownsService dropdownsService,
+                                  ICompanyListViewModelFactory companyListViewModelFactory) : base(workspaceManager)
         {
             DisplayName = "Firmad";
 
-            CompanyListViewModel = new CompanyListViewModel(companyService);
+            CompanyListViewModel = companyListViewModelFactory.CreateInstance();
             CompanyViewModel = new CompanyViewModel(companyService, dialogService, dropdownsService);
 
             CompanyListViewModel.SelectedItemChanged += CompanyListViewModel_SelectedItemChanged;
@@ -33,10 +36,9 @@ namespace FMS.WPF.ViewModels
         #endregion Properties
 
         #region Event Handlers
-        private void CompanyListViewModel_SelectedItemChanged()
+        private void CompanyListViewModel_SelectedItemChanged(CompanyListModel model)
         {
-            int companyId = CompanyListViewModel.SelectedItem?.CompanyId ?? 0;
-            CompanyViewModel.Load(companyId);
+            CompanyViewModel.Load(model?.CompanyId ?? 0);
             RaisePropertyChanged(nameof(IsCompanyAvailable));
         }
 
