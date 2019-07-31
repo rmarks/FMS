@@ -1,21 +1,13 @@
-﻿using FMS.WPF.Application.Interface.Services;
-using FMS.WPF.ViewModel.Services;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyViewModel : ViewModelBase
     {
-        public CompanyViewModel(ICompanyAppService companyAppService, 
-                                IDialogService dialogService)
+        #region public methods
+        public void Initialize()
         {
-            CompanyBasicsViewModel = new CompanyBasicsViewModel(companyAppService, dialogService);
-            CompanyAddressesViewModel = new CompanyAddressesViewModel(companyAppService, dialogService);
-            CompanyContactsViewModel = new CompanyContactsViewModel(companyAppService, dialogService);
-            CompanySalesOrderListViewModel = new CompanySalesOrderListViewModel(companyAppService);
-            CompanySalesInvoiceListViewModel = new CompanySalesInvoiceListViewModel(companyAppService);
-
             InitializeCompanyTabs();
 
             CompanyBasicsViewModel.ItemSavedOrDeleted += () => RequestListRefresh?.Invoke();
@@ -29,15 +21,16 @@ namespace FMS.WPF.ViewModels
             CompanySalesOrderListViewModel.Load(companyId);
             CompanySalesInvoiceListViewModel.Load(companyId);
         }
+        #endregion
 
         #region properties
-        public CompanyBasicsViewModel CompanyBasicsViewModel { get; }
+        public CompanyBasicsViewModel CompanyBasicsViewModel { get; set; }
 
-        public CompanyAddressesViewModel CompanyAddressesViewModel { get; }
+        public CompanyAddressesViewModel CompanyAddressesViewModel { get; set; }
 
-        public CompanyContactsViewModel CompanyContactsViewModel { get; }
+        public CompanyContactsViewModel CompanyContactsViewModel { get; set; }
 
-        public CompanySalesOrderListViewModel CompanySalesOrderListViewModel { get; }
+        public CompanySalesOrderListViewModel CompanySalesOrderListViewModel { get; set; }
 
         public CompanySalesInvoiceListViewModel CompanySalesInvoiceListViewModel { get; set; }
 

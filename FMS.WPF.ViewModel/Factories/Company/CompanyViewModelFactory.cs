@@ -14,7 +14,17 @@ namespace FMS.WPF.ViewModel.Factories
 
         public CompanyViewModel CreateInstance()
         {
-            return _kernel.Get<CompanyViewModel>();
+            var companyViewModel = _kernel.Get<CompanyViewModel>();
+
+            companyViewModel.CompanyBasicsViewModel = _kernel.Get<CompanyBasicsViewModel>();
+            companyViewModel.CompanyAddressesViewModel = _kernel.Get<CompanyAddressesViewModel>();
+            companyViewModel.CompanyContactsViewModel = _kernel.Get<CompanyContactsViewModel>();
+            companyViewModel.CompanySalesOrderListViewModel = _kernel.Get<CompanySalesOrderListViewModel>();
+            companyViewModel.CompanySalesInvoiceListViewModel = _kernel.Get<CompanySalesInvoiceListViewModel>();
+
+            companyViewModel.Initialize();
+
+            return companyViewModel;
         }
     }
 }
