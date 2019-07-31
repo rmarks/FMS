@@ -6,13 +6,13 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductViewModel : WorkspaceViewModelBase
     {
-        private IProductVmService _productVmService;
+        private IProductAppService _productAppService;
 
         public ProductViewModel(int productBaseId, 
                                 IWorkspaceManager workspaceManager,
-                                IProductVmService productVmService) : base(workspaceManager)
+                                IProductAppService productAppService) : base(workspaceManager)
         {
-            _productVmService = productVmService;
+            _productAppService = productAppService;
 
             InitializeProductTabs(productBaseId);
         }
@@ -30,12 +30,12 @@ namespace FMS.WPF.ViewModels
         {
             ProductTabs = new ObservableCollection<ViewModelBase>();
 
-            ProductBaseViewModel = new ProductBaseViewModel(productBaseId, _productVmService);
+            ProductBaseViewModel = new ProductBaseViewModel(productBaseId, _productAppService);
             ProductTabs.Add(ProductBaseViewModel);
 
             if (ProductBaseViewModel.Model.HasSize)
             {
-                ProductTabs.Add(new ProductSizesViewModel(productBaseId, _productVmService));
+                ProductTabs.Add(new ProductSizesViewModel(productBaseId, _productAppService));
             }
         }
         #endregion

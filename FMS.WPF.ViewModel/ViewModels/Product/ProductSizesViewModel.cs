@@ -6,7 +6,7 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductSizesViewModel : ViewModelBase
     {
-        public ProductSizesViewModel(int productBaseId, IProductVmService productService)
+        public ProductSizesViewModel(int productBaseId, IProductAppService productService)
         {
             Products = productService.GetProductModels(productBaseId);
         }

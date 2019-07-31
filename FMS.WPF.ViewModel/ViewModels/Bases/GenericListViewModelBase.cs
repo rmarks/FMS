@@ -7,7 +7,7 @@ namespace FMS.WPF.ViewModels
 {
     public abstract class GenericListViewModelBase<TModel> : ViewModelBase
     {
-        #region Properties
+        #region properties
         public IList<TModel> Items { get; set; }
         public int? ItemsCount { get; set; }
 
@@ -25,23 +25,25 @@ namespace FMS.WPF.ViewModels
                 SelectedItemChanged?.Invoke(_selectedItem);
             }
         }
-        #endregion Properties
+        #endregion
 
-        #region Events
+        #region events
         public event Action<TModel> SelectedItemChanged;
         public event Action<TModel> RequestOpenItem;
-        #endregion Events
+        #endregion
 
-        #region Commands
+        #region commands
         public ICommand RefreshCommand => new RelayCommand(() => Refresh(selectFirstItem: true));
         public ICommand ResetCommand => new RelayCommand(Reset);
         public ICommand OpenItemCommand => new RelayCommand(() => RequestOpenItem?.Invoke(SelectedItem));
-        #endregion Commands
+        #endregion
 
-        #region Abstract or Virtual Members
+        #region abstracts
         public abstract void Refresh(bool selectFirstItem = false);
+        #endregion
 
+        #region virtuals
         protected virtual void Reset() {}
-        #endregion Abstract Members
+        #endregion
     }
 }

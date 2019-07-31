@@ -1,5 +1,4 @@
-﻿
-namespace FMS.WPF.ViewModel.Services
+﻿namespace FMS.WPF.ViewModel.Services
 {
     public interface IProgressBarService
     {

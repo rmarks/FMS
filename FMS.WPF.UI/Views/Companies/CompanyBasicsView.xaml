@@ -64,7 +64,7 @@
             <!-- Second column -->
             <StackPanel Grid.Column="1" Margin="20">
                 <TextBlock Text="Riik"/>
-                <ComboBox ItemsSource="{Binding Path=Dropdowns.Countries}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.Countries}" 
                           DisplayMemberPath="CountryName" 
                           SelectedValuePath="CountryId" 
                           SelectedValue="{Binding Path=EditableModel.BillingAddress.CountryId}"/>
@@ -85,19 +85,19 @@
             <!-- Third column -->
             <StackPanel Grid.Column="2" Margin="20">
                 <TextBlock Text="Valuuta"/>
-                <ComboBox ItemsSource="{Binding Path=Dropdowns.Currencies}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.Currencies}" 
                           DisplayMemberPath="CurrencyCode" 
                           SelectedValuePath="CurrencyCode" 
                           SelectedValue="{Binding Path=EditableModel.CurrencyCode}"/>
 
                 <TextBlock Text="Hinnakiri"/>
-                <ComboBox ItemsSource="{Binding Path=Dropdowns.PriceLists}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.PriceLists}" 
                           DisplayMemberPath="PriceListName" 
                           SelectedValuePath="PriceListId" 
                           SelectedValue="{Binding Path=EditableModel.PriceListId}"/>
 
                 <TextBlock Text="Ladu"/>
-                <ComboBox ItemsSource="{Binding Path=Dropdowns.Locations}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.Locations}" 
                           DisplayMemberPath="LocationName" 
                           SelectedValuePath="LocationId" 
                           SelectedValue="{Binding Path=EditableModel.LocationId}"/>
@@ -106,14 +106,14 @@
             <!-- Fourth column -->
             <StackPanel Grid.Column="3" Margin="20">
                 <TextBlock Text="Tarnetingimus"/>
-                <ComboBox ItemsSource="{Binding Path=Dropdowns.DeliveryTerms}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.DeliveryTerms}" 
                           DisplayMemberPath="DeliveryTermName" 
                           Text="{Binding Path=EditableModel.DeliveryTermName}"
                           IsEditable="True" 
                           IsTextSearchEnabled="True"/>
 
                 <TextBlock Text="Maksetingimus"/>
-                <ComboBox ItemsSource="{Binding Path=Dropdowns.PaymentTerms}" 
+                <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.PaymentTerms}" 
                           DisplayMemberPath="PaymentTermName" 
                           SelectedValuePath="PaymentDays" 
                           SelectedValue="{Binding Path=EditableModel.PaymentDays}"/>

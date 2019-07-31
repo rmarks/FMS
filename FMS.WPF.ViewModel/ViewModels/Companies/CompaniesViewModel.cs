@@ -1,41 +1,37 @@
-﻿using FMS.ServiceLayer.Interface.Services;
-using FMS.WPF.Application.Interface.Models;
+﻿using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.ViewModel.Factories;
-using FMS.WPF.ViewModel.Services;
 using FMS.WPF.ViewModel.Utils;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompaniesViewModel : WorkspaceViewModelBase
     {
-        #region Constructors
+        #region constructors
         public CompaniesViewModel(IWorkspaceManager workspaceManager,
-                                  ICompanyService companyService,
-                                  IDialogService dialogService,
-                                  ICompanyDropdownsService dropdownsService,
-                                  ICompanyListViewModelFactory companyListViewModelFactory) : base(workspaceManager)
+                                  ICompanyListViewModelFactory companyListViewModelFactory,
+                                  ICompanyViewModelFactory companyViewModelFactory) : base(workspaceManager)
         {
-            DisplayName = "Firmad";
-
             CompanyListViewModel = companyListViewModelFactory.CreateInstance();
-            CompanyViewModel = new CompanyViewModel(companyService, dialogService, dropdownsService);
+            CompanyViewModel = companyViewModelFactory.CreateInstance();
 
             CompanyListViewModel.SelectedItemChanged += CompanyListViewModel_SelectedItemChanged;
             CompanyViewModel.RequestListRefresh += CompanyViewModel_RequestListRefresh;
 
             CompanyListViewModel.Load();
         }
-        #endregion Constructors
+        #endregion
 
-        #region Properties
+        #region properties
+        public override string DisplayName => "Firmad";
+
         public CompanyListViewModel CompanyListViewModel { get; }
 
         public CompanyViewModel CompanyViewModel { get; }
 
         public bool IsCompanyAvailable => CompanyListViewModel.SelectedItem != null;
-        #endregion Properties
+        #endregion
 
-        #region Event Handlers
+        #region event handlers
         private void CompanyListViewModel_SelectedItemChanged(CompanyListModel model)
         {
             CompanyViewModel.Load(model?.CompanyId ?? 0);
@@ -46,6 +42,6 @@ namespace FMS.WPF.ViewModels
         {
             CompanyListViewModel.Refresh();
         }
-        #endregion Event Handlers
+        #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace FMS.ServiceLayer.Utils
+﻿namespace FMS.ServiceLayer.Interface.Services
 {
     public interface IDataTransferService
     {

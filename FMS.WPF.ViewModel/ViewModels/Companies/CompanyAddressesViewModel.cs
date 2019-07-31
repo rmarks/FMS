@@ -1,8 +1,6 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
-using FMS.ServiceLayer.Interface.Services;
-using FMS.WPF.Models;
+﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Commands;
-using FMS.WPF.ViewModel.Extensions;
 using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,40 +10,37 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyAddressesViewModel : ViewModelBase
     {
-        private ICompanyService _companyService;
+        private ICompanyAppService _companyAppService;
         private IDialogService _dialogService;
-        private ICompanyDropdownsService _dropdownsService;
         private int _companyId;
 
-        public CompanyAddressesViewModel(ICompanyService companyService, 
-                                         IDialogService dialogService,
-                                         ICompanyDropdownsService dropdownsService)
+        public CompanyAddressesViewModel(ICompanyAppService companyAppService, 
+                                         IDialogService dialogService)
         {
-            DisplayName = "Saajad";
-
-            _companyService = companyService;
+            _companyAppService = companyAppService;
             _dialogService = dialogService;
-            _dropdownsService = dropdownsService;
         }
 
         public async void Load(int companyId)
         {
             _companyId = companyId;
 
-            var dtos = _companyId > 0 
-                ? await _companyService.GetCompanyShippingAddressesAsync(_companyId) 
-                : null;
+            var models = await _companyAppService.GetCompanyAddressModelsAsync(_companyId);
 
-            Models = dtos != null
-                ? new ObservableCollection<CompanyAddressModel>(dtos.MapBetween<CompanyAddressDto, CompanyAddressModel>())
+            Models = models != null
+                ? new ObservableCollection<CompanyAddressModel>(models)
                 : null;
         }
+
+        #region properties
+        public override string DisplayName => "Saajad";
 
         public ObservableCollection<CompanyAddressModel> Models { get; private set; }
 
         public CompanyAddressModel SelectedModel { get; set; }
+        #endregion
 
-        #region Commands
+        #region commands
         public ICommand EditCommand => new RelayCommand(OnEdit);
         private void OnEdit()
         {
@@ -66,7 +61,7 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                var viewModel = new CompanyAddressViewModel(SelectedModel, _companyService, _dialogService, _dropdownsService);
+                var viewModel = new CompanyAddressViewModel(SelectedModel, _companyAppService, _dialogService);//, _dropdownsService);
                 viewModel.IsEditMode = false;
                 viewModel.DeleteCommand?.Execute(null);
                 if (SelectedModel.CompanyAddressId == 0)
@@ -75,17 +70,17 @@ namespace FMS.WPF.ViewModels
                 }
             }
         }
-        #endregion Commands
+        #endregion
 
-        #region Helpers
+        #region helpers
         private void ShowAddress(CompanyAddressModel model)
         {
-            var viewModel = new CompanyAddressViewModel(model, _companyService, _dialogService, _dropdownsService);
+            var viewModel = new CompanyAddressViewModel(model, _companyAppService, _dialogService);
             _dialogService.ShowDialog(viewModel);
 
             Load(_companyId);
             SelectedModel = Models?.FirstOrDefault(a => a.CompanyAddressId == model.CompanyAddressId);
         }
-        #endregion Helpers
+        #endregion
     }
 }

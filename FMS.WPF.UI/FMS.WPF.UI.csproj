@@ -341,7 +341,7 @@
       <Name>FMS.WPF.Application.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj">
-      <Project>{572C7922-D62E-4E7C-8D1C-F76DD7F6938F}</Project>
+      <Project>{572c7922-d62e-4e7c-8d1c-f76dd7f6938f}</Project>
       <Name>FMS.WPF.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\FMS.WPF.ViewModel\FMS.WPF.ViewModel.csproj">

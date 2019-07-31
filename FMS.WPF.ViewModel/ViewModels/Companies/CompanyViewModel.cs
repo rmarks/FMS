@@ -1,4 +1,4 @@
-﻿using FMS.ServiceLayer.Interface.Services;
+﻿using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -7,15 +7,14 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyViewModel : ViewModelBase
     {
-        public CompanyViewModel(ICompanyService companyService, 
-                                IDialogService dialogService,
-                                ICompanyDropdownsService dropdownsService)
+        public CompanyViewModel(ICompanyAppService companyAppService, 
+                                IDialogService dialogService)
         {
-            CompanyBasicsViewModel = new CompanyBasicsViewModel(companyService, dialogService, dropdownsService);
-            CompanyAddressesViewModel = new CompanyAddressesViewModel(companyService, dialogService, dropdownsService);
-            CompanyContactsViewModel = new CompanyContactsViewModel(companyService, dialogService);
-            CompanySalesOrderListViewModel = new CompanySalesOrderListViewModel(companyService);
-            CompanySalesInvoiceListViewModel = new CompanySalesInvoiceListViewModel(companyService);
+            CompanyBasicsViewModel = new CompanyBasicsViewModel(companyAppService, dialogService);
+            CompanyAddressesViewModel = new CompanyAddressesViewModel(companyAppService, dialogService);
+            CompanyContactsViewModel = new CompanyContactsViewModel(companyAppService, dialogService);
+            CompanySalesOrderListViewModel = new CompanySalesOrderListViewModel(companyAppService);
+            CompanySalesInvoiceListViewModel = new CompanySalesInvoiceListViewModel(companyAppService);
 
             InitializeCompanyTabs();
 
@@ -31,7 +30,7 @@ namespace FMS.WPF.ViewModels
             CompanySalesInvoiceListViewModel.Load(companyId);
         }
 
-        #region Properties
+        #region properties
         public CompanyBasicsViewModel CompanyBasicsViewModel { get; }
 
         public CompanyAddressesViewModel CompanyAddressesViewModel { get; }
@@ -43,13 +42,13 @@ namespace FMS.WPF.ViewModels
         public CompanySalesInvoiceListViewModel CompanySalesInvoiceListViewModel { get; set; }
 
         public ObservableCollection<ViewModelBase> CompanyTabs { get; private set; }
-        #endregion Properties
+        #endregion
 
-        #region Events
+        #region events
         public event Action RequestListRefresh;
-        #endregion Events
+        #endregion
 
-        #region Helpers
+        #region helpers
         private void InitializeCompanyTabs()
         {
             CompanyTabs = new ObservableCollection<ViewModelBase>();
@@ -59,6 +58,6 @@ namespace FMS.WPF.ViewModels
             CompanyTabs.Add(CompanySalesOrderListViewModel);
             CompanyTabs.Add(CompanySalesInvoiceListViewModel);
         }
-        #endregion Helpers
+        #endregion
     }
 }

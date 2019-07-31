@@ -7,22 +7,19 @@ using FMS.ServiceLayer.QueryObjects;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FMS.ServiceLayer.Services
 {
     public class ProductService : IProductService
     {
         private IDataContextFactory _contextFactory;
-        private IProductDropdownsService _dropdownsService;
 
-        public ProductService(IDataContextFactory contextFactory, IProductDropdownsService dropdownsService)
+        public ProductService(IDataContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
-            _dropdownsService = dropdownsService;
         }
 
-        //product base list
+        #region  product base list
         public IList<ProductListDto> GetProductBases(ProductListOptionsDto options)
         {
             using (var context = _contextFactory.CreateContext())
@@ -35,14 +32,9 @@ namespace FMS.ServiceLayer.Services
                 .ToList();
             }
         }
+        #endregion
 
-        //product dropdowns
-        public async Task<ProductDropdownsDto> GetProductDropdownsAsync()
-        {
-            return await _dropdownsService.GetProductDropdownsAsync();
-        }
-
-        //product base
+        #region  product base
         public ProductBaseDto GetProductBase(int productBaseId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -54,8 +46,9 @@ namespace FMS.ServiceLayer.Services
                     .FirstOrDefault();
             }
         }
+        #endregion
 
-        //product list (product sizes)
+        #region  product (sizes)
         public IList<ProductDto> GetProducts(int productBaseId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -68,5 +61,6 @@ namespace FMS.ServiceLayer.Services
                     .ToList();
             }
         }
+        #endregion
     }
 }

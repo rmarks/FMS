@@ -1,36 +1,28 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
-using FMS.ServiceLayer.Interface.Services;
-using FMS.WPF.Models;
-using FMS.WPF.ViewModel.Extensions;
+﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Services;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyAddressViewModel : GenericEditableViewModelBase<CompanyAddressModel>
     {
-        private ICompanyService _companyService;
+        private ICompanyAppService _companyAppService;
         private IDialogService _dialogService;
-        private ICompanyDropdownsService _dropdownsService;
 
         public CompanyAddressViewModel(CompanyAddressModel model, 
-                                       ICompanyService companyService, 
-                                       IDialogService dialogService,
-                                       ICompanyDropdownsService dropdownsService)
+                                       ICompanyAppService companyAppService, 
+                                       IDialogService dialogService)
         {
             DisplayName = "Saaja aadress";
 
-            _companyService = companyService;
+            _companyAppService = companyAppService;
             _dialogService = dialogService;
-            _dropdownsService = dropdownsService;
-
-            InitializeDropdowns();
 
             Model = model;
             EditCommand?.Execute(null);
         }
 
-        public CompanyDropdownsDto Dropdowns { get; private set; }
-
+        #region overrides
         protected override bool ConfirmDelete()
         {
             return _dialogService.ShowMessageBox("Kas kustutame saaja aadressi?", "Kustutamine", "YesNo");
@@ -38,22 +30,16 @@ namespace FMS.WPF.ViewModels
 
         protected override void DeleteItem(CompanyAddressModel model)
         {
-            _companyService.DeleteCompanyAddress(model.CompanyAddressId);
+            _companyAppService.DeleteCompanyAddressModel(model.CompanyAddressId);
             Model.CompanyAddressId = 0;
         }
 
         protected override bool SaveItem(CompanyAddressModel model)
         {
-            Model.CompanyAddressId = _companyService.SaveCompanyAddress(model.MapTo<CompanyAddressDto>());
+            Model.CompanyAddressId = _companyAppService.SaveCompanyAddressModel(model);
 
             return false;
         }
-
-        #region Helpers
-        private async void InitializeDropdowns()
-        {
-            Dropdowns = await _dropdownsService.GetCompanyDropdownsAsync();
-        }
-        #endregion Helpers
+        #endregion
     }
 }

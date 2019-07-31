@@ -21,7 +21,7 @@ namespace FMS.WPF.UI
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<EntityDtoMappingProfile>();
-                cfg.AddProfile<FMS.WPF.ViewModel.Utils.DtoModelMappingProfile>();
+                cfg.AddProfile<FMS.WPF.ViewModel.Utils.ModelModelMappingProfile>();
                 cfg.AddProfile<FMS.WPF.Application.Utils.DtoModelMappingProfile>();
             });
         }

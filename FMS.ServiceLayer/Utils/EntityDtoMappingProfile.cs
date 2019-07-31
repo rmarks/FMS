@@ -12,7 +12,9 @@ namespace FMS.ServiceLayer.Utils
         {
             //company
             CreateMap<CompanyAddress, CompanyListDto>();
-            CreateMap<CompanyAddress, CompanyAddressDto>().ReverseMap();
+            CreateMap<CompanyAddress, CompanyAddressDto>();
+            CreateMap<CompanyAddressDto, CompanyAddress>()
+                .ForMember(d => d.Country, o => o.Ignore());
             CreateMap<Company, CompanyDto>()
                 .ForMember(d => d.BillingAddress, o => o.MapFrom(s => s.Addresses.FirstOrDefault(a => a.IsBilling)));
             CreateMap<CompanyDto, Company>()

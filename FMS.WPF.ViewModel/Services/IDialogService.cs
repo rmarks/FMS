@@ -1,5 +1,4 @@
-﻿
-using FMS.WPF.ViewModels;
+﻿using FMS.WPF.ViewModels;
 
 namespace FMS.WPF.ViewModel.Services
 {

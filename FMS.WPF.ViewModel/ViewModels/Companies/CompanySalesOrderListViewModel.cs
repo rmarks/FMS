@@ -1,18 +1,18 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
-using FMS.ServiceLayer.Interface.Services;
+﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Application.Interface.Services;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompanySalesOrderListViewModel : GenericListViewModelBase<CompanySalesOrderListDto>
+    public class CompanySalesOrderListViewModel : GenericListViewModelBase<CompanySalesOrderListModel>
     {
-        private ICompanyService _companyService;
+        private ICompanyAppService _companyAppService;
         private int _companyId;
 
-        public CompanySalesOrderListViewModel(ICompanyService companyService)
+        public CompanySalesOrderListViewModel(ICompanyAppService companyAppService)
         {
             DisplayName = "Tellimused";
 
-            _companyService = companyService;
+            _companyAppService = companyAppService;
         }
 
         public void Load(int companyId)
@@ -21,11 +21,11 @@ namespace FMS.WPF.ViewModels
             Refresh();
         }
 
-        #region GenericListViewModelBase Members
+        #region overrides
         public override async void Refresh(bool selectFirstItem = false)
         {
-            Items = await _companyService.GetCompanySalesOrdersAsync(_companyId);
+            Items = await _companyAppService.GetCompanySalesOrderListModelsAsync(_companyId);
         }
-        #endregion GenericListViewModelBase Members
+        #endregion
     }
 }

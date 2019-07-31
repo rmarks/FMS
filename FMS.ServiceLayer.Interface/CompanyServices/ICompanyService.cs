@@ -8,7 +8,7 @@ namespace FMS.ServiceLayer.Interface.Services
     {
         Task<IList<CompanyListDto>> GetCompaniesAsync(string query);
 
-        Task<CompanyDto> GetCompanyAsync(int companyId);
+        CompanyDto GetCompany(int companyId);
         CompanyDto SaveCompany(CompanyDto dto);
         void DeleteCompany(int companyId);
 

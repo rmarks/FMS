@@ -7,20 +7,20 @@ using FMS.WPF.ViewModel.Services;
 using System.Threading.Tasks;
 using System;
 using System.Configuration;
-using FMS.ServiceLayer.Utils;
 using FMS.WPF.ViewModel.Factories;
+using FMS.ServiceLayer.Interface.Services;
 
 namespace FMS.WPF.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        #region Fields
+        #region fields
         private IDataTransferService _dataTransferService;
         private IProgressBarService _progressBarService;
         private IDialogService _dialogService;
-        #endregion Fields
+        #endregion
 
-        #region Constructors
+        #region constructors
         public MainWindowViewModel(IWorkspaceManager workspaceManager, 
                                    IDataTransferService dataTransferService,
                                    IProgressBarService progressBarService,
@@ -33,9 +33,9 @@ namespace FMS.WPF.ViewModels
 
             CreateCommands();
         }
-        #endregion Constructors
+        #endregion
 
-        #region Properties
+        #region properties
         public List<CommandTreeNodeViewModelBase> Commands { get; } = new List<CommandTreeNodeViewModelBase>();
 
         public IWorkspaceManager WorkspaceManager { get; }
@@ -43,9 +43,9 @@ namespace FMS.WPF.ViewModels
         public ObservableCollection<WorkspaceViewModelBase> Workspaces => WorkspaceManager.Workspaces;
 
         public string DataTransferDateTime => ConfigurationManager.AppSettings["DataTransferDateTime"];
-        #endregion Properties
+        #endregion
 
-        #region Commands
+        #region commands
         private ICommand _transferDataCommand;
         public ICommand TransferDataCommand => _transferDataCommand ?? (_transferDataCommand = new RelayCommand(TransferData));
         private async void TransferData()
@@ -76,9 +76,9 @@ namespace FMS.WPF.ViewModels
                 }
             }
         }
-        #endregion Commands
+        #endregion
 
-        #region Helpers
+        #region helpers
         private void CreateCommands()
         {
             CommandTreeGroupViewModel groupPermanentData = new CommandTreeGroupViewModel("Püsiandmed");
@@ -105,6 +105,6 @@ namespace FMS.WPF.ViewModels
 
             RaisePropertyChanged(nameof(DataTransferDateTime));
         }
-        #endregion Helpers
+        #endregion
     }
 }

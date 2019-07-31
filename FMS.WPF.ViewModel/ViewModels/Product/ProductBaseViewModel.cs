@@ -6,15 +6,15 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductBaseViewModel : GenericEditableViewModelBase<ProductBaseModel>
     {
-        private IProductVmService _productService;
+        private IProductAppService _productAppService;
 
         public ProductBaseViewModel(int productBaseId,
-                                    IProductVmService productService)
+                                    IProductAppService productAppService)
         {
-            _productService = productService;
+            _productAppService = productAppService;
 
-            Model = _productService.GetProductBaseModel(productBaseId);
-            InitializeDropdownsAsync();
+            Model = _productAppService.GetProductBaseModel(productBaseId);
+
             PictureLocation = PictureLocationHelper.GetPictureLocation(Model.ProductBaseCode);
         }
 
@@ -28,13 +28,6 @@ namespace FMS.WPF.ViewModels
         protected override bool SaveItem(ProductBaseModel model)
         {
             return true;
-        }
-        #endregion
-
-        #region helpers
-        private void InitializeDropdownsAsync()
-        {
-            _productService.SetProductBaseDropdownsAsync(Model);
         }
         #endregion
     }

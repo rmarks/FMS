@@ -21,7 +21,7 @@ namespace FMS.ServiceLayer.Services
             _contextFactory = contextFactory;
         }
 
-        //company list
+        #region  company list
         public async Task<IList<CompanyListDto>> GetCompaniesAsync(string query)
         {
             using (var context = _contextFactory.CreateContext())
@@ -34,17 +34,18 @@ namespace FMS.ServiceLayer.Services
                     .ToListAsync();
             }
         }
+        #endregion
 
-        //company
-        public async Task<CompanyDto> GetCompanyAsync(int companyId)
+        #region  company
+        public CompanyDto GetCompany(int companyId)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return await context.Companies
+                return context.Companies
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
                 .ProjectBetween<Company, CompanyDto>()
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
             }
         }
 
@@ -96,8 +97,9 @@ namespace FMS.ServiceLayer.Services
                 context.SaveChanges();
             }
         }
+        #endregion
 
-        //company shipping addresses
+        #region  company shipping addresses
         public async Task<IList<CompanyAddressDto>> GetCompanyShippingAddressesAsync(int companyId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -146,8 +148,9 @@ namespace FMS.ServiceLayer.Services
                 context.SaveChanges();
             }
         }
+        #endregion
 
-        //company contacts
+        #region  company contacts
         public async Task<IList<CompanyContactDto>> GetCompanyContactsAsync(int companyId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -195,8 +198,9 @@ namespace FMS.ServiceLayer.Services
                 context.SaveChanges();
             }
         }
+        #endregion
 
-        //company sales orders
+        #region  company sales orders
         public async Task<IList<CompanySalesOrderListDto>> GetCompanySalesOrdersAsync(int companyId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -209,8 +213,9 @@ namespace FMS.ServiceLayer.Services
                     .ToListAsync();
             }
         }
+        #endregion
 
-        //company sales invoices
+        #region  company sales invoices
         public async Task<IList<CompanySalesInvoiceListDto>> GetCompanySalesInvoicesAsync(int companyId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -223,5 +228,6 @@ namespace FMS.ServiceLayer.Services
                     .ToListAsync();
             }
         }
+        #endregion
     }
 }

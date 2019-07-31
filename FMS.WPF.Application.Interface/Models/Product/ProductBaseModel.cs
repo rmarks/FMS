@@ -1,4 +1,4 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
+﻿using FMS.WPF.Application.Interface.Dropdowns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,15 +39,15 @@ namespace FMS.WPF.Application.Interface.Models
         #endregion
 
         #region dropdowns
-        public ProductDropdownsDto Dropdowns { get; set; }
+        public IProductDropdowns Dropdowns => ProductDropdownsProxy.Instance;
 
-        public IList<ProductGroupDropdownDto> ProductGroups =>
+        public IList<ProductGroupDropdownModel> ProductGroups =>
             Dropdowns?.ProductGroups.Where(pg => pg.ProductTypeId == ProductTypeId || pg.ProductTypeId == null).ToList();
 
-        public IList<ProductCollectionDropdownDto> ProductCollections =>
+        public IList<ProductCollectionDropdownModel> ProductCollections =>
             Dropdowns?.ProductCollections.Where(pc => pc.ProductBrandId == ProductBrandId || pc.ProductBrandId == null).ToList();
 
-        public IList<ProductDesignDropdownDto> ProductDesigns =>
+        public IList<ProductDesignDropdownModel> ProductDesigns =>
             Dropdowns?.ProductDesigns.Where(pd => pd.ProductCollectionId == ProductCollectionId || pd.ProductCollectionId == null).ToList();
         #endregion
     }

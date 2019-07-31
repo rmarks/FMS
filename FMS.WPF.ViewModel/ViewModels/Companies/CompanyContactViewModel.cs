@@ -1,30 +1,32 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
-using FMS.ServiceLayer.Interface.Services;
-using FMS.WPF.Models;
-using FMS.WPF.ViewModel.Extensions;
+﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Services;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyContactViewModel : GenericEditableViewModelBase<CompanyContactModel>
     {
-        #region Fields
-        private ICompanyService _companyService;
+        #region fields
+        private ICompanyAppService _companyAppService;
         private IDialogService _dialogService;
-        #endregion Fields
+        #endregion
 
-        public CompanyContactViewModel(CompanyContactModel model, ICompanyService companyService, IDialogService dialogService)
+        public CompanyContactViewModel(CompanyContactModel model, 
+                                       ICompanyAppService companyAppService, 
+                                       IDialogService dialogService)
         {
-            DisplayName = "Kontakt";
-
-            _companyService = companyService;
+            _companyAppService = companyAppService;
             _dialogService = dialogService;
 
             Model = model;
             EditCommand?.Execute(null);
         }
 
-        #region GenericEditableViewModelBase Members
+        #region properties
+        public override string DisplayName => "Kontakt";
+        #endregion
+
+        #region overrides
         protected override bool ConfirmDelete()
         {
             return _dialogService.ShowMessageBox("Kas kustutame kontakti?", "Kustutamine", "YesNo");
@@ -32,16 +34,16 @@ namespace FMS.WPF.ViewModels
 
         protected override void DeleteItem(CompanyContactModel model)
         {
-            _companyService.DeleteCompanyContact(model.ContactId);
+            _companyAppService.DeleteCompanyContactModel(model.ContactId);
             Model.ContactId = 0;
         }
 
         protected override bool SaveItem(CompanyContactModel model)
         {
-            Model.ContactId = _companyService.SaveCompanyContact(model.MapTo<CompanyContactDto>());
+            Model.ContactId = _companyAppService.SaveCompanyContactModel(model);
 
             return false;
         }
-        #endregion GenericEditableViewModelBase Members
+        #endregion
     }
 }

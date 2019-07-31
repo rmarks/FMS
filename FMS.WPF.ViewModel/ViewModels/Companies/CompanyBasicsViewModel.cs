@@ -1,7 +1,5 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
-using FMS.ServiceLayer.Interface.Services;
-using FMS.WPF.Models;
-using FMS.WPF.ViewModel.Extensions;
+﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Services;
 using System;
 
@@ -9,47 +7,35 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyBasicsViewModel : GenericEditableViewModelBase<CompanyBasicsModel>
     {
-        #region Fields
-        private ICompanyService _companyService;
+        #region fields
+        private ICompanyAppService _companyAppService;
         private IDialogService _dialogService;
-        private ICompanyDropdownsService _dropdownsService;
-        #endregion Fields
+        #endregion
 
-        public CompanyBasicsViewModel(ICompanyService companyService, 
-                                      IDialogService dialogService,
-                                      ICompanyDropdownsService dropdownsService)
+        public CompanyBasicsViewModel(ICompanyAppService companyAppService, 
+                                      IDialogService dialogService)
         {
             DisplayName = "Üldandmed";
 
-            _companyService = companyService;
+            _companyAppService = companyAppService;
             _dialogService = dialogService;
-            _dropdownsService = dropdownsService;
-
-            InitializeDropdowns();
         }
 
-        public async void Load(int companyId)
+        public void Load(int companyId)
         {
-            var dto = companyId > 0
-                ? await _companyService.GetCompanyAsync(companyId)
+            Model = companyId > 0
+                ? _companyAppService.GetCompanyBasicsModel(companyId)
                 : null;
-
-            Model = dto?.MapTo<CompanyBasicsModel>();
         }
 
-        #region Properties
-        public CompanyDropdownsDto Dropdowns { get; private set; }
-        #endregion Properties
-
-        #region Events
+        #region events
         public event Action ItemSavedOrDeleted;
-        #endregion Events
+        #endregion
 
-        #region GenericEditableViewModelBase Members
+        #region overrides
         protected override bool SaveItem(CompanyBasicsModel model)
         {
-            var dto = _companyService.SaveCompany(model.MapTo<CompanyDto>());
-            model = dto.MapTo<CompanyBasicsModel>();
+            model = _companyAppService.SaveCompanyBasicsModel(model);
 
             ItemSavedOrDeleted?.Invoke();
 
@@ -63,16 +49,10 @@ namespace FMS.WPF.ViewModels
 
         protected override void DeleteItem(CompanyBasicsModel model)
         {
-            _companyService.DeleteCompany(model.CompanyId);
+            _companyAppService.DeleteCompanyBasicsModel(model.CompanyId);
+
             ItemSavedOrDeleted?.Invoke();
         }
-        #endregion GenericEditableViewModelBase Members
-
-        #region Helpers
-        private async void InitializeDropdowns()
-        {
-            Dropdowns = await _dropdownsService.GetCompanyDropdownsAsync();
-        }
-        #endregion Helpers
+        #endregion
     }
 }

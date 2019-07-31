@@ -20,6 +20,7 @@ namespace FMS.WPF.ViewModel.Utils
 
             Bind<CompaniesViewModel>().ToSelf().InTransientScope();
             Bind<CompanyListViewModel>().ToSelf().InTransientScope();
+            Bind<CompanyViewModel>().ToSelf().InTransientScope();
 
             Bind<ProductsViewModel>().ToSelf().InTransientScope();
             Bind<ProductListViewModel>().ToSelf().InTransientScope();
@@ -30,6 +31,7 @@ namespace FMS.WPF.ViewModel.Utils
         {
             Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
             Bind<ICompanyListViewModelFactory>().To<CompanyListViewModelFactory>().InSingletonScope();
+            Bind<ICompanyViewModelFactory>().To<CompanyViewModelFactory>().InSingletonScope();
 
             Bind<IProductsViewModelFactory>().To<ProductsViewModelFactory>().InSingletonScope();
             Bind<IProductListViewModelFactory>().To<ProductListViewModelFactory>().InSingletonScope();

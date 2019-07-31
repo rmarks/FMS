@@ -10,7 +10,6 @@ namespace FMS.ServiceLayer.Utils
         {
             Bind<IDataTransferService>().To<DataTransferService>().InTransientScope();
 
-            Bind<ICompaniesService>().To<CompaniesService>().InTransientScope();
             Bind<ICompanyService>().To<CompanyService>().InTransientScope();
             Bind<ICompanyDropdownsService>().To<CompanyDropdownsService>().InTransientScope();
 

@@ -6,6 +6,7 @@ using FMS.WPF.UI.Services;
 using FMS.DAL.EFCore.Utils;
 using FMS.ServiceLayer.Utils;
 using FMS.WPF.Application.Utils;
+using FMS.WPF.Application.Interface.Dropdowns;
 
 namespace FMS.WPF.UI
 {
@@ -22,8 +23,21 @@ namespace FMS.WPF.UI
 
             _kernel.Bind<IDialogService>().To<DialogService>().InTransientScope();
             _kernel.Bind<IProgressBarService>().To<ProgressBarService>().InTransientScope();
+
+            ConfigureDropdowns();
         }
 
         public MainWindowViewModel MainWindowViewModel => _kernel.Get<MainWindowViewModel>();
+
+        private async void ConfigureDropdowns()
+        {
+            var companyDropdowns = _kernel.Get<ICompanyDropdowns>();
+            await companyDropdowns.InitializeAsync();
+            CompanyDropdownsProxy.Instance = companyDropdowns;
+
+            var productDropdowns = _kernel.Get<IProductDropdowns>();
+            await productDropdowns.InitializeAsync();
+            ProductDropdownsProxy.Instance = productDropdowns;
+        }
     }
 }

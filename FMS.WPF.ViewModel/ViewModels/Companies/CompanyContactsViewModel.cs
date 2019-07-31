@@ -1,8 +1,6 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
-using FMS.ServiceLayer.Interface.Services;
-using FMS.WPF.Models;
+﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Commands;
-using FMS.WPF.ViewModel.Extensions;
 using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,17 +10,15 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyContactsViewModel : ViewModelBase
     {
-        #region Fields
-        private ICompanyService _companyService;
+        #region fields
+        private ICompanyAppService _companyAppService;
         private IDialogService _dialogService;
         private int _companyId;
-        #endregion Fields
+        #endregion
 
-        public CompanyContactsViewModel(ICompanyService companyService, IDialogService dialogService)
+        public CompanyContactsViewModel(ICompanyAppService companyAppService, IDialogService dialogService)
         {
-            DisplayName = "Kontaktid";
-
-            _companyService = companyService;
+            _companyAppService = companyAppService;
             _dialogService = dialogService;
         }
 
@@ -30,22 +26,24 @@ namespace FMS.WPF.ViewModels
         {
             _companyId = companyId;
 
-            var dtos = _companyId > 0
-                ? await _companyService.GetCompanyContactsAsync(companyId)
+            var models = _companyId > 0
+                ? await _companyAppService.GetCompanyContactModelsAsync(companyId)
                 : null;
 
-            Models = dtos != null
-                ? new ObservableCollection<CompanyContactModel>(dtos.MapBetween<CompanyContactDto, CompanyContactModel>())
+            Models = models != null
+                ? new ObservableCollection<CompanyContactModel>(models)
                 : null;
         }
 
-        #region Properties
+        #region properties
+        public override string DisplayName => "Kontaktid";
+
         public ObservableCollection<CompanyContactModel> Models { get; private set; }
 
         public CompanyContactModel SelectedModel { get; set; }
         #endregion Properties
 
-        #region Commands
+        #region commands
         public ICommand EditCommand => new RelayCommand(OnEdit);
         private void OnEdit()
         {
@@ -66,7 +64,7 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                var viewModel = new CompanyContactViewModel(SelectedModel, _companyService, _dialogService);
+                var viewModel = new CompanyContactViewModel(SelectedModel, _companyAppService, _dialogService);
                 viewModel.IsEditMode = false;
                 viewModel.DeleteCommand?.Execute(null);
                 if (SelectedModel.ContactId == 0)
@@ -75,17 +73,17 @@ namespace FMS.WPF.ViewModels
                 }
             }
         }
-        #endregion Commands
+        #endregion
 
-        #region Helpers
+        #region helpers
         private void ShowContact(CompanyContactModel model)
         {
-            var viewModel = new CompanyContactViewModel(model, _companyService, _dialogService);
+            var viewModel = new CompanyContactViewModel(model, _companyAppService, _dialogService);
             _dialogService.ShowDialog(viewModel);
 
             Load(_companyId);
             SelectedModel = Models?.FirstOrDefault(c => c.ContactId == model.ContactId);
         }
-        #endregion Helpers
+        #endregion
     }
 }
