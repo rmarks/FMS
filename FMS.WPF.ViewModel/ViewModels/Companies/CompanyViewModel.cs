@@ -1,18 +1,25 @@
-﻿using System;
+﻿using FMS.WPF.ViewModel.Factories;
+using System;
 using System.Collections.ObjectModel;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyViewModel : ViewModelBase
     {
-        #region public methods
-        public void Initialize()
+        public CompanyViewModel(IViewModelFactory viewModelFactory)
         {
+            CompanyBasicsViewModel = viewModelFactory.CreateInstance<CompanyBasicsViewModel>();
+            CompanyAddressesViewModel = viewModelFactory.CreateInstance<CompanyAddressesViewModel>();
+            CompanyContactsViewModel = viewModelFactory.CreateInstance<CompanyContactsViewModel>();
+            CompanySalesOrderListViewModel = viewModelFactory.CreateInstance<CompanySalesOrderListViewModel>();
+            CompanySalesInvoiceListViewModel = viewModelFactory.CreateInstance<CompanySalesInvoiceListViewModel>();
+
             InitializeCompanyTabs();
 
             CompanyBasicsViewModel.ItemSavedOrDeleted += () => RequestListRefresh?.Invoke();
         }
 
+        #region public methods
         public void Load(int companyId)
         {
             CompanyBasicsViewModel.Load(companyId);

@@ -7,11 +7,11 @@ namespace FMS.WPF.ViewModels
     public class ProductsViewModel : WorkspaceViewModelBase
     {
         public ProductsViewModel(IWorkspaceManager workspaceManager, 
-                                 IProductListViewModelFactory productListViewModelFactory) : base(workspaceManager)
+                                 IViewModelFactory viewModelFactory) : base(workspaceManager)
         {
             DisplayName = "Tooted";
 
-            ProductListViewModel = productListViewModelFactory.CreateInstance();
+            ProductListViewModel = viewModelFactory.CreateInstance<ProductListViewModel>();
             ProductListViewModel.RequestOpenItem += ProductListViewModel_RequestOpenItem;
         }
 
@@ -20,7 +20,10 @@ namespace FMS.WPF.ViewModels
         #region event handlers
         private void ProductListViewModel_RequestOpenItem(ProductListModel model)
         {
-            WorkspaceManager.OpenWorkspace<IProductViewModelFactory>(model?.ProductBaseId ?? 0);
+            if (model != null)
+            {
+                WorkspaceManager.OpenWorkspace<ProductViewModel>("productBaseId", model.ProductBaseId);
+            }
         }
         #endregion
     }

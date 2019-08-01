@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Application.Interface.Services;
+﻿using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
 using System.Collections.ObjectModel;
 
@@ -6,13 +6,13 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductViewModel : WorkspaceViewModelBase
     {
-        private IProductAppService _productAppService;
+        private readonly IViewModelFactory _viewModelFactory;
 
         public ProductViewModel(int productBaseId, 
                                 IWorkspaceManager workspaceManager,
-                                IProductAppService productAppService) : base(workspaceManager)
+                                IViewModelFactory viewModelFactory) : base(workspaceManager)
         {
-            _productAppService = productAppService;
+            _viewModelFactory = viewModelFactory;
 
             InitializeProductTabs(productBaseId);
         }
@@ -30,12 +30,12 @@ namespace FMS.WPF.ViewModels
         {
             ProductTabs = new ObservableCollection<ViewModelBase>();
 
-            ProductBaseViewModel = new ProductBaseViewModel(productBaseId, _productAppService);
+            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel>("productBaseId", productBaseId);
             ProductTabs.Add(ProductBaseViewModel);
 
             if (ProductBaseViewModel.Model.HasSize)
             {
-                ProductTabs.Add(new ProductSizesViewModel(productBaseId, _productAppService));
+                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSizesViewModel>("productBaseId", productBaseId));
             }
         }
         #endregion

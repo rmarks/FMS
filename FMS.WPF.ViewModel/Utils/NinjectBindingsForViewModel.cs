@@ -34,13 +34,7 @@ namespace FMS.WPF.ViewModel.Utils
 
         private void BindFactories()
         {
-            Bind<ICompaniesViewModelFactory>().To<CompaniesViewModelFactory>().InSingletonScope();
-            Bind<ICompanyListViewModelFactory>().To<CompanyListViewModelFactory>().InSingletonScope();
-            Bind<ICompanyViewModelFactory>().To<CompanyViewModelFactory>().InSingletonScope();
-
-            Bind<IProductsViewModelFactory>().To<ProductsViewModelFactory>().InSingletonScope();
-            Bind<IProductListViewModelFactory>().To<ProductListViewModelFactory>().InSingletonScope();
-            Bind<IProductViewModelFactory>().To<ProductViewModelFactory>().InSingletonScope();
+            Bind<IViewModelFactory>().To<ViewModelFactory>().InSingletonScope();
         }
     }
 }

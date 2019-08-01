@@ -8,11 +8,10 @@ namespace FMS.WPF.ViewModels
     {
         #region constructors
         public CompaniesViewModel(IWorkspaceManager workspaceManager,
-                                  ICompanyListViewModelFactory companyListViewModelFactory,
-                                  ICompanyViewModelFactory companyViewModelFactory) : base(workspaceManager)
+                                  IViewModelFactory viewModelFactory) : base(workspaceManager)
         {
-            CompanyListViewModel = companyListViewModelFactory.CreateInstance();
-            CompanyViewModel = companyViewModelFactory.CreateInstance();
+            CompanyListViewModel = viewModelFactory.CreateInstance<CompanyListViewModel>();
+            CompanyViewModel = viewModelFactory.CreateInstance<CompanyViewModel>();
 
             CompanyListViewModel.SelectedItemChanged += CompanyListViewModel_SelectedItemChanged;
             CompanyViewModel.RequestListRefresh += CompanyViewModel_RequestListRefresh;

@@ -1,6 +1,5 @@
 ﻿using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModels;
-using Ninject;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -10,43 +9,29 @@ namespace FMS.WPF.ViewModel.Utils
 {
     public class WorkspaceManager : IWorkspaceManager
     {
-        private IKernel _kernel;
+        private readonly IViewModelFactory _viewModelFactory;
         private readonly ICollectionView _workspaceCollectionView;
 
-        public WorkspaceManager(IKernel kernel)
+        public WorkspaceManager(IViewModelFactory viewModelFactory)
         {
-            _kernel = kernel;
+            _viewModelFactory = viewModelFactory;
             _workspaceCollectionView = CollectionViewSource.GetDefaultView(Workspaces);
         }
 
         public ObservableCollection<WorkspaceViewModelBase> Workspaces { get; } = new ObservableCollection<WorkspaceViewModelBase>();
 
-        public void OpenWorkspace<T>(string displayName) where T : IWorkspaceFactory
+        public void OpenWorkspace<T>(string paramName = null, int paramValue = 0) where T : WorkspaceViewModelBase
         {
-            var workspace = Workspaces.FirstOrDefault(w => w.DisplayName == displayName);
+            var newWs = _viewModelFactory.CreateInstance<T>(paramName, paramValue);
 
-            if (workspace == null)
+            var ws = Workspaces.FirstOrDefault(w => w.DisplayName == newWs.DisplayName);
+            if (ws == null)
             {
-                var factory = _kernel.Get<T>();
-                workspace = factory.CreateInstance();
-                Workspaces.Add(workspace);
+                ws = newWs;
+                Workspaces.Add(ws);
             }
 
-            _workspaceCollectionView.MoveCurrentTo(workspace);
-        }
-
-        public void OpenWorkspace<T>(int id) where T : IItemWorkspaceFactory
-        {
-            var factory = _kernel.Get<T>();
-            var newWorkspace = factory.CreateInstance(id);
-
-            var workspace = Workspaces.FirstOrDefault(w => w.DisplayName == newWorkspace.DisplayName);
-            if (workspace == null)
-            {
-                Workspaces.Add(newWorkspace);
-            }
-
-            _workspaceCollectionView.MoveCurrentTo(workspace ?? newWorkspace);
+            _workspaceCollectionView.MoveCurrentTo(ws);
         }
 
         public void CloseWorkspace(WorkspaceViewModelBase workspace)
