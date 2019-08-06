@@ -6,7 +6,7 @@ namespace FMS.ServiceLayer.Interface.Services
 {
     public interface ICompanyService
     {
-        Task<IList<CompanyListDto>> GetCompaniesAsync(string query);
+        IList<CompanyListDto> GetCompanies(string query);
 
         CompanyDto GetCompany(int companyId);
         CompanyDto SaveCompany(CompanyDto dto);

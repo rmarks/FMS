@@ -183,8 +183,8 @@
     <Compile Include="Views\Companies\CompanySalesOrderListView.xaml.cs">
       <DependentUpon>CompanySalesOrderListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Companies\CompanyView.xaml.cs">
-      <DependentUpon>CompanyView.xaml</DependentUpon>
+    <Compile Include="Views\Companies\CompanyFacadeView.xaml.cs">
+      <DependentUpon>CompanyFacadeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Product\ProductBaseView.xaml.cs">
       <DependentUpon>ProductBaseView.xaml</DependentUpon>
@@ -271,7 +271,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Companies\CompanyView.xaml">
+    <Page Include="Views\Companies\CompanyFacadeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

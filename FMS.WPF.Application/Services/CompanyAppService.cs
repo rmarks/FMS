@@ -19,12 +19,11 @@ namespace FMS.WPF.Application.Services
         }
 
         #region company list
-        public async Task<IList<CompanyListModel>> GetCompanyListModelsAsync(string query)
+        public IList<CompanyListModel> GetCompanyListModels(string query)
         {
-            var dtos = await _companyService
-                .GetCompaniesAsync(query);
-
-            return dtos.Select(c => c.MapTo<CompanyListModel>())
+            return _companyService
+                .GetCompanies(query)
+                .MapList<CompanyListDto, CompanyListModel>()
                 .ToList();
         }
         #endregion
@@ -32,6 +31,11 @@ namespace FMS.WPF.Application.Services
         #region company basics
         public CompanyBasicsModel GetCompanyBasicsModel(int companyId)
         {
+            if (companyId == 0)
+            {
+                return new CompanyBasicsModel();
+            }
+
             return _companyService
                 .GetCompany(companyId)
                 .MapTo<CompanyBasicsModel>();
@@ -53,6 +57,11 @@ namespace FMS.WPF.Application.Services
         #region company shipping addresses
         public async Task<IList<CompanyAddressModel>> GetCompanyAddressModelsAsync(int companyId)
         {
+            if (companyId == 0)
+            {
+                return null;
+            }
+
             var dtos = await _companyService
                 .GetCompanyShippingAddressesAsync(companyId);
 
@@ -73,6 +82,11 @@ namespace FMS.WPF.Application.Services
         #region company contacts
         public async Task<IList<CompanyContactModel>> GetCompanyContactModelsAsync(int companyId)
         {
+            if (companyId == 0)
+            {
+                return null;
+            }
+
             var dtos = await _companyService
                 .GetCompanyContactsAsync(companyId);
 
@@ -93,6 +107,11 @@ namespace FMS.WPF.Application.Services
         #region company sales orders
         public async Task<IList<CompanySalesOrderListModel>> GetCompanySalesOrderListModelsAsync(int companyId)
         {
+            if (companyId == 0)
+            {
+                return null;
+            }
+
             var dtos = await _companyService
                 .GetCompanySalesOrdersAsync(companyId);
 
@@ -103,6 +122,11 @@ namespace FMS.WPF.Application.Services
         #region company sales invoices
         public async Task<IList<CompanySalesInvoiceListModel>> GetCompanySalesInvoiceListModelsAsync(int companyId)
         {
+            if (companyId == 0)
+            {
+                return null;
+            }
+
             var dtos = await _companyService
                 .GetCompanySalesInvoicesAsync(companyId);
 

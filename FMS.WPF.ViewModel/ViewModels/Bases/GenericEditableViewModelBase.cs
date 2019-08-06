@@ -1,6 +1,7 @@
 ﻿using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Utils;
+using System;
 using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
@@ -24,6 +25,12 @@ namespace FMS.WPF.ViewModels
         public bool IsEditMode { get; set; }
         #endregion
 
+        #region events
+        public event Action ItemEditCancelled;
+        public event Action<TModel> ItemSaved;
+        public event Action ItemDeleted;
+        #endregion
+
         #region commands
         public ICommand EditCommand => new RelayCommand(BeginEdit);
         private void BeginEdit()
@@ -44,6 +51,8 @@ namespace FMS.WPF.ViewModels
             if (IsEditMode)
             {
                 EditableModel = Model;
+
+                ItemEditCancelled?.Invoke();
             }
             IsEditMode = false;
         }
@@ -58,6 +67,8 @@ namespace FMS.WPF.ViewModels
                     //Model.Merge(EditableModel);
                     MappingFactory.MapTo<TModel, TModel>(EditableModel, Model);
                     EditableModel = Model;
+
+                    ItemSaved?.Invoke(Model);
                 }
                 IsEditMode = false;
             }
@@ -71,6 +82,8 @@ namespace FMS.WPF.ViewModels
                 if (ConfirmDelete())
                 {
                     DeleteItem(Model);
+
+                    ItemDeleted?.Invoke();
                 }
             }
         }

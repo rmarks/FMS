@@ -33,13 +33,13 @@ namespace FMS.WPF.ViewModels
         #endregion
 
         #region commands
-        public ICommand RefreshCommand => new RelayCommand(() => Refresh(selectFirstItem: true));
+        public ICommand RefreshCommand => new RelayCommand(() => Refresh());
         public ICommand ResetCommand => new RelayCommand(Reset);
         public ICommand OpenItemCommand => new RelayCommand(() => RequestOpenItem?.Invoke(SelectedItem));
         #endregion
 
         #region abstracts
-        public abstract void Refresh(bool selectFirstItem = false);
+        public abstract void Refresh(int itemId = 0);
         #endregion
 
         #region virtuals

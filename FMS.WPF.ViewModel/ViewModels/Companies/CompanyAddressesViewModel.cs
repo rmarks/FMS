@@ -10,9 +10,11 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyAddressesViewModel : ViewModelBase
     {
+        #region fields
         private ICompanyAppService _companyAppService;
         private IDialogService _dialogService;
         private int _companyId;
+        #endregion
 
         public CompanyAddressesViewModel(ICompanyAppService companyAppService, 
                                          IDialogService dialogService)
@@ -21,6 +23,15 @@ namespace FMS.WPF.ViewModels
             _dialogService = dialogService;
         }
 
+        #region properties
+        public override string DisplayName => "Saajad";
+
+        public ObservableCollection<CompanyAddressModel> Models { get; private set; }
+
+        public CompanyAddressModel SelectedModel { get; set; }
+        #endregion
+
+        #region public methods
         public async void Load(int companyId)
         {
             _companyId = companyId;
@@ -31,13 +42,6 @@ namespace FMS.WPF.ViewModels
                 ? new ObservableCollection<CompanyAddressModel>(models)
                 : null;
         }
-
-        #region properties
-        public override string DisplayName => "Saajad";
-
-        public ObservableCollection<CompanyAddressModel> Models { get; private set; }
-
-        public CompanyAddressModel SelectedModel { get; set; }
         #endregion
 
         #region commands

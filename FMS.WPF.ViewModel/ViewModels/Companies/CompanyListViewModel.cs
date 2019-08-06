@@ -15,18 +15,16 @@ namespace FMS.WPF.ViewModels
 
         public void Load()
         {
-            Refresh(selectFirstItem: true);
+            Refresh();
         }
 
         #region overrides
-        public async override void Refresh(bool selectFirstItem = false)
+        public override void Refresh(int companyId = 0)
         {
-            var oldSelectedItem = SelectedItem;
+            Items = _companyAppService.GetCompanyListModels(Query);
 
-            Items = await _companyAppService.GetCompanyListModelsAsync(Query);
-
-            SelectedItem = selectFirstItem ? Items.FirstOrDefault() 
-                                           : Items.FirstOrDefault(i => i.CompanyId == oldSelectedItem.CompanyId);
+            SelectedItem = companyId == 0 ? Items.FirstOrDefault()
+                                          : Items.FirstOrDefault(i => i.CompanyId == companyId);
         }
 
         public override string QueryDefaultText => "Otsi firma nime, riigi, linna, aadressi või saaja nime järgi";

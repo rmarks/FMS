@@ -13,8 +13,8 @@
         <vw:CompanyListView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:CompanyViewModel}">
-        <vw:CompanyView/>
+    <DataTemplate DataType="{x:Type vm:CompanyFacadeViewModel}">
+        <vw:CompanyFacadeView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:CompanyBasicsViewModel}">

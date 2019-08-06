@@ -32,7 +32,7 @@ namespace FMS.WPF.Application.Interface.Models
 
         public DateTime? CreatedOn { get; set; }
 
-        public CompanyAddressModel BillingAddress { get; set; }
+        public CompanyAddressModel BillingAddress { get; set; } = new CompanyAddressModel();
         #endregion
 
         #region dropdowns

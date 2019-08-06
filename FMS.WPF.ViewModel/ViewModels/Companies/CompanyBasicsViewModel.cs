@@ -1,7 +1,6 @@
 ﻿using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Services;
-using System;
 
 namespace FMS.WPF.ViewModels
 {
@@ -15,29 +14,25 @@ namespace FMS.WPF.ViewModels
         public CompanyBasicsViewModel(ICompanyAppService companyAppService, 
                                       IDialogService dialogService)
         {
-            DisplayName = "Üldandmed";
-
             _companyAppService = companyAppService;
             _dialogService = dialogService;
         }
 
+        #region properties
+        public override string DisplayName => "Üldandmed";
+        #endregion
+
+        #region public methods
         public void Load(int companyId)
         {
-            Model = companyId > 0
-                ? _companyAppService.GetCompanyBasicsModel(companyId)
-                : null;
+            Model = _companyAppService.GetCompanyBasicsModel(companyId);
         }
-
-        #region events
-        public event Action ItemSavedOrDeleted;
         #endregion
 
         #region overrides
         protected override bool SaveItem(CompanyBasicsModel model)
         {
-            model = _companyAppService.SaveCompanyBasicsModel(model);
-
-            ItemSavedOrDeleted?.Invoke();
+            EditableModel = _companyAppService.SaveCompanyBasicsModel(model);
 
             return true;
         }
@@ -50,8 +45,6 @@ namespace FMS.WPF.ViewModels
         protected override void DeleteItem(CompanyBasicsModel model)
         {
             _companyAppService.DeleteCompanyBasicsModel(model.CompanyId);
-
-            ItemSavedOrDeleted?.Invoke();
         }
         #endregion
     }

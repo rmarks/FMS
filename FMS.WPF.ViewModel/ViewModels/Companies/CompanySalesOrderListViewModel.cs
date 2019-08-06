@@ -22,7 +22,7 @@ namespace FMS.WPF.ViewModels
         }
 
         #region overrides
-        public override async void Refresh(bool selectFirstItem = false)
+        public override async void Refresh(int itemId = 0)
         {
             Items = await _companyAppService.GetCompanySalesOrderListModelsAsync(_companyId);
         }

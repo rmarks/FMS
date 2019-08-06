@@ -5,9 +5,9 @@ namespace FMS.WPF.Views
     /// <summary>
     /// Interaction logic for CompanyCompoundView.xaml
     /// </summary>
-    public partial class CompanyView : UserControl
+    public partial class CompanyFacadeView : UserControl
     {
-        public CompanyView()
+        public CompanyFacadeView()
         {
             InitializeComponent();
         }

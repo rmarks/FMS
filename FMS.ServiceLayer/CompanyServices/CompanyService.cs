@@ -22,16 +22,16 @@ namespace FMS.ServiceLayer.Services
         }
 
         #region  company list
-        public async Task<IList<CompanyListDto>> GetCompaniesAsync(string query)
+        public IList<CompanyListDto> GetCompanies(string query)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return await context.CompanyAddresses
+                return context.CompanyAddresses
                     .AsNoTracking()
                     .FilterBy(query)
                     .OrderBy(a => a.Company.CompanyName)
                     .ProjectBetween<CompanyAddress, CompanyListDto>()
-                    .ToListAsync();
+                    .ToList();
             }
         }
         #endregion
@@ -55,7 +55,21 @@ namespace FMS.ServiceLayer.Services
             {
                 var company = dto.MapTo<Company>();
 
-                context.Update(company);
+                if (company.CompanyId == 0)
+                {
+                    company.CreatedOn = DateTime.Now;
+
+                    var billingAddress = company.Addresses.FirstOrDefault();
+                    billingAddress.IsBilling = true;
+                    billingAddress.CreatedOn = DateTime.Now;
+
+                    context.Add(company);
+                }
+                else
+                {
+                    context.Update(company);
+                }
+                
                 context.SaveChanges();
 
                 return company.MapTo<CompanyDto>();

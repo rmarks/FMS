@@ -6,7 +6,7 @@ namespace FMS.WPF.Application.Interface.Services
 {
     public interface ICompanyAppService
     {
-        Task<IList<CompanyListModel>> GetCompanyListModelsAsync(string query);
+        IList<CompanyListModel> GetCompanyListModels(string query);
 
         CompanyBasicsModel GetCompanyBasicsModel(int companyId);
         CompanyBasicsModel SaveCompanyBasicsModel(CompanyBasicsModel model);

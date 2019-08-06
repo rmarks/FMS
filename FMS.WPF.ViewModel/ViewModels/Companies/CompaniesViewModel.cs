@@ -1,6 +1,8 @@
 ﻿using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
+using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
@@ -11,10 +13,13 @@ namespace FMS.WPF.ViewModels
                                   IViewModelFactory viewModelFactory) : base(workspaceManager)
         {
             CompanyListViewModel = viewModelFactory.CreateInstance<CompanyListViewModel>();
-            CompanyViewModel = viewModelFactory.CreateInstance<CompanyViewModel>();
+            CompanyFacadeViewModel = viewModelFactory.CreateInstance<CompanyFacadeViewModel>();
 
             CompanyListViewModel.SelectedItemChanged += CompanyListViewModel_SelectedItemChanged;
-            CompanyViewModel.RequestListRefresh += CompanyViewModel_RequestListRefresh;
+
+            CompanyFacadeViewModel.CompanySaved += (id) => CompanyListViewModel.Refresh(id);
+            CompanyFacadeViewModel.CompanyDeleted += () => CompanyListViewModel.Refresh();
+            CompanyFacadeViewModel.CompanyEditCancelled += CompanyFacadeViewModel_CompanyEditCancelled;
 
             CompanyListViewModel.Load();
         }
@@ -25,21 +30,34 @@ namespace FMS.WPF.ViewModels
 
         public CompanyListViewModel CompanyListViewModel { get; }
 
-        public CompanyViewModel CompanyViewModel { get; }
+        public CompanyFacadeViewModel CompanyFacadeViewModel { get; }
 
         public bool IsCompanyAvailable => CompanyListViewModel.SelectedItem != null;
+        #endregion
+
+        #region commands
+        public ICommand AddCommand => new RelayCommand(OnAdd);
+        private void OnAdd()
+        {
+            //CompanyListViewModel.SelectedItem = new CompanyListModel();
+            CompanyFacadeViewModel.LoadCompany(0);
+        }
         #endregion
 
         #region event handlers
         private void CompanyListViewModel_SelectedItemChanged(CompanyListModel model)
         {
-            CompanyViewModel.Load(model?.CompanyId ?? 0);
+            if (model != null)
+            {
+                CompanyFacadeViewModel.LoadCompany(model.CompanyId);
+            }
+            
             RaisePropertyChanged(nameof(IsCompanyAvailable));
         }
 
-        private void CompanyViewModel_RequestListRefresh()
+        private void CompanyFacadeViewModel_CompanyEditCancelled()
         {
-            CompanyListViewModel.Refresh();
+            CompanyFacadeViewModel.LoadCompany(CompanyListViewModel.SelectedItem.CompanyId);
         }
         #endregion
     }

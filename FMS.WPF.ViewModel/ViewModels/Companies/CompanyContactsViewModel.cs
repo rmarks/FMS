@@ -26,9 +26,7 @@ namespace FMS.WPF.ViewModels
         {
             _companyId = companyId;
 
-            var models = _companyId > 0
-                ? await _companyAppService.GetCompanyContactModelsAsync(companyId)
-                : null;
+            var models = await _companyAppService.GetCompanyContactModelsAsync(companyId);
 
             Models = models != null
                 ? new ObservableCollection<CompanyContactModel>(models)

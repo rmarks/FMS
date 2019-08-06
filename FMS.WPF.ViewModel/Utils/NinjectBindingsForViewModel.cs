@@ -20,7 +20,7 @@ namespace FMS.WPF.ViewModel.Utils
 
             Bind<CompaniesViewModel>().ToSelf().InTransientScope();
             Bind<CompanyListViewModel>().ToSelf().InTransientScope();
-            Bind<CompanyViewModel>().ToSelf().InTransientScope();
+            Bind<CompanyFacadeViewModel>().ToSelf().InTransientScope();
             Bind<CompanyBasicsViewModel>().ToSelf().InTransientScope();
             Bind<CompanyAddressesViewModel>().ToSelf().InTransientScope();
             Bind<CompanyContactsViewModel>().ToSelf().InTransientScope();

@@ -19,7 +19,7 @@ namespace FMS.WPF.ViewModels
         #endregion
 
         #region overrides
-        public override void Refresh(bool selectFirstItem = false)
+        public override void Refresh(int itemId = 0)
         {
             Items = _productAppService.GetProductListModels(OptionsModel);
             ItemsCount = Items.Count;
