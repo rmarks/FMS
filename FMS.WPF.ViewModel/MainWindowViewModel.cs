@@ -1,14 +1,13 @@
-﻿using FMS.WPF.ViewModel.Commands;
+﻿using FMS.WPF.Application.Interface.Services;
+using FMS.WPF.ViewModel.Commands;
+using FMS.WPF.ViewModel.Services;
 using FMS.WPF.ViewModel.Utils;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using FMS.WPF.ViewModel.Services;
 using System.Threading.Tasks;
 using System;
 using System.Configuration;
-using FMS.WPF.ViewModel.Factories;
-using FMS.ServiceLayer.Interface.Services;
 
 namespace FMS.WPF.ViewModels
 {
@@ -85,11 +84,9 @@ namespace FMS.WPF.ViewModels
             Commands.Add(groupPermanentData);
 
             CommandTreeItemViewModel commandCompanies =
-                //new CommandTreeItemViewModel("Firmad", new RelayCommand(() => WorkspaceManager.OpenWorkspace<ICompaniesViewModelFactory>("Firmad")));
                 new CommandTreeItemViewModel("Firmad", new RelayCommand(() => WorkspaceManager.OpenWorkspace<CompaniesViewModel>()));
             groupPermanentData.CommandTreeItems.Add(commandCompanies);
             CommandTreeItemViewModel commandProducts =
-                //new CommandTreeItemViewModel("Tooted", new RelayCommand(() => WorkspaceManager.OpenWorkspace<IProductsViewModelFactory>("Tooted")));
                 new CommandTreeItemViewModel("Tooted", new RelayCommand(() => WorkspaceManager.OpenWorkspace<ProductsViewModel>()));
             groupPermanentData.CommandTreeItems.Add(commandProducts);
         }

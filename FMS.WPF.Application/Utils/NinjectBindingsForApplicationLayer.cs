@@ -10,6 +10,8 @@ namespace FMS.WPF.Application.Utils
     {
         public override void Load()
         {
+            Bind<IDataTransferService>().To<DataTransferService>().InTransientScope();
+
             Bind<ICompanyAppService>().To<CompanyAppService>().InSingletonScope();
             Bind<ICompanyDropdowns>().To<CompanyDropdowns>().InSingletonScope();
 

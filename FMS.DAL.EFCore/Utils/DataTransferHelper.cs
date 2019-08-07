@@ -1,15 +1,13 @@
-﻿using FMS.DAL.EFCore;
-using FMS.ServiceLayer.Interface.Services;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace FMS.ServiceLayer.Utils
+namespace FMS.DAL.EFCore.Utils
 {
-    public class DataTransferService : IDataTransferService
+    public class DataTransferHelper
     {
-        public void ClearDatabase()
+        public static void ClearDatabase()
         {
             var context = new SQLServerDbContext();
 
@@ -17,7 +15,7 @@ namespace FMS.ServiceLayer.Utils
             context.Database.EnsureCreated();
         }
 
-        public bool TransferData()
+        public static bool TransferData()
         {
             try
             {

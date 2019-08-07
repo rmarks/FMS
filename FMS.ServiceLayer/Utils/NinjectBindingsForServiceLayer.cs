@@ -8,8 +8,6 @@ namespace FMS.ServiceLayer.Utils
     {
         public override void Load()
         {
-            Bind<IDataTransferService>().To<DataTransferService>().InTransientScope();
-
             Bind<ICompanyService>().To<CompanyService>().InTransientScope();
             Bind<ICompanyDropdownsService>().To<CompanyDropdownsService>().InTransientScope();
 
