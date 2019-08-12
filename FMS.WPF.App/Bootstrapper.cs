@@ -1,28 +1,25 @@
-﻿using FMS.WPF.ViewModel.Utils;
+﻿using FMS.DAL.EFCore.Utils;
+using FMS.ServiceLayer.Utils;
+using FMS.WPF.Application.Interface.Dropdowns;
+using FMS.WPF.Application.Utils;
+using FMS.WPF.UI.Utils;
+using FMS.WPF.ViewModel.Utils;
 using FMS.WPF.ViewModels;
 using Ninject;
-using FMS.WPF.ViewModel.Services;
-using FMS.WPF.UI.Services;
-using FMS.DAL.EFCore.Utils;
-using FMS.ServiceLayer.Utils;
-using FMS.WPF.Application.Utils;
-using FMS.WPF.Application.Interface.Dropdowns;
 
-namespace FMS.WPF.UI
+namespace FMS.WPF.App
 {
-    public class BootStrapper
+    public class Bootstrapper
     {
         private IKernel _kernel;
 
-        public BootStrapper()
+        public Bootstrapper()
         {
-            _kernel = new StandardKernel(new NinjectBindingsForDAL(), 
+            _kernel = new StandardKernel(new NinjectBindingsForDAL(),
                                          new NinjectBindingsForServiceLayer(),
                                          new NinjectBindingsForApplicationLayer(),
-                                         new NinjectBindingsForViewModel());
-
-            _kernel.Bind<IDialogService>().To<DialogService>().InTransientScope();
-            _kernel.Bind<IProgressBarService>().To<ProgressBarService>().InTransientScope();
+                                         new NinjectBindingsForViewModel(),
+                                         new NinjectBindingsForUI());
 
             ConfigureDropdowns();
         }

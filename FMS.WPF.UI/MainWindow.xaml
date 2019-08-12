@@ -6,32 +6,32 @@
         xmlns:local="clr-namespace:FMS.WPF.UI"
         xmlns:vm="clr-namespace:FMS.WPF.ViewModels;assembly=FMS.WPF.ViewModel"
         mc:Ignorable="d"
-        Title="FMS - Juveel" Height="800" Width="1400" WindowState="Maximized"
-        DataContext="{Binding Path=MainWindowViewModel, Source={StaticResource BootStrapper}}">
+        Title="FMS - Juveel" 
+        Height="800" Width="1400" WindowState="Maximized">
 
     <Window.Resources>
-        <DataTemplate x:Key="ClosableTabItemTemplate">
-            <DockPanel>
-                <Button DockPanel.Dock="Right"
+            <DataTemplate x:Key="ClosableTabItemTemplate">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right"
                         Command="{Binding Path=CloseWorkspaceCommand}"
                         Content="X"
                         Padding="5,2"
                         IsTabStop="False"/>
-                <ContentPresenter Content="{Binding Path=DisplayName}"
+                    <ContentPresenter Content="{Binding Path=DisplayName}"
                                   VerticalAlignment="Center"
                                   TextElement.FontSize="18"
                                   Margin="0,0,7,0"/>
-            </DockPanel>
-        </DataTemplate>
+                </DockPanel>
+            </DataTemplate>
 
-        <Style TargetType="TabControl">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Items.Count, RelativeSource={RelativeSource Self}}"
+            <Style TargetType="TabControl">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=Items.Count, RelativeSource={RelativeSource Self}}"
                              Value="0">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+                        <Setter Property="Visibility" Value="Hidden"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
     </Window.Resources>
 
     <Border Padding="0,10,10,10" Background="Gray">
@@ -41,6 +41,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
+            <!--Menu and data transfer-->
             <Expander Grid.Column="0"
                       Name="menuExpander"
                       ExpandDirection="Right"
@@ -113,6 +114,7 @@
                 </Grid>
             </Expander>
 
+            <!--Workspaces-->
             <TabControl Grid.Column="1"
                         ItemsSource="{Binding Path=Workspaces}"
                         ItemTemplate="{StaticResource ClosableTabItemTemplate}"

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using FMS.ServiceLayer.Utils;
+using FMS.WPF.UI;
 using System.Windows;
 
-namespace FMS.WPF.UI
+namespace FMS.WPF.App
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -14,6 +15,11 @@ namespace FMS.WPF.UI
             base.OnStartup(e);
 
             InitializeAutoMapper();
+
+            var bootstrapper = new Bootstrapper();
+
+            var mainWindow = new MainWindow { DataContext = bootstrapper.MainWindowViewModel };
+            mainWindow.Show();
         }
 
         private void InitializeAutoMapper()

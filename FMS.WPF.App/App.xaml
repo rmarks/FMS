@@ -1,0 +1,16 @@
+﻿<Application x:Class="FMS.WPF.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FMS.WPF.App">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FMS.WPF.UI;component/Resources/ConverterResources.xaml"/>
+                <ResourceDictionary Source="/FMS.WPF.UI;component/Resources/ViewModelDataTemplates.xaml"/>
+                <ResourceDictionary Source="/FMS.WPF.UI;component/Resources/MainSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    
+</Application>
