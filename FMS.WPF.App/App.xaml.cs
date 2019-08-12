@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using FMS.ServiceLayer.Utils;
-using FMS.WPF.UI;
+using FMS.WPF.Views;
 using System.Windows;
 
 namespace FMS.WPF.App
@@ -26,7 +25,7 @@ namespace FMS.WPF.App
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<EntityDtoMappingProfile>();
+                cfg.AddProfile<FMS.ServiceLayer.Utils.EntityDtoMappingProfile>();
                 cfg.AddProfile<FMS.WPF.ViewModel.Utils.ModelModelMappingProfile>();
                 cfg.AddProfile<FMS.WPF.Application.Utils.DtoModelMappingProfile>();
             });

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace FMS.WPF.UI
+namespace FMS.WPF.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

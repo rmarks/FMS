@@ -8,22 +8,11 @@
     <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="PropertyChanged.Fody" Version="2.6.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FMS.WPF.Application.Interface\FMS.WPF.Application.Interface.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!--<Reference Include="PresentationFramework">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\PresentationFramework.dll</HintPath>
-    </Reference>-->
-    <Reference Include="System.Configuration">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Configuration.dll</HintPath>
-    </Reference>
-    <!--<Reference Include="WindowsBase">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\WindowsBase.dll</HintPath>
-    </Reference>-->
   </ItemGroup>
 
 </Project>
