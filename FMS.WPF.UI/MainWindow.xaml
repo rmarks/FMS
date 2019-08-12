@@ -117,6 +117,7 @@
             <!--Workspaces-->
             <TabControl Grid.Column="1"
                         ItemsSource="{Binding Path=Workspaces}"
+                        SelectedItem="{Binding Path=SelectedWorkspace}"
                         ItemTemplate="{StaticResource ClosableTabItemTemplate}"
                         IsSynchronizedWithCurrentItem="True">
             </TabControl>

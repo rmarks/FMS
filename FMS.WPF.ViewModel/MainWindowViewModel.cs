@@ -31,6 +31,8 @@ namespace FMS.WPF.ViewModels
             _dialogService = dialogService;
 
             CreateCommands();
+
+            workspaceManager.WorkspaceSelected += (ws) => SelectedWorkspace = ws;
         }
         #endregion
 
@@ -40,6 +42,8 @@ namespace FMS.WPF.ViewModels
         public IWorkspaceManager WorkspaceManager { get; }
 
         public ObservableCollection<WorkspaceViewModelBase> Workspaces => WorkspaceManager.Workspaces;
+
+        public WorkspaceViewModelBase SelectedWorkspace { get; set; }
 
         public string DataTransferDateTime => ConfigurationManager.AppSettings["DataTransferDateTime"];
         #endregion

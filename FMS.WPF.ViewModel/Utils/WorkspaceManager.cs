@@ -1,24 +1,25 @@
 ﻿using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModels;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Windows.Data;
 
 namespace FMS.WPF.ViewModel.Utils
 {
     public class WorkspaceManager : IWorkspaceManager
     {
         private readonly IViewModelFactory _viewModelFactory;
-        private readonly ICollectionView _workspaceCollectionView;
+        //private readonly ICollectionView _workspaceCollectionView;
 
         public WorkspaceManager(IViewModelFactory viewModelFactory)
         {
             _viewModelFactory = viewModelFactory;
-            _workspaceCollectionView = CollectionViewSource.GetDefaultView(Workspaces);
+            //_workspaceCollectionView = CollectionViewSource.GetDefaultView(Workspaces);
         }
 
         public ObservableCollection<WorkspaceViewModelBase> Workspaces { get; } = new ObservableCollection<WorkspaceViewModelBase>();
+
+        public event Action<WorkspaceViewModelBase> WorkspaceSelected;
 
         public void OpenWorkspace<T>(string paramName = null, int paramValue = 0) where T : WorkspaceViewModelBase
         {
@@ -31,7 +32,8 @@ namespace FMS.WPF.ViewModel.Utils
                 Workspaces.Add(ws);
             }
 
-            _workspaceCollectionView.MoveCurrentTo(ws);
+            //_workspaceCollectionView.MoveCurrentTo(ws);
+            WorkspaceSelected?.Invoke(ws);
         }
 
         public void CloseWorkspace(WorkspaceViewModelBase workspace)
