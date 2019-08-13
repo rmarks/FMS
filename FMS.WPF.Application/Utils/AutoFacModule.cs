@@ -10,10 +10,13 @@ namespace FMS.WPF.Application.Utils
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(GetType().GetTypeInfo().Assembly)
-                .Where(c => c.Name.EndsWith("Service") || c.Name.EndsWith("Dropdowns"))
-                .Except<DataTransferService>()
+                .Where(c => c.Name.EndsWith("FacadeService") || c.Name.EndsWith("Dropdowns"))
                 .AsImplementedInterfaces()
                 .SingleInstance();
+
+            builder.RegisterAssemblyTypes(GetType().GetTypeInfo().Assembly)
+                .Where(c => c.Name.EndsWith("ListService"))
+                .AsImplementedInterfaces();
 
             builder.RegisterType<DataTransferService>().As<IDataTransferService>();
         }

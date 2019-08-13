@@ -11,14 +11,15 @@ namespace FMS.WPF.ViewModels
     public class CompanyContactsViewModel : ViewModelBase
     {
         #region fields
-        private ICompanyAppService _companyAppService;
+        private ICompanyFacadeService _companyFacadeService;
         private IDialogService _dialogService;
         private int _companyId;
         #endregion
 
-        public CompanyContactsViewModel(ICompanyAppService companyAppService, IDialogService dialogService)
+        public CompanyContactsViewModel(ICompanyFacadeService companyFacadeService, 
+                                        IDialogService dialogService)
         {
-            _companyAppService = companyAppService;
+            _companyFacadeService = companyFacadeService;
             _dialogService = dialogService;
         }
 
@@ -26,7 +27,7 @@ namespace FMS.WPF.ViewModels
         {
             _companyId = companyId;
 
-            var models = await _companyAppService.GetCompanyContactModelsAsync(companyId);
+            var models = await _companyFacadeService.GetCompanyContactModelsAsync(companyId);
 
             Models = models != null
                 ? new ObservableCollection<CompanyContactModel>(models)
@@ -35,9 +36,7 @@ namespace FMS.WPF.ViewModels
 
         #region properties
         public override string DisplayName => "Kontaktid";
-
         public ObservableCollection<CompanyContactModel> Models { get; private set; }
-
         public CompanyContactModel SelectedModel { get; set; }
         #endregion Properties
 
@@ -62,7 +61,7 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                var viewModel = new CompanyContactViewModel(SelectedModel, _companyAppService, _dialogService);
+                var viewModel = new CompanyContactViewModel(SelectedModel, _companyFacadeService, _dialogService);
                 viewModel.IsEditMode = false;
                 viewModel.DeleteCommand?.Execute(null);
                 if (SelectedModel.ContactId == 0)
@@ -76,7 +75,7 @@ namespace FMS.WPF.ViewModels
         #region helpers
         private void ShowContact(CompanyContactModel model)
         {
-            var viewModel = new CompanyContactViewModel(model, _companyAppService, _dialogService);
+            var viewModel = new CompanyContactViewModel(model, _companyFacadeService, _dialogService);
             _dialogService.ShowDialog(viewModel);
 
             Load(_companyId);

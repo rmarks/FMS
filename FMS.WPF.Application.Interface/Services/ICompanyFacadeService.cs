@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using FMS.WPF.Application.Interface.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using FMS.WPF.Application.Interface.Models;
 
 namespace FMS.WPF.Application.Interface.Services
 {
-    public interface ICompanyAppService
+    public interface ICompanyFacadeService
     {
-        IList<CompanyListModel> GetCompanyListModels(string query);
-
         CompanyBasicsModel GetCompanyBasicsModel(int companyId);
         CompanyBasicsModel SaveCompanyBasicsModel(CompanyBasicsModel model);
         void DeleteCompanyBasicsModel(int companyId);

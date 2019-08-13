@@ -6,9 +6,10 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductSizesViewModel : ViewModelBase
     {
-        public ProductSizesViewModel(int productBaseId, IProductAppService productService)
+        public ProductSizesViewModel(int productBaseId, 
+                                     IProductFacadeService productFacadeService)
         {
-            Products = productService.GetProductModels(productBaseId);
+            Products = productFacadeService.GetProductModels(productBaseId);
         }
 
         public override string DisplayName => "Suurused";

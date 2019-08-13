@@ -6,21 +6,20 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductBaseViewModel : GenericEditableViewModelBase<ProductBaseModel>
     {
-        private IProductAppService _productAppService;
+        private IProductFacadeService _productFacadeService;
 
         public ProductBaseViewModel(int productBaseId,
-                                    IProductAppService productAppService)
+                                    IProductFacadeService productFacadeService)
         {
-            _productAppService = productAppService;
+            _productFacadeService = productFacadeService;
 
-            Model = _productAppService.GetProductBaseModel(productBaseId);
+            Model = _productFacadeService.GetProductBaseModel(productBaseId);
 
             PictureLocation = PictureLocationHelper.GetPictureLocation(Model.ProductBaseCode);
         }
 
         #region properties
         public override string DisplayName => "Üldandmed";
-
         public string PictureLocation { get; }
         #endregion
 

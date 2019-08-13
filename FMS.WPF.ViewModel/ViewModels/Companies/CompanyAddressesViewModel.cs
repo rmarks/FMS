@@ -11,23 +11,21 @@ namespace FMS.WPF.ViewModels
     public class CompanyAddressesViewModel : ViewModelBase
     {
         #region fields
-        private ICompanyAppService _companyAppService;
+        private ICompanyFacadeService _companyFacadeService;
         private IDialogService _dialogService;
         private int _companyId;
         #endregion
 
-        public CompanyAddressesViewModel(ICompanyAppService companyAppService, 
+        public CompanyAddressesViewModel(ICompanyFacadeService companyFacadeService, 
                                          IDialogService dialogService)
         {
-            _companyAppService = companyAppService;
+            _companyFacadeService = companyFacadeService;
             _dialogService = dialogService;
         }
 
         #region properties
         public override string DisplayName => "Saajad";
-
         public ObservableCollection<CompanyAddressModel> Models { get; private set; }
-
         public CompanyAddressModel SelectedModel { get; set; }
         #endregion
 
@@ -36,7 +34,7 @@ namespace FMS.WPF.ViewModels
         {
             _companyId = companyId;
 
-            var models = await _companyAppService.GetCompanyAddressModelsAsync(_companyId);
+            var models = await _companyFacadeService.GetCompanyAddressModelsAsync(_companyId);
 
             Models = models != null
                 ? new ObservableCollection<CompanyAddressModel>(models)
@@ -65,7 +63,7 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                var viewModel = new CompanyAddressViewModel(SelectedModel, _companyAppService, _dialogService);//, _dropdownsService);
+                var viewModel = new CompanyAddressViewModel(SelectedModel, _companyFacadeService, _dialogService);//, _dropdownsService);
                 viewModel.IsEditMode = false;
                 viewModel.DeleteCommand?.Execute(null);
                 if (SelectedModel.CompanyAddressId == 0)
@@ -79,7 +77,7 @@ namespace FMS.WPF.ViewModels
         #region helpers
         private void ShowAddress(CompanyAddressModel model)
         {
-            var viewModel = new CompanyAddressViewModel(model, _companyAppService, _dialogService);
+            var viewModel = new CompanyAddressViewModel(model, _companyFacadeService, _dialogService);
             _dialogService.ShowDialog(viewModel);
 
             Load(_companyId);

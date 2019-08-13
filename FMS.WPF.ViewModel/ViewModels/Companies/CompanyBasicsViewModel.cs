@@ -7,14 +7,14 @@ namespace FMS.WPF.ViewModels
     public class CompanyBasicsViewModel : GenericEditableViewModelBase<CompanyBasicsModel>
     {
         #region fields
-        private ICompanyAppService _companyAppService;
+        private ICompanyFacadeService _companyFacadeService;
         private IDialogService _dialogService;
         #endregion
 
-        public CompanyBasicsViewModel(ICompanyAppService companyAppService, 
+        public CompanyBasicsViewModel(ICompanyFacadeService companyFacadeService, 
                                       IDialogService dialogService)
         {
-            _companyAppService = companyAppService;
+            _companyFacadeService = companyFacadeService;
             _dialogService = dialogService;
         }
 
@@ -25,14 +25,14 @@ namespace FMS.WPF.ViewModels
         #region public methods
         public void Load(int companyId)
         {
-            Model = _companyAppService.GetCompanyBasicsModel(companyId);
+            Model = _companyFacadeService.GetCompanyBasicsModel(companyId);
         }
         #endregion
 
         #region overrides
         protected override bool SaveItem(CompanyBasicsModel model)
         {
-            EditableModel = _companyAppService.SaveCompanyBasicsModel(model);
+            EditableModel = _companyFacadeService.SaveCompanyBasicsModel(model);
 
             return true;
         }
@@ -44,7 +44,7 @@ namespace FMS.WPF.ViewModels
 
         protected override void DeleteItem(CompanyBasicsModel model)
         {
-            _companyAppService.DeleteCompanyBasicsModel(model.CompanyId);
+            _companyFacadeService.DeleteCompanyBasicsModel(model.CompanyId);
         }
         #endregion
     }

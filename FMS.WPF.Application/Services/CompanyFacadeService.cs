@@ -4,29 +4,18 @@ using FMS.WPF.Application.Extensions;
 using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.Application.Interface.Services;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FMS.WPF.Application.Services
 {
-    public class CompanyAppService : ICompanyAppService
+    public class CompanyFacadeService : ICompanyFacadeService
     {
         private readonly ICompanyService _companyService;
 
-        public CompanyAppService(ICompanyService companyService)
+        public CompanyFacadeService(ICompanyService companyService)
         {
             _companyService = companyService;
         }
-
-        #region company list
-        public IList<CompanyListModel> GetCompanyListModels(string query)
-        {
-            return _companyService
-                .GetCompanies(query)
-                .MapList<CompanyListDto, CompanyListModel>()
-                .ToList();
-        }
-        #endregion
 
         #region company basics
         public CompanyBasicsModel GetCompanyBasicsModel(int companyId)

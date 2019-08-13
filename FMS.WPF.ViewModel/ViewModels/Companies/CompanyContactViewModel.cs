@@ -7,15 +7,15 @@ namespace FMS.WPF.ViewModels
     public class CompanyContactViewModel : GenericEditableViewModelBase<CompanyContactModel>
     {
         #region fields
-        private ICompanyAppService _companyAppService;
+        private ICompanyFacadeService _companyFacadeService;
         private IDialogService _dialogService;
         #endregion
 
         public CompanyContactViewModel(CompanyContactModel model, 
-                                       ICompanyAppService companyAppService, 
+                                       ICompanyFacadeService companyFacadeService, 
                                        IDialogService dialogService)
         {
-            _companyAppService = companyAppService;
+            _companyFacadeService = companyFacadeService;
             _dialogService = dialogService;
 
             Model = model;
@@ -34,13 +34,13 @@ namespace FMS.WPF.ViewModels
 
         protected override void DeleteItem(CompanyContactModel model)
         {
-            _companyAppService.DeleteCompanyContactModel(model.ContactId);
+            _companyFacadeService.DeleteCompanyContactModel(model.ContactId);
             Model.ContactId = 0;
         }
 
         protected override bool SaveItem(CompanyContactModel model)
         {
-            Model.ContactId = _companyAppService.SaveCompanyContactModel(model);
+            Model.ContactId = _companyFacadeService.SaveCompanyContactModel(model);
 
             return false;
         }

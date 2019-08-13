@@ -5,14 +5,14 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanySalesInvoiceListViewModel : GenericListViewModelBase<CompanySalesInvoiceListModel>
     {
-        private ICompanyAppService _companyAppService;
+        private ICompanyFacadeService _companyFacadeService;
         private int _companyId;
 
-        public CompanySalesInvoiceListViewModel(ICompanyAppService companyAppService)
+        public CompanySalesInvoiceListViewModel(ICompanyFacadeService companyFacadeService)
         {
             DisplayName = "Arved";
 
-            _companyAppService = companyAppService;
+            _companyFacadeService = companyFacadeService;
         }
 
         public void Load(int companyId)
@@ -24,7 +24,7 @@ namespace FMS.WPF.ViewModels
         #region overrides
         public override async void Refresh(int itemId = 0)
         {
-            Items = await _companyAppService.GetCompanySalesInvoiceListModelsAsync(_companyId);
+            Items = await _companyFacadeService.GetCompanySalesInvoiceListModelsAsync(_companyId);
         }
         #endregion
     }

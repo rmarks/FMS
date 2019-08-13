@@ -34,17 +34,11 @@ namespace FMS.WPF.ViewModels
 
         #region properties
         public CompanyBasicsViewModel CompanyBasicsViewModel { get; set; }
-
         public CompanyAddressesViewModel CompanyAddressesViewModel { get; set; }
-
         public CompanyContactsViewModel CompanyContactsViewModel { get; set; }
-
         public CompanySalesOrderListViewModel CompanySalesOrderListViewModel { get; set; }
-
         public CompanySalesInvoiceListViewModel CompanySalesInvoiceListViewModel { get; set; }
-
         public ObservableCollection<ViewModelBase> CompanyTabs { get; } = new ObservableCollection<ViewModelBase>();
-
         public ViewModelBase SelectedTab { get; set; }
         #endregion
 

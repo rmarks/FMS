@@ -50,8 +50,8 @@
         <vw:ProductsView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ProductViewModel}">
-        <vw:ProductView/>
+    <DataTemplate DataType="{x:Type vm:ProductFacadeViewModel}">
+        <vw:ProductFacadeView/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:ProductBaseViewModel}">

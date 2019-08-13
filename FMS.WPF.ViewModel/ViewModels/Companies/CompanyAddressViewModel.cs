@@ -6,16 +6,16 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyAddressViewModel : GenericEditableViewModelBase<CompanyAddressModel>
     {
-        private ICompanyAppService _companyAppService;
+        private ICompanyFacadeService _companyFacadeService;
         private IDialogService _dialogService;
 
         public CompanyAddressViewModel(CompanyAddressModel model, 
-                                       ICompanyAppService companyAppService, 
+                                       ICompanyFacadeService companyFacadeService, 
                                        IDialogService dialogService)
         {
             DisplayName = "Saaja aadress";
 
-            _companyAppService = companyAppService;
+            _companyFacadeService = companyFacadeService;
             _dialogService = dialogService;
 
             Model = model;
@@ -30,13 +30,13 @@ namespace FMS.WPF.ViewModels
 
         protected override void DeleteItem(CompanyAddressModel model)
         {
-            _companyAppService.DeleteCompanyAddressModel(model.CompanyAddressId);
+            _companyFacadeService.DeleteCompanyAddressModel(model.CompanyAddressId);
             Model.CompanyAddressId = 0;
         }
 
         protected override bool SaveItem(CompanyAddressModel model)
         {
-            Model.CompanyAddressId = _companyAppService.SaveCompanyAddressModel(model);
+            Model.CompanyAddressId = _companyFacadeService.SaveCompanyAddressModel(model);
 
             return false;
         }

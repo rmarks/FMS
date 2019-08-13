@@ -5,11 +5,13 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductListViewModel : GenericListViewModelBase<ProductListModel>
     {
-        private IProductAppService _productAppService;
+        #region Fields
+        private IProductListService _productListService;
+        #endregion
 
-        public ProductListViewModel(IProductAppService productAppService)
+        public ProductListViewModel(IProductListService productListService)
         {
-            _productAppService = productAppService;
+            _productListService = productListService;
 
             InitializeOptionsModel();
         }
@@ -21,7 +23,7 @@ namespace FMS.WPF.ViewModels
         #region overrides
         public override void Refresh(int itemId = 0)
         {
-            Items = _productAppService.GetProductListModels(OptionsModel);
+            Items = _productListService.GetProductListModels(OptionsModel);
             ItemsCount = Items.Count;
         }
 
@@ -30,12 +32,12 @@ namespace FMS.WPF.ViewModels
             OptionsModel.Reset();
             ClearItems();
         }
-        #endregion overrides
+        #endregion
 
         #region helpers
         private void InitializeOptionsModel()
         {
-            OptionsModel = _productAppService.GetProductListOptionsModel();
+            OptionsModel = _productListService.GetProductListOptionsModel();
             OptionsModel.OptionChanged += ClearItems;
         }
 
@@ -44,6 +46,6 @@ namespace FMS.WPF.ViewModels
             Items = null;
             ItemsCount = null;
         }
-        #endregion helpers
+        #endregion
     }
 }

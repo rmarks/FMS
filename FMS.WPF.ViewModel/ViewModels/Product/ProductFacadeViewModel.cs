@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 
 namespace FMS.WPF.ViewModels
 {
-    public class ProductViewModel : WorkspaceViewModelBase
+    public class ProductFacadeViewModel : WorkspaceViewModelBase
     {
         private readonly IViewModelFactory _viewModelFactory;
 
-        public ProductViewModel(int productBaseId, 
-                                IWorkspaceManager workspaceManager,
-                                IViewModelFactory viewModelFactory) : base(workspaceManager)
+        public ProductFacadeViewModel(int productBaseId, 
+                                      IWorkspaceManager workspaceManager,
+                                      IViewModelFactory viewModelFactory) : base(workspaceManager)
         {
             _viewModelFactory = viewModelFactory;
 
