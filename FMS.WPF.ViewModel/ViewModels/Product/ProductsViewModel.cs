@@ -22,7 +22,7 @@ namespace FMS.WPF.ViewModels
         {
             if (model != null)
             {
-                WorkspaceManager.OpenWorkspace<ProductViewModel>("productBaseId", model.ProductBaseId);
+                WorkspaceManager.OpenWorkspace<ProductViewModel>(model.ProductBaseId);
             }
         }
         #endregion

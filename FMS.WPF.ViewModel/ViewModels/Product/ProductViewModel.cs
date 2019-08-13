@@ -30,12 +30,12 @@ namespace FMS.WPF.ViewModels
         {
             ProductTabs = new ObservableCollection<ViewModelBase>();
 
-            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel>("productBaseId", productBaseId);
+            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel>(productBaseId);
             ProductTabs.Add(ProductBaseViewModel);
 
             if (ProductBaseViewModel.Model.HasSize)
             {
-                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSizesViewModel>("productBaseId", productBaseId));
+                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSizesViewModel>(productBaseId));
             }
         }
         #endregion

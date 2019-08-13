@@ -10,7 +10,7 @@ namespace FMS.WPF.ViewModel.Utils
 
         event Action<WorkspaceViewModelBase> WorkspaceSelected;
 
-        void OpenWorkspace<T>(string paramName = null, int paramValue = 0) where T : WorkspaceViewModelBase;
+        void OpenWorkspace<T>(int id = 0) where T : WorkspaceViewModelBase;
 
         void CloseWorkspace(WorkspaceViewModelBase workspace);
     }

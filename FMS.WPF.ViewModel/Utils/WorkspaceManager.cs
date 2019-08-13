@@ -21,9 +21,9 @@ namespace FMS.WPF.ViewModel.Utils
 
         public event Action<WorkspaceViewModelBase> WorkspaceSelected;
 
-        public void OpenWorkspace<T>(string paramName = null, int paramValue = 0) where T : WorkspaceViewModelBase
+        public void OpenWorkspace<T>(int id = 0) where T : WorkspaceViewModelBase
         {
-            var newWs = _viewModelFactory.CreateInstance<T>(paramName, paramValue);
+            var newWs = _viewModelFactory.CreateInstance<T>(id);
 
             var ws = Workspaces.FirstOrDefault(w => w.DisplayName == newWs.DisplayName);
             if (ws == null)

@@ -4,6 +4,6 @@ namespace FMS.WPF.ViewModel.Factories
 {
     public interface IViewModelFactory
     {
-        T CreateInstance<T>(string paramName = null, int paramValue = 0) where T : ViewModelBase;
+        T CreateInstance<T>(int id = 0) where T : ViewModelBase;
     }
 }

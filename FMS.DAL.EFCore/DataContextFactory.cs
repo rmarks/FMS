@@ -1,17 +1,17 @@
-﻿using FMS.DAL.Interfaces;
-using Ninject;
+﻿using Autofac;
+using FMS.DAL.Interfaces;
 
 namespace FMS.DAL.EFCore
 {
     public class DataContextFactory :IDataContextFactory
     {
-        private IKernel _kernel;
+        private readonly ILifetimeScope _scope;
 
-        public DataContextFactory(IKernel kernel)
+        public DataContextFactory(ILifetimeScope scope)
         {
-            _kernel = kernel;
+            _scope = scope;
         }
 
-        public IDataContext CreateContext() => _kernel.Get<IDataContext>();
+        public IDataContext CreateContext() => _scope.Resolve<IDataContext>();
     }
 }
