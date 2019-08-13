@@ -16,7 +16,9 @@ namespace FMS.ServiceLayer.Utils
             CreateMap<CompanyAddressDto, CompanyAddress>()
                 .ForMember(d => d.Country, o => o.Ignore());
             CreateMap<Company, CompanyDto>()
-                .ForMember(d => d.BillingAddress, o => o.MapFrom(s => s.Addresses.FirstOrDefault(a => a.IsBilling)));
+                .ForMember(d => d.BillingAddress, o => o.MapFrom(s => s.Addresses.FirstOrDefault(a => a.IsBilling)))
+                .ForMember(d => d.CompanyTypesString, o => o.MapFrom(s => 
+                    string.Join(", ", s.CompanyTypesLink.OrderBy(c => c.CompanyTypeId).Select(c => c.CompanyType.Name))));
             CreateMap<CompanyDto, Company>()
                 .ForMember(d => d.Addresses, o => o.MapFrom(s => new List<CompanyAddressDto>(new[] { s.BillingAddress })));
             CreateMap<Contact, CompanyContactDto>().ReverseMap();

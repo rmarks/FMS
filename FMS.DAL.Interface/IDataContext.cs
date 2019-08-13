@@ -10,6 +10,8 @@ namespace FMS.DAL.Interfaces
         DbSet<Company> Companies { get; set; }
         DbSet<Contact> Contacts { get; set; }
         DbSet<CompanyAddress> CompanyAddresses { get; set; }
+        DbSet<CompanyType> CompanyTypes { get; set; }
+        DbSet<CompanyCompanyType> CompanyCompanyTypes { get; set; }
         DbSet<Country> Countries { get; set; }
         DbSet<Currency> Currencies { get; set; }
         DbSet<DeliveryTerm> DeliveryTerms { get; set; }

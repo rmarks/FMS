@@ -10,6 +10,8 @@ namespace FMS.DAL.EFCore
         public DbSet<Company> Companies { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<CompanyAddress> CompanyAddresses { get; set; }
+        public DbSet<CompanyType> CompanyTypes { get; set; }
+        public DbSet<CompanyCompanyType> CompanyCompanyTypes { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<DeliveryTerm> DeliveryTerms { get; set; }
@@ -41,6 +43,9 @@ namespace FMS.DAL.EFCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CompanyCompanyType>()
+                .HasKey(c => new { c.CompanyId, c.CompanyTypeId });
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

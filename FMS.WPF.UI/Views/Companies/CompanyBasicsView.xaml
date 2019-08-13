@@ -84,6 +84,10 @@
 
             <!-- Third column -->
             <StackPanel Grid.Column="2" Margin="20">
+                <TextBlock Text="Tüüp"/>
+                <TextBox Text="{Binding Path=EditableModel.CompanyTypesString}"
+                         IsEnabled="False"/>
+                
                 <TextBlock Text="Valuuta"/>
                 <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.Currencies}" 
                           DisplayMemberPath="CurrencyCode" 
