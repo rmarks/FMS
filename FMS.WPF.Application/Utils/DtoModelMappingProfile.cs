@@ -29,7 +29,9 @@ namespace FMS.WPF.Application.Utils
             //product
             CreateMap<ProductListOptionsModel, ProductListOptionsDto>();
             CreateMap<ProductListDto, ProductListModel>();
-            CreateMap<ProductBaseDto, ProductBaseModel>();
+            CreateMap<ProductBaseDto, ProductBaseModel>().ReverseMap();
+            CreateMap<ProductVariationDto, ProductVariationModel>().ReverseMap();
+            CreateMap<ProductBaseProductVariationDto, ProductBaseProductVariationModel>().ReverseMap();
             CreateMap<ProductDto, ProductModel>();
 
             //product dropdowns

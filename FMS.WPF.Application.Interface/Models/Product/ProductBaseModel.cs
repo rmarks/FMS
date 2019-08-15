@@ -32,10 +32,13 @@ namespace FMS.WPF.Application.Interface.Models
         public int? ProductDesignId { get; set; }
 
         public string Model { get; set; }
-        public bool HasSize { get; set; }
         public string Comments { get; set; }
 
         public DateTime? CreatedOn { get; set; }
+
+        public List<ProductModel> Products { get; set; }
+
+        public List<ProductBaseProductVariationModel> ProductVariationsLink { get; set; }
         #endregion
 
         #region dropdowns

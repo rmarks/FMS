@@ -21,6 +21,8 @@ namespace FMS.WPF.ViewModels
         #region properties
         public override string DisplayName => "Üldandmed";
         public string PictureLocation { get; }
+
+        public bool IsProductVariationsVisible => Model.ProductVariationsLink?.Count != 0;
         #endregion
 
         #region overrides

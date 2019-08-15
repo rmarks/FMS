@@ -26,6 +26,8 @@ namespace FMS.ServiceLayer.Utils
             //product
             CreateMap<ProductBase, ProductListDto>();
             CreateMap<ProductBase, ProductBaseDto>().ReverseMap();
+            CreateMap<ProductVariation, ProductVariationDto>().ReverseMap();
+            CreateMap<ProductBaseProductVariation, ProductBaseProductVariationDto>().ReverseMap();
             CreateMap<Product, ProductDto>();
 
             //dropdowns

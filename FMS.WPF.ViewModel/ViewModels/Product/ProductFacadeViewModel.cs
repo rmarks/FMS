@@ -33,10 +33,10 @@ namespace FMS.WPF.ViewModels
             ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel>(productBaseId);
             ProductTabs.Add(ProductBaseViewModel);
 
-            if (ProductBaseViewModel.Model.HasSize)
-            {
-                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSizesViewModel>(productBaseId));
-            }
+            //if (ProductBaseViewModel.Model.HasSize)
+            //{
+            //    ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSizesViewModel>(productBaseId));
+            //}
         }
         #endregion
     }

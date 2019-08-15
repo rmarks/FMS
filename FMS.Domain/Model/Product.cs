@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FMS.Domain.Model
 {
@@ -6,12 +7,18 @@ namespace FMS.Domain.Model
     {
         public int ProductId { get; set; }
 
-        public int ProductBaseId { get; set; }
-
         [Required, MaxLength(15)]
         public string ProductCode { get; set; }
 
+        [Required, MaxLength(50)]
+        public string ProductName { get; set; }
+
+        [Column(TypeName = "decimal(9, 2)")]
+        public decimal UnitGrossWeight { get; set; }
+
         //------------------------------------------
+        //Relationships
+        public int ProductBaseId { get; set; }
         public ProductBase ProductBase { get; set; }
     }
 }

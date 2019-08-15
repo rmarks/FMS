@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FMS.ServiceLayer.Interface.Dtos
 {
@@ -28,9 +29,12 @@ namespace FMS.ServiceLayer.Interface.Dtos
         public int? ProductDesignId { get; set; }
 
         public string Model { get; set; }
-        public bool HasSize { get; set; }
         public string Comments { get; set; }
 
         public DateTime? CreatedOn { get; set; }
+
+        public List<ProductDto> Products { get; set; }
+
+        public List<ProductBaseProductVariationDto> ProductVariationsLink { get; set; }
     }
 }

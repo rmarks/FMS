@@ -35,6 +35,10 @@
         <Setter Property="Margin" Value="0,5"/>
     </Style>
 
+    <Style x:Key="MainListBoxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
     <Style x:Key="MainCheckBoxStyle" TargetType="{x:Type CheckBox}">
         <Setter Property="Margin" Value="10,0"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>

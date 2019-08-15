@@ -12,6 +12,7 @@
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource MainListBoxStyle}"/>
     </UserControl.Resources>
 
     <Grid>
@@ -31,81 +32,27 @@
 
         <!--Product Info-->
         <Grid Grid.Row="1" 
-              Margin="10">
+              Margin="20,10,20,20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <!--Product Code, Names and Grouping-->
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <!--Product Code and Names-->
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0" Margin="20">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                                <TextBlock Text="Kood"/>
-                                <TextBox Text="{Binding Path=EditableModel.ProductBaseCode}"
-                                         IsEnabled="{Binding Path=IsEditMode}"/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1">
-                                <TextBlock Text="Mudel"/>
-                                <TextBox Text="{Binding Path=EditableModel.Model}"
-                                         IsEnabled="{Binding Path=IsEditMode}"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <TextBlock Text="Nimi"/>
-                        <TextBox Text="{Binding Path=EditableModel.ProductBaseName}"
-                                 IsEnabled="{Binding Path=IsEditMode}"/>
-                        
-                        <TextBlock Text="Nimi i.k."/>
-                        <TextBox Text="{Binding Path=EditableModel.ProductBaseNameEng}"
-                                 IsEnabled="{Binding Path=IsEditMode}"/>
-                        
-                        <TextBlock Text="Nimi s.k."/>
-                        <TextBox Text="{Binding Path=EditableModel.ProductBaseNameGer}"
-                                 IsEnabled="{Binding Path=IsEditMode}"/>
-                    </StackPanel>
-                </Grid>
-
-                <!--Product Grouping-->
-                <Grid Grid.Row="1" 
-                      Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <!-- First column -->
-                    <StackPanel Grid.Column="0" Margin="20">
+            <!--First column - Grouping-->
+            <GroupBox Grid.Column="0"
+                      Header="Grupeerimine"
+                      Margin="20,0"
+                      Padding="20,0,20,10"
+                      FontSize="18">
+                <StackPanel>
+                    <!-- First subgroup -->
+                    <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Äriliin"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.BusinessLines}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="BusinessLineId" 
                                   SelectedValue="{Binding Path=EditableModel.BusinessLineId}"
-                                  IsEnabled="{Binding Path=IsEditMode}"/>
-
-                        <TextBlock Text="Olek"/>
-                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductStatuses}" 
-                                  DisplayMemberPath="Name" 
-                                  SelectedValuePath="ProductStatusId" 
-                                  SelectedValue="{Binding Path=EditableModel.ProductStatusId}"
                                   IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Lähtetüüp"/>
@@ -123,8 +70,8 @@
                                   IsEnabled="{Binding Path=IsEditMode}"/>
                     </StackPanel>
 
-                    <!-- Second column -->
-                    <StackPanel Grid.Column="1" Margin="20">
+                    <!-- Second subgroup -->
+                    <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Materjal"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductMaterials}" 
                                   DisplayMemberPath="Name" 
@@ -147,8 +94,8 @@
                                   IsEnabled="{Binding Path=IsEditMode}"/>
                     </StackPanel>
 
-                    <!-- Third column -->
-                    <StackPanel Grid.Column="2" Margin="20">
+                    <!-- Third subgroup -->
+                    <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Kaubamärk"/>
                         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductBrands}" 
                                   DisplayMemberPath="Name" 
@@ -170,25 +117,125 @@
                                   SelectedValue="{Binding Path=EditableModel.ProductDesignId}"
                                   IsEnabled="{Binding Path=IsEditMode}"/>
                     </StackPanel>
-                </Grid>
-            </Grid>
 
-            <!--Product Comments-->
-            <Grid Grid.Column="1"
-                  Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" 
-                           Text="Lisainfo"/>
-                <TextBox Grid.Row="1" 
+                    <!--Fourth subgroup-->
+                    <StackPanel>
+                        <TextBlock Text="Olek"/>
+                        <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.ProductStatuses}" 
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ProductStatusId" 
+                                  SelectedValue="{Binding Path=EditableModel.ProductStatusId}"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            
+
+            <!--Second column - Base Product-->
+            <GroupBox Grid.Column="1"
+                      Header="Baastoode"
+                      Margin="20,0"
+                      Padding="20,0,20,10"
+                      FontSize="18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Base Product Code and Names-->
+                    <StackPanel Grid.Row="0" 
+                            Margin="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                <TextBlock Text="Kood"/>
+                                <TextBox Text="{Binding Path=EditableModel.ProductBaseCode}"
+                                         IsEnabled="{Binding Path=IsEditMode}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Mudel"/>
+                                <TextBox Text="{Binding Path=EditableModel.Model}"
+                                         IsEnabled="{Binding Path=IsEditMode}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="Nimi"/>
+                        <TextBox Text="{Binding Path=EditableModel.ProductBaseName}"
+                                 IsEnabled="{Binding Path=IsEditMode}"/>
+
+                        <TextBlock Text="Nimi i.k."/>
+                        <TextBox Text="{Binding Path=EditableModel.ProductBaseNameEng}"
+                                 IsEnabled="{Binding Path=IsEditMode}"/>
+
+                        <TextBlock Text="Nimi s.k."/>
+                        <TextBox Text="{Binding Path=EditableModel.ProductBaseNameGer}"
+                                 IsEnabled="{Binding Path=IsEditMode}"/>
+                    </StackPanel>
+
+                    <!--Base Product Comments-->
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" 
+                               Text="Lisainfo"/>
+                        <TextBox Grid.Row="1" 
                          Text="{Binding Path=EditableModel.Comments}"
                          TextWrapping="Wrap" 
                          VerticalScrollBarVisibility="Auto" 
                          AcceptsReturn="True"
                          IsEnabled="{Binding Path=IsEditMode}"/>
-            </Grid>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            
+            <!--Third column - Product-->
+            <GroupBox Grid.Column="2"
+                      Header="Toode"
+                      Margin="20,0"
+                      Padding="20,0,20,10"
+                      FontSize="18">
+                <StackPanel>
+                    <TextBlock Text="Variatsioonid"
+                               Visibility="{Binding Path=IsProductVariationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <ListBox ItemsSource="{Binding Path=EditableModel.ProductVariationsLink}" 
+                             DisplayMemberPath="ProductVariation.Name" 
+                             IsEnabled="{Binding Path=IsEditMode}"
+                             Visibility="{Binding Path=IsProductVariationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <DataGrid ItemsSource="{Binding Path=EditableModel.Products}"
+                              SelectedItem="{Binding Path=SelectedItem}"
+                              Style="{StaticResource MainDataGridStyle}"
+                              Margin="20">
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick"
+                                          Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
+                            <KeyBinding Gesture="Enter"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Kood"
+                                                Binding="{Binding Path=ProductCode}"
+                                                Width="*"/>
+                            <DataGridTextColumn Header="Nimi"
+                                                Binding="{Binding Path=ProductName}"
+                                                Width="2*"/>
+                            <DataGridTextColumn Header="Kaal"
+                                                Binding="{Binding Path=UnitGrossWeight, StringFormat=0.00;;#.##}"
+                                                Width="*"
+                                                HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                                CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+                
+            </GroupBox>
         </Grid>
     </Grid>
 </UserControl>
