@@ -17,6 +17,8 @@ namespace FMS.DAL.EFCore.Utils
 
         public static bool TransferData()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             try
             {
                 var context = new SQLServerDbContext();
@@ -26,7 +28,7 @@ namespace FMS.DAL.EFCore.Utils
 
                 foreach (string file in sqlFiles)
                 {
-                    context.Database.ExecuteSqlCommand(File.ReadAllText(file, Encoding.Default));
+                    context.Database.ExecuteSqlCommand(File.ReadAllText(file, Encoding.GetEncoding(1257))); //Encoding.Default
                 }
             }
             catch (IOException e)

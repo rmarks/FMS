@@ -20,5 +20,11 @@ namespace FMS.Domain.Model
         //Relationships
         public int ProductBaseId { get; set; }
         public ProductBase ProductBase { get; set; }
+
+        //--- legacy system fields ---
+        [MaxLength(12)]
+        public string FMS_tkood { get; set; }
+        [MaxLength(3)]
+        public string FMS_suurus { get; set; }
     }
 }

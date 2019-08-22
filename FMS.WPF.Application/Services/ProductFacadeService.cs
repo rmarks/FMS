@@ -4,6 +4,7 @@ using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.Application.Interface.Services;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FMS.WPF.Application.Services
 {
@@ -25,12 +26,33 @@ namespace FMS.WPF.Application.Services
         }
         #endregion
 
-        #region product (sizes)
-        public IList<ProductModel> GetProductModels(int productBaseId)
+        #region product companies
+        public async Task<IList<ProductCompanyModel>> GetProductCompanyModelsForSource(int productBaseId)
         {
-            return _productService
-                .GetProducts(productBaseId)
-                .Select(p => p.MapTo<ProductModel>())
+            var dtos = await (_productService
+                .GetProductCompaniesForSource(productBaseId));
+
+            return dtos.Select(p => p.MapTo<ProductCompanyModel>())
+                .ToList();
+        }
+
+        public async Task<IList<ProductCompanyModel>> GetProductCompanyModelsForDest(int productBaseId)
+        {
+            var dtos = await (_productService
+                .GetProductCompaniesForDest(productBaseId));
+
+            return dtos.Select(p => p.MapTo<ProductCompanyModel>())
+                .ToList();
+        }
+        #endregion
+
+        #region product prices
+        public async Task<IList<PriceListModel>> GetProductPriceListModels(int productBaseId)
+        {
+            var dtos = await _productService
+                .GetProductPriceLists(productBaseId);
+
+            return dtos.Select(p => p.MapTo<PriceListModel>())
                 .ToList();
         }
         #endregion

@@ -21,6 +21,7 @@ namespace FMS.DAL.EFCore
         public DbSet<SalesInvoice> SalesInvoices { get; set; }
         public DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
+        public DbSet<Price> Prices { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<ProductBase> ProductBases { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -36,6 +37,7 @@ namespace FMS.DAL.EFCore
         public DbSet<BusinessLine> BusinessLines { get; set; }
         public DbSet<ProductVariation> ProductVariations { get; set; }
         public DbSet<ProductBaseProductVariation> ProductBaseProductVariations { get; set; }
+        public DbSet<ProductCompany> ProductCompanies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -51,6 +53,12 @@ namespace FMS.DAL.EFCore
 
             modelBuilder.Entity<ProductBaseProductVariation>()
                 .HasKey(p => new { p.ProductBaseId, p.ProductVariationId });
+
+            modelBuilder.Entity<ProductCompany>()
+                .HasKey(p => new { p.ProductId, p.CompanyId });
+
+            modelBuilder.Entity<Price>()
+                .HasKey(p => new { p.ProductId, p.PriceListId });
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {

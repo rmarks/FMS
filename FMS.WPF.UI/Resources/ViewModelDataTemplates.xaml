@@ -58,8 +58,15 @@
         <vw:ProductBaseView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ProductSizesViewModel}">
-        <vw:ProductSizesView/>
+    <DataTemplate DataType="{x:Type vm:ProductPricesViewModel}">
+        <vw:ProductPricesView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:ProductSourceCompaniesViewModel}">
+        <vw:ProductSourceCompaniesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ProductDestCompaniesViewModel}">
+        <vw:ProductDestCompaniesView/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -21,6 +21,7 @@ namespace FMS.DAL.Interfaces
         DbSet<SalesInvoice> SalesInvoices { get; set; }
         DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
         DbSet<PriceList> PriceLists { get; set; }
+        DbSet<Price> Prices { get; set; }
         DbSet<Location> Locations { get; set; }
         DbSet<ProductBase> ProductBases { get; set; }
         DbSet<Product> Products { get; set; }
@@ -36,6 +37,7 @@ namespace FMS.DAL.Interfaces
         DbSet<BusinessLine> BusinessLines { get; set; }
         DbSet<ProductVariation> ProductVariations { get; set; }
         DbSet<ProductBaseProductVariation> ProductBaseProductVariations { get; set; }
+        DbSet<ProductCompany> ProductCompanies { get; set; }
 
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;

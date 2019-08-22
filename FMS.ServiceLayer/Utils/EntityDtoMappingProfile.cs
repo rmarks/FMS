@@ -10,7 +10,7 @@ namespace FMS.ServiceLayer.Utils
     {
         public EntityDtoMappingProfile()
         {
-            //company
+            #region company
             CreateMap<CompanyAddress, CompanyListDto>();
             CreateMap<CompanyAddress, CompanyAddressDto>();
             CreateMap<CompanyAddressDto, CompanyAddress>()
@@ -22,15 +22,24 @@ namespace FMS.ServiceLayer.Utils
             CreateMap<CompanyDto, Company>()
                 .ForMember(d => d.Addresses, o => o.MapFrom(s => new List<CompanyAddressDto>(new[] { s.BillingAddress })));
             CreateMap<Contact, CompanyContactDto>().ReverseMap();
+            CreateMap<Company, CompanySmallDto>();
+            #endregion
 
-            //product
+            #region product
             CreateMap<ProductBase, ProductListDto>();
             CreateMap<ProductBase, ProductBaseDto>().ReverseMap();
             CreateMap<ProductVariation, ProductVariationDto>().ReverseMap();
             CreateMap<ProductBaseProductVariation, ProductBaseProductVariationDto>().ReverseMap();
             CreateMap<Product, ProductDto>();
+            CreateMap<ProductCompany, ProductCompanyDto>();
+            #endregion
 
-            //dropdowns
+            #region Price
+            //CreateMap<Price, PriceDto>();
+            //CreateMap<PriceList, PriceListDto>();
+            #endregion
+
+            #region dropdowns
             CreateMap<BusinessLine, BusinessLineDropdownDto>();
             CreateMap<ProductSourceType, ProductSourceTypeDropdownDto>();
             CreateMap<ProductDestinationType, ProductDestinationTypeDropdownDto>();
@@ -48,6 +57,7 @@ namespace FMS.ServiceLayer.Utils
             CreateMap<Location, LocationDropdownDto>();
             CreateMap<DeliveryTerm, DeliveryTermDropdownDto>();
             CreateMap<PaymentTerm, PaymentTermDropdownDto>();
+            #endregion
         }
     }
 }

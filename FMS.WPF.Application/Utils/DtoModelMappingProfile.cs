@@ -9,15 +9,32 @@ namespace FMS.WPF.Application.Utils
     {
         public DtoModelMappingProfile()
         {
-            //company
+            #region company
             CreateMap<CompanyListDto, CompanyListModel>();
             CreateMap<CompanyDto, CompanyBasicsModel>().ReverseMap();
             CreateMap<CompanyAddressDto, CompanyAddressModel>().ReverseMap();
             CreateMap<CompanyContactDto, CompanyContactModel>().ReverseMap();
             CreateMap<CompanySalesOrderListDto, CompanySalesOrderListModel>();
             CreateMap<CompanySalesInvoiceListDto, CompanySalesInvoiceListModel>();
+            CreateMap<CompanySmallDto, CompanySmallModel>();
+            #endregion
 
-            //company dropdowns
+            #region product
+            CreateMap<ProductListOptionsModel, ProductListOptionsDto>();
+            CreateMap<ProductListDto, ProductListModel>();
+            CreateMap<ProductBaseDto, ProductBaseModel>().ReverseMap();
+            CreateMap<ProductVariationDto, ProductVariationModel>().ReverseMap();
+            CreateMap<ProductBaseProductVariationDto, ProductBaseProductVariationModel>().ReverseMap();
+            CreateMap<ProductDto, ProductModel>();
+            CreateMap<ProductCompanyDto, ProductCompanyModel>();
+            #endregion
+
+            #region Price
+            CreateMap<PriceDto, PriceModel>();
+            CreateMap<PriceListDto, PriceListModel>();
+            #endregion
+
+            #region dropdowns
             CreateMap<CompanyDropdownsDto, CompanyDropdowns>();
             CreateMap<CountryDropdownDto, CountryDropdownModel>();
             CreateMap<CurrencyDropdownDto, CurrencyDropdownModel>();
@@ -26,15 +43,6 @@ namespace FMS.WPF.Application.Utils
             CreateMap<DeliveryTermDropdownDto, DeliveryTermDropdownModel>();
             CreateMap<PaymentTermDropdownDto, PaymentTermDropdownModel>();
 
-            //product
-            CreateMap<ProductListOptionsModel, ProductListOptionsDto>();
-            CreateMap<ProductListDto, ProductListModel>();
-            CreateMap<ProductBaseDto, ProductBaseModel>().ReverseMap();
-            CreateMap<ProductVariationDto, ProductVariationModel>().ReverseMap();
-            CreateMap<ProductBaseProductVariationDto, ProductBaseProductVariationModel>().ReverseMap();
-            CreateMap<ProductDto, ProductModel>();
-
-            //product dropdowns
             CreateMap<ProductDropdownsDto, ProductDropdowns>();
             CreateMap<BusinessLineDropdownDto, BusinessLineDropdownModel>();
             CreateMap<ProductSourceTypeDropdownDto, ProductSourceTypeDropdownModel>();
@@ -46,6 +54,7 @@ namespace FMS.WPF.Application.Utils
             CreateMap<ProductBrandDropdownDto, ProductBrandDropdownModel>();
             CreateMap<ProductCollectionDropdownDto, ProductCollectionDropdownModel>();
             CreateMap<ProductDesignDropdownDto, ProductDesignDropdownModel>();
+            #endregion
         }
     }
 }
