@@ -7,8 +7,8 @@ namespace FMS.WPF.Application.Interface.Services
     public interface IProductFacadeService
     {
         ProductBaseModel GetProductBaseModel(int productBaseId);
-        Task<IList<ProductCompanyModel>> GetProductCompanyModelsForSource(int productBaseId);
-        Task<IList<ProductCompanyModel>> GetProductCompanyModelsForDest(int productBaseId);
+        //Task<IList<ProductModel>> GetProductCompanyModelsForSource(int productBaseId);
+        //Task<IList<ProductCompanyModel>> GetProductCompanyModelsForDest(int productBaseId);
         Task<IList<PriceListModel>> GetProductPriceListModels(int productBaseId);
     }
 }

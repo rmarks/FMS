@@ -6,5 +6,8 @@
         public string ProductCode { get; set; }
         public string ProductName { get; set; }
         public decimal UnitGrossWeight { get; set; }
+
+        public ProductCompanyDto ProductSource { get; set; }
+        public ProductCompanyDto ProductDestination { get; set; }
     }
 }

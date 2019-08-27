@@ -8,8 +8,8 @@ namespace FMS.ServiceLayer.Interface.Services
     {
         IList<ProductListDto> GetProductBases(ProductListOptionsDto options);
         ProductBaseDto GetProductBase(int productBaseId);
-        Task<IList<ProductCompanyDto>> GetProductCompaniesForSource(int productBaseId);
-        Task<IList<ProductCompanyDto>> GetProductCompaniesForDest(int productBaseId);
+        //Task<IList<ProductDto>> GetProductSources(int productBaseId);
+        //Task<IList<ProductCompanyDto>> GetProductDestinations(int productBaseId);
         Task<IList<PriceListDto>> GetProductPriceLists(int productBaseId);
     }
 }

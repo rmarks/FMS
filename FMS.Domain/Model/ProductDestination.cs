@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FMS.Domain.Model
 {
-    public class ProductCompany
+    public class ProductDestination
     {
-        //fluent composite key
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductId { get; set; }
-        public int CompanyId { get; set; }
-
-        public bool IsSource { get; set; }
+        
         [MaxLength(30)]
         public string CompanyProductCode { get; set; }
         [MaxLength(13)]
@@ -17,6 +17,8 @@ namespace FMS.Domain.Model
         //-----------------------------------
         //relationships
         public Product Product { get; set; }
+
+        public int CompanyId { get; set; }
         public Company Company { get; set; }
     }
 }

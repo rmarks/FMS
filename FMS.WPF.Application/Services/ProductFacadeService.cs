@@ -27,23 +27,23 @@ namespace FMS.WPF.Application.Services
         #endregion
 
         #region product companies
-        public async Task<IList<ProductCompanyModel>> GetProductCompanyModelsForSource(int productBaseId)
-        {
-            var dtos = await (_productService
-                .GetProductCompaniesForSource(productBaseId));
+        //public async Task<IList<ProductModel>> GetProductCompanyModelsForSource(int productBaseId)
+        //{
+        //    var dtos = await (_productService
+        //        .GetProductSources(productBaseId));
 
-            return dtos.Select(p => p.MapTo<ProductCompanyModel>())
-                .ToList();
-        }
+        //    return dtos.Select(p => p.MapTo<ProductModel>())
+        //        .ToList();
+        //}
 
-        public async Task<IList<ProductCompanyModel>> GetProductCompanyModelsForDest(int productBaseId)
-        {
-            var dtos = await (_productService
-                .GetProductCompaniesForDest(productBaseId));
+        //public async Task<IList<ProductCompanyModel>> GetProductCompanyModelsForDest(int productBaseId)
+        //{
+        //    var dtos = await (_productService
+        //        .GetProductDestinations(productBaseId));
 
-            return dtos.Select(p => p.MapTo<ProductCompanyModel>())
-                .ToList();
-        }
+        //    return dtos.Select(p => p.MapTo<ProductCompanyModel>())
+        //        .ToList();
+        //}
         #endregion
 
         #region product prices

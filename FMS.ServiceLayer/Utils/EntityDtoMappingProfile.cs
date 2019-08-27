@@ -27,15 +27,25 @@ namespace FMS.ServiceLayer.Utils
 
             #region product
             CreateMap<ProductBase, ProductListDto>();
-            CreateMap<ProductBase, ProductBaseDto>().ReverseMap();
+            CreateMap<ProductBase, ProductBaseDto>();
+                //.ForMember(d => d.Prices, o => o.MapFrom(s => s.Products
+                //    .SelectMany(p => p.Prices, (pro, pri) => new PriceDto
+                //    {
+                //        ProductId = pro.ProductId,
+                //        PriceListId = pri.PriceListId,
+                //        UnitPrice = pri.UnitPrice,
+                //        ProductProductCode = pro.ProductCode,
+                //        ProductProductName = pro.ProductName
+                //    })));
             CreateMap<ProductVariation, ProductVariationDto>().ReverseMap();
             CreateMap<ProductBaseProductVariation, ProductBaseProductVariationDto>().ReverseMap();
             CreateMap<Product, ProductDto>();
-            CreateMap<ProductCompany, ProductCompanyDto>();
+            CreateMap<ProductSource, ProductCompanyDto>();
+            CreateMap<ProductDestination, ProductCompanyDto>();
             #endregion
 
             #region Price
-            //CreateMap<Price, PriceDto>();
+            CreateMap<Price, PriceDto>();
             //CreateMap<PriceList, PriceListDto>();
             #endregion
 

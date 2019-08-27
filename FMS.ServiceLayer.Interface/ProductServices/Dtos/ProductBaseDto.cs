@@ -36,5 +36,7 @@ namespace FMS.ServiceLayer.Interface.Dtos
         public List<ProductDto> Products { get; set; }
 
         public List<ProductBaseProductVariationDto> ProductVariationsLink { get; set; }
+
+        public List<PriceDto> Prices { get; set; }
     }
 }

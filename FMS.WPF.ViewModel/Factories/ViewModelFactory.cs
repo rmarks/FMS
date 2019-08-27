@@ -21,5 +21,10 @@ namespace FMS.WPF.ViewModel.Factories
 
             return _scope.Resolve<T>();
         }
+
+        public TInstance CreateInstance<TInstance, TParameter>(TParameter param) where TInstance : ViewModelBase
+        {
+            return _scope.Resolve<TInstance>(new TypedParameter(typeof(TParameter), param));
+        }
     }
 }

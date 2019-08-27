@@ -37,7 +37,8 @@ namespace FMS.DAL.Interfaces
         DbSet<BusinessLine> BusinessLines { get; set; }
         DbSet<ProductVariation> ProductVariations { get; set; }
         DbSet<ProductBaseProductVariation> ProductBaseProductVariations { get; set; }
-        DbSet<ProductCompany> ProductCompanies { get; set; }
+        DbSet<ProductSource> ProductSources { get; set; }
+        DbSet<ProductDestination> ProductDestinations { get; set; }
 
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;

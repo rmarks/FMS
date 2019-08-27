@@ -37,7 +37,8 @@ namespace FMS.DAL.EFCore
         public DbSet<BusinessLine> BusinessLines { get; set; }
         public DbSet<ProductVariation> ProductVariations { get; set; }
         public DbSet<ProductBaseProductVariation> ProductBaseProductVariations { get; set; }
-        public DbSet<ProductCompany> ProductCompanies { get; set; }
+        public DbSet<ProductSource> ProductSources { get; set; }
+        public DbSet<ProductDestination> ProductDestinations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -54,8 +55,11 @@ namespace FMS.DAL.EFCore
             modelBuilder.Entity<ProductBaseProductVariation>()
                 .HasKey(p => new { p.ProductBaseId, p.ProductVariationId });
 
-            modelBuilder.Entity<ProductCompany>()
-                .HasKey(p => new { p.ProductId, p.CompanyId });
+            //modelBuilder.Entity<ProductSource>()
+            //    .HasKey(p => new { p.ProductId, p.CompanyId });
+
+            //modelBuilder.Entity<ProductDestination>()
+            //    .HasKey(p => new { p.ProductId, p.CompanyId });
 
             modelBuilder.Entity<Price>()
                 .HasKey(p => new { p.ProductId, p.PriceListId });

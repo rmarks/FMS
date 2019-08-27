@@ -56,31 +56,38 @@ namespace FMS.ServiceLayer.Services
         #endregion
 
         #region  product companies
-        public async Task<IList<ProductCompanyDto>> GetProductCompaniesForSource(int productBaseId)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                return await context.ProductCompanies
-                    .AsNoTracking()
-                    .Where(p => p.Product.ProductBaseId == productBaseId && p.IsSource)
-                    .OrderBy(p => p.Product.ProductCode)
-                    .ProjectBetween<ProductCompany, ProductCompanyDto>()
-                    .ToListAsync();
-            }
-        }
+        //public async Task<IList<ProductDto>> GetProductSources(int productBaseId)
+        //{
+        //    using (var context = _contextFactory.CreateContext())
+        //    {
+        //        //return await context.ProductSources
+        //        //    .AsNoTracking()
+        //        //    .Where(p => p.Product.ProductBaseId == productBaseId)
+        //        //    .OrderBy(p => p.Product.ProductCode)
+        //        //    .ProjectBetween<ProductSource, ProductCompanyDto>()
+        //        //    .ToListAsync();
 
-        public async Task<IList<ProductCompanyDto>> GetProductCompaniesForDest(int productBaseId)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                return await context.ProductCompanies
-                    .AsNoTracking()
-                    .Where(p => p.Product.ProductBaseId == productBaseId && !p.IsSource)
-                    .OrderBy(p => p.Product.ProductCode)
-                    .ProjectBetween<ProductCompany, ProductCompanyDto>()
-                    .ToListAsync();
-            }
-        }
+        //        return await context.Products
+        //                .AsNoTracking()
+        //                .Where(p => p.ProductBaseId == productBaseId)
+        //                .OrderBy(p => p.ProductCode)
+        //                .ProjectBetween<Product, ProductDto>()
+        //                .ToListAsync();
+        //    }
+        //}
+
+        //public async Task<IList<ProductCompanyDto>> GetProductDestinations(int productBaseId)
+        //{
+        //    using (var context = _contextFactory.CreateContext())
+        //    {
+        //        return await context.ProductDestinations
+        //            .AsNoTracking()
+        //            .Where(p => p.Product.ProductBaseId == productBaseId)
+        //            .OrderBy(p => p.Product.ProductCode)
+        //            .ProjectBetween<ProductDestination, ProductCompanyDto>()
+        //            .ToListAsync();
+        //    }
+        //}
         #endregion
 
         #region product prices

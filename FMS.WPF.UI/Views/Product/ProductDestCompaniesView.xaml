@@ -19,16 +19,16 @@
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Toote kood" 
-                                    Binding="{Binding Path=Product.ProductCode}" 
+                                    Binding="{Binding Path=ProductCode}" 
                                     Width="*"/>
                 <DataGridTextColumn Header="Allhanke tellija" 
-                                    Binding="{Binding Path=Company.CompanyName}" 
+                                    Binding="{Binding Path=ProductDestination.CompanyCompanyName}" 
                                     Width="2.5*"/>
                 <DataGridTextColumn Header="Tellija toote kood" 
-                                    Binding="{Binding Path=CompanyProductCode}" 
+                                    Binding="{Binding Path=ProductDestination.CompanyProductCode}" 
                                     Width="*"/>
                 <DataGridTextColumn Header="EAN" 
-                                    Binding="{Binding Path=EAN}" 
+                                    Binding="{Binding Path=ProductDestination.EAN}" 
                                     Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

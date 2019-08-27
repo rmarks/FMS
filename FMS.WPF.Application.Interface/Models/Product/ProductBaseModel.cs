@@ -39,6 +39,8 @@ namespace FMS.WPF.Application.Interface.Models
         public List<ProductModel> Products { get; set; }
 
         public List<ProductBaseProductVariationModel> ProductVariationsLink { get; set; }
+
+        public List<PriceModel> Prices { get; set; }
         #endregion
 
         #region dropdowns

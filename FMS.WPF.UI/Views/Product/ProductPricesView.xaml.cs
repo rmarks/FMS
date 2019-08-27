@@ -17,8 +17,8 @@ namespace FMS.WPF.Views
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            DataGridRow dgRow = (DataGridRow)dgridPriceLists.ItemContainerGenerator.ContainerFromIndex(dgridPriceLists.SelectedIndex);
-            dgRow.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            //DataGridRow dgRow = (DataGridRow)dgridPriceLists.ItemContainerGenerator.ContainerFromIndex(dgridPriceLists.SelectedIndex);
+            //dgRow.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
     }
 }

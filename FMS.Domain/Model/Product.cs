@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FMS.Domain.Model
@@ -20,6 +21,10 @@ namespace FMS.Domain.Model
         //Relationships
         public int ProductBaseId { get; set; }
         public ProductBase ProductBase { get; set; }
+
+        public ProductSource ProductSource { get; set; }
+        public ProductDestination ProductDestination { get; set; }
+        public List<Price> Prices { get; set; }
 
         //--- legacy system fields ---
         [MaxLength(12)]

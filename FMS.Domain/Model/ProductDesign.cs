@@ -9,9 +9,9 @@ namespace FMS.Domain.Model
         [Required, MaxLength(30)]
         public string Name { get; set; }
 
-        public int ProductCollectionId { get; set; }
-
         //-------------------------------------------------------
+        //relationships
+        public int ProductCollectionId { get; set; }
         public ProductCollection ProductCollection { get; set; }
     }
 }
