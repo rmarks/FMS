@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,12 @@ namespace FMS.WPF.Application.Extensions
             return sources
                 .Select(s => Mapper.Map<TSource, TDest>(s))
                 .ToList();
+        }
+
+        public static IQueryable<TDest> ProjectBetween<TSource, TDest>(this IQueryable<TSource> sources)
+        {
+            return sources
+                .ProjectTo<TDest>();
         }
     }
 }

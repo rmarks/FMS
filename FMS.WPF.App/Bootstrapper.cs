@@ -25,6 +25,7 @@ namespace FMS.WPF.App
             {
                 cfg.AddProfile<FMS.ServiceLayer.Utils.EntityDtoMappingProfile>();
                 cfg.AddProfile<FMS.WPF.Application.Utils.DtoModelMappingProfile>();
+                cfg.AddProfile<FMS.WPF.Application.Utils.EntityModelMappingProfile>();
                 cfg.AddProfile<FMS.WPF.ViewModel.Utils.ModelModelMappingProfile>();
             });
         }
@@ -47,9 +48,7 @@ namespace FMS.WPF.App
             await companyDropdowns.InitializeAsync();
             CompanyDropdownsProxy.Instance = companyDropdowns;
 
-            var productDropdowns = _container.Resolve<IProductDropdowns>();
-            await productDropdowns.InitializeAsync();
-            ProductDropdownsProxy.Instance = productDropdowns;
+            ProductDropdownsProxy.Instance = _container.Resolve<IProductDropdowns>();
         }
         #endregion
     }

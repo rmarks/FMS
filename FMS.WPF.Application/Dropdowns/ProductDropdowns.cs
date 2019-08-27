@@ -1,20 +1,24 @@
-﻿using FMS.ServiceLayer.Interface.Dtos;
-using FMS.ServiceLayer.Interface.Services;
+﻿using FMS.DAL.Interfaces;
+using FMS.Domain.Model;
+using FMS.WPF.Application.Extensions;
 using FMS.WPF.Application.Interface.Dropdowns;
 using FMS.WPF.Application.Interface.Models;
-using FMS.WPF.Application.Utils;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FMS.WPF.Application.Dropdowns
 {
     public class ProductDropdowns : IProductDropdowns
     {
-        private readonly IProductDropdownsService _dropdownsService;
+        private IDataContextFactory _contextFactory;
 
-        public ProductDropdowns(IProductDropdownsService dropdownsService)
+        public ProductDropdowns(IDataContextFactory contextFactory)
         {
-            _dropdownsService = dropdownsService;
+            _contextFactory = contextFactory;
+
+            InitializeAsync();
         }
 
         #region properties
@@ -30,11 +34,153 @@ namespace FMS.WPF.Application.Dropdowns
         public IList<ProductDesignDropdownModel> ProductDesigns { get; set; }
         #endregion
 
-        public async Task InitializeAsync()
+        public async void InitializeAsync()
         {
-            var dto = await _dropdownsService.GetProductDropdownsAsync();
-
-            MappingFactory.MapTo<ProductDropdownsDto, ProductDropdowns>(dto, this);
+            using (var context = _contextFactory.CreateContext())
+            {
+                BusinessLines = await GetBusinessLinesAsync(context);
+                ProductSourceTypes = await GetProductSourceTypesAsync(context);
+                ProductDestinationTypes = await GetProductDestinationTypesAsync(context);
+                ProductStatuses = await GetProductStatusesAsync(context);
+                ProductMaterials = await GetProductMaterialsAsync(context);
+                ProductTypes = await GetProductTypesAsync(context);
+                ProductGroups = await GetProductGroupsAsync(context);
+                ProductBrands = await GetProductBrandsAsync(context);
+                ProductCollections = await GetProductCollectionsAsync(context);
+                ProductDesigns = await GetProductDesignsAsync(context);
+            }
         }
+
+        #region Helpers
+        private async Task<IList<BusinessLineDropdownModel>> GetBusinessLinesAsync(IDataContext context)
+        {
+            var list = await context.BusinessLines
+                .AsNoTracking()
+                .OrderBy(b => b.Name)
+                .ProjectBetween<BusinessLine, BusinessLineDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new BusinessLineDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductSourceTypeDropdownModel>> GetProductSourceTypesAsync(IDataContext context)
+        {
+            var list = await context.ProductSourceTypes
+                .AsNoTracking()
+                .OrderBy(st => st.Name)
+                .ProjectBetween<ProductSourceType, ProductSourceTypeDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductSourceTypeDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductDestinationTypeDropdownModel>> GetProductDestinationTypesAsync(IDataContext context)
+        {
+            var list = await context.ProductDestinationTypes
+                .AsNoTracking()
+                .OrderBy(pd => pd.Name)
+                .ProjectBetween<ProductDestinationType, ProductDestinationTypeDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductDestinationTypeDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductStatusDropdownModel>> GetProductStatusesAsync(IDataContext context)
+        {
+            var list = await context.ProductStatuses
+                .AsNoTracking()
+                .OrderBy(ps => ps.Name)
+                .ProjectBetween<ProductStatus, ProductStatusDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductStatusDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductMaterialDropdownModel>> GetProductMaterialsAsync(IDataContext context)
+        {
+            var list = await context.ProductMaterials
+                .AsNoTracking()
+                .OrderBy(pm => pm.Name)
+                .ProjectBetween<ProductMaterial, ProductMaterialDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductMaterialDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductTypeDropdownModel>> GetProductTypesAsync(IDataContext context)
+        {
+            var list = await context.ProductTypes
+                .AsNoTracking()
+                .OrderBy(pt => pt.Name)
+                .ProjectBetween<ProductType, ProductTypeDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductTypeDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductGroupDropdownModel>> GetProductGroupsAsync(IDataContext context)
+        {
+            var list = await context.ProductGroups
+                .AsNoTracking()
+                .OrderBy(pg => pg.Name)
+                .ProjectBetween<ProductGroup, ProductGroupDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductGroupDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductBrandDropdownModel>> GetProductBrandsAsync(IDataContext context)
+        {
+            var list = await context.ProductBrands
+                .AsNoTracking()
+                .OrderBy(pb => pb.Name)
+                .ProjectBetween<ProductBrand, ProductBrandDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductBrandDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductCollectionDropdownModel>> GetProductCollectionsAsync(IDataContext context)
+        {
+            var list = await context.ProductCollections
+                .AsNoTracking()
+                .OrderBy(pb => pb.Name)
+                .ProjectBetween<ProductCollection, ProductCollectionDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductCollectionDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<ProductDesignDropdownModel>> GetProductDesignsAsync(IDataContext context)
+        {
+            var list = await context.ProductDesigns
+                .AsNoTracking()
+                .OrderBy(pd => pd.Name)
+                .ProjectBetween<ProductDesign, ProductDesignDropdownModel>()
+                .ToListAsync();
+
+            list.Insert(0, new ProductDesignDropdownModel());
+
+            return list;
+        }
+        #endregion Helpers
     }
 }

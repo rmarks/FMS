@@ -1,6 +1,5 @@
 ﻿using FMS.WPF.Application.Interface.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FMS.WPF.Application.Interface.Dropdowns
 {
@@ -26,7 +25,7 @@ namespace FMS.WPF.Application.Interface.Dropdowns
 
         IList<ProductDesignDropdownModel> ProductDesigns { get; set; }
 
-        Task InitializeAsync();
+        void InitializeAsync();
     }
 
     public class ProductDropdownsProxy

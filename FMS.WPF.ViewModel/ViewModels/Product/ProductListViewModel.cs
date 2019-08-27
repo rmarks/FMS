@@ -6,12 +6,12 @@ namespace FMS.WPF.ViewModels
     public class ProductListViewModel : GenericListViewModelBase<ProductListModel>
     {
         #region Fields
-        private IProductListService _productListService;
+        private IProductListService _service;
         #endregion
 
-        public ProductListViewModel(IProductListService productListService)
+        public ProductListViewModel(IProductListService service)
         {
-            _productListService = productListService;
+            _service = service;
 
             InitializeOptionsModel();
         }
@@ -23,7 +23,7 @@ namespace FMS.WPF.ViewModels
         #region overrides
         public override void Refresh(int itemId = 0)
         {
-            Items = _productListService.GetProductListModels(OptionsModel);
+            Items = _service.GetProductListModels(OptionsModel);
             ItemsCount = Items.Count;
         }
 
@@ -37,7 +37,7 @@ namespace FMS.WPF.ViewModels
         #region helpers
         private void InitializeOptionsModel()
         {
-            OptionsModel = _productListService.GetProductListOptionsModel();
+            OptionsModel = _service.GetProductListOptionsModel();
             OptionsModel.OptionChanged += ClearItems;
         }
 
