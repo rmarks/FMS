@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Application.Interface.Models;
+﻿using FMS.WPF.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

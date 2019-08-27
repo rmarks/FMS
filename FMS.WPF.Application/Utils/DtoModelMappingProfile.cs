@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FMS.ServiceLayer.Interface.Dtos;
 using FMS.WPF.Application.Dropdowns;
-using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Models;
 
 namespace FMS.WPF.Application.Utils
 {

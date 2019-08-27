@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FMS.WPF.Application.Interface.Models
+namespace FMS.WPF.Models
 {
     public class CompanyContactModel : ModelBase
     {

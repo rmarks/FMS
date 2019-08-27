@@ -1,7 +1,7 @@
 ﻿using FMS.ServiceLayer.Interface.Dtos;
 using FMS.ServiceLayer.Interface.Services;
 using FMS.WPF.Application.Extensions;
-using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Models;
 using FMS.WPF.Application.Interface.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;

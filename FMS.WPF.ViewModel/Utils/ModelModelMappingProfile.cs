@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Models;
 
 namespace FMS.WPF.ViewModel.Utils
 {

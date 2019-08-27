@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Application.Interface.Models;
+﻿using FMS.WPF.Models;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
 

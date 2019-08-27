@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Application.Interface.Models;
+﻿using FMS.WPF.Models;
 using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Services;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace FMS.WPF.Application.Interface.Models
+namespace FMS.WPF.Models
 {
     public abstract class ModelBase : INotifyPropertyChanged
     {

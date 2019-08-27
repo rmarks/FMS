@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FMS.WPF.Application.Interface.Models
+namespace FMS.WPF.Models
 {
     public class ProductBaseModel : ModelBase
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace FMS.WPF.Application.Interface.Models
+namespace FMS.WPF.Models
 {
     public class ProductListOptionsModel : ModelBase
     {

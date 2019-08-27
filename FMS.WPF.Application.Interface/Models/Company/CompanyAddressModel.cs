@@ -1,7 +1,7 @@
 ﻿using FMS.WPF.Application.Interface.Dropdowns;
 using System;
 
-namespace FMS.WPF.Application.Interface.Models
+namespace FMS.WPF.Models
 {
     public class CompanyAddressModel : ModelBase
     {

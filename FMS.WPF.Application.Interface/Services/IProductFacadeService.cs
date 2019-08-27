@@ -1,4 +1,4 @@
-﻿using FMS.WPF.Application.Interface.Models;
+﻿using FMS.WPF.Models;
 
 namespace FMS.WPF.Application.Interface.Services
 {

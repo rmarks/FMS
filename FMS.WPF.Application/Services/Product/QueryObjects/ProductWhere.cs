@@ -1,5 +1,5 @@
 ﻿using FMS.Domain.Model;
-using FMS.WPF.Application.Interface.Models;
+using FMS.WPF.Models;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
