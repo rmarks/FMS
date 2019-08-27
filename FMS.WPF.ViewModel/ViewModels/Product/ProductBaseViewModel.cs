@@ -1,19 +1,13 @@
 ﻿using FMS.WPF.Application.Interface.Models;
-using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Helpers;
 
 namespace FMS.WPF.ViewModels
 {
     public class ProductBaseViewModel : GenericEditableViewModelBase<ProductBaseModel>
     {
-        private IProductFacadeService _productFacadeService;
-
-        public ProductBaseViewModel(int productBaseId,
-                                    IProductFacadeService productFacadeService)
+        public ProductBaseViewModel(ProductBaseModel productBaseModel)
         {
-            _productFacadeService = productFacadeService;
-
-            Model = _productFacadeService.GetProductBaseModel(productBaseId);
+            Model = productBaseModel;
 
             PictureLocation = PictureLocationHelper.GetPictureLocation(Model.ProductBaseCode);
         }
@@ -21,7 +15,6 @@ namespace FMS.WPF.ViewModels
         #region properties
         public override string DisplayName => "Üldandmed";
         public string PictureLocation { get; }
-
         public bool IsProductVariationsVisible => Model.ProductVariationsLink?.Count != 0;
         #endregion
 

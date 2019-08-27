@@ -8,19 +8,18 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductFacadeViewModel : WorkspaceViewModelBase
     {
-        private readonly IProductFacadeService _productFacadeService;
+        private readonly IProductFacadeService _service;
         private readonly IViewModelFactory _viewModelFactory;
 
         public ProductFacadeViewModel(int productBaseId, 
                                       IWorkspaceManager workspaceManager,
-                                      IProductFacadeService productFacadeService,
+                                      IProductFacadeService service,
                                       IViewModelFactory viewModelFactory) : base(workspaceManager)
         {
-            _productFacadeService = productFacadeService;
-            ProductBaseModel = _productFacadeService.GetProductBaseModel(productBaseId);
+            _service = service;
             _viewModelFactory = viewModelFactory;
 
-            InitializeProductTabs(productBaseId);
+            Initialize(productBaseId);
         }
 
         #region properties
@@ -34,26 +33,26 @@ namespace FMS.WPF.ViewModels
         #endregion
 
         #region helpers
-        private void InitializeProductTabs(int productBaseId)
+        private void Initialize(int productBaseId)
         {
-            ProductTabs = new ObservableCollection<ViewModelBase>();
+            ProductBaseModel = _service.GetProductBaseModel(productBaseId);
 
-            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel>(productBaseId);
+            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel, ProductBaseModel>(ProductBaseModel);
+
+            //product tabs
+            ProductTabs = new ObservableCollection<ViewModelBase>();
+            
             ProductTabs.Add(ProductBaseViewModel);
 
-            //ProductTabs.Add(_viewModelFactory.CreateInstance<ProductPricesViewModel>(productBaseId));
             ProductTabs.Add(_viewModelFactory.CreateInstance<ProductPricesViewModel, ProductBaseModel>(ProductBaseModel));
 
             if (ProductBaseViewModel.Model.ProductSourceTypeId == 2)
             {
-                //ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel>(productBaseId));
-                //ProductTabs.Add(new ProductSourceCompaniesViewModel(ProductBaseModel, _productFacadeService));
                 ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(ProductBaseModel));
             }
 
             if (ProductBaseViewModel.Model.ProductDestinationTypeId == 2)
             {
-                //ProductTabs.Add(_viewModelFactory.CreateInstance<ProductDestCompaniesViewModel>(productBaseId));
                 ProductTabs.Add(_viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(ProductBaseModel));
             }
         }

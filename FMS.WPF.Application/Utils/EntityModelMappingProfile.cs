@@ -10,6 +10,18 @@ namespace FMS.WPF.Application.Utils
         {
             #region product
             CreateMap<ProductBase, ProductListModel>();
+            
+            CreateMap<ProductBase, ProductBaseModel>(); 
+            CreateMap<ProductVariation, ProductVariationModel>();
+            CreateMap<ProductBaseProductVariation, ProductBaseProductVariationModel>();
+            CreateMap<Product, ProductModel>();
+            CreateMap<ProductSource, ProductCompanyModel>();
+            CreateMap<ProductDestination, ProductCompanyModel>();
+            #endregion
+
+            #region Price
+            CreateMap<Price, PriceModel>();
+            //CreateMap<PriceList, PriceListModel>();
             #endregion
 
             #region dropdowns

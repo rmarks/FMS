@@ -1,59 +1,39 @@
-﻿using FMS.ServiceLayer.Interface.Services;
+﻿using FMS.DAL.Interfaces;
+using FMS.Domain.Model;
 using FMS.WPF.Application.Extensions;
 using FMS.WPF.Application.Interface.Models;
 using FMS.WPF.Application.Interface.Services;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FMS.WPF.Application.Services
 {
     public class ProductFacadeService : IProductFacadeService
     {
-        private IProductService _productService;
+        private IDataContextFactory _contextFactory;
 
-        public ProductFacadeService(IProductService productService)
+        public ProductFacadeService(IDataContextFactory contextFactory)
         {
-            _productService = productService;
+            _contextFactory = contextFactory;
         }
 
         #region product base
         public ProductBaseModel GetProductBaseModel(int productBaseId)
         {
-            return _productService
-                .GetProductBase(productBaseId)
-                .MapTo<ProductBaseModel>();
-        }
-        #endregion
+            using (var context = _contextFactory.CreateContext())
+            {
+                var model = context.ProductBases
+                    .AsNoTracking()
+                    .Where(p => p.ProductBaseId == productBaseId)
+                    .ProjectBetween<ProductBase, ProductBaseModel>()
+                    .FirstOrDefault();
 
-        #region product companies
-        //public async Task<IList<ProductModel>> GetProductCompanyModelsForSource(int productBaseId)
-        //{
-        //    var dtos = await (_productService
-        //        .GetProductSources(productBaseId));
+                model.Products = model.Products
+                    .OrderBy(p => p.ProductCode)
+                    .ToList();
 
-        //    return dtos.Select(p => p.MapTo<ProductModel>())
-        //        .ToList();
-        //}
-
-        //public async Task<IList<ProductCompanyModel>> GetProductCompanyModelsForDest(int productBaseId)
-        //{
-        //    var dtos = await (_productService
-        //        .GetProductDestinations(productBaseId));
-
-        //    return dtos.Select(p => p.MapTo<ProductCompanyModel>())
-        //        .ToList();
-        //}
-        #endregion
-
-        #region product prices
-        public async Task<IList<PriceListModel>> GetProductPriceListModels(int productBaseId)
-        {
-            var dtos = await _productService
-                .GetProductPriceLists(productBaseId);
-
-            return dtos.Select(p => p.MapTo<PriceListModel>())
-                .ToList();
+                return model;
+            }
         }
         #endregion
     }
