@@ -13,8 +13,8 @@ namespace FMS.ServiceLayer.QueryObjects
             {
                 InvoiceNo = i.InvoiceNo,
                 InvoiceDate = i.InvoiceDate,
-                BuyerName = i.Company.CompanyName,
-                ConsigneeName = $"{(i.BillingAddressId == i.ShippingAddressId ? i.Company.CompanyName : i.ShippingAddress.ConsigneeName)}",
+                BuyerName = i.Company.Name,
+                ConsigneeName = $"{(i.BillingAddressId == i.ShippingAddressId ? i.Company.Name : i.ShippingAddress.Description)}",
                 TotalQuantity = i.SalesInvoiceLines.Sum(l => l.Quantity),
                 Sum = i.SalesInvoiceLines.Sum(l => l.Quantity * Math.Round(l.UnitPrice * (1 - l.LineDiscountPercent / 100m), 2)),
                 SumWithVAT = i.SalesInvoiceLines.Sum(l => l.Quantity * Math.Round(Math.Round(l.UnitPrice * (1 - l.LineDiscountPercent / 100m), 2) * (1 + 20 / 100m), 2)),

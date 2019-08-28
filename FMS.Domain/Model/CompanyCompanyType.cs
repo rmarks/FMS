@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace FMS.Domain.Model
+﻿namespace FMS.Domain.Model
 {
     public class CompanyCompanyType
     {
@@ -10,6 +7,7 @@ namespace FMS.Domain.Model
         public int CompanyTypeId { get; set; }
 
         //---------------------------------------
+        //relationships
         public CompanyType CompanyType { get; set; }
     }
 }

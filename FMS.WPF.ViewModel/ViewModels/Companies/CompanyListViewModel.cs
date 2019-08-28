@@ -6,11 +6,11 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyListViewModel : GenericListViewModelBase<CompanyListModel>
     {
-        private ICompanyListService _companyListService;
+        private ICompanyListService _service;
 
-        public CompanyListViewModel(ICompanyListService companyListService)
+        public CompanyListViewModel(ICompanyListService service)
         {
-            _companyListService = companyListService;
+            _service = service;
         }
 
         public void Load()
@@ -21,7 +21,7 @@ namespace FMS.WPF.ViewModels
         #region overrides
         public override void Refresh(int companyId = 0)
         {
-            Items = _companyListService.GetCompanyListModels(Query);
+            Items = _service.GetCompanyListModels(Query);
 
             SelectedItem = companyId == 0 ? Items.FirstOrDefault()
                                           : Items.FirstOrDefault(i => i.CompanyId == companyId);

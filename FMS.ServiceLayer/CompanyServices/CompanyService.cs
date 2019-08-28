@@ -29,7 +29,7 @@ namespace FMS.ServiceLayer.Services
                 return context.CompanyAddresses
                     .AsNoTracking()
                     .FilterBy(query)
-                    .OrderBy(a => a.Company.CompanyName)
+                    .OrderBy(a => a.Company.Name)
                     .ProjectBetween<CompanyAddress, CompanyListDto>()
                     .ToList();
             }
@@ -121,7 +121,7 @@ namespace FMS.ServiceLayer.Services
                 return await context.CompanyAddresses
                 .AsNoTracking()
                 .Where(a => a.CompanyId == companyId && a.IsShipping)
-                .OrderBy(c => c.ConsigneeName)
+                .OrderBy(c => c.Description)
                 .ProjectBetween<CompanyAddress, CompanyAddressDto>()
                 .ToListAsync();
             }

@@ -41,7 +41,7 @@ namespace FMS.ServiceLayer.Services
         {
             return await context.Countries
                 .AsNoTracking()
-                .OrderBy(c => c.CountryName)
+                .OrderBy(c => c.Name)
                 .ProjectBetween<Country, CountryDropdownDto>()
                 .ToListAsync();
         }

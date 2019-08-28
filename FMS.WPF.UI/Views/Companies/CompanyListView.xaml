@@ -82,16 +82,19 @@
                                     Binding="{Binding Path=CompanyId}"
                                     Width="*"/>
                 <DataGridTextColumn Header="Nimi"
-                                    Binding="{Binding Path=CompanyCompanyName}"
+                                    Binding="{Binding Path=Name}"
                                     Width="3*"/>
+                <DataGridTextColumn Header="Liigitus"
+                                    Binding="{Binding Path=CompanyTypesString}"
+                                    Width="2*"/>
                 <DataGridTextColumn Header="Riik"
-                                    Binding="{Binding Path=CountryCountryName}"
+                                    Binding="{Binding Path=BillingAddress.CountryName}"
                                     Width="2*"/>
                 <DataGridTextColumn Header="Linn"
-                                    Binding="{Binding Path=City}"
+                                    Binding="{Binding Path=BillingAddress.City}"
                                     Width="2*"/>
                 <DataGridTextColumn Header="Aadress"
-                                    Binding="{Binding Path=Address}"
+                                    Binding="{Binding Path=BillingAddress.Address}"
                                     Width="3*"/>
             </DataGrid.Columns>
         </DataGrid>

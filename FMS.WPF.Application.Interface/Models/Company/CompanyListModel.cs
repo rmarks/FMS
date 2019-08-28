@@ -3,13 +3,8 @@
     public class CompanyListModel
     {
         public int CompanyId { get; set; }
-
-        public string CompanyCompanyName { get; set; }
-
-        public string CountryCountryName { get; set; }
-
-        public string City { get; set; }
-
-        public string Address { get; set; }
+        public string Name { get; set; }
+        public string CompanyTypesString { get; set; }
+        public CompanyAddressListModel BillingAddress { get; set; }
     }
 }

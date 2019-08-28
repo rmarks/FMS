@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FMS.Domain.Model;
 using FMS.WPF.Models;
+using System.Linq;
 
 namespace FMS.WPF.Application.Utils
 {
@@ -8,6 +9,14 @@ namespace FMS.WPF.Application.Utils
     {
         public EntityModelMappingProfile()
         {
+            #region company
+            CreateMap<Company, CompanyListModel>()
+                .ForMember(d => d.CompanyTypesString, o => o.MapFrom(s =>
+                    string.Join(", ", s.CompanyTypesLink.OrderBy(c => c.CompanyTypeId).Select(c => c.CompanyType.Name))))
+                .ForMember(d => d.BillingAddress, o => o.MapFrom(s => s.Addresses.FirstOrDefault(a => a.IsBilling)));
+            CreateMap<CompanyAddress, CompanyAddressListModel>();
+            #endregion
+
             #region product
             CreateMap<ProductBase, ProductListModel>();
             
@@ -35,6 +44,13 @@ namespace FMS.WPF.Application.Utils
             CreateMap<ProductBrand, ProductBrandDropdownModel>();
             CreateMap<ProductCollection, ProductCollectionDropdownModel>();
             CreateMap<ProductDesign, ProductDesignDropdownModel>();
+
+            CreateMap<Country, CountryDropdownModel>();
+            CreateMap<Currency, CurrencyDropdownModel>();
+            CreateMap<PriceList, PriceListDropdownModel>();
+            CreateMap<Location, LocationDropdownModel>();
+            CreateMap<DeliveryTerm, DeliveryTermDropdownModel>();
+            CreateMap<PaymentTerm, PaymentTermDropdownModel>();
             #endregion
         }
     }

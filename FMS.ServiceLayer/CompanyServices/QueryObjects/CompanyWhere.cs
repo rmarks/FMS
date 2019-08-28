@@ -21,11 +21,11 @@ namespace FMS.ServiceLayer.QueryObjects
 
                 filter = a => a.IsBilling
                                 && (
-                                    a.Company.CompanyName.Contains(query)
-                                    || a.Country.CountryName.Contains(query)
+                                    a.Company.Name.Contains(query)
+                                    || a.Country.Name.Contains(query)
                                     || a.City.Contains(query)
                                     || a.Address.Contains(query)
-                                    || a.Company.Addresses.Any(ca => ca.IsShipping && ca.ConsigneeName.Contains(query))
+                                    || a.Company.Addresses.Any(ca => ca.IsShipping && ca.Description.Contains(query))
                                    );
             }
 

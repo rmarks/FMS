@@ -9,9 +9,9 @@
         <vw:CompaniesView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:CompanyListViewModel}">
+    <!--<DataTemplate DataType="{x:Type vm:CompanyListViewModel}">
         <vw:CompanyListView/>
-    </DataTemplate>
+    </DataTemplate>-->
 
     <DataTemplate DataType="{x:Type vm:CompanyFacadeViewModel}">
         <vw:CompanyFacadeView/>

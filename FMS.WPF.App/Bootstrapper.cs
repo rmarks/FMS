@@ -34,20 +34,17 @@ namespace FMS.WPF.App
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule<FMS.DAL.EFCore.Utils.AutoFacModule>()
-                .RegisterModule<FMS.ServiceLayer.Utils.AutoFacModule>()
-                .RegisterModule<FMS.WPF.Application.Utils.AutoFacModule>()
-                .RegisterModule<FMS.WPF.ViewModel.Utils.AutoFacModule>()
-                .RegisterModule<FMS.WPF.UI.Utils.AutoFacModule>();
+                   .RegisterModule<FMS.ServiceLayer.Utils.AutoFacModule>()
+                   .RegisterModule<FMS.WPF.Application.Utils.AutoFacModule>()
+                   .RegisterModule<FMS.WPF.ViewModel.Utils.AutoFacModule>()
+                   .RegisterModule<FMS.WPF.UI.Utils.AutoFacModule>();
 
             _container = builder.Build();
         }
 
-        private async void ConfigureDropdowns()
+        private void ConfigureDropdowns()
         {
-            var companyDropdowns = _container.Resolve<ICompanyDropdowns>();
-            await companyDropdowns.InitializeAsync();
-            CompanyDropdownsProxy.Instance = companyDropdowns;
-
+            CompanyDropdownsProxy.Instance = _container.Resolve<ICompanyDropdowns>();
             ProductDropdownsProxy.Instance = _container.Resolve<IProductDropdowns>();
         }
         #endregion

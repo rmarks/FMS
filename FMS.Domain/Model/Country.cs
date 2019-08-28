@@ -8,13 +8,14 @@ namespace FMS.Domain.Model
         public int CountryId { get; set; }
 
         [Required, MaxLength(30)]
-        public string CountryName { get; set; }
+        public string Name { get; set; }
 
         public bool IsEU { get; set; }
 
         public DateTime? CreatedOn { get; set; }
 
-        //--- legacy system fields ---
+        //---------------------------------------
+        //legacy system fields
         public int FMS_rkood { get; set; }
     }
 }

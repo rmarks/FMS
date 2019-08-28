@@ -7,10 +7,6 @@ namespace FMS.Domain.Model
     {
         public int CompanyAddressId { get; set; }
 
-        public int CompanyId { get; set; }
-
-        public int CountryId { get; set; }
-
         [MaxLength(30)]
         public string County { get; set; }
 
@@ -24,7 +20,7 @@ namespace FMS.Domain.Model
         public string PostCode { get; set; }
 
         [MaxLength(50)]
-        public string ConsigneeName { get; set; }
+        public string Description { get; set; }
 
         public bool IsBilling { get; set; }
 
@@ -33,10 +29,15 @@ namespace FMS.Domain.Model
         public DateTime? CreatedOn { get; set; }
 
         //----------------------------------
+        //relationships
+        public int CompanyId { get; set; }
         public Company Company { get; set; }
+
+        public int CountryId { get; set; }
         public Country Country { get; set; }
 
-        //--- legacy system fields ---
+        //-----------------------------------
+        //legacy system fields
         public int? FMS_yksusid { get; set; }
 
         [MaxLength(4)]
