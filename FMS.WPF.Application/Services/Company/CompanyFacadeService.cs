@@ -5,17 +5,38 @@ using FMS.WPF.Models;
 using FMS.WPF.Application.Interface.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FMS.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using FMS.Domain.Model;
 
 namespace FMS.WPF.Application.Services
 {
     public class CompanyFacadeService : ICompanyFacadeService
     {
         private readonly ICompanyService _companyService;
+        private readonly IDataContextFactory _contextFactory;
 
-        public CompanyFacadeService(ICompanyService companyService)
+        public CompanyFacadeService(ICompanyService companyService,
+                                    IDataContextFactory contextFactory)
         {
             _companyService = companyService;
+            _contextFactory = contextFactory;
         }
+
+        #region company
+        public CompanyModel GetCompanyModel(int companyId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Companies
+                .AsNoTracking()
+                .Where(c => c.CompanyId == companyId)
+                .ProjectBetween<Company, CompanyModel>()
+                .FirstOrDefault();
+            }
+        }
+        #endregion
 
         #region company basics
         public CompanyBasicsModel GetCompanyBasicsModel(int companyId)

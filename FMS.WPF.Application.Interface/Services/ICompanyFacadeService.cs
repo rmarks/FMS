@@ -6,6 +6,8 @@ namespace FMS.WPF.Application.Interface.Services
 {
     public interface ICompanyFacadeService
     {
+        CompanyModel GetCompanyModel(int companyId);
+
         CompanyBasicsModel GetCompanyBasicsModel(int companyId);
         CompanyBasicsModel SaveCompanyBasicsModel(CompanyBasicsModel model);
         void DeleteCompanyBasicsModel(int companyId);

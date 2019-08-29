@@ -39,9 +39,8 @@ namespace FMS.WPF.ViewModels
             {
                 IsEditMode = true;
 
-                //EditableModel = new TModel();
-                //EditableModel.Merge(Model);
-                EditableModel = MappingFactory.MapTo<TModel>(Model);
+                EditableModel = new TModel();
+                MappingFactory.MapTo<TModel, TModel>(Model, EditableModel);
             }
         }
 
@@ -64,7 +63,6 @@ namespace FMS.WPF.ViewModels
             {
                 if (SaveItem(EditableModel))
                 {
-                    //Model.Merge(EditableModel);
                     MappingFactory.MapTo<TModel, TModel>(EditableModel, Model);
                     EditableModel = Model;
 

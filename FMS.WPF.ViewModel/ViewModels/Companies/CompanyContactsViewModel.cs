@@ -1,37 +1,29 @@
 ﻿using FMS.WPF.Models;
-using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
+using FMS.WPF.ViewModel.Factories;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyContactsViewModel : ViewModelBase
     {
         #region fields
-        private ICompanyFacadeService _companyFacadeService;
-        private IDialogService _dialogService;
-        private int _companyId;
+        private readonly IDialogService _dialogService;
+        private readonly IViewModelFactory _viewModelFactory;
         #endregion
 
-        public CompanyContactsViewModel(ICompanyFacadeService companyFacadeService, 
-                                        IDialogService dialogService)
+        public CompanyContactsViewModel(IDialogService dialogService,
+                                        IViewModelFactory viewModelFactory)
         {
-            _companyFacadeService = companyFacadeService;
             _dialogService = dialogService;
+            _viewModelFactory = viewModelFactory;
         }
 
-        public async void Load(int companyId)
+        public void Load(CompanyModel model)
         {
-            _companyId = companyId;
-
-            var models = await _companyFacadeService.GetCompanyContactModelsAsync(companyId);
-
-            Models = models != null
-                ? new ObservableCollection<CompanyContactModel>(models)
-                : null;
+            Models = new ObservableCollection<CompanyContactModel>(model.Contacts);
         }
 
         #region properties
@@ -46,14 +38,22 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                ShowContact(SelectedModel);
+                var viewModel = GetContactViewModel(SelectedModel);
+                _dialogService.ShowDialog(viewModel);
             }
         }
 
         public ICommand AddCommand => new RelayCommand(OnAdd);
         private void OnAdd()
         {
-            ShowContact(new CompanyContactModel { CompanyId = _companyId });
+            var viewModel = GetContactViewModel(new CompanyContactModel());
+            viewModel.ItemSaved += (model) => 
+            { 
+                Models.Add(model); 
+                SelectedModel = model; 
+            };
+
+            _dialogService.ShowDialog(viewModel);
         }
 
         public ICommand DeleteCommand => new RelayCommand(OnDelete);
@@ -61,25 +61,18 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                var viewModel = new CompanyContactViewModel(SelectedModel, _companyFacadeService, _dialogService);
-                viewModel.IsEditMode = false;
-                viewModel.DeleteCommand?.Execute(null);
-                if (SelectedModel.ContactId == 0)
+                if (_dialogService.ShowMessageBox("Kas kustutame kontakti?", "Kustutamine", "YesNo"))
                 {
-                    Load(_companyId);
+                    Models.Remove(SelectedModel);
                 }
             }
         }
         #endregion
 
         #region helpers
-        private void ShowContact(CompanyContactModel model)
+        private CompanyContactViewModel GetContactViewModel(CompanyContactModel model)
         {
-            var viewModel = new CompanyContactViewModel(model, _companyFacadeService, _dialogService);
-            _dialogService.ShowDialog(viewModel);
-
-            Load(_companyId);
-            SelectedModel = Models?.FirstOrDefault(c => c.ContactId == model.ContactId);
+            return _viewModelFactory.CreateInstance<CompanyContactViewModel, CompanyContactModel>(model);
         }
         #endregion
     }

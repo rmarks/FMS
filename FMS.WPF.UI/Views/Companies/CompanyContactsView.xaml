@@ -31,7 +31,7 @@
                   Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nimi" 
-                                    Binding="{Binding Path=ContactName}" 
+                                    Binding="{Binding Path=Name}" 
                                     Width="2*"/>
                 <DataGridTextColumn Header="Amet" 
                                     Binding="{Binding Path=Job}" 

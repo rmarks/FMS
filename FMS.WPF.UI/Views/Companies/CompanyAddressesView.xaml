@@ -31,10 +31,10 @@
                   Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Saaja" 
-                                    Binding="{Binding Path=ConsigneeName}" 
+                                    Binding="{Binding Path=Description}" 
                                     Width="3*"/>
                 <DataGridTextColumn Header="Riik" 
-                                    Binding="{Binding Path=CountryCountryName}" 
+                                    Binding="{Binding Path=CountryName}" 
                                     Width="2*"/>
                 <DataGridTextColumn Header="Linn" 
                                     Binding="{Binding Path=City}" 

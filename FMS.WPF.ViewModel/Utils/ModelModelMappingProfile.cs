@@ -9,6 +9,8 @@ namespace FMS.WPF.ViewModel.Utils
         {
             CreateMap<CompanyBasicsModel, CompanyBasicsModel>();
             CreateMap<ProductBaseModel, ProductBaseModel>();
+            CreateMap<CompanyAddressModel, CompanyAddressModel>();
+            CreateMap<CompanyContactModel, CompanyContactModel>();
         }
     }
 }

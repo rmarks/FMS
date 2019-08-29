@@ -172,7 +172,7 @@ namespace FMS.ServiceLayer.Services
                 return await context.Contacts
                 .AsNoTracking()
                 .Where(c => c.CompanyId == companyId)
-                .OrderBy(c => c.ContactName)
+                .OrderBy(c => c.Name)
                 .ProjectBetween<Contact, CompanyContactDto>()
                 .ToListAsync();
             }

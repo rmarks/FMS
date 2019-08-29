@@ -1,4 +1,6 @@
-﻿using FMS.WPF.ViewModel.Factories;
+﻿using FMS.WPF.Application.Interface.Services;
+using FMS.WPF.Models;
+using FMS.WPF.ViewModel.Factories;
 using System;
 using System.Collections.ObjectModel;
 
@@ -6,8 +8,13 @@ namespace FMS.WPF.ViewModels
 {
     public class CompanyFacadeViewModel : ViewModelBase
     {
-        public CompanyFacadeViewModel(IViewModelFactory viewModelFactory)
+        private readonly ICompanyFacadeService _service;
+
+        public CompanyFacadeViewModel(IViewModelFactory viewModelFactory,
+                                      ICompanyFacadeService service)
         {
+            _service = service;
+
             CompanyBasicsViewModel = viewModelFactory.CreateInstance<CompanyBasicsViewModel>();
             CompanyAddressesViewModel = viewModelFactory.CreateInstance<CompanyAddressesViewModel>();
             CompanyContactsViewModel = viewModelFactory.CreateInstance<CompanyContactsViewModel>();
@@ -22,9 +29,12 @@ namespace FMS.WPF.ViewModels
         #region public methods
         public void LoadCompany(int companyId)
         {
-            CompanyBasicsViewModel.Load(companyId);
-            CompanyAddressesViewModel.Load(companyId);
-            CompanyContactsViewModel.Load(companyId);
+            CompanyModel = _service.GetCompanyModel(companyId);
+
+            CompanyBasicsViewModel.Load(CompanyModel);
+            CompanyAddressesViewModel.Load(CompanyModel);
+            CompanyContactsViewModel.Load(CompanyModel);
+
             CompanySalesOrderListViewModel.Load(companyId);
             CompanySalesInvoiceListViewModel.Load(companyId);
 
@@ -33,6 +43,8 @@ namespace FMS.WPF.ViewModels
         #endregion
 
         #region properties
+        public CompanyModel CompanyModel { get; set; }
+
         public CompanyBasicsViewModel CompanyBasicsViewModel { get; set; }
         public CompanyAddressesViewModel CompanyAddressesViewModel { get; set; }
         public CompanyContactsViewModel CompanyContactsViewModel { get; set; }

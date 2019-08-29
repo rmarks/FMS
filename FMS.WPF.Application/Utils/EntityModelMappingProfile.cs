@@ -15,6 +15,14 @@ namespace FMS.WPF.Application.Utils
                     string.Join(", ", s.CompanyTypesLink.OrderBy(c => c.CompanyTypeId).Select(c => c.CompanyType.Name))))
                 .ForMember(d => d.BillingAddress, o => o.MapFrom(s => s.Addresses.FirstOrDefault(a => a.IsBilling)));
             CreateMap<CompanyAddress, CompanyAddressListModel>();
+
+            CreateMap<Company, CompanyModel>()
+                .ForMember(d => d.CompanyTypesString, o => o.MapFrom(s =>
+                    string.Join(", ", s.CompanyTypesLink.OrderBy(c => c.CompanyTypeId).Select(c => c.CompanyType.Name))))
+                .ForMember(d => d.BillingAddress, o => o.MapFrom(s => s.Addresses.FirstOrDefault(a => a.IsBilling)))
+                .ForMember(d => d.Addresses, o => o.MapFrom(s => s.Addresses.Where(a => a.IsShipping)));
+            CreateMap<CompanyAddress, CompanyAddressModel>();
+            CreateMap<Contact, CompanyContactModel>();
             #endregion
 
             #region product
@@ -28,7 +36,7 @@ namespace FMS.WPF.Application.Utils
             CreateMap<ProductDestination, ProductCompanyModel>();
             #endregion
 
-            #region Price
+            #region price
             CreateMap<Price, PriceModel>();
             //CreateMap<PriceList, PriceListModel>();
             #endregion

@@ -7,10 +7,8 @@ namespace FMS.Domain.Model
     {
         public int ContactId { get; set; }
 
-        public int CompanyId { get; set; }
-
         [Required, MaxLength(50)]
-        public string ContactName { get; set; }
+        public string Name { get; set; }
 
         [MaxLength(50)]
         public string Job { get; set; }
@@ -27,6 +25,8 @@ namespace FMS.Domain.Model
         public DateTime? CreatedOn { get; set; }
 
         //----------------------------------
+        //relationships
+        public int CompanyId { get; set; }
         public Company Company { get; set; }
     }
 }

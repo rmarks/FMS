@@ -48,7 +48,7 @@
                          IsEnabled="False"/>
 
                 <TextBlock Text="Nimetus"/>
-                <TextBox Text="{Binding Path=EditableModel.CompanyName}"/>
+                <TextBox Text="{Binding Path=EditableModel.Name}"/>
 
                 <TextBlock Text="Registrikood"/>
                 <TextBox Text="{Binding Path=EditableModel.RegNo}"/>
@@ -65,7 +65,7 @@
             <StackPanel Grid.Column="1" Margin="20">
                 <TextBlock Text="Riik"/>
                 <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.Countries}" 
-                          DisplayMemberPath="CountryName" 
+                          DisplayMemberPath="Name" 
                           SelectedValuePath="CountryId" 
                           SelectedValue="{Binding Path=EditableModel.BillingAddress.CountryId}"/>
 

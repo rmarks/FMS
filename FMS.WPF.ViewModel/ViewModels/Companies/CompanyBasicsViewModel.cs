@@ -4,7 +4,7 @@ using FMS.WPF.ViewModel.Services;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompanyBasicsViewModel : GenericEditableViewModelBase<CompanyBasicsModel>
+    public class CompanyBasicsViewModel : GenericEditableViewModelBase<CompanyModel>
     {
         #region fields
         private ICompanyFacadeService _companyFacadeService;
@@ -25,14 +25,19 @@ namespace FMS.WPF.ViewModels
         #region public methods
         public void Load(int companyId)
         {
-            Model = _companyFacadeService.GetCompanyBasicsModel(companyId);
+            //Model = _companyFacadeService.GetCompanyBasicsModel(companyId);
+        }
+
+        public void Load(CompanyModel model)
+        {
+            Model = model;
         }
         #endregion
 
         #region overrides
-        protected override bool SaveItem(CompanyBasicsModel model)
+        protected override bool SaveItem(CompanyModel model)
         {
-            EditableModel = _companyFacadeService.SaveCompanyBasicsModel(model);
+            //EditableModel = _companyFacadeService.SaveCompanyBasicsModel(model);
 
             return true;
         }
@@ -42,9 +47,9 @@ namespace FMS.WPF.ViewModels
             return _dialogService.ShowMessageBox("Kas kustutame firma?", "Kustutamine", "YesNo");
         }
 
-        protected override void DeleteItem(CompanyBasicsModel model)
+        protected override void DeleteItem(CompanyModel model)
         {
-            _companyFacadeService.DeleteCompanyBasicsModel(model.CompanyId);
+            //_companyFacadeService.DeleteCompanyBasicsModel(model.CompanyId);
         }
         #endregion
     }

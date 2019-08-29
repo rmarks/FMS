@@ -17,14 +17,14 @@
     <StackPanel Margin="20"
                 IsEnabled="{Binding Path=IsEditMode}">
         <TextBlock Text="Saaja"/>
-        <TextBox Text="{Binding Path=EditableModel.ConsigneeName}"/>
+        <TextBox Text="{Binding Path=EditableModel.Description}"/>
         
         <TextBlock Text="Riik"/>
         <ComboBox ItemsSource="{Binding Path=EditableModel.Dropdowns.Countries}" 
-                          DisplayMemberPath="CountryName" 
-                          SelectedValuePath="CountryId" 
-                          SelectedValue="{Binding Path=EditableModel.CountryId}"/>
-
+                  DisplayMemberPath="Name" 
+                  SelectedValuePath="CountryId" 
+                  SelectedValue="{Binding Path=EditableModel.CountryId}"/>
+        
         <TextBlock Text="Linn/vald"/>
         <TextBox Text="{Binding Path=EditableModel.City}"/>
 

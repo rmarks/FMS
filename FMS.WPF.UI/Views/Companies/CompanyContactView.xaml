@@ -16,7 +16,7 @@
     <StackPanel Margin="20"
                 IsEnabled="{Binding Path=IsEditMode}">
         <TextBlock Text="Nimi"/>
-        <TextBox Text="{Binding Path=EditableModel.ContactName}"/>
+        <TextBox Text="{Binding Path=EditableModel.Name}"/>
 
         <TextBlock Text="Amet"/>
         <TextBox Text="{Binding Path=EditableModel.Job}"/>

@@ -1,26 +1,24 @@
 ﻿using FMS.WPF.Models;
-using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
+using FMS.WPF.ViewModel.Factories;
 
 namespace FMS.WPF.ViewModels
 {
     public class CompanyAddressesViewModel : ViewModelBase
     {
         #region fields
-        private ICompanyFacadeService _companyFacadeService;
-        private IDialogService _dialogService;
-        private int _companyId;
+        private readonly IDialogService _dialogService;
+        private readonly IViewModelFactory _viewModelFactory;
         #endregion
 
-        public CompanyAddressesViewModel(ICompanyFacadeService companyFacadeService, 
-                                         IDialogService dialogService)
+        public CompanyAddressesViewModel(IDialogService dialogService,
+                                         IViewModelFactory viewModelFactory)
         {
-            _companyFacadeService = companyFacadeService;
             _dialogService = dialogService;
+            _viewModelFactory = viewModelFactory;
         }
 
         #region properties
@@ -30,15 +28,9 @@ namespace FMS.WPF.ViewModels
         #endregion
 
         #region public methods
-        public async void Load(int companyId)
+        public void Load(CompanyModel model)
         {
-            _companyId = companyId;
-
-            var models = await _companyFacadeService.GetCompanyAddressModelsAsync(_companyId);
-
-            Models = models != null
-                ? new ObservableCollection<CompanyAddressModel>(models)
-                : null;
+            Models = new ObservableCollection<CompanyAddressModel>(model.Addresses);
         }
         #endregion
 
@@ -48,14 +40,22 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                ShowAddress(SelectedModel);
+                var viewModel = GetAddressViewModel(SelectedModel);
+                _dialogService.ShowDialog(viewModel);
             }
         }
 
         public ICommand AddCommand => new RelayCommand(OnAdd);
         private void OnAdd()
         {
-            ShowAddress(new CompanyAddressModel { CompanyId = _companyId });
+            var viewModel = GetAddressViewModel(new CompanyAddressModel());
+            viewModel.ItemSaved += (model) =>
+            {
+                Models.Add(model);
+                SelectedModel = model;
+            };
+
+            _dialogService.ShowDialog(viewModel);
         }
 
         public ICommand DeleteCommand => new RelayCommand(OnDelete);
@@ -63,25 +63,18 @@ namespace FMS.WPF.ViewModels
         {
             if (SelectedModel != null)
             {
-                var viewModel = new CompanyAddressViewModel(SelectedModel, _companyFacadeService, _dialogService);//, _dropdownsService);
-                viewModel.IsEditMode = false;
-                viewModel.DeleteCommand?.Execute(null);
-                if (SelectedModel.CompanyAddressId == 0)
+                if (_dialogService.ShowMessageBox("Kas kustutame aadressi?", "Kustutamine", "YesNo"))
                 {
-                    Load(_companyId);
+                    Models.Remove(SelectedModel);
                 }
             }
         }
         #endregion
 
         #region helpers
-        private void ShowAddress(CompanyAddressModel model)
+        private CompanyAddressViewModel GetAddressViewModel(CompanyAddressModel model)
         {
-            var viewModel = new CompanyAddressViewModel(model, _companyFacadeService, _dialogService);
-            _dialogService.ShowDialog(viewModel);
-
-            Load(_companyId);
-            SelectedModel = Models?.FirstOrDefault(a => a.CompanyAddressId == model.CompanyAddressId);
+            return _viewModelFactory.CreateInstance<CompanyAddressViewModel, CompanyAddressModel>(model);
         }
         #endregion
     }
