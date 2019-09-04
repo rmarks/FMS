@@ -4,6 +4,7 @@ using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using FMS.WPF.ViewModel.Factories;
+using System;
 
 namespace FMS.WPF.ViewModels
 {
@@ -25,12 +26,13 @@ namespace FMS.WPF.ViewModels
         public override string DisplayName => "Saajad";
         public ObservableCollection<CompanyAddressModel> Models { get; private set; }
         public CompanyAddressModel SelectedModel { get; set; }
+        public bool IsEditMode { get; set; }
         #endregion
 
         #region public methods
         public void Load(CompanyModel model)
         {
-            Models = new ObservableCollection<CompanyAddressModel>(model.Addresses);
+            Models = model.OCAddresses;
         }
         #endregion
 
@@ -48,7 +50,12 @@ namespace FMS.WPF.ViewModels
         public ICommand AddCommand => new RelayCommand(OnAdd);
         private void OnAdd()
         {
-            var viewModel = GetAddressViewModel(new CompanyAddressModel());
+            var viewModel = GetAddressViewModel(new CompanyAddressModel
+            {
+                IsShipping = true,
+                CreatedOn = DateTime.Now
+            });
+
             viewModel.ItemSaved += (model) =>
             {
                 Models.Add(model);

@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.3" />
   </ItemGroup>

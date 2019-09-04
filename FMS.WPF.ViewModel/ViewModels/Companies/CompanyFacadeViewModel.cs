@@ -1,50 +1,43 @@
 ﻿using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.Models;
 using FMS.WPF.ViewModel.Factories;
-using System;
+using FMS.WPF.ViewModel.Services;
 using System.Collections.ObjectModel;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompanyFacadeViewModel : ViewModelBase
+    public class CompanyFacadeViewModel : GenericEditableViewModelBase2<CompanyModel>
     {
+        private readonly IViewModelFactory _viewModelFactory;
         private readonly ICompanyFacadeService _service;
+        private readonly IDialogService _dialogService;
 
         public CompanyFacadeViewModel(IViewModelFactory viewModelFactory,
-                                      ICompanyFacadeService service)
+                                      ICompanyFacadeService service,
+                                      IDialogService dialogService)
         {
+            _viewModelFactory = viewModelFactory;
             _service = service;
+            _dialogService = dialogService;
 
-            CompanyBasicsViewModel = viewModelFactory.CreateInstance<CompanyBasicsViewModel>();
-            CompanyAddressesViewModel = viewModelFactory.CreateInstance<CompanyAddressesViewModel>();
-            CompanyContactsViewModel = viewModelFactory.CreateInstance<CompanyContactsViewModel>();
-            CompanySalesOrderListViewModel = viewModelFactory.CreateInstance<CompanySalesOrderListViewModel>();
-            CompanySalesInvoiceListViewModel = viewModelFactory.CreateInstance<CompanySalesInvoiceListViewModel>();
-
-            CompanyBasicsViewModel.ItemSaved += (p) => CompanySaved?.Invoke(p.CompanyId);
-            CompanyBasicsViewModel.ItemDeleted += () => CompanyDeleted?.Invoke();
-            CompanyBasicsViewModel.ItemEditCancelled += () => CompanyEditCancelled?.Invoke();
+            Initialize();
         }
 
         #region public methods
-        public void LoadCompany(int companyId)
+        public void Load(int companyId)
         {
-            CompanyModel = _service.GetCompanyModel(companyId);
+            Model = _service.GetCompanyModel(companyId);
 
-            CompanyBasicsViewModel.Load(CompanyModel);
-            CompanyAddressesViewModel.Load(CompanyModel);
-            CompanyContactsViewModel.Load(CompanyModel);
+            CompanyBasicsViewModel.Load(Model);
+            CompanyAddressesViewModel.Load(Model);
+            CompanyContactsViewModel.Load(Model);
 
             CompanySalesOrderListViewModel.Load(companyId);
             CompanySalesInvoiceListViewModel.Load(companyId);
-
-            ComposeCompanyTabs(isNewCompany: companyId == 0);
         }
         #endregion
 
         #region properties
-        public CompanyModel CompanyModel { get; set; }
-
         public CompanyBasicsViewModel CompanyBasicsViewModel { get; set; }
         public CompanyAddressesViewModel CompanyAddressesViewModel { get; set; }
         public CompanyContactsViewModel CompanyContactsViewModel { get; set; }
@@ -54,39 +47,61 @@ namespace FMS.WPF.ViewModels
         public ViewModelBase SelectedTab { get; set; }
         #endregion
 
-        #region events
-        public event Action<int> CompanySaved;
-        public event Action CompanyDeleted;
-        public event Action CompanyEditCancelled;
+        #region overrides
+        protected override bool SaveItem(CompanyModel model)
+        {
+            _service.SaveCompanyModel(model);
+            return true;
+        }
+
+        protected override bool ConfirmDelete()
+        {
+            return _dialogService.ShowMessageBox("Kas kustutame firma?", "Kustutamine", "YesNo");
+        }
+
+        protected override void DeleteItem(CompanyModel model)
+        {
+            _service.DeleteCompanyModel(model.CompanyId);
+        }
+
+        protected override void AddItem()
+        {
+            Load(0);
+        }
+        #endregion
+
+        #region event handlers
+        private void OnEditModeChanged(bool isEditMode)
+        {
+            CompanyBasicsViewModel.IsEditMode = isEditMode;
+            CompanyAddressesViewModel.IsEditMode = isEditMode;
+            CompanyContactsViewModel.IsEditMode = isEditMode;
+        }
         #endregion
 
         #region helpers
-        private void ComposeCompanyTabs(bool isNewCompany)
+        private void Initialize()
         {
-            if (isNewCompany)
-            {
-                CompanyTabs.Clear();
-                CompanyTabs.Add(CompanyBasicsViewModel);
+            CompanyBasicsViewModel = _viewModelFactory.CreateInstance<CompanyBasicsViewModel>();
+            CompanyAddressesViewModel = _viewModelFactory.CreateInstance<CompanyAddressesViewModel>();
+            CompanyContactsViewModel = _viewModelFactory.CreateInstance<CompanyContactsViewModel>();
+            CompanySalesOrderListViewModel = _viewModelFactory.CreateInstance<CompanySalesOrderListViewModel>();
+            CompanySalesInvoiceListViewModel = _viewModelFactory.CreateInstance<CompanySalesInvoiceListViewModel>();
 
-                SelectedTab = CompanyBasicsViewModel;
+            EditModeChanged += OnEditModeChanged;
 
-                CompanyBasicsViewModel.EditCommand.Execute(null);
-            }
-            //if previous was new company (Count = 1)
-            //   or company form opened for the first time (Count = 0), 
-            //then show all tabs
-            else if (CompanyTabs.Count < 2)
-            {
-                if (CompanyTabs.Count != 0) CompanyTabs.Clear();
+            InitializeCompanyTabs();
+        }
 
-                CompanyTabs.Add(CompanyBasicsViewModel);
-                CompanyTabs.Add(CompanyAddressesViewModel);
-                CompanyTabs.Add(CompanyContactsViewModel);
-                CompanyTabs.Add(CompanySalesOrderListViewModel);
-                CompanyTabs.Add(CompanySalesInvoiceListViewModel);
+        private void InitializeCompanyTabs()
+        {
+            CompanyTabs.Add(CompanyBasicsViewModel);
+            CompanyTabs.Add(CompanyAddressesViewModel);
+            CompanyTabs.Add(CompanyContactsViewModel);
+            CompanyTabs.Add(CompanySalesOrderListViewModel);
+            CompanyTabs.Add(CompanySalesInvoiceListViewModel);
 
-                SelectedTab = CompanyBasicsViewModel;
-            }
+            SelectedTab = CompanyBasicsViewModel;
         }
         #endregion
     }

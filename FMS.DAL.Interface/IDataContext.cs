@@ -44,6 +44,8 @@ namespace FMS.DAL.Interfaces
         EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry<TEntity> Remove<TEntity>(TEntity entity) where TEntity : class;
 
+        EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+
         int SaveChanges();
     }
 }

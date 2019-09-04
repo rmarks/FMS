@@ -21,7 +21,8 @@
                                   EditCommand="{Binding Path=EditCommand}"
                                   IsEditVisible="True"
                                   DeleteCommand="{Binding Path=DeleteCommand}"
-                                  IsDeleteVisible="True"/>
+                                  IsDeleteVisible="True"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
         <!-- List -->
         <DataGrid Grid.Row="1" 

@@ -1,15 +1,15 @@
 ﻿using FMS.Domain.Model;
-using FMS.ServiceLayer.Interface.Dtos;
+using FMS.WPF.Models;
 using System;
 using System.Linq;
 
-namespace FMS.ServiceLayer.QueryObjects
+namespace FMS.WPF.Application.Services.QueryObjects
 {
     public static class CompanySalesOrderSelect
     {
-        public static IQueryable<CompanySalesOrderListDto> MapToDto(this IQueryable<SalesOrder> salesOrders)
+        public static IQueryable<CompanySalesOrderListModel> MapToModel(this IQueryable<SalesOrder> salesOrders)
         {
-            return salesOrders.Select(s => new CompanySalesOrderListDto
+            return salesOrders.Select(s => new CompanySalesOrderListModel
             {
                 SalesOrderId = s.SalesOrderId,
                 OrderNo = s.OrderNo,

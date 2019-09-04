@@ -21,8 +21,9 @@ namespace FMS.WPF.Application.Utils
                     string.Join(", ", s.CompanyTypesLink.OrderBy(c => c.CompanyTypeId).Select(c => c.CompanyType.Name))))
                 .ForMember(d => d.BillingAddress, o => o.MapFrom(s => s.Addresses.FirstOrDefault(a => a.IsBilling)))
                 .ForMember(d => d.Addresses, o => o.MapFrom(s => s.Addresses.Where(a => a.IsShipping)));
-            CreateMap<CompanyAddress, CompanyAddressModel>();
-            CreateMap<Contact, CompanyContactModel>();
+            CreateMap<CompanyModel, Company>();
+            CreateMap<CompanyAddress, CompanyAddressModel>().ReverseMap();
+            CreateMap<Contact, CompanyContactModel>().ReverseMap();
             #endregion
 
             #region product

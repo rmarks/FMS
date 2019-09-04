@@ -5,7 +5,6 @@ namespace FMS.WPF.Models
     public class CompanyContactModel : ModelBase
     {
         public int ContactId { get; set; }
-        public int CompanyId { get; set; }
         public string Name { get; set; }
         public string Job { get; set; }
         public string Phone { get; set; }

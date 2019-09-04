@@ -7,6 +7,7 @@ namespace FMS.DAL.EFCore
 {
     public class SQLServerDbContext : DbContext, IDataContext
     {
+        #region properties
         public DbSet<Company> Companies { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<CompanyAddress> CompanyAddresses { get; set; }
@@ -39,6 +40,7 @@ namespace FMS.DAL.EFCore
         public DbSet<ProductBaseProductVariation> ProductBaseProductVariations { get; set; }
         public DbSet<ProductSource> ProductSources { get; set; }
         public DbSet<ProductDestination> ProductDestinations { get; set; }
+        #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -64,10 +66,10 @@ namespace FMS.DAL.EFCore
             modelBuilder.Entity<Price>()
                 .HasKey(p => new { p.ProductId, p.PriceListId });
 
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
+            //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            //{
+            //    relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            //}
         }
     }
 }

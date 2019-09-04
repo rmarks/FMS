@@ -15,6 +15,12 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+
         <ControlTemplate x:Key="WatermarkedTextBoxTemplate" TargetType="{x:Type TextBox}">
             <Grid Background="White">
                 <Label x:Name="labelDefaultMessage" 
@@ -61,12 +67,6 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <controls:EditableTaskbar Grid.Column="0" Margin="20,0"
-                                      AddCommand="{Binding Path=AddCommand}"
-                                      IsAddVisible="True"
-                                      HorizontalAlignment="Left"
-                                      VerticalAlignment="Center"/>
-
             <StackPanel Grid.Column="1"
                         DataContext="{Binding Path=CompanyListViewModel}"
                         Margin="20,10"
@@ -85,7 +85,11 @@
                 <Button x:Name="buttonRefresh" 
                         Style="{StaticResource MainImageLabelButtonStyle}"
                         Command="{Binding Path=RefreshCommand}">
-                    <Image Source="/images/refresh4.png"/>
+                    <!--<Image Source="/images/refresh4.png"/>-->
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/images/refresh4.png"/>
+                        <TextBlock Text="Otsi" />
+                    </StackPanel>
                 </Button>
             </StackPanel>
         </Grid>

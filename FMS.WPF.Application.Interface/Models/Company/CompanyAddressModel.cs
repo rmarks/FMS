@@ -8,20 +8,19 @@ namespace FMS.WPF.Models
     {
         #region model properties
         public int CompanyAddressId { get; set; }
-        public int CompanyId { get; set; }
 
         private int _countryId;
-        public int CountryId 
+        public int CountryId
         { 
             get => _countryId;
             set
             {
                 _countryId = value;
-                CountryName = Dropdowns.Countries.FirstOrDefault(c => c.CountryId == _countryId)?.Name;
-            } 
+                CountryNameString = Dropdowns.Countries.FirstOrDefault(c => c.CountryId == _countryId)?.Name;
+            }
         }
 
-        public string CountryName { get; set; }
+        public string CountryNameString { get; set; }
         public string County { get; set; }
         public string City { get; set; }
         public string Address { get; set; }

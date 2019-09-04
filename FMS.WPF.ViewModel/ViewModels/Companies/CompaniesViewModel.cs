@@ -1,8 +1,6 @@
 ﻿using FMS.WPF.Models;
-using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
-using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
@@ -17,9 +15,9 @@ namespace FMS.WPF.ViewModels
 
             CompanyListViewModel.SelectedItemChanged += CompanyListViewModel_SelectedItemChanged;
 
-            CompanyFacadeViewModel.CompanySaved += (id) => CompanyListViewModel.Refresh(id);
-            CompanyFacadeViewModel.CompanyDeleted += () => CompanyListViewModel.Refresh();
-            CompanyFacadeViewModel.CompanyEditCancelled += CompanyFacadeViewModel_CompanyEditCancelled;
+            CompanyFacadeViewModel.ItemSaved += (model) => CompanyListViewModel.Refresh(model.CompanyId);
+            CompanyFacadeViewModel.ItemDeleted += () => CompanyListViewModel.Refresh();
+            CompanyFacadeViewModel.ItemEditCancelled += CompanyFacadeViewModel_CompanyEditCancelled;
 
             CompanyListViewModel.Load();
         }
@@ -27,21 +25,9 @@ namespace FMS.WPF.ViewModels
 
         #region properties
         public override string DisplayName => "Firmad";
-
         public CompanyListViewModel CompanyListViewModel { get; }
-
         public CompanyFacadeViewModel CompanyFacadeViewModel { get; }
-
         public bool IsCompanyAvailable => CompanyListViewModel.SelectedItem != null;
-        #endregion
-
-        #region commands
-        public ICommand AddCommand => new RelayCommand(OnAdd);
-        private void OnAdd()
-        {
-            //CompanyListViewModel.SelectedItem = new CompanyListModel();
-            CompanyFacadeViewModel.LoadCompany(0);
-        }
         #endregion
 
         #region event handlers
@@ -49,7 +35,7 @@ namespace FMS.WPF.ViewModels
         {
             if (model != null)
             {
-                CompanyFacadeViewModel.LoadCompany(model.CompanyId);
+                CompanyFacadeViewModel.Load(model.CompanyId);
             }
             
             RaisePropertyChanged(nameof(IsCompanyAvailable));
@@ -57,7 +43,7 @@ namespace FMS.WPF.ViewModels
 
         private void CompanyFacadeViewModel_CompanyEditCancelled()
         {
-            CompanyFacadeViewModel.LoadCompany(CompanyListViewModel.SelectedItem.CompanyId);
+            CompanyFacadeViewModel.Load(CompanyListViewModel.SelectedItem.CompanyId);
         }
         #endregion
     }

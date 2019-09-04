@@ -21,7 +21,8 @@
                                   EditCommand="{Binding Path=EditCommand}"
                                   IsEditVisible="True"
                                   DeleteCommand="{Binding Path=DeleteCommand}"
-                                  IsDeleteVisible="True"/>
+                                  IsDeleteVisible="True"
+                                  IsEnabled="{Binding Path=IsEditMode}"/>
 
         <!-- List -->
         <DataGrid Grid.Row="1" 
@@ -34,7 +35,7 @@
                                     Binding="{Binding Path=Description}" 
                                     Width="3*"/>
                 <DataGridTextColumn Header="Riik" 
-                                    Binding="{Binding Path=CountryName}" 
+                                    Binding="{Binding Path=CountryNameString}" 
                                     Width="2*"/>
                 <DataGridTextColumn Header="Linn" 
                                     Binding="{Binding Path=City}" 

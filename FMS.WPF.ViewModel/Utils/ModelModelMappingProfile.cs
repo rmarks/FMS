@@ -7,10 +7,11 @@ namespace FMS.WPF.ViewModel.Utils
     {
         public ModelModelMappingProfile()
         {
-            CreateMap<CompanyBasicsModel, CompanyBasicsModel>();
-            CreateMap<ProductBaseModel, ProductBaseModel>();
+            CreateMap<CompanyModel, CompanyModel>();
             CreateMap<CompanyAddressModel, CompanyAddressModel>();
             CreateMap<CompanyContactModel, CompanyContactModel>();
+
+            CreateMap<ProductBaseModel, ProductBaseModel>();
         }
     }
 }
