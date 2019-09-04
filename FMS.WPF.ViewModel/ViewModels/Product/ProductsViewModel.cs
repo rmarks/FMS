@@ -1,14 +1,17 @@
 ﻿using FMS.WPF.Models;
+using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
+using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
-    public class ProductsViewModel : WorkspaceViewModelBase
+    public class ProductsViewModel : ViewModelBase, IWorkspace
     {
         public ProductsViewModel(IWorkspaceManager workspaceManager, 
-                                 IViewModelFactory viewModelFactory) : base(workspaceManager)
+                                 IViewModelFactory viewModelFactory)
         {
+            WorkspaceManager = workspaceManager;
             DisplayName = "Tooted";
 
             ProductListViewModel = viewModelFactory.CreateInstance<ProductListViewModel>();
@@ -16,6 +19,11 @@ namespace FMS.WPF.ViewModels
         }
 
         public ProductListViewModel ProductListViewModel { get; }
+
+        #region IWorkspace
+        public IWorkspaceManager WorkspaceManager { get; }
+        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
+        #endregion
 
         #region event handlers
         private void ProductListViewModel_RequestOpenItem(ProductListModel model)

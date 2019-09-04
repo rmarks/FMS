@@ -39,8 +39,8 @@ namespace FMS.WPF.ViewModels
         #region properties
         public List<CommandTreeNodeViewModelBase> Commands { get; } = new List<CommandTreeNodeViewModelBase>();
         public IWorkspaceManager WorkspaceManager { get; }
-        public ObservableCollection<WorkspaceViewModelBase> Workspaces => WorkspaceManager.Workspaces;
-        public WorkspaceViewModelBase SelectedWorkspace { get; set; }
+        public ObservableCollection<IWorkspace> Workspaces => WorkspaceManager.Workspaces;
+        public IWorkspace SelectedWorkspace { get; set; }
         public string DataTransferDateTime => ConfigurationManager.AppSettings["DataTransferDateTime"];
         #endregion
 

@@ -17,11 +17,11 @@ namespace FMS.WPF.ViewModel.Utils
             //_workspaceCollectionView = CollectionViewSource.GetDefaultView(Workspaces);
         }
 
-        public ObservableCollection<WorkspaceViewModelBase> Workspaces { get; } = new ObservableCollection<WorkspaceViewModelBase>();
+        public ObservableCollection<IWorkspace> Workspaces { get; } = new ObservableCollection<IWorkspace>();
 
-        public event Action<WorkspaceViewModelBase> WorkspaceSelected;
+        public event Action<IWorkspace> WorkspaceSelected;
 
-        public void OpenWorkspace<T>(int id = 0) where T : WorkspaceViewModelBase
+        public void OpenWorkspace<T>(int id = 0) where T : ViewModelBase, IWorkspace
         {
             var newWs = _viewModelFactory.CreateInstance<T>(id);
 
@@ -36,7 +36,7 @@ namespace FMS.WPF.ViewModel.Utils
             WorkspaceSelected?.Invoke(ws);
         }
 
-        public void CloseWorkspace(WorkspaceViewModelBase workspace)
+        public void CloseWorkspace(IWorkspace workspace)
         {
             Workspaces.Remove(workspace);
         }

@@ -3,10 +3,12 @@ using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using FMS.WPF.ViewModel.Commands;
 
 namespace FMS.WPF.ViewModels
 {
-    public class ProductFacadeViewModel : WorkspaceViewModelBase
+    public class ProductFacadeViewModel : ViewModelBase, IWorkspace //WorkspaceViewModelBase
     {
         private readonly IProductFacadeService _service;
         private readonly IViewModelFactory _viewModelFactory;
@@ -14,8 +16,9 @@ namespace FMS.WPF.ViewModels
         public ProductFacadeViewModel(int productBaseId, 
                                       IWorkspaceManager workspaceManager,
                                       IProductFacadeService service,
-                                      IViewModelFactory viewModelFactory) : base(workspaceManager)
+                                      IViewModelFactory viewModelFactory) //: base(workspaceManager)
         {
+            WorkspaceManager = workspaceManager;
             _service = service;
             _viewModelFactory = viewModelFactory;
 
@@ -24,12 +27,14 @@ namespace FMS.WPF.ViewModels
 
         #region properties
         public override string DisplayName => $"Toode {ProductBaseViewModel.Model?.ProductBaseCode}";
-
         public ObservableCollection<ViewModelBase> ProductTabs { get; private set; }
-
         public ProductBaseViewModel ProductBaseViewModel { get; private set; }
-
         public ProductBaseModel ProductBaseModel { get; set; }
+        #endregion
+
+        #region IWorkspace
+        public IWorkspaceManager WorkspaceManager { get; }
+        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
         #endregion
 
         #region helpers

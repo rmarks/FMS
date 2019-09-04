@@ -1,15 +1,19 @@
 ﻿using FMS.WPF.Models;
+using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Factories;
 using FMS.WPF.ViewModel.Utils;
+using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
-    public class CompaniesViewModel : WorkspaceViewModelBase
+    public class CompaniesViewModel : ViewModelBase, IWorkspace
     {
         #region constructors
         public CompaniesViewModel(IWorkspaceManager workspaceManager,
-                                  IViewModelFactory viewModelFactory) : base(workspaceManager)
+                                  IViewModelFactory viewModelFactory)
         {
+            WorkspaceManager = workspaceManager;
+
             CompanyListViewModel = viewModelFactory.CreateInstance<CompanyListViewModel>();
             CompanyFacadeViewModel = viewModelFactory.CreateInstance<CompanyFacadeViewModel>();
 
@@ -28,6 +32,11 @@ namespace FMS.WPF.ViewModels
         public CompanyListViewModel CompanyListViewModel { get; }
         public CompanyFacadeViewModel CompanyFacadeViewModel { get; }
         public bool IsCompanyAvailable => CompanyListViewModel.SelectedItem != null;
+        #endregion
+
+        #region IWorkspace
+        public IWorkspaceManager WorkspaceManager { get; }
+        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
         #endregion
 
         #region event handlers

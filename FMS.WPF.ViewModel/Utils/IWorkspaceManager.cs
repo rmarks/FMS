@@ -6,12 +6,12 @@ namespace FMS.WPF.ViewModel.Utils
 {
     public interface IWorkspaceManager
     {
-        ObservableCollection<WorkspaceViewModelBase> Workspaces { get; }
+        ObservableCollection<IWorkspace> Workspaces { get; }
 
-        event Action<WorkspaceViewModelBase> WorkspaceSelected;
+        event Action<IWorkspace> WorkspaceSelected;
 
-        void OpenWorkspace<T>(int id = 0) where T : WorkspaceViewModelBase;
+        void OpenWorkspace<T>(int id = 0) where T : ViewModelBase, IWorkspace;
 
-        void CloseWorkspace(WorkspaceViewModelBase workspace);
+        void CloseWorkspace(IWorkspace workspace);
     }
 }

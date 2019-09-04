@@ -19,7 +19,7 @@ namespace FMS.WPF.ViewModels
 
         private void Close()
         {
-            WorkspaceManager.CloseWorkspace(this);
+            //WorkspaceManager.CloseWorkspace(this);
         }
         #endregion
     }
