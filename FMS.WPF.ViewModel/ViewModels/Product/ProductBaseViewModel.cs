@@ -3,26 +3,17 @@ using FMS.WPF.ViewModel.Helpers;
 
 namespace FMS.WPF.ViewModels
 {
-    public class ProductBaseViewModel : GenericEditableViewModelBase<ProductBaseModel>
+    public class ProductBaseViewModel : ViewModelBase
     {
-        public ProductBaseViewModel(ProductBaseModel productBaseModel)
+        public ProductBaseViewModel(ProductBaseModel model)
         {
-            Model = productBaseModel;
-
-            PictureLocation = PictureLocationHelper.GetPictureLocation(Model.ProductBaseCode);
+            Model = model;
         }
 
         #region properties
         public override string DisplayName => "Üldandmed";
-        public string PictureLocation { get; }
+        public ProductBaseModel Model { get; set; }
         public bool IsProductVariationsVisible => Model.ProductVariationsLink?.Count != 0;
-        #endregion
-
-        #region overrides
-        protected override bool SaveItem(ProductBaseModel model)
-        {
-            return true;
-        }
         #endregion
     }
 }

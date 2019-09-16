@@ -38,7 +38,7 @@
         </DataGrid>
 
         <DataGrid Grid.Column="3"
-                  ItemsSource="{Binding Path=Prices}"
+                  ItemsSource="{Binding Path=SelectedPriceList.Prices}"
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kood" 

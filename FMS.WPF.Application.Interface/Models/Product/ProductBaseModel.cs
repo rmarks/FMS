@@ -37,10 +37,8 @@ namespace FMS.WPF.Models
         public DateTime? CreatedOn { get; set; }
 
         public List<ProductModel> Products { get; set; }
-
         public List<ProductBaseProductVariationModel> ProductVariationsLink { get; set; }
-
-        public List<PriceModel> Prices { get; set; }
+        public List<PriceListModel> PriceLists { get; set; }
         #endregion
 
         #region dropdowns

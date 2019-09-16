@@ -5,10 +5,11 @@ using FMS.WPF.ViewModel.Utils;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using FMS.WPF.ViewModel.Commands;
+using FMS.WPF.ViewModel.Helpers;
 
 namespace FMS.WPF.ViewModels
 {
-    public class ProductFacadeViewModel : ViewModelBase, IWorkspace //WorkspaceViewModelBase
+    public class ProductFacadeViewModel : GenericEditableViewModelBase2<ProductBaseModel>, IWorkspace
     {
         private readonly IProductFacadeService _service;
         private readonly IViewModelFactory _viewModelFactory;
@@ -16,7 +17,7 @@ namespace FMS.WPF.ViewModels
         public ProductFacadeViewModel(int productBaseId, 
                                       IWorkspaceManager workspaceManager,
                                       IProductFacadeService service,
-                                      IViewModelFactory viewModelFactory) //: base(workspaceManager)
+                                      IViewModelFactory viewModelFactory)
         {
             WorkspaceManager = workspaceManager;
             _service = service;
@@ -26,10 +27,9 @@ namespace FMS.WPF.ViewModels
         }
 
         #region properties
-        public override string DisplayName => $"Toode {ProductBaseViewModel.Model?.ProductBaseCode}";
+        public override string DisplayName => $"Toode {Model?.ProductBaseCode}";
         public ObservableCollection<ViewModelBase> ProductTabs { get; private set; }
-        public ProductBaseViewModel ProductBaseViewModel { get; private set; }
-        public ProductBaseModel ProductBaseModel { get; set; }
+        public string PictureLocation { get; private set; }
         #endregion
 
         #region IWorkspace
@@ -40,25 +40,25 @@ namespace FMS.WPF.ViewModels
         #region helpers
         private void Initialize(int productBaseId)
         {
-            ProductBaseModel = _service.GetProductBaseModel(productBaseId);
+            Model = _service.GetProductBaseModel(productBaseId);
 
-            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel, ProductBaseModel>(ProductBaseModel);
+            PictureLocation = PictureLocationHelper.GetPictureLocation(Model.ProductBaseCode);
 
             //product tabs
             ProductTabs = new ObservableCollection<ViewModelBase>();
             
-            ProductTabs.Add(ProductBaseViewModel);
+            ProductTabs.Add(_viewModelFactory.CreateInstance<ProductBaseViewModel, ProductBaseModel>(Model));
 
-            ProductTabs.Add(_viewModelFactory.CreateInstance<ProductPricesViewModel, ProductBaseModel>(ProductBaseModel));
+            ProductTabs.Add(_viewModelFactory.CreateInstance<ProductPricesViewModel, ProductBaseModel>(Model));
 
-            if (ProductBaseViewModel.Model.ProductSourceTypeId == 2)
+            if (Model.ProductSourceTypeId == 2)
             {
-                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(ProductBaseModel));
+                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model));
             }
 
-            if (ProductBaseViewModel.Model.ProductDestinationTypeId == 2)
+            if (Model.ProductDestinationTypeId == 2)
             {
-                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(ProductBaseModel));
+                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model));
             }
         }
         #endregion

@@ -5,14 +5,13 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductSourceCompaniesViewModel : ViewModelBase
     {
-        public ProductSourceCompaniesViewModel(ProductBaseModel productBaseModel)
+        public ProductSourceCompaniesViewModel(ProductBaseModel model)
         {
-            Products = productBaseModel.Products;
+            Products = model.Products;
         }
 
         #region properties
         public override string DisplayName => "Tarne andmed";
-
         public IList<ProductModel> Products { get; private set; }
         #endregion
     }

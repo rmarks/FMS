@@ -39,7 +39,7 @@ namespace FMS.WPF.Application.Utils
 
             #region price
             CreateMap<Price, PriceModel>();
-            //CreateMap<PriceList, PriceListModel>();
+            CreateMap<PriceList, PriceListModel>();
             #endregion
 
             #region dropdowns

@@ -5,9 +5,9 @@ namespace FMS.WPF.ViewModels
 {
     public class ProductDestCompaniesViewModel : ViewModelBase
     {
-        public ProductDestCompaniesViewModel(ProductBaseModel productBaseModel)
+        public ProductDestCompaniesViewModel(ProductBaseModel model)
         {
-            Products = productBaseModel.Products;
+            Products = model.Products;
         }
 
         #region properties

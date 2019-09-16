@@ -28,6 +28,36 @@ namespace FMS.WPF.Application.Services
                     .ProjectBetween<ProductBase, ProductBaseModel>()
                     .FirstOrDefault();
 
+                model.PriceLists = context.PriceLists
+                    .AsNoTracking()
+                    .Where(pl => pl.Prices.Any(p => p.Product.ProductBaseId == productBaseId))
+                    .Select(pl => new PriceListModel
+                    {
+                        PriceListId = pl.PriceListId,
+                        PriceListName = pl.PriceListName,
+                        IsVAT = pl.IsVAT,
+                        CurrencyCode = pl.CurrencyCode,
+                        //left outer join
+                        Prices = model.Products
+                            .GroupJoin(pl.Prices.Where(p => p.Product.ProductBaseId == productBaseId),
+                                       product => product.ProductId,
+                                       price => price.ProductId,
+                                       (product, prices) => new { Product = product, Prices = prices })
+                            .SelectMany(x => x.Prices.DefaultIfEmpty(),
+                                        (x, y) => new { Product = x.Product, Price = y })
+                            .Select(p => new PriceModel
+                            {
+                                ProductId = p.Product.ProductId,
+                                PriceListId = pl.PriceListId,
+                                ProductProductCode = p.Product.ProductCode,
+                                ProductProductName = p.Product.ProductName,
+                                UnitPrice = (p.Price == null ? 0 : p.Price.UnitPrice)
+                            })
+                            .OrderBy(p => p.ProductProductCode)
+                            .ToList()
+                    })
+                    .ToList();
+
                 model.Products = model.Products
                     .OrderBy(p => p.ProductCode)
                     .ToList();

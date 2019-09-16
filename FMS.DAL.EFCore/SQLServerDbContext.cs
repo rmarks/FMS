@@ -1,7 +1,6 @@
 ﻿using FMS.DAL.Interfaces;
 using FMS.Domain.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace FMS.DAL.EFCore
 {
@@ -57,12 +56,6 @@ namespace FMS.DAL.EFCore
             modelBuilder.Entity<ProductBaseProductVariation>()
                 .HasKey(p => new { p.ProductBaseId, p.ProductVariationId });
 
-            //modelBuilder.Entity<ProductSource>()
-            //    .HasKey(p => new { p.ProductId, p.CompanyId });
-
-            //modelBuilder.Entity<ProductDestination>()
-            //    .HasKey(p => new { p.ProductId, p.CompanyId });
-
             modelBuilder.Entity<Price>()
                 .HasKey(p => new { p.ProductId, p.PriceListId });
 
@@ -70,6 +63,38 @@ namespace FMS.DAL.EFCore
             //{
             //    relationship.DeleteBehavior = DeleteBehavior.Restrict;
             //}
+
+            modelBuilder.Entity<SalesInvoice>()
+                .HasOne(si => si.Company)
+                .WithMany()
+                .HasForeignKey(si => si.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SalesInvoice>()
+                .HasOne(s => s.BillingAddress)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SalesInvoice>()
+                .HasOne(s => s.ShippingAddress)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SalesOrder>()
+                .HasOne(so => so.Company)
+                .WithMany()
+                .HasForeignKey(so => so.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SalesOrder>()
+                .HasOne(s => s.BillingAddress)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SalesOrder>()
+                .HasOne(s => s.ShippingAddress)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

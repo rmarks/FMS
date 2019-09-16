@@ -23,8 +23,6 @@ namespace FMS.WPF.App
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<FMS.ServiceLayer.Utils.EntityDtoMappingProfile>();
-                cfg.AddProfile<FMS.WPF.Application.Utils.DtoModelMappingProfile>();
                 cfg.AddProfile<FMS.WPF.Application.Utils.EntityModelMappingProfile>();
                 cfg.AddProfile<FMS.WPF.ViewModel.Utils.ModelModelMappingProfile>();
             });
@@ -34,7 +32,6 @@ namespace FMS.WPF.App
         {
             var builder = new ContainerBuilder();
             builder.RegisterModule<FMS.DAL.EFCore.Utils.AutoFacModule>()
-                   .RegisterModule<FMS.ServiceLayer.Utils.AutoFacModule>()
                    .RegisterModule<FMS.WPF.Application.Utils.AutoFacModule>()
                    .RegisterModule<FMS.WPF.ViewModel.Utils.AutoFacModule>()
                    .RegisterModule<FMS.WPF.UI.Utils.AutoFacModule>();
