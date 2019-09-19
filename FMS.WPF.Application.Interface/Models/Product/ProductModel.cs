@@ -1,6 +1,6 @@
 ﻿namespace FMS.WPF.Models
 {
-    public class ProductModel
+    public class ProductModel : ModelBase
     {
         public int ProductId { get; set; }
         public string ProductCode { get; set; }

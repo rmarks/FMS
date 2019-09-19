@@ -7,30 +7,53 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1400">
 
+    <UserControl.Resources>
+        <FrameworkElement x:Key="ProxyElement"
+                          DataContext="{Binding}"/>
+    </UserControl.Resources>
+
     <Grid Margin="0,50">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
+
+        <ContentControl Visibility="Collapsed"
+                        Content="{StaticResource ProxyElement}"/>
 
         <DataGrid Grid.Column="1"
                   ItemsSource="{Binding Path=Products}"
-                  Style="{StaticResource MainDataGridStyle}">
+                  Style="{StaticResource MainEditableDataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Toote kood" 
                                     Binding="{Binding Path=ProductCode}" 
-                                    Width="*"/>
-                <DataGridTextColumn Header="Allhanke tellija" 
-                                    Binding="{Binding Path=ProductDestination.CompanyCompanyName}" 
-                                    Width="2.5*"/>
+                                    Width="1.5*"
+                                    IsReadOnly="True"/>
+                <DataGridComboBoxColumn Header="Allhanke tellija" 
+                                        ItemsSource="{Binding Path=DataContext.Model.Dropdowns.ProductDestCompanies,
+                                                              Source={StaticResource ProxyElement}}"
+                                        DisplayMemberPath="Name"
+                                        SelectedValuePath="CompanyId"
+                                        SelectedValueBinding="{Binding Path=ProductDestination.CompanyId}" 
+                                        Width="2*"
+                                        IsReadOnly="{Binding Path=DataContext.IsEditMode,
+                                                             Source={StaticResource ProxyElement},
+                                                             Converter={StaticResource InverseBooleanConverter}}"/>
                 <DataGridTextColumn Header="Tellija toote kood" 
                                     Binding="{Binding Path=ProductDestination.CompanyProductCode}" 
-                                    Width="*"/>
+                                    Width="2*"
+                                    IsReadOnly="{Binding Path=DataContext.IsEditMode,
+                                                         Source={StaticResource ProxyElement},
+                                                         Converter={StaticResource InverseBooleanConverter}}"/>
                 <DataGridTextColumn Header="EAN" 
                                     Binding="{Binding Path=ProductDestination.EAN}" 
-                                    Width="*"/>
+                                    Width="2*"
+                                    IsReadOnly="{Binding Path=DataContext.IsEditMode,
+                                                         Source={StaticResource ProxyElement},
+                                                         Converter={StaticResource InverseBooleanConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
+
     </Grid>
 </UserControl>

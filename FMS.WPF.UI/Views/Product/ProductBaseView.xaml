@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FMS.WPF.Views"
-             xmlns:controls="clr-namespace:FMS.WPF.UI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1400">
 
@@ -20,15 +19,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- Taskbar -->
-        <controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
-                                  EditCommand="{Binding Path=EditCommand}"
-                                  IsEditVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"
-                                  CancelCommand="{Binding Path=CancelCommand}"
-                                  IsCancelVisible="{Binding Path=IsEditMode}"
-                                  SaveCommand="{Binding Path=SaveCommand}"
-                                  IsSaveVisible="{Binding Path=IsEditMode}"/>
 
         <!--Product Info-->
         <Grid Grid.Row="1" 
@@ -201,24 +191,28 @@
                       Margin="20,0"
                       Padding="20,0,20,10"
                       FontSize="18">
-                <StackPanel>
-                    <TextBlock Text="Variatsioonid"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Text="Variatsioonid"
                                Visibility="{Binding Path=IsProductVariationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <ListBox ItemsSource="{Binding Path=Model.ProductVariationsLink}" 
+                    <ListBox Grid.Row="1"
+                             ItemsSource="{Binding Path=Model.ProductVariationsLink}" 
                              DisplayMemberPath="ProductVariation.Name" 
                              IsEnabled="{Binding Path=IsEditMode}"
                              Visibility="{Binding Path=IsProductVariationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                    <DataGrid ItemsSource="{Binding Path=Model.Products}"
-                              SelectedItem="{Binding Path=SelectedItem}"
-                              Style="{StaticResource MainDataGridStyle}"
-                              Margin="20">
-                        <DataGrid.InputBindings>
-                            <MouseBinding Gesture="LeftDoubleClick"
-                                          Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
-                            <KeyBinding Gesture="Enter"
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
-                        </DataGrid.InputBindings>
+                    <DataGrid Grid.Row="2"
+                              ItemsSource="{Binding Path=Products}"
+                              Style="{StaticResource MainEditableDataGridStyle}"
+                              Margin="20"
+                              IsReadOnly="{Binding Path=DataContext.IsEditMode, 
+                                                   RelativeSource={RelativeSource AncestorType=UserControl},
+                                                   Converter={StaticResource InverseBooleanConverter}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Kood"
                                                 Binding="{Binding Path=ProductCode}"
@@ -233,7 +227,7 @@
                                                 CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
                 
             </GroupBox>
         </Grid>

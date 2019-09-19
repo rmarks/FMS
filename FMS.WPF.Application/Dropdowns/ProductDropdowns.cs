@@ -32,6 +32,8 @@ namespace FMS.WPF.Application.Dropdowns
         public IList<ProductBrandDropdownModel> ProductBrands { get; set; }
         public IList<ProductCollectionDropdownModel> ProductCollections { get; set; }
         public IList<ProductDesignDropdownModel> ProductDesigns { get; set; }
+        public IList<CompanySmallModel> ProductSourceCompanies { get; set; }
+        public IList<CompanySmallModel> ProductDestCompanies { get; set; }
         #endregion
 
         public async void InitializeAsync()
@@ -48,6 +50,9 @@ namespace FMS.WPF.Application.Dropdowns
                 ProductBrands = await GetProductBrandsAsync(context);
                 ProductCollections = await GetProductCollectionsAsync(context);
                 ProductDesigns = await GetProductDesignsAsync(context);
+
+                ProductSourceCompanies = await GetProductSourceCompanies(context);
+                ProductDestCompanies = await GetProductDestCompanies(context);
             }
         }
 
@@ -178,6 +183,34 @@ namespace FMS.WPF.Application.Dropdowns
                 .ToListAsync();
 
             list.Insert(0, new ProductDesignDropdownModel());
+
+            return list;
+        }
+
+        private async Task<IList<CompanySmallModel>> GetProductSourceCompanies(IDataContext context)
+        {
+            var list = await context.Companies
+                .AsNoTracking()
+                .Where(c => c.CompanyTypesLink.Any(ctl => ctl.CompanyTypeId == 2))
+                .OrderBy(c => c.Name)
+                .ProjectBetween<Company, CompanySmallModel>()
+                .ToListAsync();
+
+            list.Insert(0, new CompanySmallModel());
+
+            return list;
+        }
+
+        private async Task<IList<CompanySmallModel>> GetProductDestCompanies(IDataContext context)
+        {
+            var list = await context.Companies
+                .AsNoTracking()
+                .Where(c => c.CompanyTypesLink.Any(ctl => ctl.CompanyTypeId == 3))
+                .OrderBy(c => c.Name)
+                .ProjectBetween<Company, CompanySmallModel>()
+                .ToListAsync();
+
+            list.Insert(0, new CompanySmallModel());
 
             return list;
         }

@@ -30,11 +30,27 @@ namespace FMS.WPF.ViewModels
         public override string DisplayName => $"Toode {Model?.ProductBaseCode}";
         public ObservableCollection<ViewModelBase> ProductTabs { get; private set; }
         public string PictureLocation { get; private set; }
+        public ProductBaseViewModel ProductBaseViewModel { get; set; }
+        public ProductPricesViewModel ProductPricesViewModel { get; set; }
+        public ProductSourceCompaniesViewModel ProductSourceCompaniesViewModel { get; set; }
+        public ProductDestCompaniesViewModel ProductDestCompaniesViewModel { get; set; }
         #endregion
 
-        #region IWorkspace
-        public IWorkspaceManager WorkspaceManager { get; }
-        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
+        #region event handlers
+        private void OnEditModeChanged(bool isEditMode)
+        {
+            ProductBaseViewModel.IsEditMode = isEditMode;
+            ProductPricesViewModel.IsEditMode = isEditMode;
+            
+            if (ProductSourceCompaniesViewModel != null)
+            {
+                ProductSourceCompaniesViewModel.IsEditMode = isEditMode;
+            }
+            if (ProductDestCompaniesViewModel != null)
+            {
+                ProductDestCompaniesViewModel.IsEditMode = isEditMode;
+            }
+        }
         #endregion
 
         #region helpers
@@ -46,21 +62,36 @@ namespace FMS.WPF.ViewModels
 
             //product tabs
             ProductTabs = new ObservableCollection<ViewModelBase>();
-            
-            ProductTabs.Add(_viewModelFactory.CreateInstance<ProductBaseViewModel, ProductBaseModel>(Model));
 
-            ProductTabs.Add(_viewModelFactory.CreateInstance<ProductPricesViewModel, ProductBaseModel>(Model));
+            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel, ProductBaseModel>(Model);
+            ItemEditCancelled += ProductBaseViewModel.OnProductEditCancelled;
+            ProductTabs.Add(ProductBaseViewModel);
+
+            ProductPricesViewModel = _viewModelFactory.CreateInstance<ProductPricesViewModel, ProductBaseModel>(Model);
+            ItemEditCancelled += ProductPricesViewModel.OnProductEditCancelled;
+            ProductTabs.Add(ProductPricesViewModel);
 
             if (Model.ProductSourceTypeId == 2)
             {
-                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model));
+                ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model);
+                ItemEditCancelled += ProductSourceCompaniesViewModel.OnProductEditCancelled;
+                ProductTabs.Add(ProductSourceCompaniesViewModel);
             }
 
             if (Model.ProductDestinationTypeId == 2)
             {
-                ProductTabs.Add(_viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model));
+                ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model);
+                ItemEditCancelled += ProductDestCompaniesViewModel.OnProductEditCancelled;
+                ProductTabs.Add(ProductDestCompaniesViewModel);
             }
+
+            EditModeChanged += OnEditModeChanged;
         }
+        #endregion
+
+        #region IWorkspace
+        public IWorkspaceManager WorkspaceManager { get; }
+        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
         #endregion
     }
 }

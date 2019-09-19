@@ -24,12 +24,14 @@ namespace FMS.WPF.Application.Utils
             CreateMap<CompanyModel, Company>();
             CreateMap<CompanyAddress, CompanyAddressModel>().ReverseMap();
             CreateMap<Contact, CompanyContactModel>().ReverseMap();
+
+            CreateMap<Company, CompanySmallModel>();
             #endregion
 
             #region product
             CreateMap<ProductBase, ProductListModel>();
-            
-            CreateMap<ProductBase, ProductBaseModel>(); 
+
+            CreateMap<ProductBase, ProductBaseModel>();
             CreateMap<ProductVariation, ProductVariationModel>();
             CreateMap<ProductBaseProductVariation, ProductBaseProductVariationModel>();
             CreateMap<Product, ProductModel>();

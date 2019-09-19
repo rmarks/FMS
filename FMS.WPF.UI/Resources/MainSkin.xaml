@@ -128,4 +128,30 @@
         <Setter Property="TextBlock.TextAlignment" Value="Right" />
     </Style>
 
+    <Style x:Key="MainDataGridCellCenterStyle" 
+           TargetType="{x:Type DataGridCell}" 
+           BasedOn="{StaticResource MainDataGridCellStyle}">
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="MainEditableDataGridStyle" TargetType="{x:Type DataGrid}">
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <!--<Setter Property="BorderBrush" Value="LightGray"/>-->
+        <Setter Property="HorizontalGridLinesBrush" Value="LightGray"/>
+        <Setter Property="VerticalGridLinesBrush" Value="LightGray"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="SelectionUnit" Value="Cell"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="RowHeight" Value="35"/>
+        <Setter Property="ColumnHeaderHeight" Value="35"/>
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource MainDataGridColumnHeaderStyle}"/>
+        <!--<Setter Property="RowStyle" Value="{StaticResource MainDataGridRowStyle}"/>-->
+        <!--<Setter Property="CellStyle" Value="{StaticResource MainDataGridCellStyle}"/>-->
+    </Style>
+
 </ResourceDictionary>

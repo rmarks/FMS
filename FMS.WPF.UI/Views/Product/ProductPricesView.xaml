@@ -8,6 +8,11 @@
              d:DesignHeight="800" d:DesignWidth="1400"
              Loaded="UserControl_Loaded">
 
+    <UserControl.Resources>
+        <FrameworkElement x:Key="ProxyElement"
+                          DataContext="{Binding}"/>
+    </UserControl.Resources>
+
     <!--FocusManager.FocusedElement="{Binding ElementName=dgridPriceLists}"-->
     <Grid Margin="0,50">
         <Grid.ColumnDefinitions>
@@ -18,9 +23,10 @@
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
 
-        <!--x:Name="dgridPriceLists"-->
+        <ContentControl Visibility="Collapsed"
+                        Content="{StaticResource ProxyElement}"/>
+
         <DataGrid Grid.Column="1"
-                  x:Name="dgridPriceLists"
                   ItemsSource="{Binding Path=PriceLists}"
                   SelectedItem="{Binding Path=SelectedPriceList}"
                   Style="{StaticResource MainDataGridStyle}">
@@ -31,26 +37,81 @@
                 <DataGridTextColumn Header="Valuuta" 
                                     Binding="{Binding Path=CurrencyCode}" 
                                     Width="0.3*"/>
-                <DataGridTextColumn Header="Käibemaks" 
-                                    Binding="{Binding Path=IsVAT}" 
-                                    Width="0.3*"/>
+                <DataGridCheckBoxColumn Header="Käibemaks" 
+                                        Binding="{Binding Path=IsVAT}" 
+                                        Width="0.3*"
+                                        HeaderStyle="{StaticResource MainDataGridColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource MainDataGridCellCenterStyle}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <DataGrid Grid.Column="3"
-                  ItemsSource="{Binding Path=SelectedPriceList.Prices}"
-                  Style="{StaticResource MainDataGridStyle}">
+                  ItemsSource="{Binding Path=Prices}"
+                  Style="{StaticResource MainEditableDataGridStyle}">
+            <DataGrid.Resources>
+                <!--<Style x:Key="EditableTextBoxStyle" TargetType="TextBlock">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=LayoutRoot, 
+                                                       Path=DataContext.IsEditMode}"
+                                     Value="True">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>-->
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Kood" 
+                <DataGridTextColumn Header="Kood"
                                     Binding="{Binding Path=ProductProductCode}" 
-                                    Width="*"/>
+                                    Width="*"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Nimi" 
                                     Binding="{Binding Path=ProductProductName}" 
-                                    Width="2*"/>
+                                    Width="2*"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Hind" 
-                                    Binding="{Binding Path=UnitPrice}" 
-                                    Width="*"/>
+                                    Binding="{Binding Path=UnitPrice, StringFormat=0.00}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"
+                                    IsReadOnly="{Binding Path=DataContext.IsEditMode,
+                                                         Source={StaticResource ProxyElement},
+                                                         Converter={StaticResource InverseBooleanConverter}}">
+                    <!--<DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=ucPrices,
+                                                               Path=DataContext.IsEditMode}"
+                                             Value="True">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>-->
+                </DataGridTextColumn>
+                <!--<DataGridTemplateColumn Header="Hind"
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=UnitPrice, UpdateSourceTrigger=PropertyChanged}"
+                                       Style="{StaticResource EditableTextBoxStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=UnitPrice, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource EditableTextBoxStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>-->
+                <!--IsReadOnly="{Binding Path=DataContext.IsEditMode, 
+                                                         RelativeSource={RelativeSource AncestorType=UserControl},
+                                                         Converter={StaticResource InverseBooleanConverter}}"/>-->
             </DataGrid.Columns>
         </DataGrid>
+
     </Grid>
 </UserControl>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FMS.WPF.Views"
+             xmlns:controls="clr-namespace:FMS.WPF.UI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1400">
 
@@ -56,6 +57,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -64,29 +66,40 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" 
+                    <controls:EditableTaskbar Grid.Row="0" Grid.ColumnSpan="2"
+                                  Margin="10,0"
+                                  EditCommand="{Binding Path=EditCommand}"
+                                  IsEditVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"
+                                  CancelCommand="{Binding Path=CancelCommand}"
+                                  IsCancelVisible="{Binding Path=IsEditMode}"
+                                  SaveCommand="{Binding Path=SaveCommand}"
+                                  IsSaveVisible="{Binding Path=IsEditMode}"
+                                  DeleteCommand="{Binding Path=DeleteCommand}"
+                                  IsDeleteVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" 
                            Text="Kood" 
                            Style="{StaticResource CaptionTextBlockSyle}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                    <TextBlock Grid.Row="1" Grid.Column="1" 
                            Text="Nimetus" 
                            Style="{StaticResource CaptionTextBlockSyle}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="2" 
+                    <TextBlock Grid.Row="1" Grid.Column="2" 
                            Text="Olek" 
                            Style="{StaticResource CaptionTextBlockSyle}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="3" 
+                    <TextBlock Grid.Row="1" Grid.Column="3" 
                            Text="Sisestatud" 
                            Style="{StaticResource CaptionTextBlockSyle}"/>
 
-                    <TextBox Grid.Row="1" Grid.Column="0" 
+                    <TextBox Grid.Row="2" Grid.Column="0" 
                            Text="{Binding Path=Model.ProductBaseCode, Mode=OneWay}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" 
+                    <TextBox Grid.Row="2" Grid.Column="1" 
                            Text="{Binding Path=Model.ProductBaseName, Mode=OneWay}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
-                    <TextBox Grid.Row="1" Grid.Column="2" 
+                    <TextBox Grid.Row="2" Grid.Column="2" 
                            Text="{Binding Path=Model.ProductStatusName, Mode=OneWay}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
-                    <TextBox Grid.Row="1" Grid.Column="3" 
+                    <TextBox Grid.Row="2" Grid.Column="3" 
                            Text="{Binding Path=Model.CreatedOn, Mode=OneWay, StringFormat='\{0:dd.MM.yyyy\}'}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
                 </Grid>
