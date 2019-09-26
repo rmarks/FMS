@@ -9,5 +9,7 @@
 
         public ProductCompanyModel ProductSource { get; set; }
         public ProductCompanyModel ProductDestination { get; set; }
+
+        public int ProductBaseId { get; set; }
     }
 }

@@ -87,7 +87,7 @@ namespace FMS.WPF.ViewModels
                 new CommandTreeItemViewModel("Firmad", new RelayCommand(() => WorkspaceManager.OpenWorkspace<CompaniesViewModel>()));
             groupPermanentData.CommandTreeItems.Add(commandCompanies);
             CommandTreeItemViewModel commandProducts =
-                new CommandTreeItemViewModel("Tooted", new RelayCommand(() => WorkspaceManager.OpenWorkspace<ProductsViewModel>()));
+                new CommandTreeItemViewModel("Tooted", new RelayCommand(() => WorkspaceManager.OpenWorkspace<ProductListViewModel>()));
             groupPermanentData.CommandTreeItems.Add(commandProducts);
         }
 

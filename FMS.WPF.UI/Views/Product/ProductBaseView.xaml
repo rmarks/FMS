@@ -12,6 +12,7 @@
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
         <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource MainListBoxStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
     </UserControl.Resources>
 
     <Grid>
@@ -195,19 +196,26 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
-                               Text="Variatsioonid"
-                               Visibility="{Binding Path=IsProductVariationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                               Text="Variatsioonid"/>
+
                     <ListBox Grid.Row="1"
                              ItemsSource="{Binding Path=Model.ProductVariationsLink}" 
                              DisplayMemberPath="ProductVariation.Name" 
-                             IsEnabled="{Binding Path=IsEditMode}"
-                             Visibility="{Binding Path=IsProductVariationsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                             IsEnabled="{Binding Path=IsEditMode}"/>
 
-                    <DataGrid Grid.Row="2"
-                              ItemsSource="{Binding Path=Products}"
+                    <StackPanel Grid.Row="2"
+                                HorizontalAlignment="Left"
+                                Margin="0,5,0,0">
+                        <Button Content="Lisa toode"
+                                Command="{Binding Path=AddProductCommand}"/>
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="3"
+                              ItemsSource="{Binding Path=Model.OCProducts}"
                               Style="{StaticResource MainEditableDataGridStyle}"
                               Margin="20"
                               IsReadOnly="{Binding Path=DataContext.IsEditMode, 

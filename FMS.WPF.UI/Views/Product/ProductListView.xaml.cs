@@ -5,9 +5,9 @@ namespace FMS.WPF.Views
     /// <summary>
     /// Interaction logic for ProductsView.xaml
     /// </summary>
-    public partial class ProductsView : UserControl
+    public partial class ProductListView : UserControl
     {
-        public ProductsView()
+        public ProductListView()
         {
             InitializeComponent();
         }

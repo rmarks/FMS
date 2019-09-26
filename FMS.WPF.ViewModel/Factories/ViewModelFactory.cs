@@ -12,14 +12,14 @@ namespace FMS.WPF.ViewModel.Factories
             _scope = scope;
         }
 
-        public T CreateInstance<T>(int id = 0) where T : ViewModelBase
+        public T CreateInstance<T>() where T : ViewModelBase
         {
-            if (id != 0)
-            {
-                return _scope.Resolve<T>(new TypedParameter(typeof(int), id));
-            }
-
             return _scope.Resolve<T>();
+        }
+
+        public T CreateInstance<T>(int id) where T : ViewModelBase
+        {
+            return _scope.Resolve<T>(new TypedParameter(typeof(int), id));
         }
 
         public TInstance CreateInstance<TInstance, TParameter>(TParameter param) where TInstance : ViewModelBase

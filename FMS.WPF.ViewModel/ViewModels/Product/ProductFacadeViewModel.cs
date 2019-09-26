@@ -27,7 +27,7 @@ namespace FMS.WPF.ViewModels
         }
 
         #region properties
-        public override string DisplayName => $"Toode {Model?.ProductBaseCode}";
+        public override string DisplayName => Model?.ProductBaseCode == null ? "Uus toode" : "Toode " + Model.ProductBaseCode;
         public ObservableCollection<ViewModelBase> ProductTabs { get; private set; }
         public string PictureLocation { get; private set; }
         public ProductBaseViewModel ProductBaseViewModel { get; set; }
@@ -36,20 +36,12 @@ namespace FMS.WPF.ViewModels
         public ProductDestCompaniesViewModel ProductDestCompaniesViewModel { get; set; }
         #endregion
 
-        #region event handlers
-        private void OnEditModeChanged(bool isEditMode)
+        #region overrides
+        protected override bool SaveItem(ProductBaseModel model)
         {
-            ProductBaseViewModel.IsEditMode = isEditMode;
-            ProductPricesViewModel.IsEditMode = isEditMode;
-            
-            if (ProductSourceCompaniesViewModel != null)
-            {
-                ProductSourceCompaniesViewModel.IsEditMode = isEditMode;
-            }
-            if (ProductDestCompaniesViewModel != null)
-            {
-                ProductDestCompaniesViewModel.IsEditMode = isEditMode;
-            }
+            Model = _service.Save(model);
+
+            return true;
         }
         #endregion
 
@@ -60,32 +52,137 @@ namespace FMS.WPF.ViewModels
 
             PictureLocation = PictureLocationHelper.GetPictureLocation(Model.ProductBaseCode);
 
-            //product tabs
+            InitializeProductTabs();
+
+            EditModeChanged += OnEditModeChanged;
+            ItemEditCancelled += OnItemEditCancelled;
+
+            Model.ProductSourceTypeChanged += ManageProductSource;
+            Model.ProductDestinationTypeChanged += ManageProductDestination;
+
+            if (Model.ProductBaseId == 0)
+            {
+                EditCommand.Execute(null);
+            }
+        }
+
+        private void InitializeProductTabs()
+        {
             ProductTabs = new ObservableCollection<ViewModelBase>();
 
             ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel, ProductBaseModel>(Model);
-            ItemEditCancelled += ProductBaseViewModel.OnProductEditCancelled;
             ProductTabs.Add(ProductBaseViewModel);
 
             ProductPricesViewModel = _viewModelFactory.CreateInstance<ProductPricesViewModel, ProductBaseModel>(Model);
-            ItemEditCancelled += ProductPricesViewModel.OnProductEditCancelled;
             ProductTabs.Add(ProductPricesViewModel);
 
-            if (Model.ProductSourceTypeId == 2)
+            InitializeProductSourceTab();
+            InitializeProductDestinationTab();
+        }
+
+        private void InitializeProductSourceTab()
+        {
+            if (Model.IsPurchased)
             {
-                ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model);
-                ItemEditCancelled += ProductSourceCompaniesViewModel.OnProductEditCancelled;
-                ProductTabs.Add(ProductSourceCompaniesViewModel);
+                if (ProductSourceCompaniesViewModel == null)
+                {
+                    ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model);
+                    ProductSourceCompaniesViewModel.IsEditMode = IsEditMode;
+                    ProductTabs.Add(ProductSourceCompaniesViewModel);
+                }
+            }
+            else
+            {
+                if (ProductSourceCompaniesViewModel != null)
+                {
+                    ProductTabs.Remove(ProductSourceCompaniesViewModel);
+                    ProductSourceCompaniesViewModel = null;
+                }
+            }
+        }
+
+        private void InitializeProductDestinationTab()
+        {
+            if (Model.IsForOutsource)
+            {
+                if (ProductDestCompaniesViewModel == null)
+                {
+                    ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model);
+                    ProductDestCompaniesViewModel.IsEditMode = IsEditMode;
+                    ProductTabs.Add(ProductDestCompaniesViewModel);
+                }
+            }
+            else
+            {
+                if (ProductDestCompaniesViewModel != null)
+                {
+                    ProductTabs.Remove(ProductDestCompaniesViewModel);
+                    ProductDestCompaniesViewModel = null;
+                }
+            }
+        }
+
+        private void ManageProductSource()
+        {
+            if (Model.Products != null && Model.Products.Count != 0)
+            {
+                if (Model.IsPurchased)
+                {
+                    Model.Products.ForEach(p => p.ProductSource = new ProductCompanyModel());
+                }
+                else
+                {
+                    Model.Products.ForEach(p => p.ProductSource = null);
+                }
             }
 
-            if (Model.ProductDestinationTypeId == 2)
+            InitializeProductSourceTab();
+        }
+
+        private void ManageProductDestination()
+        {
+            if (Model.Products != null && Model.Products.Count != 0)
             {
-                ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model);
-                ItemEditCancelled += ProductDestCompaniesViewModel.OnProductEditCancelled;
-                ProductTabs.Add(ProductDestCompaniesViewModel);
+                if (Model.IsForOutsource)
+                {
+                    Model.Products.ForEach(p => p.ProductDestination = new ProductCompanyModel());
+                }
+                else
+                {
+                    Model.Products.ForEach(p => p.ProductDestination = null);
+                }
             }
 
-            EditModeChanged += OnEditModeChanged;
+            InitializeProductDestinationTab();
+        }
+        #endregion
+
+        #region event handlers
+        private void OnEditModeChanged(bool isEditMode)
+        {
+            ProductBaseViewModel.IsEditMode = isEditMode;
+            ProductPricesViewModel.IsEditMode = isEditMode;
+
+            if (ProductSourceCompaniesViewModel != null)
+            {
+                ProductSourceCompaniesViewModel.IsEditMode = isEditMode;
+            }
+            if (ProductDestCompaniesViewModel != null)
+            {
+                ProductDestCompaniesViewModel.IsEditMode = isEditMode;
+            }
+        }
+
+        private void OnItemEditCancelled()
+        {
+            if (Model.ProductBaseId == 0)
+            {
+                CloseWorkspaceCommand.Execute(null);
+            }
+            else
+            {
+                Model.Reset();
+            }
         }
         #endregion
 

@@ -1,22 +1,28 @@
 ﻿using FMS.WPF.Models;
 using FMS.WPF.Application.Interface.Services;
+using FMS.WPF.ViewModel.Utils;
+using System.Windows.Input;
+using FMS.WPF.ViewModel.Commands;
 
 namespace FMS.WPF.ViewModels
 {
-    public class ProductListViewModel : GenericListViewModelBase<ProductListModel>
+    public class ProductListViewModel : GenericListViewModelBase<ProductListModel>, IWorkspace
     {
         #region Fields
         private IProductListService _service;
         #endregion
 
-        public ProductListViewModel(IProductListService service)
+        public ProductListViewModel(IWorkspaceManager workspaceManager,
+                                    IProductListService service)
         {
+            WorkspaceManager = workspaceManager;
             _service = service;
 
             InitializeOptionsModel();
         }
 
         #region properties
+        public override string DisplayName => "Tooted";
         public ProductListOptionsModel OptionsModel { get; private set; }
         #endregion
 
@@ -30,7 +36,16 @@ namespace FMS.WPF.ViewModels
         protected override void Reset()
         {
             OptionsModel.Reset();
-            ClearItems();
+        }
+
+        protected override void OpenItem()
+        {
+            OpenWorkspace(SelectedItem.ProductBaseId);
+        }
+
+        protected override void AddItem()
+        {
+            OpenWorkspace(0);
         }
         #endregion
 
@@ -46,6 +61,16 @@ namespace FMS.WPF.ViewModels
             Items = null;
             ItemsCount = null;
         }
+
+        private void OpenWorkspace(int productBaseId)
+        {
+            WorkspaceManager.OpenWorkspace<ProductFacadeViewModel>(productBaseId);
+        }
+        #endregion
+
+        #region IWorkspace
+        public IWorkspaceManager WorkspaceManager { get; }
+        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
         #endregion
     }
 }

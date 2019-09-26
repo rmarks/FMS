@@ -32,11 +32,13 @@ namespace FMS.WPF.Application.Utils
             CreateMap<ProductBase, ProductListModel>();
 
             CreateMap<ProductBase, ProductBaseModel>();
-            CreateMap<ProductVariation, ProductVariationModel>();
-            CreateMap<ProductBaseProductVariation, ProductBaseProductVariationModel>();
-            CreateMap<Product, ProductModel>();
-            CreateMap<ProductSource, ProductCompanyModel>();
-            CreateMap<ProductDestination, ProductCompanyModel>();
+            CreateMap<ProductBaseModel, ProductBase>()
+                .ForMember(d => d.ProductStatus, o => o.Ignore());
+            CreateMap<ProductVariation, ProductVariationModel>().ReverseMap();
+            CreateMap<ProductBaseProductVariation, ProductBaseProductVariationModel>().ReverseMap();
+            CreateMap<Product, ProductModel>().ReverseMap();
+            CreateMap<ProductSource, ProductCompanyModel>().ReverseMap();
+            CreateMap<ProductDestination, ProductCompanyModel>().ReverseMap();
             #endregion
 
             #region price

@@ -20,6 +20,11 @@ namespace FMS.WPF.Application.Services
         #region product base
         public ProductBaseModel GetProductBaseModel(int productBaseId)
         {
+            if (productBaseId == 0)
+            {
+                return new ProductBaseModel();
+            }
+
             using (var context = _contextFactory.CreateContext())
             {
                 var model = context.ProductBases
@@ -63,6 +68,20 @@ namespace FMS.WPF.Application.Services
                     .ToList();
 
                 return model;
+            }
+        }
+
+        public ProductBaseModel Save(ProductBaseModel model)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                model.Save();
+                var productBase = model.MapTo<ProductBase>();
+                
+                context.Update(productBase);
+                context.SaveChanges();
+
+                return GetProductBaseModel(productBase.ProductBaseId);
             }
         }
         #endregion

@@ -1,6 +1,7 @@
 ﻿using FMS.WPF.Application.Interface.Dropdowns;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace FMS.WPF.Models
@@ -18,10 +19,32 @@ namespace FMS.WPF.Models
 
         public int? BusinessLineId { get; set; }
         public int? ProductStatusId { get; set; }
+        
+        //flattening
         public string ProductStatusName { get; set; }
+        //---
 
-        public int? ProductSourceTypeId { get; set; }
-        public int? ProductDestinationTypeId { get; set; }
+        private int? _productSourceTypeId;
+        public int? ProductSourceTypeId 
+        { 
+            get => _productSourceTypeId;
+            set
+            {
+                _productSourceTypeId = value;
+                ProductSourceTypeChanged?.Invoke();
+            }
+        }
+
+        private int? _productDestinationTypeId;
+        public int? ProductDestinationTypeId 
+        { 
+            get => _productDestinationTypeId;
+            set
+            {
+                _productDestinationTypeId = value;
+                ProductDestinationTypeChanged?.Invoke();
+            } 
+        }
 
         public int? ProductMaterialId { get; set; }
         public int? ProductTypeId { get; set; }
@@ -36,9 +59,43 @@ namespace FMS.WPF.Models
 
         public DateTime? CreatedOn { get; set; }
 
-        public List<ProductModel> Products { get; set; }
-        public List<ProductBaseProductVariationModel> ProductVariationsLink { get; set; }
-        public List<PriceListModel> PriceLists { get; set; }
+        public List<ProductModel> Products { get; set; } = new List<ProductModel>();
+        public List<ProductBaseProductVariationModel> ProductVariationsLink { get; set; } = new List<ProductBaseProductVariationModel>();
+        public List<PriceListModel> PriceLists { get; set; } = new List<PriceListModel>();
+        #endregion
+
+        #region view properties
+        private ObservableCollection<ProductModel> _ocProducts;
+        public ObservableCollection<ProductModel> OCProducts
+        {
+            get
+            {
+                if (_ocProducts == null) Reset();
+                
+                return _ocProducts;
+            }
+        }
+
+        public bool IsPurchased => (ProductSourceTypeId == 2);
+
+        public bool IsForOutsource => (ProductDestinationTypeId == 2);
+        #endregion
+
+        #region public methods
+        public void Reset()
+        {
+            _ocProducts = new ObservableCollection<ProductModel>(Products);
+        }
+
+        public void Save()
+        {
+            Products = OCProducts.ToList();
+        }
+        #endregion
+
+        #region events
+        public event Action ProductSourceTypeChanged;
+        public event Action ProductDestinationTypeChanged;
         #endregion
 
         #region dropdowns

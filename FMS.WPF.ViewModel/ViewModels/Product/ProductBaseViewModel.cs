@@ -1,5 +1,6 @@
 ﻿using FMS.WPF.Models;
-using System.Collections.ObjectModel;
+using FMS.WPF.ViewModel.Commands;
+using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
@@ -8,28 +9,28 @@ namespace FMS.WPF.ViewModels
         public ProductBaseViewModel(ProductBaseModel model)
         {
             Model = model;
-            InitializeProducts();
         }
 
         #region properties
         public override string DisplayName => "Üldandmed";
         public ProductBaseModel Model { get; set; }
-        public bool IsProductVariationsVisible => Model.ProductVariationsLink?.Count != 0;
         public bool IsEditMode { get; set; }
-        public ObservableCollection<ProductModel> Products { get; set; }
         #endregion
 
-        #region event handlers
-        public void OnProductEditCancelled()
+        #region commands
+        public ICommand AddProductCommand => new RelayCommand(AddProduct, () => CanAddProduct);
+        public bool CanAddProduct => (IsEditMode && (Model.Products.Count == 0));
+        private void AddProduct()
         {
-            InitializeProducts();
-        }
-        #endregion
-
-        #region helpers
-        private void InitializeProducts()
-        {
-            Products = new ObservableCollection<ProductModel>(Model.Products);
+            var productModel = new ProductModel
+            {
+                ProductBaseId = Model.ProductBaseId,
+                ProductCode = Model.ProductBaseCode,
+                ProductName = Model.ProductBaseName,
+                ProductSource = Model.IsPurchased ? new ProductCompanyModel() : null,
+                ProductDestination = Model.IsForOutsource ? new ProductCompanyModel() : null
+            };
+            Model.OCProducts.Add(productModel);
         }
         #endregion
     }
