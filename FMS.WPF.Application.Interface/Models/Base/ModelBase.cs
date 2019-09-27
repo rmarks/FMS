@@ -5,6 +5,10 @@ namespace FMS.WPF.Models
 {
     public abstract class ModelBase : INotifyPropertyChanged
     {
+        #region virtuals
+        public virtual bool IsNew { get; }
+        #endregion
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 

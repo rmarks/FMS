@@ -9,6 +9,11 @@ namespace FMS.WPF.ViewModels
             Model = model;
         }
 
+        public ProductDestCompaniesViewModel()
+        {
+
+        }
+
         #region properties
         public override string DisplayName => "Allhanke andmed";
         public ProductBaseModel Model { get; set; }

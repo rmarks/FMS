@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FMS.Domain.Model
 {
     public class ProductDestination
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProductId { get; set; }
-        
+        public int ProductDestinationId { get; set; }
+
         [MaxLength(30)]
         public string CompanyProductCode { get; set; }
         [MaxLength(13)]
@@ -16,6 +13,7 @@ namespace FMS.Domain.Model
 
         //-----------------------------------
         //relationships
+        public int ProductId { get; set; }
         public Product Product { get; set; }
 
         public int CompanyId { get; set; }

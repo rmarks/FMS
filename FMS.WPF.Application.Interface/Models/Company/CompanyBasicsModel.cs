@@ -24,6 +24,10 @@ namespace FMS.WPF.Models
         public string CompanyTypesString { get; set; }
         #endregion
 
+        #region overrides
+        public override bool IsNew => (CompanyId == 0);
+        #endregion
+
         #region dropdowns
         public ICompanyDropdowns Dropdowns => CompanyDropdownsProxy.Instance;
 

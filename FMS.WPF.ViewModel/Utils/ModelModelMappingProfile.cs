@@ -14,7 +14,8 @@ namespace FMS.WPF.ViewModel.Utils
 
             CreateMap<ProductBaseModel, ProductBaseModel>();
             CreateMap<ProductModel, ProductModel>();
-            CreateMap<ProductCompanyModel, ProductCompanyModel>();
+            CreateMap<ProductSourceModel, ProductSourceModel>();
+            CreateMap<ProductDestinationModel, ProductDestinationModel>();
 
             CreateMap<PriceListModel, PriceListModel>();
             CreateMap<PriceModel, PriceModel>();

@@ -73,15 +73,139 @@ namespace FMS.WPF.Application.Services
 
         public ProductBaseModel Save(ProductBaseModel model)
         {
+            model.Save();
+
+            var productBase = (model.IsNew ? Add(model) : Update(model));
+
+            return GetProductBaseModel(productBase.ProductBaseId);
+        }
+        #endregion
+
+        #region helpers
+        private ProductBase Update(ProductBaseModel model)
+        {
             using (var context = _contextFactory.CreateContext())
             {
-                model.Save();
-                var productBase = model.MapTo<ProductBase>();
-                
-                context.Update(productBase);
+                var existingProductBase = context.ProductBases
+                    .Include(pb => pb.ProductVariationsLink)
+                    .Include(pb => pb.Products).ThenInclude(p => p.ProductSource)
+                    .Include(pb => pb.Products).ThenInclude(p => p.ProductDestination)
+                    .FirstOrDefault(pb => pb.ProductBaseId == model.ProductBaseId);
+
+                context.Entry(existingProductBase).CurrentValues.SetValues(model);
+
+                //ProductVariationsLink
+                foreach (var variationLink in existingProductBase.ProductVariationsLink)
+                {
+                    if (!model.ProductVariationsLink
+                        .Any(v => v.ProductBaseId == variationLink.ProductBaseId && v.ProductVariationId == variationLink.ProductVariationId))
+                    {
+                        existingProductBase.ProductVariationsLink.Remove(variationLink);
+                    }
+                }
+
+                foreach (var variationLinkModel in model.ProductVariationsLink)
+                {
+                    var variationLink = existingProductBase.ProductVariationsLink
+                        .FirstOrDefault(v => v.ProductBaseId == variationLinkModel.ProductBaseId && v.ProductVariationId == variationLinkModel.ProductVariationId);
+                    if (variationLink == null)
+                    {
+                        existingProductBase.ProductVariationsLink.Add(variationLinkModel.MapTo<ProductBaseProductVariation>());
+                    }
+                    else
+                    {
+                        context.Entry(variationLink).CurrentValues.SetValues(variationLinkModel);
+                    }
+                }
+
+                //Products
+                foreach (var existingProduct in existingProductBase.Products)
+                {
+                    if (!model.Products.Any(p => p.ProductId == existingProduct.ProductId))
+                    {
+                        existingProductBase.Products.Remove(existingProduct);
+                    }
+                }
+
+                foreach (var productModel in model.Products)
+                {
+                    var existingProduct = existingProductBase.Products.FirstOrDefault(p => p.ProductId == productModel.ProductId);
+                    
+                    if (existingProduct != null)
+                    {
+                        context.Entry(existingProduct).CurrentValues.SetValues(productModel);
+
+                        //ProductSource
+                        if (existingProduct.ProductSource != null || productModel.ProductSource != null)
+                        {
+                            if (existingProduct.ProductSource != null && productModel.ProductSource != null)
+                            {
+                                if (productModel.ProductSource.ProductSourceId == 0)
+                                {
+                                    existingProduct.ProductSource = productModel.ProductSource.MapTo<ProductSource>();
+                                }
+                                else
+                                {
+                                    context.Entry(existingProduct.ProductSource).CurrentValues.SetValues(productModel.ProductSource);
+                                }
+                            }
+                            else if (existingProduct.ProductSource == null)
+                            {
+                                existingProduct.ProductSource = productModel.ProductSource.MapTo<ProductSource>();
+                            }
+                            else
+                            {
+                                existingProduct.ProductSource = null;
+                            }
+                        }
+
+                        //ProductDestination
+                        if (existingProduct.ProductDestination != null || productModel.ProductDestination != null)
+                        {
+                            if (existingProduct.ProductDestination != null && productModel.ProductDestination != null)
+                            {
+                                if (productModel.ProductDestination.ProductDestinationId == 0)
+                                {
+                                    existingProduct.ProductDestination = productModel.ProductDestination.MapTo<ProductDestination>();
+                                }
+                                else
+                                {
+                                    context.Entry(existingProduct.ProductDestination).CurrentValues.SetValues(productModel.ProductDestination);
+                                }
+                            }
+                            else if (existingProduct.ProductDestination == null)
+                            {
+                                existingProduct.ProductDestination = productModel.ProductDestination.MapTo<ProductDestination>();
+                            }
+                            else
+                            {
+                                existingProduct.ProductDestination = null;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        existingProductBase.Products.Add(productModel.MapTo<Product>());
+                    }
+                }
+
+                context.Update(existingProductBase);
                 context.SaveChanges();
 
-                return GetProductBaseModel(productBase.ProductBaseId);
+                return existingProductBase;
+            }
+        }
+
+        private ProductBase Add(ProductBaseModel model)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var productBase = model.MapTo<ProductBase>();
+
+                context.Add(productBase);
+                context.SaveChanges();
+
+                return productBase;
             }
         }
         #endregion

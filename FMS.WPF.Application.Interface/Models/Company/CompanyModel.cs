@@ -36,6 +36,10 @@ namespace FMS.WPF.Models
             _ocContacts ?? (_ocContacts = new ObservableCollection<CompanyContactModel>(Contacts));
         #endregion
 
+        #region overrides
+        public override bool IsNew => (CompanyId == 0);
+        #endregion
+
         #region dropdowns
         public ICompanyDropdowns Dropdowns => CompanyDropdownsProxy.Instance;
 

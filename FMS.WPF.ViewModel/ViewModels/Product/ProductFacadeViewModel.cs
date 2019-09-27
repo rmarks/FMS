@@ -40,6 +40,7 @@ namespace FMS.WPF.ViewModels
         protected override bool SaveItem(ProductBaseModel model)
         {
             Model = _service.Save(model);
+            UpdateModelPointer();
 
             return true;
         }
@@ -60,7 +61,7 @@ namespace FMS.WPF.ViewModels
             Model.ProductSourceTypeChanged += ManageProductSource;
             Model.ProductDestinationTypeChanged += ManageProductDestination;
 
-            if (Model.ProductBaseId == 0)
+            if (Model.IsNew)
             {
                 EditCommand.Execute(null);
             }
@@ -86,7 +87,9 @@ namespace FMS.WPF.ViewModels
             {
                 if (ProductSourceCompaniesViewModel == null)
                 {
-                    ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model);
+                    //ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model);
+                    ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel>();
+                    ProductSourceCompaniesViewModel.Model = Model;
                     ProductSourceCompaniesViewModel.IsEditMode = IsEditMode;
                     ProductTabs.Add(ProductSourceCompaniesViewModel);
                 }
@@ -107,7 +110,9 @@ namespace FMS.WPF.ViewModels
             {
                 if (ProductDestCompaniesViewModel == null)
                 {
-                    ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model);
+                    //ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model);
+                    ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel>();
+                    ProductDestCompaniesViewModel.Model = Model;
                     ProductDestCompaniesViewModel.IsEditMode = IsEditMode;
                     ProductTabs.Add(ProductDestCompaniesViewModel);
                 }
@@ -128,7 +133,7 @@ namespace FMS.WPF.ViewModels
             {
                 if (Model.IsPurchased)
                 {
-                    Model.Products.ForEach(p => p.ProductSource = new ProductCompanyModel());
+                    Model.Products.ForEach(p => p.ProductSource = new ProductSourceModel());
                 }
                 else
                 {
@@ -145,7 +150,7 @@ namespace FMS.WPF.ViewModels
             {
                 if (Model.IsForOutsource)
                 {
-                    Model.Products.ForEach(p => p.ProductDestination = new ProductCompanyModel());
+                    Model.Products.ForEach(p => p.ProductDestination = new ProductDestinationModel());
                 }
                 else
                 {
@@ -154,6 +159,24 @@ namespace FMS.WPF.ViewModels
             }
 
             InitializeProductDestinationTab();
+        }
+
+        private void UpdateModelPointer()
+        {
+            Model.ProductSourceTypeChanged += ManageProductSource;
+            Model.ProductDestinationTypeChanged += ManageProductDestination;
+
+            ProductBaseViewModel.Model = Model;
+            ProductPricesViewModel.Model = Model;
+
+            if (ProductSourceCompaniesViewModel != null)
+            {
+                ProductSourceCompaniesViewModel.Model = Model;
+            }
+            if (ProductDestCompaniesViewModel != null)
+            {
+                ProductDestCompaniesViewModel.Model = Model;
+            }
         }
         #endregion
 

@@ -64,6 +64,10 @@ namespace FMS.WPF.Models
         public List<PriceListModel> PriceLists { get; set; } = new List<PriceListModel>();
         #endregion
 
+        #region overrides
+        public override bool IsNew => (ProductBaseId == 0);
+        #endregion
+
         #region view properties
         private ObservableCollection<ProductModel> _ocProducts;
         public ObservableCollection<ProductModel> OCProducts
@@ -101,8 +105,8 @@ namespace FMS.WPF.Models
         #region dropdowns
         public IProductDropdowns Dropdowns => ProductDropdownsProxy.Instance;
 
-        public IList<ProductGroupDropdownModel> ProductGroups =>
-            Dropdowns?.ProductGroups.Where(pg => pg.ProductTypeId == ProductTypeId || pg.ProductTypeId == null).ToList();
+        public IList<ProductGroupDropdownModel> ProductGroupsOnly =>
+            Dropdowns?.ProductGroups.Where(pg => pg.ProductTypeId == ProductTypeId).ToList();
 
         public IList<ProductCollectionDropdownModel> ProductCollections =>
             Dropdowns?.ProductCollections.Where(pc => pc.ProductBrandId == ProductBrandId || pc.ProductBrandId == null).ToList();

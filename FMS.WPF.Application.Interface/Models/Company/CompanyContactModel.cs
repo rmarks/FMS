@@ -11,5 +11,9 @@ namespace FMS.WPF.Models
         public string Mobile { get; set; }
         public string Email { get; set; }
         public DateTime? CreatedOn { get; set; }
+
+        #region overrides
+        public override bool IsNew => (ContactId == 0);
+        #endregion
     }
 }

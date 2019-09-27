@@ -40,21 +40,21 @@
                     <!-- First subgroup -->
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Äriliin"/>
-                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.BusinessLines}" 
+                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.BusinessLinesOnly}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="BusinessLineId" 
                                   SelectedValue="{Binding Path=Model.BusinessLineId}"
                                   IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Lähtetüüp"/>
-                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductSourceTypes}" 
+                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductSourceTypesOnly}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="ProductSourceTypeId" 
                                   SelectedValue="{Binding Path=Model.ProductSourceTypeId}"
                                   IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Sihttüüp"/>
-                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductDestinationTypes}" 
+                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductDestinationTypesOnly}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="ProductDestinationTypeId" 
                                   SelectedValue="{Binding Path=Model.ProductDestinationTypeId}"
@@ -64,21 +64,21 @@
                     <!-- Second subgroup -->
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Materjal"/>
-                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductMaterials}" 
+                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductMaterialsOnly}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="ProductMaterialId" 
                                   SelectedValue="{Binding Path=Model.ProductMaterialId}"
                                   IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Tüüp"/>
-                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductTypes}" 
+                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductTypesOnly}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="ProductTypeId" 
                                   SelectedValue="{Binding Path=Model.ProductTypeId}"
                                   IsEnabled="{Binding Path=IsEditMode}"/>
 
                         <TextBlock Text="Grupp"/>
-                        <ComboBox ItemsSource="{Binding Path=Model.ProductGroups}" 
+                        <ComboBox ItemsSource="{Binding Path=Model.ProductGroupsOnly}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="ProductGroupId" 
                                   SelectedValue="{Binding Path=Model.ProductGroupId}"
@@ -112,7 +112,7 @@
                     <!--Fourth subgroup-->
                     <StackPanel>
                         <TextBlock Text="Olek"/>
-                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductStatuses}" 
+                        <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.ProductStatusesOnly}" 
                                   DisplayMemberPath="Name" 
                                   SelectedValuePath="ProductStatusId" 
                                   SelectedValue="{Binding Path=Model.ProductStatusId}"

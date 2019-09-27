@@ -31,6 +31,10 @@ namespace FMS.WPF.Models
         public DateTime? CreatedOn { get; set; }
         #endregion
 
+        #region overrides
+        public override bool IsNew => (CompanyAddressId == 0);
+        #endregion
+
         #region dropdowns
         public ICompanyDropdowns Dropdowns => CompanyDropdownsProxy.Instance;
         #endregion

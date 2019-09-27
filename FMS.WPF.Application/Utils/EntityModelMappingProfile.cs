@@ -37,8 +37,8 @@ namespace FMS.WPF.Application.Utils
             CreateMap<ProductVariation, ProductVariationModel>().ReverseMap();
             CreateMap<ProductBaseProductVariation, ProductBaseProductVariationModel>().ReverseMap();
             CreateMap<Product, ProductModel>().ReverseMap();
-            CreateMap<ProductSource, ProductCompanyModel>().ReverseMap();
-            CreateMap<ProductDestination, ProductCompanyModel>().ReverseMap();
+            CreateMap<ProductSource, ProductSourceModel>().ReverseMap();
+            CreateMap<ProductDestination, ProductDestinationModel>().ReverseMap();
             #endregion
 
             #region price

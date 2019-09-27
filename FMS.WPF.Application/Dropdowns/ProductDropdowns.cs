@@ -32,8 +32,16 @@ namespace FMS.WPF.Application.Dropdowns
         public IList<ProductBrandDropdownModel> ProductBrands { get; set; }
         public IList<ProductCollectionDropdownModel> ProductCollections { get; set; }
         public IList<ProductDesignDropdownModel> ProductDesigns { get; set; }
+        
         public IList<CompanySmallModel> ProductSourceCompanies { get; set; }
         public IList<CompanySmallModel> ProductDestCompanies { get; set; }
+
+        public IList<BusinessLineDropdownModel> BusinessLinesOnly => BusinessLines.Where(b => b.BusinessLineId != null).ToList();
+        public IList<ProductStatusDropdownModel> ProductStatusesOnly => ProductStatuses.Where(p => p.ProductStatusId != null).ToList();
+        public IList<ProductSourceTypeDropdownModel> ProductSourceTypesOnly => ProductSourceTypes.Where(p => p.ProductSourceTypeId != null).ToList();
+        public IList<ProductDestinationTypeDropdownModel> ProductDestinationTypesOnly => ProductDestinationTypes.Where(p => p.ProductDestinationTypeId != null).ToList();
+        public IList<ProductMaterialDropdownModel> ProductMaterialsOnly => ProductMaterials.Where(p => p.ProductMaterialId != null).ToList();
+        public IList<ProductTypeDropdownModel> ProductTypesOnly => ProductTypes.Where(p => p.ProductTypeId != null).ToList();
         #endregion
 
         public async void InitializeAsync()

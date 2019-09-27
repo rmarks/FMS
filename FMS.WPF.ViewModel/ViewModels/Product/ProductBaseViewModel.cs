@@ -27,8 +27,8 @@ namespace FMS.WPF.ViewModels
                 ProductBaseId = Model.ProductBaseId,
                 ProductCode = Model.ProductBaseCode,
                 ProductName = Model.ProductBaseName,
-                ProductSource = Model.IsPurchased ? new ProductCompanyModel() : null,
-                ProductDestination = Model.IsForOutsource ? new ProductCompanyModel() : null
+                ProductSource = Model.IsPurchased ? new ProductSourceModel() : null,
+                ProductDestination = Model.IsForOutsource ? new ProductDestinationModel() : null
             };
             Model.OCProducts.Add(productModel);
         }
