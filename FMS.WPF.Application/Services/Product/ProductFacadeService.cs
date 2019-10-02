@@ -190,6 +190,42 @@ namespace FMS.WPF.Application.Services
                 }
 
                 context.Update(existingProductBase);
+
+                //Prices
+                var existingPrices = context.PriceLists
+                    .Where(pl => pl.Prices.Any(p => p.Product.ProductBaseId == model.ProductBaseId))
+                    .SelectMany(pl => pl.Prices.Where(p => p.Product.ProductBaseId == model.ProductBaseId), (pl, pr) => pr)
+                    .ToList();
+
+                var modelPrices = model.PriceLists
+                    .SelectMany(pl => pl.Prices, (pl, pr) => pr)
+                    .Where(pr => pr.UnitPrice != 0);
+
+                foreach (var existingPrice in existingPrices.ToList())
+                {
+                    if (!modelPrices.Any(p => p.PriceListId == existingPrice.PriceListId && p.ProductId == existingPrice.ProductId))
+                    {
+                        existingPrices.Remove(existingPrice);
+                        context.Remove(existingPrice);
+                    }
+                }
+
+                foreach (var modelPrice in modelPrices)
+                {
+                    var existingPrice = existingPrices.FirstOrDefault(p => p.PriceListId == modelPrice.PriceListId && p.ProductId == modelPrice.ProductId);
+
+                    if (existingPrice != null)
+                    {
+                        context.Entry(existingPrice).CurrentValues.SetValues(modelPrice);
+                    }
+                    else
+                    {
+                        existingPrice = modelPrice.MapTo<Price>();
+                        existingPrices.Add(existingPrice);
+                        context.Add(existingPrice);
+                    }
+                }
+
                 context.SaveChanges();
 
                 return existingProductBase;

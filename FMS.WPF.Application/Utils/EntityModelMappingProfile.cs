@@ -42,7 +42,7 @@ namespace FMS.WPF.Application.Utils
             #endregion
 
             #region price
-            CreateMap<Price, PriceModel>();
+            CreateMap<Price, PriceModel>().ReverseMap();
             CreateMap<PriceList, PriceListModel>();
             #endregion
 

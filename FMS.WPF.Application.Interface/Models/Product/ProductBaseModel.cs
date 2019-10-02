@@ -70,30 +70,28 @@ namespace FMS.WPF.Models
 
         #region view properties
         private ObservableCollection<ProductModel> _ocProducts;
-        public ObservableCollection<ProductModel> OCProducts
-        {
-            get
-            {
-                if (_ocProducts == null) Reset();
-                
-                return _ocProducts;
-            }
-        }
+        public ObservableCollection<ProductModel> OCProducts => _ocProducts ?? (new ObservableCollection<ProductModel>(Products));
 
         public bool IsPurchased => (ProductSourceTypeId == 2);
 
         public bool IsForOutsource => (ProductDestinationTypeId == 2);
+
+        private ObservableCollection<PriceListModel> _ocPriceLists;
+        public ObservableCollection<PriceListModel> OCPriceLists => _ocPriceLists ?? (_ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists));
         #endregion
 
         #region public methods
         public void Reset()
         {
             _ocProducts = new ObservableCollection<ProductModel>(Products);
+            _ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists);
         }
 
         public void Save()
         {
             Products = OCProducts.ToList();
+            PriceLists = OCPriceLists.ToList();
+            PriceLists.ForEach(p => p.Prices = p.OCPrices.ToList());
         }
         #endregion
 

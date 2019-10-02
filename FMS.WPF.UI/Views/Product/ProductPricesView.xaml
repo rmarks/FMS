@@ -27,7 +27,7 @@
                         Content="{StaticResource ProxyElement}"/>
 
         <DataGrid Grid.Column="1"
-                  ItemsSource="{Binding Path=PriceLists}"
+                  ItemsSource="{Binding Path=Model.OCPriceLists}"
                   SelectedItem="{Binding Path=SelectedPriceList}"
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>
@@ -46,7 +46,7 @@
         </DataGrid>
 
         <DataGrid Grid.Column="3"
-                  ItemsSource="{Binding Path=Prices}"
+                  ItemsSource="{Binding Path=SelectedPriceList.OCPrices}"
                   Style="{StaticResource MainEditableDataGridStyle}">
             <DataGrid.Resources>
                 <!--<Style x:Key="EditableTextBoxStyle" TargetType="TextBlock">

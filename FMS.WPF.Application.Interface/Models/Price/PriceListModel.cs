@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FMS.WPF.Models
 {
@@ -9,5 +10,8 @@ namespace FMS.WPF.Models
         public bool IsVAT { get; set; }
         public string CurrencyCode { get; set; }
         public List<PriceModel> Prices { get; set; }
+
+        private ObservableCollection<PriceModel> _ocPrices;
+        public ObservableCollection<PriceModel> OCPrices => _ocPrices ?? (_ocPrices = new ObservableCollection<PriceModel>(Prices));
     }
 }
