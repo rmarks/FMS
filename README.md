@@ -14,6 +14,4 @@ A factory management system
       - FMS.WPF.Application
       - FMS.WPF.Application.Interface
    - Presentation Layer
-      - FMS.WPF.ViewModel
-      - FMS.WPF.UI
-      - FMS.WPF.App
+      - FMS.WPF
