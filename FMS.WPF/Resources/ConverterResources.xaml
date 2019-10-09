@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FMS.WPF.Resources"
+                    xmlns:converter="clr-namespace:FMS.WPF.Converters">
+
+    <converter:MenuIsExpandedToStringConverter x:Key="MenuIsExpandedToStringConverter"/>
+    <converter:IntConverter x:Key="IntConverter"/>
+    <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <converter:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+    <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+
+</ResourceDictionary>

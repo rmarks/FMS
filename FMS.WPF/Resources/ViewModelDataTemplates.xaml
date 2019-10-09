@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FMS.WPF.Resources"
+                    xmlns:vm="clr-namespace:FMS.WPF.ViewModels"
+                    xmlns:vw="clr-namespace:FMS.WPF.Views">
+
+    <!--Company-->
+    <DataTemplate DataType="{x:Type vm:CompaniesViewModel}">
+        <vw:CompaniesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyFacadeViewModel}">
+        <vw:CompanyFacadeView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyBasicsViewModel}">
+        <vw:CompanyBasicsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyAddressesViewModel}">
+        <vw:CompanyAddressesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyAddressViewModel}">
+        <vw:CompanyAddressView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyContactsViewModel}">
+        <vw:CompanyContactsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanyContactViewModel}">
+        <vw:CompanyContactView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanySalesOrderListViewModel}">
+        <vw:CompanySalesOrderListView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:CompanySalesInvoiceListViewModel}">
+        <vw:CompanySalesInvoiceListView/>
+    </DataTemplate>
+    
+    <!--Products-->
+    <DataTemplate DataType="{x:Type vm:ProductListViewModel}">
+        <vw:ProductListView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ProductFacadeViewModel}">
+        <vw:ProductFacadeView/>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.3" />
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj" />
+    <ProjectReference Include="..\FMS.WPF.Application.Interface\FMS.WPF.Application.Interface.csproj" />
+    <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Product\ProductDestCompaniesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Product\ProductPricesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Product\ProductDestCompaniesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Product\ProductPricesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

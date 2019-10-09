@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="FMS.WPF.Views.CompanyBasicsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             xmlns:controls="clr-namespace:FMS.WPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MainCheckBoxStyle}"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Taskbar -->
+        <!--<controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
+                                  EditCommand="{Binding Path=EditCommand}"
+                                  IsEditVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"
+                                  CancelCommand="{Binding Path=CancelCommand}"
+                                  IsCancelVisible="{Binding Path=IsEditMode}"
+                                  SaveCommand="{Binding Path=SaveCommand}"
+                                  IsSaveVisible="{Binding Path=IsEditMode}"
+                                  DeleteCommand="{Binding Path=DeleteCommand}"
+                                  IsDeleteVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"/>-->
+
+        <!-- Company Basics -->
+        <Grid Grid.Row="1" IsEnabled="{Binding Path=IsEditMode}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- First column -->
+            <StackPanel Grid.Column="0" Margin="20">
+                <TextBlock Text="Id"/>
+                <TextBox Text="{Binding Path=Model.CompanyId}"
+                         IsEnabled="False"/>
+
+                <TextBlock Text="Nimetus"/>
+                <TextBox Text="{Binding Path=Model.Name}"/>
+
+                <TextBlock Text="Registrikood"/>
+                <TextBox Text="{Binding Path=Model.RegNo}"/>
+                
+                <TextBlock Text="KMKR"/>
+                <TextBox Text="{Binding Path=Model.VATNo}"/>
+
+                <TextBlock Text="Sisestatud"/>
+                <TextBox Text="{Binding Path=Model.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"
+                         IsEnabled="False"/>
+            </StackPanel>
+
+            <!-- Second column -->
+            <StackPanel Grid.Column="1" Margin="20">
+                <TextBlock Text="Riik"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.Countries}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="CountryId" 
+                          SelectedValue="{Binding Path=Model.BillingAddress.CountryId}"/>
+
+                <TextBlock Text="Maakond"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.County}"/>
+                
+                <TextBlock Text="Linn/vald"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.City}"/>
+
+                <TextBlock Text="Aadress"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.Address}"/>
+
+                <TextBlock Text="Indeks"/>
+                <TextBox Text="{Binding Path=Model.BillingAddress.PostCode}"/>
+            </StackPanel>
+
+            <!-- Third column -->
+            <StackPanel Grid.Column="2" Margin="20">
+                <TextBlock Text="Tüüp"/>
+                <TextBox Text="{Binding Path=Model.CompanyTypesString}"
+                         IsEnabled="False"/>
+                
+                <TextBlock Text="Valuuta"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.Currencies}" 
+                          DisplayMemberPath="CurrencyCode" 
+                          SelectedValuePath="CurrencyCode" 
+                          SelectedValue="{Binding Path=Model.CurrencyCode}"/>
+
+                <TextBlock Text="Hinnakiri"/>
+                <ComboBox ItemsSource="{Binding Path=Model.PriceLists}" 
+                          DisplayMemberPath="PriceListName" 
+                          SelectedValuePath="PriceListId" 
+                          SelectedValue="{Binding Path=Model.PriceListId}"/>
+
+                <TextBlock Text="Ladu"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.Locations}" 
+                          DisplayMemberPath="LocationName" 
+                          SelectedValuePath="LocationId" 
+                          SelectedValue="{Binding Path=Model.LocationId}"/>
+            </StackPanel>
+
+            <!-- Fourth column -->
+            <StackPanel Grid.Column="3" Margin="20">
+                <TextBlock Text="Tarnetingimus"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.DeliveryTerms}" 
+                          DisplayMemberPath="DeliveryTermName" 
+                          Text="{Binding Path=Model.DeliveryTermName}"
+                          IsEditable="True" 
+                          IsTextSearchEnabled="True"/>
+
+                <TextBlock Text="Maksetingimus"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.PaymentTerms}" 
+                          DisplayMemberPath="PaymentTermName" 
+                          SelectedValuePath="PaymentDays" 
+                          SelectedValue="{Binding Path=Model.PaymentDays}"/>
+
+                <TextBlock Text="Püsisoodustus"/>
+                <TextBox Text="{Binding Path=Model.FixedDiscountPercent, StringFormat=0;;#, Converter={StaticResource IntConverter}}"/>
+
+                <TextBlock/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Käibemaks"/>
+                    <CheckBox IsChecked="{Binding Path=Model.IsVAT, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>
