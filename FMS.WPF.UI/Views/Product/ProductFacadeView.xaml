@@ -103,10 +103,11 @@
                            Text="{Binding Path=Model.CreatedOn, Mode=OneWay, StringFormat='\{0:dd.MM.yyyy\}'}" 
                            Style="{StaticResource BigTextBoxSyle}"/>
                 </Grid>
+
             </Grid>
         </Grid>
         
-        <TabControl Grid.Row="1" 
+        <!--<TabControl Grid.Row="1" 
                     ItemsSource="{Binding Path=ProductTabs}"
                     IsSynchronizedWithCurrentItem="True"
                     Margin="4">
@@ -116,6 +117,25 @@
                                     FontSize="14"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
+        </TabControl>-->
+
+        <TabControl Grid.Row="1"
+                    Margin="4">
+            <TabItem Header="Üldandmed">
+                <local:ProductBaseView/>
+            </TabItem>
+            <TabItem Header="Hinnad">
+                <local:ProductPricesView/>
+            </TabItem>
+            <TabItem Header="Tarne andmed"
+                     Visibility="{Binding Path=IsPurchased, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <local:ProductSourceCompaniesView/>
+            </TabItem>
+            <TabItem Header="Allhanke andmed"
+                     Visibility="{Binding Path=IsForOutsource, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <local:ProductDestCompaniesView/>
+            </TabItem>
         </TabControl>
+        
     </Grid>
 </UserControl>

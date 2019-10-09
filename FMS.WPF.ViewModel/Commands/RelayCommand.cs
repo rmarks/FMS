@@ -25,7 +25,7 @@ namespace FMS.WPF.ViewModel.Commands
 
         public void Execute(object parameter) => _execute();
 
-        public void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public class RelayCommand<T> : ICommand
@@ -50,6 +50,6 @@ namespace FMS.WPF.ViewModel.Commands
 
         public void Execute(object parameter) => _execute((T)parameter);
 
-        public void OnCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 }

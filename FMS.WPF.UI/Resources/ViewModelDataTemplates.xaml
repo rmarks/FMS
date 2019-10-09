@@ -54,19 +54,19 @@
         <vw:ProductFacadeView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:ProductBaseViewModel}">
+    <!--<DataTemplate DataType="{x:Type vm:ProductBaseViewModel}">
         <vw:ProductBaseView/>
-    </DataTemplate>
+    </DataTemplate>-->
 
-    <DataTemplate DataType="{x:Type vm:ProductPricesViewModel}">
+    <!--<DataTemplate DataType="{x:Type vm:ProductPricesViewModel}">
         <vw:ProductPricesView/>
-    </DataTemplate>
+    </DataTemplate>-->
 
-    <DataTemplate DataType="{x:Type vm:ProductSourceCompaniesViewModel}">
+    <!--<DataTemplate DataType="{x:Type vm:ProductSourceCompaniesViewModel}">
         <vw:ProductSourceCompaniesView/>
-    </DataTemplate>
+    </DataTemplate>-->
 
-    <DataTemplate DataType="{x:Type vm:ProductDestCompaniesViewModel}">
+    <!--<DataTemplate DataType="{x:Type vm:ProductDestCompaniesViewModel}">
         <vw:ProductDestCompaniesView/>
-    </DataTemplate>
+    </DataTemplate>-->
 </ResourceDictionary>

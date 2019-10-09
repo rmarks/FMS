@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using FMS.WPF.ViewModel.Commands;
 using FMS.WPF.ViewModel.Helpers;
+using System.Linq;
 
 namespace FMS.WPF.ViewModels
 {
@@ -28,38 +29,102 @@ namespace FMS.WPF.ViewModels
 
         #region properties
         public override string DisplayName => Model?.ProductBaseCode == null ? "Uus toode" : "Toode " + Model.ProductBaseCode;
-        public ObservableCollection<ViewModelBase> ProductTabs { get; private set; }
-        public string PictureLocation { get; private set; }
-        public ProductBaseViewModel ProductBaseViewModel { get; set; }
-        public ProductPricesViewModel ProductPricesViewModel { get; set; }
-        public ProductSourceCompaniesViewModel ProductSourceCompaniesViewModel { get; set; }
-        public ProductDestCompaniesViewModel ProductDestCompaniesViewModel { get; set; }
+        public string PictureLocation => PictureLocationHelper.GetPictureLocation(Model?.ProductBaseCode);
+
+        public bool IsPurchased => (Model.ProductSourceTypeId == 2);
+        public bool IsForOutsource => (Model.ProductDestinationTypeId == 2);
+
+        public ObservableCollection<ProductModel> OCProducts { get; set; }
+        public ObservableCollection<PriceListModel> OCPriceLists { get; set; }
+        public ObservableCollection<ProductBaseProductVariationModel> OCProductVariations { get; set; }
+
+        private PriceListModel _selectedPriceList;
+        public PriceListModel SelectedPriceList
+        {
+            get => _selectedPriceList;
+            set
+            {
+                _selectedPriceList = value;
+                if (_selectedPriceList != null)
+                {
+                    SetProductPrices(_selectedPriceList.PriceListId);
+                }
+            }
+        }
+
+        public bool IsVariationVisible => IsEditMode || (!IsEditMode && Model.ProductVariationsLink.Count != 0);
+
+        private PriceListModel _addablePriceList;
+        public PriceListModel AddablePriceList 
+        { 
+            get => _addablePriceList;
+            set
+            {
+                _addablePriceList = value;
+                AddPriceListCommmand.RaiseCanExecuteChanged();
+            } 
+        }
         #endregion
 
         #region overrides
         protected override bool SaveItem(ProductBaseModel model)
         {
-            Model = _service.Save(model);
-            UpdateModelPointer();
+            Model.Products = OCProducts.ToList();
+            Model.ProductVariationsLink = OCProductVariations.ToList();
+
+            int productBaseId = _service.Save(Model);
+            InitializeModel(productBaseId);
 
             return true;
+        }
+        #endregion
+
+        #region commands
+        private RelayCommand _addProductCommmand;
+        public ICommand AddProductCommand => _addProductCommmand ?? (_addProductCommmand = new RelayCommand(AddProduct, () => CanAddProduct));
+        public bool CanAddProduct => (IsEditMode && ((OCProducts.Count == 0 && Model.ProductVariationsLink.Count == 0)
+                                                    || Model.ProductVariationsLink.Count != 0));
+        private void AddProduct()
+        {
+            var productModel = new ProductModel
+            {
+                ProductBaseId = Model.ProductBaseId,
+                ProductCode = Model.ProductBaseCode,
+                ProductName = Model.ProductBaseName,
+                ProductSource = IsPurchased ? new ProductSourceModel() : null,
+                ProductDestination = IsForOutsource ? new ProductDestinationModel() : null,
+                ChosenPrice = new PriceModel { PriceListId = SelectedPriceList.PriceListId }
+            };
+            productModel.Prices.Add(productModel.ChosenPrice);
+
+            foreach (var priceList in OCPriceLists)
+            {
+                PriceModel priceModel = new PriceModel
+                {
+                    PriceListId = priceList.PriceListId,
+                };
+                productModel.Prices.Add(priceModel);
+            }
+
+            OCProducts.Add(productModel);
+        }
+
+        private RelayCommand _addPriceListCommmand;
+        public RelayCommand AddPriceListCommmand => _addPriceListCommmand ?? (_addPriceListCommmand = new RelayCommand(AddPriceList, () => CanAddPriceList));
+        public bool CanAddPriceList => (AddablePriceList.PriceListId != 0);
+        private void AddPriceList()
+        {
+            
         }
         #endregion
 
         #region helpers
         private void Initialize(int productBaseId)
         {
-            Model = _service.GetProductBaseModel(productBaseId);
+            InitializeModel(productBaseId);
 
-            PictureLocation = PictureLocationHelper.GetPictureLocation(Model.ProductBaseCode);
-
-            InitializeProductTabs();
-
-            EditModeChanged += OnEditModeChanged;
             ItemEditCancelled += OnItemEditCancelled;
-
-            Model.ProductSourceTypeChanged += ManageProductSource;
-            Model.ProductDestinationTypeChanged += ManageProductDestination;
+            EditModeChanged += OnEditModeChanged;
 
             if (Model.IsNew)
             {
@@ -67,135 +132,45 @@ namespace FMS.WPF.ViewModels
             }
         }
 
-        private void InitializeProductTabs()
+        private void InitializeModel(int productBaseId)
         {
-            ProductTabs = new ObservableCollection<ViewModelBase>();
+            Model = _service.GetProductBaseModel(productBaseId);
 
-            ProductBaseViewModel = _viewModelFactory.CreateInstance<ProductBaseViewModel, ProductBaseModel>(Model);
-            ProductTabs.Add(ProductBaseViewModel);
-
-            ProductPricesViewModel = _viewModelFactory.CreateInstance<ProductPricesViewModel, ProductBaseModel>(Model);
-            ProductTabs.Add(ProductPricesViewModel);
-
-            InitializeProductSourceTab();
-            InitializeProductDestinationTab();
+            InitializeCollections();
+            Model.ProductSourceTypeChanged += OnProductSourceTypeChanged;
+            Model.ProductDestinationTypeChanged += OnProductDestinationTypeChanged;
         }
 
-        private void InitializeProductSourceTab()
+        private void InitializeCollections()
         {
-            if (Model.IsPurchased)
-            {
-                if (ProductSourceCompaniesViewModel == null)
-                {
-                    //ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel, ProductBaseModel>(Model);
-                    ProductSourceCompaniesViewModel = _viewModelFactory.CreateInstance<ProductSourceCompaniesViewModel>();
-                    ProductSourceCompaniesViewModel.Model = Model;
-                    ProductSourceCompaniesViewModel.IsEditMode = IsEditMode;
-                    ProductTabs.Add(ProductSourceCompaniesViewModel);
-                }
-            }
-            else
-            {
-                if (ProductSourceCompaniesViewModel != null)
-                {
-                    ProductTabs.Remove(ProductSourceCompaniesViewModel);
-                    ProductSourceCompaniesViewModel = null;
-                }
-            }
+            OCProducts = new ObservableCollection<ProductModel>(Model.Products);
+            OCPriceLists = new ObservableCollection<PriceListModel>(Model.PriceLists);
+            SelectedPriceList = OCPriceLists.FirstOrDefault();
+            OCProductVariations = new ObservableCollection<ProductBaseProductVariationModel>(Model.ProductVariationsLink);
         }
 
-        private void InitializeProductDestinationTab()
+        private void SetProductPrices(int priceListId)
         {
-            if (Model.IsForOutsource)
+            foreach (var product in OCProducts)
             {
-                if (ProductDestCompaniesViewModel == null)
+                product.ChosenPrice = product.Prices
+                    .FirstOrDefault(p => p.PriceListId == priceListId);
+
+                if (product.ChosenPrice == null)
                 {
-                    //ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel, ProductBaseModel>(Model);
-                    ProductDestCompaniesViewModel = _viewModelFactory.CreateInstance<ProductDestCompaniesViewModel>();
-                    ProductDestCompaniesViewModel.Model = Model;
-                    ProductDestCompaniesViewModel.IsEditMode = IsEditMode;
-                    ProductTabs.Add(ProductDestCompaniesViewModel);
+                    product.ChosenPrice = new PriceModel
+                    {
+                        ProductId = product.ProductId,
+                        PriceListId = priceListId
+                    };
+
+                    product.Prices.Add(product.ChosenPrice);
                 }
-            }
-            else
-            {
-                if (ProductDestCompaniesViewModel != null)
-                {
-                    ProductTabs.Remove(ProductDestCompaniesViewModel);
-                    ProductDestCompaniesViewModel = null;
-                }
-            }
-        }
-
-        private void ManageProductSource()
-        {
-            if (Model.Products != null && Model.Products.Count != 0)
-            {
-                if (Model.IsPurchased)
-                {
-                    Model.Products.ForEach(p => p.ProductSource = new ProductSourceModel());
-                }
-                else
-                {
-                    Model.Products.ForEach(p => p.ProductSource = null);
-                }
-            }
-
-            InitializeProductSourceTab();
-        }
-
-        private void ManageProductDestination()
-        {
-            if (Model.Products != null && Model.Products.Count != 0)
-            {
-                if (Model.IsForOutsource)
-                {
-                    Model.Products.ForEach(p => p.ProductDestination = new ProductDestinationModel());
-                }
-                else
-                {
-                    Model.Products.ForEach(p => p.ProductDestination = null);
-                }
-            }
-
-            InitializeProductDestinationTab();
-        }
-
-        private void UpdateModelPointer()
-        {
-            Model.ProductSourceTypeChanged += ManageProductSource;
-            Model.ProductDestinationTypeChanged += ManageProductDestination;
-
-            ProductBaseViewModel.Model = Model;
-            ProductPricesViewModel.Model = Model;
-
-            if (ProductSourceCompaniesViewModel != null)
-            {
-                ProductSourceCompaniesViewModel.Model = Model;
-            }
-            if (ProductDestCompaniesViewModel != null)
-            {
-                ProductDestCompaniesViewModel.Model = Model;
             }
         }
         #endregion
 
         #region event handlers
-        private void OnEditModeChanged(bool isEditMode)
-        {
-            ProductBaseViewModel.IsEditMode = isEditMode;
-            ProductPricesViewModel.IsEditMode = isEditMode;
-
-            if (ProductSourceCompaniesViewModel != null)
-            {
-                ProductSourceCompaniesViewModel.IsEditMode = isEditMode;
-            }
-            if (ProductDestCompaniesViewModel != null)
-            {
-                ProductDestCompaniesViewModel.IsEditMode = isEditMode;
-            }
-        }
-
         private void OnItemEditCancelled()
         {
             if (Model.ProductBaseId == 0)
@@ -204,8 +179,29 @@ namespace FMS.WPF.ViewModels
             }
             else
             {
-                Model.Reset();
+                InitializeCollections();
             }
+        }
+
+        private void OnEditModeChanged(bool isEditMode)
+        {
+            _addProductCommmand.RaiseCanExecuteChanged();
+
+            RaisePropertyChanged(nameof(IsVariationVisible));
+        }
+
+        private void OnProductSourceTypeChanged()
+        {
+            RaisePropertyChanged(nameof(IsPurchased));
+
+            OCProducts.ToList().ForEach(p => p.ProductSource = IsPurchased ? new ProductSourceModel() : null);
+        }
+
+        private void OnProductDestinationTypeChanged()
+        {
+            RaisePropertyChanged(nameof(IsForOutsource));
+
+            OCProducts.ToList().ForEach(p => p.ProductDestination = IsForOutsource ? new ProductDestinationModel() : null);
         }
         #endregion
 

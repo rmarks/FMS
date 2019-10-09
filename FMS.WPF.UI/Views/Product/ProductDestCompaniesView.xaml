@@ -23,7 +23,7 @@
                         Content="{StaticResource ProxyElement}"/>
 
         <DataGrid Grid.Column="1"
-                  ItemsSource="{Binding Path=Model.OCProducts}"
+                  ItemsSource="{Binding Path=OCProducts}"
                   Style="{StaticResource MainEditableDataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Toote kood" 

@@ -43,23 +43,23 @@ namespace FMS.WPF.Application.Services
                         IsVAT = pl.IsVAT,
                         CurrencyCode = pl.CurrencyCode,
                         //left outer join
-                        Prices = model.Products
-                            .GroupJoin(pl.Prices.Where(p => p.Product.ProductBaseId == productBaseId),
-                                       product => product.ProductId,
-                                       price => price.ProductId,
-                                       (product, prices) => new { Product = product, Prices = prices })
-                            .SelectMany(x => x.Prices.DefaultIfEmpty(),
-                                        (x, y) => new { Product = x.Product, Price = y })
-                            .Select(p => new PriceModel
-                            {
-                                ProductId = p.Product.ProductId,
-                                PriceListId = pl.PriceListId,
-                                ProductProductCode = p.Product.ProductCode,
-                                ProductProductName = p.Product.ProductName,
-                                UnitPrice = (p.Price == null ? 0 : p.Price.UnitPrice)
-                            })
-                            .OrderBy(p => p.ProductProductCode)
-                            .ToList()
+                        //Prices = model.Products
+                        //    .GroupJoin(pl.Prices.Where(p => p.Product.ProductBaseId == productBaseId),
+                        //               product => product.ProductId,
+                        //               price => price.ProductId,
+                        //               (product, prices) => new { Product = product, Prices = prices })
+                        //    .SelectMany(x => x.Prices.DefaultIfEmpty(),
+                        //                (x, y) => new { Product = x.Product, Price = y })
+                        //    .Select(p => new PriceModel
+                        //    {
+                        //        ProductId = p.Product.ProductId,
+                        //        PriceListId = pl.PriceListId,
+                        //        ProductProductCode = p.Product.ProductCode,
+                        //        ProductProductName = p.Product.ProductName,
+                        //        UnitPrice = (p.Price == null ? 0 : p.Price.UnitPrice)
+                        //    })
+                        //    .OrderBy(p => p.ProductProductCode)
+                        //    .ToList()
                     })
                     .ToList();
 
@@ -71,13 +71,11 @@ namespace FMS.WPF.Application.Services
             }
         }
 
-        public ProductBaseModel Save(ProductBaseModel model)
+        public int Save(ProductBaseModel model)
         {
-            model.Save();
-
             var productBase = (model.IsNew ? Add(model) : Update(model));
 
-            return GetProductBaseModel(productBase.ProductBaseId);
+            return productBase.ProductBaseId;
         }
         #endregion
 
@@ -90,6 +88,7 @@ namespace FMS.WPF.Application.Services
                     .Include(pb => pb.ProductVariationsLink)
                     .Include(pb => pb.Products).ThenInclude(p => p.ProductSource)
                     .Include(pb => pb.Products).ThenInclude(p => p.ProductDestination)
+                    .Include(pb => pb.Products).ThenInclude(p => p.Prices)
                     .FirstOrDefault(pb => pb.ProductBaseId == model.ProductBaseId);
 
                 context.Entry(existingProductBase).CurrentValues.SetValues(model);
@@ -97,8 +96,7 @@ namespace FMS.WPF.Application.Services
                 //ProductVariationsLink
                 foreach (var variationLink in existingProductBase.ProductVariationsLink)
                 {
-                    if (!model.ProductVariationsLink
-                        .Any(v => v.ProductBaseId == variationLink.ProductBaseId && v.ProductVariationId == variationLink.ProductVariationId))
+                    if (!model.ProductVariationsLink.Any(v => v.ProductBaseProductVariationId == variationLink.ProductBaseProductVariationId))
                     {
                         existingProductBase.ProductVariationsLink.Remove(variationLink);
                     }
@@ -107,7 +105,7 @@ namespace FMS.WPF.Application.Services
                 foreach (var variationLinkModel in model.ProductVariationsLink)
                 {
                     var variationLink = existingProductBase.ProductVariationsLink
-                        .FirstOrDefault(v => v.ProductBaseId == variationLinkModel.ProductBaseId && v.ProductVariationId == variationLinkModel.ProductVariationId);
+                        .FirstOrDefault(v => v.ProductBaseProductVariationId == variationLinkModel.ProductBaseProductVariationId);
                     if (variationLink == null)
                     {
                         existingProductBase.ProductVariationsLink.Add(variationLinkModel.MapTo<ProductBaseProductVariation>());
@@ -182,6 +180,29 @@ namespace FMS.WPF.Application.Services
                                 existingProduct.ProductDestination = null;
                             }
                         }
+
+                        //Prices
+                        foreach (var price in existingProduct.Prices)
+                        {
+                            if (!productModel.Prices.Any(p => p.PriceId == price.PriceId))
+                            {
+                                existingProduct.Prices.Remove(price);
+                            }
+                        }
+
+                        foreach (var priceModel in productModel.Prices)
+                        {
+                            var existingPrice = existingProduct.Prices.FirstOrDefault(p => p.PriceId == priceModel.PriceId);
+
+                            if (existingPrice == null)
+                            {
+                                existingProduct.Prices.Add(priceModel.MapTo<Price>());
+                            }
+                            else
+                            {
+                                context.Entry(existingPrice).CurrentValues.SetValues(priceModel);
+                            }
+                        }
                     }
                     else
                     {
@@ -190,41 +211,6 @@ namespace FMS.WPF.Application.Services
                 }
 
                 context.Update(existingProductBase);
-
-                //Prices
-                var existingPrices = context.PriceLists
-                    .Where(pl => pl.Prices.Any(p => p.Product.ProductBaseId == model.ProductBaseId))
-                    .SelectMany(pl => pl.Prices.Where(p => p.Product.ProductBaseId == model.ProductBaseId), (pl, pr) => pr)
-                    .ToList();
-
-                var modelPrices = model.PriceLists
-                    .SelectMany(pl => pl.Prices, (pl, pr) => pr)
-                    .Where(pr => pr.UnitPrice != 0);
-
-                foreach (var existingPrice in existingPrices.ToList())
-                {
-                    if (!modelPrices.Any(p => p.PriceListId == existingPrice.PriceListId && p.ProductId == existingPrice.ProductId))
-                    {
-                        existingPrices.Remove(existingPrice);
-                        context.Remove(existingPrice);
-                    }
-                }
-
-                foreach (var modelPrice in modelPrices)
-                {
-                    var existingPrice = existingPrices.FirstOrDefault(p => p.PriceListId == modelPrice.PriceListId && p.ProductId == modelPrice.ProductId);
-
-                    if (existingPrice != null)
-                    {
-                        context.Entry(existingPrice).CurrentValues.SetValues(modelPrice);
-                    }
-                    else
-                    {
-                        existingPrice = modelPrice.MapTo<Price>();
-                        existingPrices.Add(existingPrice);
-                        context.Add(existingPrice);
-                    }
-                }
 
                 context.SaveChanges();
 

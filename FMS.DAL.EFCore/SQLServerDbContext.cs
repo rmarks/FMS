@@ -53,12 +53,6 @@ namespace FMS.DAL.EFCore
             modelBuilder.Entity<CompanyCompanyType>()
                 .HasKey(c => new { c.CompanyId, c.CompanyTypeId });
 
-            modelBuilder.Entity<ProductBaseProductVariation>()
-                .HasKey(p => new { p.ProductBaseId, p.ProductVariationId });
-
-            modelBuilder.Entity<Price>()
-                .HasKey(p => new { p.ProductId, p.PriceListId });
-
             //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             //{
             //    relationship.DeleteBehavior = DeleteBehavior.Restrict;

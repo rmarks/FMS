@@ -9,6 +9,10 @@
              Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
+        
         <FrameworkElement x:Key="ProxyElement"
                           DataContext="{Binding}"/>
     </UserControl.Resources>
@@ -26,28 +30,50 @@
         <ContentControl Visibility="Collapsed"
                         Content="{StaticResource ProxyElement}"/>
 
-        <DataGrid Grid.Column="1"
-                  ItemsSource="{Binding Path=Model.OCPriceLists}"
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal"
+                        Margin="0,0,0,20">
+                <TextBlock Text="{Binding Path=TestName}"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.PriceLists}" 
+                          DisplayMemberPath="PriceListName" 
+                          SelectedItem="{Binding Path=AddablePriceList}"
+                          MinWidth="200"/>
+                <Button Content="Lisa hinnakiri"
+                        Command="{Binding Path=DataContext.AddPriceListCommand, Source={StaticResource ProxyElement}}"
+                        Margin="5,0"/>
+            </StackPanel>
+            
+            <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Path=OCPriceLists}"
                   SelectedItem="{Binding Path=SelectedPriceList}"
                   Style="{StaticResource MainDataGridStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Hinnakiri" 
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Hinnakiri" 
                                     Binding="{Binding Path=PriceListName}" 
                                     Width="*"/>
-                <DataGridTextColumn Header="Valuuta" 
+                    <DataGridTextColumn Header="Valuuta" 
                                     Binding="{Binding Path=CurrencyCode}" 
                                     Width="0.3*"/>
-                <DataGridCheckBoxColumn Header="Käibemaks" 
+                    <DataGridCheckBoxColumn Header="Käibemaks" 
                                         Binding="{Binding Path=IsVAT}" 
                                         Width="0.3*"
                                         HeaderStyle="{StaticResource MainDataGridColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource MainDataGridCellCenterStyle}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
 
         <DataGrid Grid.Column="3"
-                  ItemsSource="{Binding Path=SelectedPriceList.OCPrices}"
+                  ItemsSource="{Binding Path=OCProducts}"
                   Style="{StaticResource MainEditableDataGridStyle}">
+            <!--ItemsSource="{Binding Path=SelectedPriceList.OCPrices}"-->
             <DataGrid.Resources>
                 <!--<Style x:Key="EditableTextBoxStyle" TargetType="TextBlock">
                     <Setter Property="IsEnabled" Value="False"/>
@@ -63,15 +89,15 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Kood"
-                                    Binding="{Binding Path=ProductProductCode}" 
+                                    Binding="{Binding Path=ProductCode}" 
                                     Width="*"
                                     IsReadOnly="True"/>
                 <DataGridTextColumn Header="Nimi" 
-                                    Binding="{Binding Path=ProductProductName}" 
+                                    Binding="{Binding Path=ProductName}" 
                                     Width="2*"
                                     IsReadOnly="True"/>
                 <DataGridTextColumn Header="Hind" 
-                                    Binding="{Binding Path=UnitPrice, StringFormat=0.00}" 
+                                    Binding="{Binding Path=ChosenPrice.UnitPrice, StringFormat=0.00}" 
                                     Width="*"
                                     HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
                                     CellStyle="{StaticResource MainDataGridCellRightStyle}"

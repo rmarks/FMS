@@ -24,7 +24,7 @@ namespace FMS.Domain.Model
 
         public ProductSource ProductSource { get; set; }
         public ProductDestination ProductDestination { get; set; }
-        public List<Price> Prices { get; set; }
+        public List<Price> Prices { get; set; } = new List<Price>();
 
         //--- legacy system fields ---
         [MaxLength(12)]

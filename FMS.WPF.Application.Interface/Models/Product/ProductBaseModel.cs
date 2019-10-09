@@ -1,7 +1,6 @@
 ﻿using FMS.WPF.Application.Interface.Dropdowns;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace FMS.WPF.Models
@@ -69,30 +68,51 @@ namespace FMS.WPF.Models
         #endregion
 
         #region view properties
-        private ObservableCollection<ProductModel> _ocProducts;
-        public ObservableCollection<ProductModel> OCProducts => _ocProducts ?? (new ObservableCollection<ProductModel>(Products));
+        //private ObservableCollection<ProductModel> _ocProducts;
+        //public ObservableCollection<ProductModel> OCProducts => _ocProducts ?? (_ocProducts = new ObservableCollection<ProductModel>(Products));
 
-        public bool IsPurchased => (ProductSourceTypeId == 2);
+        //public bool IsPurchased => (ProductSourceTypeId == 2);
 
-        public bool IsForOutsource => (ProductDestinationTypeId == 2);
+        //public bool IsForOutsource => (ProductDestinationTypeId == 2);
 
-        private ObservableCollection<PriceListModel> _ocPriceLists;
-        public ObservableCollection<PriceListModel> OCPriceLists => _ocPriceLists ?? (_ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists));
+        //private ObservableCollection<PriceListModel> _ocPriceLists;
+        //public ObservableCollection<PriceListModel> OCPriceLists => _ocPriceLists ?? (_ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists));
         #endregion
 
         #region public methods
-        public void Reset()
-        {
-            _ocProducts = new ObservableCollection<ProductModel>(Products);
-            _ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists);
-        }
+        //public void Reset()
+        //{
+        //    _ocProducts = new ObservableCollection<ProductModel>(Products);
+        //    _ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists);
+        //}
 
-        public void Save()
-        {
-            Products = OCProducts.ToList();
-            PriceLists = OCPriceLists.ToList();
-            PriceLists.ForEach(p => p.Prices = p.OCPrices.ToList());
-        }
+        //public void Save()
+        //{
+        //    Products = OCProducts.ToList();
+
+        //    //PriceLists = OCPriceLists.ToList();
+        //    //PriceLists.ForEach(pl => pl.Prices = pl.OCPrices.Where(p => p.UnitPrice != 0).ToList());
+        //}
+
+        //public void SetProductPrices(int priceListId)
+        //{
+        //    foreach (var product in Products)
+        //    {
+        //        product.ChosenPrice = product.Prices
+        //            .FirstOrDefault(p => p.PriceListId == priceListId);
+
+        //        if (product.ChosenPrice == null)
+        //        {
+        //            product.ChosenPrice = new PriceModel
+        //            {
+        //                ProductId = product.ProductId,
+        //                PriceListId = priceListId
+        //            };
+
+        //            product.Prices.Add(product.ChosenPrice);
+        //        }
+        //    }
+        //}
         #endregion
 
         #region events

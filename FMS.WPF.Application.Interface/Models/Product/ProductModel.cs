@@ -1,4 +1,6 @@
-﻿namespace FMS.WPF.Models
+﻿using System.Collections.Generic;
+
+namespace FMS.WPF.Models
 {
     public class ProductModel : ModelBase
     {
@@ -10,12 +12,17 @@
 
         public ProductSourceModel ProductSource { get; set; }
         public ProductDestinationModel ProductDestination { get; set; }
+        public List<PriceModel> Prices { get; set; } = new List<PriceModel>();
 
         public int ProductBaseId { get; set; }
         #endregion
 
         #region overrides
         public override bool IsNew => (ProductId == 0);
+        #endregion
+
+        #region view properties
+        public PriceModel ChosenPrice { get; set; }
         #endregion
     }
 }

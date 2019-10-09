@@ -36,6 +36,8 @@ namespace FMS.WPF.Application.Dropdowns
         public IList<CompanySmallModel> ProductSourceCompanies { get; set; }
         public IList<CompanySmallModel> ProductDestCompanies { get; set; }
 
+        public IList<PriceListModel> PriceLists { get; set; }
+
         public IList<BusinessLineDropdownModel> BusinessLinesOnly => BusinessLines.Where(b => b.BusinessLineId != null).ToList();
         public IList<ProductStatusDropdownModel> ProductStatusesOnly => ProductStatuses.Where(p => p.ProductStatusId != null).ToList();
         public IList<ProductSourceTypeDropdownModel> ProductSourceTypesOnly => ProductSourceTypes.Where(p => p.ProductSourceTypeId != null).ToList();
@@ -61,6 +63,8 @@ namespace FMS.WPF.Application.Dropdowns
 
                 ProductSourceCompanies = await GetProductSourceCompanies(context);
                 ProductDestCompanies = await GetProductDestCompanies(context);
+
+                PriceLists = await GetPriceListsAsync(context);
             }
         }
 
@@ -219,6 +223,19 @@ namespace FMS.WPF.Application.Dropdowns
                 .ToListAsync();
 
             list.Insert(0, new CompanySmallModel());
+
+            return list;
+        }
+
+        private async Task<IList<PriceListModel>> GetPriceListsAsync(IDataContext context)
+        {
+            var list = await context.PriceLists
+                .AsNoTracking()
+                .OrderBy(p => p.PriceListName)
+                .ProjectBetween<PriceList, PriceListModel>()
+                .ToListAsync();
+
+            list.Insert(0, new PriceListModel());
 
             return list;
         }
