@@ -31,9 +31,13 @@ namespace FMS.WPF.Application.Utils
             #region product
             CreateMap<ProductBase, ProductListModel>();
 
-            CreateMap<ProductBase, ProductBaseModel>();
+            CreateMap<ProductBase, ProductBaseModel>()
+                .ForMember(d => d.Products, o => o.MapFrom(s => s.Products.OrderBy(p => p.ProductCode)))
+                .ForMember(d => d.ProductVariationsLink, o => o.MapFrom(s => s.ProductVariationsLink));
             CreateMap<ProductBaseModel, ProductBase>()
-                .ForMember(d => d.ProductStatus, o => o.Ignore());
+                .ForMember(d => d.ProductStatus, o => o.Ignore())
+                .ForMember(d => d.Products, o => o.MapFrom(s => s.Products))
+                .ForMember(d => d.ProductVariationsLink, o => o.MapFrom(s => s.ProductVariationsLink)); ;
             CreateMap<ProductVariation, ProductVariationModel>().ReverseMap();
             CreateMap<ProductBaseProductVariation, ProductBaseProductVariationModel>().ReverseMap();
             CreateMap<Product, ProductModel>().ReverseMap();

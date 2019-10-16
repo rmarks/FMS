@@ -120,7 +120,8 @@
         </TabControl>-->
 
         <TabControl Grid.Row="1"
-                    Margin="4">
+                    Margin="4"
+                    FontSize="15">
             <TabItem Header="Üldandmed">
                 <local:ProductBaseView/>
             </TabItem>
@@ -128,11 +129,11 @@
                 <local:ProductPricesView/>
             </TabItem>
             <TabItem Header="Tarne andmed"
-                     Visibility="{Binding Path=IsPurchased, Converter={StaticResource BooleanToVisibilityConverter}}">
+                     Visibility="{Binding Path=Model.IsPurchased, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <local:ProductSourceCompaniesView/>
             </TabItem>
             <TabItem Header="Allhanke andmed"
-                     Visibility="{Binding Path=IsForOutsource, Converter={StaticResource BooleanToVisibilityConverter}}">
+                     Visibility="{Binding Path=Model.IsForOutsource, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <local:ProductDestCompaniesView/>
             </TabItem>
         </TabControl>

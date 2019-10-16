@@ -34,7 +34,7 @@ namespace FMS.WPF.ViewModels
 
         #region IWorkspace
         public IWorkspaceManager WorkspaceManager { get; }
-        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
+        public RelayCommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
         #endregion
 
         #region event handlers

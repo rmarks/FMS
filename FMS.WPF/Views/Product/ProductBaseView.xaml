@@ -204,7 +204,7 @@
                                 Visibility="{Binding Path=IsVariationVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock Text="Variatsioonid"/>
 
-                        <ListBox ItemsSource="{Binding Path=OCProductVariations}" 
+                        <ListBox ItemsSource="{Binding Path=Model.ProductVariationsLink}" 
                                  DisplayMemberPath="ProductVariation.Name" 
                                  IsEnabled="{Binding Path=IsEditMode}"
                                  MinHeight="30"/>
@@ -220,7 +220,7 @@
                     </StackPanel>
 
                     <DataGrid Grid.Row="2"
-                              ItemsSource="{Binding Path=OCProducts}"
+                              ItemsSource="{Binding Path=Model.Products}"
                               Style="{StaticResource MainEditableDataGridStyle}"
                               Margin="20"
                               IsReadOnly="{Binding Path=DataContext.IsEditMode, 

@@ -25,6 +25,8 @@ namespace FMS.WPF.Application.Interface.Dropdowns
 
         IList<ProductDesignDropdownModel> ProductDesigns { get; set; }
 
+        IList<PriceListModel> PriceLists { get; set; }
+
         void InitializeAsync();
     }
 

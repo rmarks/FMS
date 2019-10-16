@@ -58,21 +58,21 @@ namespace FMS.DAL.EFCore
             //    relationship.DeleteBehavior = DeleteBehavior.Restrict;
             //}
 
-            modelBuilder.Entity<SalesInvoice>()
-                .HasOne(si => si.Company)
-                .WithMany()
-                .HasForeignKey(si => si.CompanyId)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<SalesInvoice>(entity =>
+            {
+                entity.HasOne(si => si.Company)
+                    .WithMany()
+                    .HasForeignKey(si => si.CompanyId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<SalesInvoice>()
-                .HasOne(s => s.BillingAddress)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(s => s.BillingAddress)
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<SalesInvoice>()
-                .HasOne(s => s.ShippingAddress)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(s => s.ShippingAddress)
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
             modelBuilder.Entity<SalesOrder>()
                 .HasOne(so => so.Company)

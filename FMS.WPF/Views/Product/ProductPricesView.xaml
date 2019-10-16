@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FMS.WPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1400"
-             Loaded="UserControl_Loaded">
+             d:DesignHeight="800" d:DesignWidth="1400">
 
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
@@ -39,19 +38,19 @@
             <StackPanel Grid.Row="0"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
-                        Margin="0,0,0,20">
-                <TextBlock Text="{Binding Path=TestName}"/>
-                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.PriceLists}" 
+                        Margin="0,0,0,20"
+                        Visibility="{Binding Path=IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ComboBox ItemsSource="{Binding Path=Model.AddablePriceLists}" 
                           DisplayMemberPath="PriceListName" 
-                          SelectedItem="{Binding Path=AddablePriceList}"
+                          SelectedItem="{Binding Path=SelectedAddablePriceList}"
                           MinWidth="200"/>
                 <Button Content="Lisa hinnakiri"
-                        Command="{Binding Path=DataContext.AddPriceListCommand, Source={StaticResource ProxyElement}}"
+                        Command="{Binding Path=AddPriceListCommand}"
                         Margin="5,0"/>
             </StackPanel>
             
             <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Path=OCPriceLists}"
+                  ItemsSource="{Binding Path=Model.PriceLists}"
                   SelectedItem="{Binding Path=SelectedPriceList}"
                   Style="{StaticResource MainDataGridStyle}">
                 <DataGrid.Columns>
@@ -71,8 +70,9 @@
         </Grid>
 
         <DataGrid Grid.Column="3"
-                  ItemsSource="{Binding Path=OCProducts}"
-                  Style="{StaticResource MainEditableDataGridStyle}">
+                  ItemsSource="{Binding Path=Model.Products}"
+                  Style="{StaticResource MainEditableDataGridStyle}"
+                  Visibility="{Binding Path=IsPriceListSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
             <!--ItemsSource="{Binding Path=SelectedPriceList.OCPrices}"-->
             <DataGrid.Resources>
                 <!--<Style x:Key="EditableTextBoxStyle" TargetType="TextBlock">

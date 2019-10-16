@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FMS.DAL.EFCore\FMS.DAL.EFCore.csproj" />
     <ProjectReference Include="..\FMS.WPF.Application.Interface\FMS.WPF.Application.Interface.csproj" />
     <ProjectReference Include="..\FMS.WPF.Application\FMS.WPF.Application.csproj" />
   </ItemGroup>

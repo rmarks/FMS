@@ -1,7 +1,9 @@
 ﻿using FMS.WPF.Application.Interface.Dropdowns;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace FMS.WPF.Models
 {
@@ -19,31 +21,8 @@ namespace FMS.WPF.Models
         public int? BusinessLineId { get; set; }
         public int? ProductStatusId { get; set; }
         
-        //flattening
-        public string ProductStatusName { get; set; }
-        //---
-
-        private int? _productSourceTypeId;
-        public int? ProductSourceTypeId 
-        { 
-            get => _productSourceTypeId;
-            set
-            {
-                _productSourceTypeId = value;
-                ProductSourceTypeChanged?.Invoke();
-            }
-        }
-
-        private int? _productDestinationTypeId;
-        public int? ProductDestinationTypeId 
-        { 
-            get => _productDestinationTypeId;
-            set
-            {
-                _productDestinationTypeId = value;
-                ProductDestinationTypeChanged?.Invoke();
-            } 
-        }
+        public int? ProductSourceTypeId { get; set; }
+        public int? ProductDestinationTypeId { get; set; }
 
         public int? ProductMaterialId { get; set; }
         public int? ProductTypeId { get; set; }
@@ -58,66 +37,104 @@ namespace FMS.WPF.Models
 
         public DateTime? CreatedOn { get; set; }
 
-        public List<ProductModel> Products { get; set; } = new List<ProductModel>();
-        public List<ProductBaseProductVariationModel> ProductVariationsLink { get; set; } = new List<ProductBaseProductVariationModel>();
-        public List<PriceListModel> PriceLists { get; set; } = new List<PriceListModel>();
+        public ObservableCollection<ProductModel> Products { get; set; } = new ObservableCollection<ProductModel>();
+        public ObservableCollection<ProductBaseProductVariationModel> ProductVariationsLink { get; set; } = 
+            new ObservableCollection<ProductBaseProductVariationModel>();
+        public ObservableCollection<PriceListModel> PriceLists { get; set; } = new ObservableCollection<PriceListModel>();
+        #endregion
+
+        #region view properties
+        public string ProductStatusName => Dropdowns.ProductStatuses
+                    .FirstOrDefault(p => p.ProductStatusId == ProductStatusId)
+                    .Name;
+        public bool IsPurchased => (ProductSourceTypeId == 2);
+        public bool IsForOutsource => (ProductDestinationTypeId == 2);
+        #endregion
+
+        #region public methods
+        public void ShowProductsChosenPrices(int selectedPriceListId)
+        {
+            foreach (var product in Products)
+            {
+                product.ChosenPrice = product.Prices
+                    .FirstOrDefault(p => p.PriceListId == selectedPriceListId);
+
+                if (product.ChosenPrice == null)
+                {
+                    product.ChosenPrice = new PriceModel
+                    {
+                        ProductId = product.ProductId,
+                        PriceListId = selectedPriceListId
+                    };
+
+                    product.Prices.Add(product.ChosenPrice);
+                }
+            }
+        }
+
+        public void AddProduct(int? selectedPriceListId)
+        {
+            var productModel = new ProductModel
+            {
+                ProductBaseId = ProductBaseId,
+                ProductCode = ProductBaseCode,
+                ProductName = ProductBaseName,
+                ProductSource = IsPurchased ? new ProductSourceModel() : null,
+                ProductDestination = IsForOutsource ? new ProductDestinationModel() : null,
+            };
+
+            foreach (var priceList in PriceLists)
+            {
+                PriceModel priceModel = new PriceModel
+                {
+                    PriceListId = priceList.PriceListId,
+                };
+                productModel.Prices.Add(priceModel);
+            }
+
+            productModel.ChosenPrice = productModel.Prices
+                    .FirstOrDefault(p => p.PriceListId == selectedPriceListId);
+
+            Products.Add(productModel);
+        }
+
+        public void AddPriceList(PriceListModel addedPriceList)
+        {
+            PriceLists.Add(addedPriceList);
+
+            foreach (var productModel in Products)
+            {
+                productModel.Prices.Add(new PriceModel
+                {
+                    ProductId = productModel.ProductId,
+                    PriceListId = addedPriceList.PriceListId
+                });
+            }
+
+            RaisePropertyChanged(nameof(AddablePriceLists));
+        }
         #endregion
 
         #region overrides
         public override bool IsNew => (ProductBaseId == 0);
-        #endregion
 
-        #region view properties
-        //private ObservableCollection<ProductModel> _ocProducts;
-        //public ObservableCollection<ProductModel> OCProducts => _ocProducts ?? (_ocProducts = new ObservableCollection<ProductModel>(Products));
-
-        //public bool IsPurchased => (ProductSourceTypeId == 2);
-
-        //public bool IsForOutsource => (ProductDestinationTypeId == 2);
-
-        //private ObservableCollection<PriceListModel> _ocPriceLists;
-        //public ObservableCollection<PriceListModel> OCPriceLists => _ocPriceLists ?? (_ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists));
-        #endregion
-
-        #region public methods
-        //public void Reset()
-        //{
-        //    _ocProducts = new ObservableCollection<ProductModel>(Products);
-        //    _ocPriceLists = new ObservableCollection<PriceListModel>(PriceLists);
-        //}
-
-        //public void Save()
-        //{
-        //    Products = OCProducts.ToList();
-
-        //    //PriceLists = OCPriceLists.ToList();
-        //    //PriceLists.ForEach(pl => pl.Prices = pl.OCPrices.Where(p => p.UnitPrice != 0).ToList());
-        //}
-
-        //public void SetProductPrices(int priceListId)
-        //{
-        //    foreach (var product in Products)
-        //    {
-        //        product.ChosenPrice = product.Prices
-        //            .FirstOrDefault(p => p.PriceListId == priceListId);
-
-        //        if (product.ChosenPrice == null)
-        //        {
-        //            product.ChosenPrice = new PriceModel
-        //            {
-        //                ProductId = product.ProductId,
-        //                PriceListId = priceListId
-        //            };
-
-        //            product.Prices.Add(product.ChosenPrice);
-        //        }
-        //    }
-        //}
-        #endregion
-
-        #region events
-        public event Action ProductSourceTypeChanged;
-        public event Action ProductDestinationTypeChanged;
+        public override void RaisePropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            base.RaisePropertyChanged(propertyName);
+            
+            if (propertyName == nameof(ProductSourceTypeId))
+            {
+                RaisePropertyChanged(nameof(IsPurchased));
+            }
+            else if (propertyName == nameof(ProductDestinationTypeId))
+            {
+                RaisePropertyChanged(nameof(IsForOutsource));
+            }
+            else if (propertyName == nameof(ProductStatusId))
+            {
+                RaisePropertyChanged(nameof(ProductStatusName));
+            }
+        }
         #endregion
 
         #region dropdowns
@@ -131,6 +148,11 @@ namespace FMS.WPF.Models
 
         public IList<ProductDesignDropdownModel> ProductDesigns =>
             Dropdowns?.ProductDesigns.Where(pd => pd.ProductCollectionId == ProductCollectionId || pd.ProductCollectionId == null).ToList();
+
+        public List<PriceListModel> AddablePriceLists => Dropdowns.PriceLists
+            .Where(pl => PriceLists.All(o => o.PriceListId != pl.PriceListId))
+            .Select(pl => pl)
+            .ToList();
         #endregion
     }
 }

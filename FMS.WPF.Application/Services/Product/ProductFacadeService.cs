@@ -5,6 +5,9 @@ using FMS.WPF.Models;
 using FMS.WPF.Application.Interface.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
+using FMS.WPF.Application.Utils;
+using System.Collections.ObjectModel;
 
 namespace FMS.WPF.Application.Services
 {
@@ -30,42 +33,19 @@ namespace FMS.WPF.Application.Services
                 var model = context.ProductBases
                     .AsNoTracking()
                     .Where(p => p.ProductBaseId == productBaseId)
-                    .ProjectBetween<ProductBase, ProductBaseModel>()
+                    .Include(pb => pb.Products).ThenInclude(p => p.Prices)
+                    .Include(pb => pb.Products).ThenInclude(p => p.ProductSource)
+                    .Include(pb => pb.Products).ThenInclude(p => p.ProductDestination)
+                    .Include(pb => pb.ProductVariationsLink).ThenInclude(pvl => pvl.ProductVariation)
+                    .Select(p => MappingFactory.MapTo<ProductBaseModel>(p))
                     .FirstOrDefault();
 
-                model.PriceLists = context.PriceLists
+                var priceList = context.PriceLists
                     .AsNoTracking()
                     .Where(pl => pl.Prices.Any(p => p.Product.ProductBaseId == productBaseId))
-                    .Select(pl => new PriceListModel
-                    {
-                        PriceListId = pl.PriceListId,
-                        PriceListName = pl.PriceListName,
-                        IsVAT = pl.IsVAT,
-                        CurrencyCode = pl.CurrencyCode,
-                        //left outer join
-                        //Prices = model.Products
-                        //    .GroupJoin(pl.Prices.Where(p => p.Product.ProductBaseId == productBaseId),
-                        //               product => product.ProductId,
-                        //               price => price.ProductId,
-                        //               (product, prices) => new { Product = product, Prices = prices })
-                        //    .SelectMany(x => x.Prices.DefaultIfEmpty(),
-                        //                (x, y) => new { Product = x.Product, Price = y })
-                        //    .Select(p => new PriceModel
-                        //    {
-                        //        ProductId = p.Product.ProductId,
-                        //        PriceListId = pl.PriceListId,
-                        //        ProductProductCode = p.Product.ProductCode,
-                        //        ProductProductName = p.Product.ProductName,
-                        //        UnitPrice = (p.Price == null ? 0 : p.Price.UnitPrice)
-                        //    })
-                        //    .OrderBy(p => p.ProductProductCode)
-                        //    .ToList()
-                    })
-                    .ToList();
+                    .Select(pl => MappingFactory.MapTo<PriceListModel>(pl));
 
-                model.Products = model.Products
-                    .OrderBy(p => p.ProductCode)
-                    .ToList();
+                model.PriceLists = new ObservableCollection<PriceListModel>(priceList);
 
                 return model;
             }
@@ -73,6 +53,11 @@ namespace FMS.WPF.Application.Services
 
         public int Save(ProductBaseModel model)
         {
+            foreach (var productModel in model.Products)
+            {
+                productModel.Prices = productModel.Prices.Where(p => p.UnitPrice != 0).ToList();
+            }
+
             var productBase = (model.IsNew ? Add(model) : Update(model));
 
             return productBase.ProductBaseId;
@@ -223,6 +208,7 @@ namespace FMS.WPF.Application.Services
             using (var context = _contextFactory.CreateContext())
             {
                 var productBase = model.MapTo<ProductBase>();
+                productBase.CreatedOn = DateTime.Now;
 
                 context.Add(productBase);
                 context.SaveChanges();

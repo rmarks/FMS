@@ -1,8 +1,6 @@
 ﻿using FMS.WPF.Models;
 using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.Utils;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 using FMS.WPF.Helpers;
 using System.Linq;
 
@@ -29,13 +27,6 @@ namespace FMS.WPF.ViewModels
         public override string DisplayName => Model?.ProductBaseCode == null ? "Uus toode" : "Toode " + Model.ProductBaseCode;
         public string PictureLocation => PictureLocationHelper.GetPictureLocation(Model?.ProductBaseCode);
 
-        public bool IsPurchased => (Model.ProductSourceTypeId == 2);
-        public bool IsForOutsource => (Model.ProductDestinationTypeId == 2);
-
-        public ObservableCollection<ProductModel> OCProducts { get; set; }
-        public ObservableCollection<PriceListModel> OCPriceLists { get; set; }
-        public ObservableCollection<ProductBaseProductVariationModel> OCProductVariations { get; set; }
-
         private PriceListModel _selectedPriceList;
         public PriceListModel SelectedPriceList
         {
@@ -45,74 +36,59 @@ namespace FMS.WPF.ViewModels
                 _selectedPriceList = value;
                 if (_selectedPriceList != null)
                 {
-                    SetProductPrices(_selectedPriceList.PriceListId);
+                    Model.ShowProductsChosenPrices(_selectedPriceList.PriceListId);
                 }
+                RaisePropertyChanged(nameof(IsPriceListSelected));
             }
         }
 
-        public bool IsVariationVisible => IsEditMode || (!IsEditMode && Model.ProductVariationsLink.Count != 0);
-
-        private PriceListModel _addablePriceList;
-        public PriceListModel AddablePriceList 
+         private PriceListModel _selectedAddablePriceList;
+        public PriceListModel SelectedAddablePriceList 
         { 
-            get => _addablePriceList;
+            get => _selectedAddablePriceList;
             set
             {
-                _addablePriceList = value;
-                AddPriceListCommmand.RaiseCanExecuteChanged();
+                _selectedAddablePriceList = value;
+                AddPriceListCommand.RaiseCanExecuteChanged();
             } 
         }
+
+        public bool IsVariationVisible => IsEditMode || (!IsEditMode && Model.ProductVariationsLink.Count != 0);
+        public bool IsPriceListSelected => SelectedPriceList != null;
         #endregion
 
         #region overrides
         protected override bool SaveItem(ProductBaseModel model)
         {
-            Model.Products = OCProducts.ToList();
-            Model.ProductVariationsLink = OCProductVariations.ToList();
-
             int productBaseId = _service.Save(Model);
             InitializeModel(productBaseId);
+
+            RaisePropertyChanged(nameof(DisplayName));
 
             return true;
         }
         #endregion
 
         #region commands
-        private RelayCommand _addProductCommmand;
-        public ICommand AddProductCommand => _addProductCommmand ?? (_addProductCommmand = new RelayCommand(AddProduct, () => CanAddProduct));
-        public bool CanAddProduct => (IsEditMode && ((OCProducts.Count == 0 && Model.ProductVariationsLink.Count == 0)
+        private RelayCommand _addProductCommand;
+        public RelayCommand AddProductCommand => _addProductCommand ?? (_addProductCommand = new RelayCommand(AddProduct, () => CanAddProduct));
+        public bool CanAddProduct => (IsEditMode && ((Model.Products.Count == 0 && Model.ProductVariationsLink.Count == 0)
                                                     || Model.ProductVariationsLink.Count != 0));
         private void AddProduct()
         {
-            var productModel = new ProductModel
-            {
-                ProductBaseId = Model.ProductBaseId,
-                ProductCode = Model.ProductBaseCode,
-                ProductName = Model.ProductBaseName,
-                ProductSource = IsPurchased ? new ProductSourceModel() : null,
-                ProductDestination = IsForOutsource ? new ProductDestinationModel() : null,
-                ChosenPrice = new PriceModel { PriceListId = SelectedPriceList.PriceListId }
-            };
-            productModel.Prices.Add(productModel.ChosenPrice);
-
-            foreach (var priceList in OCPriceLists)
-            {
-                PriceModel priceModel = new PriceModel
-                {
-                    PriceListId = priceList.PriceListId,
-                };
-                productModel.Prices.Add(priceModel);
-            }
-
-            OCProducts.Add(productModel);
+            Model.AddProduct(SelectedPriceList?.PriceListId);
         }
 
-        private RelayCommand _addPriceListCommmand;
-        public RelayCommand AddPriceListCommmand => _addPriceListCommmand ?? (_addPriceListCommmand = new RelayCommand(AddPriceList, () => CanAddPriceList));
-        public bool CanAddPriceList => (AddablePriceList.PriceListId != 0);
+        private RelayCommand _addPriceListCommand;
+        public RelayCommand AddPriceListCommand => _addPriceListCommand ?? (_addPriceListCommand = new RelayCommand(AddPriceList, () => CanAddPriceList));
+        public bool CanAddPriceList => IsEditMode && (SelectedAddablePriceList != null) && (SelectedAddablePriceList.PriceListId != 0);
         private void AddPriceList()
         {
-            
+            var selectedAddablePriceList = SelectedAddablePriceList;
+
+            Model.AddPriceList(selectedAddablePriceList);
+
+            SelectedPriceList = selectedAddablePriceList;
         }
         #endregion
 
@@ -134,37 +110,12 @@ namespace FMS.WPF.ViewModels
         {
             Model = _service.GetProductBaseModel(productBaseId);
 
-            InitializeCollections();
-            Model.ProductSourceTypeChanged += OnProductSourceTypeChanged;
-            Model.ProductDestinationTypeChanged += OnProductDestinationTypeChanged;
+            InitializeSelections();
         }
 
-        private void InitializeCollections()
+        private void InitializeSelections()
         {
-            OCProducts = new ObservableCollection<ProductModel>(Model.Products);
-            OCPriceLists = new ObservableCollection<PriceListModel>(Model.PriceLists);
-            SelectedPriceList = OCPriceLists.FirstOrDefault();
-            OCProductVariations = new ObservableCollection<ProductBaseProductVariationModel>(Model.ProductVariationsLink);
-        }
-
-        private void SetProductPrices(int priceListId)
-        {
-            foreach (var product in OCProducts)
-            {
-                product.ChosenPrice = product.Prices
-                    .FirstOrDefault(p => p.PriceListId == priceListId);
-
-                if (product.ChosenPrice == null)
-                {
-                    product.ChosenPrice = new PriceModel
-                    {
-                        ProductId = product.ProductId,
-                        PriceListId = priceListId
-                    };
-
-                    product.Prices.Add(product.ChosenPrice);
-                }
-            }
+            SelectedPriceList = Model.PriceLists.FirstOrDefault();
         }
         #endregion
 
@@ -177,35 +128,26 @@ namespace FMS.WPF.ViewModels
             }
             else
             {
-                InitializeCollections();
+                InitializeSelections();
             }
         }
 
         private void OnEditModeChanged(bool isEditMode)
         {
-            _addProductCommmand.RaiseCanExecuteChanged();
-
             RaisePropertyChanged(nameof(IsVariationVisible));
-        }
 
-        private void OnProductSourceTypeChanged()
-        {
-            RaisePropertyChanged(nameof(IsPurchased));
-
-            OCProducts.ToList().ForEach(p => p.ProductSource = IsPurchased ? new ProductSourceModel() : null);
-        }
-
-        private void OnProductDestinationTypeChanged()
-        {
-            RaisePropertyChanged(nameof(IsForOutsource));
-
-            OCProducts.ToList().ForEach(p => p.ProductDestination = IsForOutsource ? new ProductDestinationModel() : null);
+            AddProductCommand.RaiseCanExecuteChanged();
+            CloseWorkspaceCommand.RaiseCanExecuteChanged();
         }
         #endregion
 
         #region IWorkspace
         public IWorkspaceManager WorkspaceManager { get; }
-        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
+        
+        private RelayCommand _closeWorkspaceCommand;
+        public RelayCommand CloseWorkspaceCommand => _closeWorkspaceCommand ?? 
+            (_closeWorkspaceCommand = new RelayCommand(() => WorkspaceManager.CloseWorkspace(this), () => CanCloseWorkspace));
+        public bool CanCloseWorkspace => !IsEditMode;
         #endregion
     }
 }

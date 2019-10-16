@@ -1,7 +1,6 @@
 ﻿using FMS.WPF.Models;
 using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.Utils;
-using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
@@ -69,7 +68,7 @@ namespace FMS.WPF.ViewModels
 
         #region IWorkspace
         public IWorkspaceManager WorkspaceManager { get; }
-        public ICommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
+        public RelayCommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
         #endregion
     }
 }
