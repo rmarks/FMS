@@ -6,5 +6,6 @@ namespace FMS.WPF.Application.Interface.Services
     {
         ProductBaseModel GetProductBaseModel(int productBaseId);
         int Save(ProductBaseModel model);
+        void Delete(int productBaseId);
     }
 }

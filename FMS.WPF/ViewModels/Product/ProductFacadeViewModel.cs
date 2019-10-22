@@ -3,22 +3,23 @@ using FMS.WPF.Application.Interface.Services;
 using FMS.WPF.Utils;
 using FMS.WPF.Helpers;
 using System.Linq;
+using FMS.WPF.Services;
 
 namespace FMS.WPF.ViewModels
 {
     public class ProductFacadeViewModel : GenericEditableViewModelBase2<ProductBaseModel>, IWorkspace
     {
         private readonly IProductFacadeService _service;
-        private readonly IViewModelFactory _viewModelFactory;
+        private readonly IDialogService _dialogService;
 
         public ProductFacadeViewModel(int productBaseId, 
                                       IWorkspaceManager workspaceManager,
                                       IProductFacadeService service,
-                                      IViewModelFactory viewModelFactory)
+                                      IDialogService dialogService)
         {
             WorkspaceManager = workspaceManager;
             _service = service;
-            _viewModelFactory = viewModelFactory;
+            _dialogService = dialogService;
 
             Initialize(productBaseId);
         }
@@ -66,6 +67,18 @@ namespace FMS.WPF.ViewModels
             RaisePropertyChanged(nameof(DisplayName));
 
             return true;
+        }
+
+        protected override bool ConfirmDelete()
+        {
+            return _dialogService.ShowMessageBox("Kas kustutame toote?", "Kustutamine", "YesNo");
+        }
+
+        protected override void DeleteItem(ProductBaseModel model)
+        {
+            _service.Delete(model.ProductBaseId);
+
+            ItemDeleted += () => CloseWorkspaceCommand.Execute(null);
         }
         #endregion
 

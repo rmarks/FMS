@@ -62,6 +62,23 @@ namespace FMS.WPF.Application.Services
 
             return productBase.ProductBaseId;
         }
+
+        public void Delete(int productBaseId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var productBase = context.ProductBases
+                    .Where(p => p.ProductBaseId == productBaseId)
+                    .Include(pb => pb.Products).ThenInclude(p => p.Prices)
+                    .Include(pb => pb.Products).ThenInclude(p => p.ProductSource)
+                    .Include(pb => pb.Products).ThenInclude(p => p.ProductDestination)
+                    .Include(pb => pb.ProductVariationsLink)
+                    .FirstOrDefault();
+
+                context.Remove(productBase);
+                context.SaveChanges();
+            }
+        }
         #endregion
 
         #region helpers
