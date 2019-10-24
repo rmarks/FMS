@@ -15,21 +15,24 @@
         </Grid.RowDefinitions>
 
         <!-- Taskbar -->
-        <controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
+        <!--<controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
                                   AddCommand="{Binding Path=AddCommand}"
                                   IsAddVisible="True"
                                   EditCommand="{Binding Path=EditCommand}"
                                   IsEditVisible="True"
                                   DeleteCommand="{Binding Path=DeleteCommand}"
                                   IsDeleteVisible="True"
-                                  IsEnabled="{Binding Path=IsEditMode}"/>
+                                  IsEnabled="{Binding Path=IsEditMode}"/>-->
 
         <!-- List -->
         <DataGrid Grid.Row="1" 
-                  ItemsSource="{Binding Path=Models}"
+                  ItemsSource="{Binding Path=Model.Contacts}"
                   SelectedItem="{Binding Path=SelectedModel}"
-                  Style="{StaticResource MainDataGridStyle}"
-                  Margin="10">
+                  Style="{StaticResource MainEditableDataGridStyle}"
+                  Margin="10"
+                  IsReadOnly="{Binding Path=DataContext.IsEditMode, 
+                                       RelativeSource={RelativeSource AncestorType=UserControl},
+                                       Converter={StaticResource InverseBooleanConverter}}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nimi" 
                                     Binding="{Binding Path=Name}" 

@@ -8,7 +8,7 @@
              d:DesignHeight="400" d:DesignWidth="1000">
 
     <Grid Margin="20">
-        <DataGrid ItemsSource="{Binding Path=Items}"
+        <DataGrid ItemsSource="{Binding Path=SalesOrders}"
                   SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}">
             <DataGrid.Columns>

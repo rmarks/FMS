@@ -27,7 +27,7 @@
                                   DeleteCommand="{Binding Path=DeleteCommand}"
                                   IsDeleteVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"/>
 
-        <TabControl Grid.Row="1" 
+        <!--<TabControl Grid.Row="1" 
                     ItemsSource="{Binding Path=CompanyTabs}"
                     SelectedItem="{Binding Path=SelectedTab}"
                     IsSynchronizedWithCurrentItem="True"
@@ -38,6 +38,29 @@
                                     FontSize="14"/>
                 </DataTemplate>
             </TabControl.ItemTemplate>
+        </TabControl>-->
+
+        <TabControl Grid.Row="1"
+                    Margin="4"
+                    FontSize="15">
+            <TabItem Header="Üldandmed">
+                <local:CompanyBasicsView/>
+            </TabItem>
+            <TabItem Header="Saajad"
+                     Visibility="{Binding Path=IsCustomer, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <local:CompanyAddressesView/>
+            </TabItem>
+            <TabItem Header="Kontaktid">
+                <local:CompanyContactsView/>
+            </TabItem>
+            <TabItem Header="Tellimused"
+                     Visibility="{Binding Path=IsCustomer, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <local:CompanySalesOrderListView/>
+            </TabItem>
+            <TabItem Header="Arved"
+                     Visibility="{Binding Path=IsCustomer, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <local:CompanySalesInvoiceListView/>
+            </TabItem>
         </TabControl>
         
     </Grid>

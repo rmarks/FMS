@@ -23,7 +23,7 @@ namespace FMS.WPF.ViewModels
 
         public void Load(CompanyModel model)
         {
-            Models = model.OCContacts;
+            Models = model.Contacts;
         }
 
         #region properties

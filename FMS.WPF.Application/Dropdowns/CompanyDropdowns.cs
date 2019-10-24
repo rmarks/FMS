@@ -31,6 +31,7 @@ namespace FMS.WPF.Application.Dropdowns
                 Locations = await GetLocationsAsync(context);
                 DeliveryTerms = await GetDeliveryTermsAsync(context);
                 PaymentTerms = await GetPaymentTermsAsync(context);
+                CompanyTypes = await GetCompanyTypesAsync(context);
             }
         }
 
@@ -41,6 +42,7 @@ namespace FMS.WPF.Application.Dropdowns
         public IList<LocationDropdownModel> Locations { get; set; }
         public IList<DeliveryTermDropdownModel> DeliveryTerms { get; set; }
         public IList<PaymentTermDropdownModel> PaymentTerms { get; set; }
+        public IList<CompanyTypeModel> CompanyTypes { get; set; }
         #endregion
 
         #region Helpers
@@ -95,6 +97,14 @@ namespace FMS.WPF.Application.Dropdowns
                 .AsNoTracking()
                 .OrderBy(p => p.PaymentDays)
                 .ProjectBetween<PaymentTerm, PaymentTermDropdownModel>()
+                .ToListAsync();
+        }
+
+        private async Task<IList<CompanyTypeModel>> GetCompanyTypesAsync(IDataContext context)
+        {
+            return await context.CompanyTypes
+                .AsNoTracking()
+                .ProjectBetween<CompanyType, CompanyTypeModel>()
                 .ToListAsync();
         }
         #endregion

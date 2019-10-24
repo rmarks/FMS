@@ -31,7 +31,7 @@ namespace FMS.WPF.ViewModels
         #region public methods
         public void Load(CompanyModel model)
         {
-            Models = model.OCAddresses;
+            Models = model.Addresses;
         }
         #endregion
 

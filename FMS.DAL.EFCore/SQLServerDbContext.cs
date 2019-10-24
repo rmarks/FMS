@@ -50,8 +50,8 @@ namespace FMS.DAL.EFCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<CompanyCompanyType>()
-                .HasKey(c => new { c.CompanyId, c.CompanyTypeId });
+            //modelBuilder.Entity<CompanyCompanyType>()
+            //    .HasKey(c => new { c.CompanyId, c.CompanyTypeId });
 
             //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             //{

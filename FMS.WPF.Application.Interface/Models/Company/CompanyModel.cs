@@ -22,22 +22,36 @@ namespace FMS.WPF.Models
         public bool IsVAT { get; set; }
         public DateTime? CreatedOn { get; set; }
         public CompanyAddressModel BillingAddress { get; set; }
-        public string CompanyTypesString { get; set; }
 
-        public List<CompanyAddressModel> Addresses { get; set; } = new List<CompanyAddressModel>();
-        public List<CompanyContactModel> Contacts { get; set; } = new List<CompanyContactModel>();
-
-        private ObservableCollection<CompanyAddressModel> _ocAddresses;
-        public ObservableCollection<CompanyAddressModel> OCAddresses =>
-            _ocAddresses ?? (_ocAddresses = new ObservableCollection<CompanyAddressModel>(Addresses));
-
-        private ObservableCollection<CompanyContactModel> _ocContacts;
-        public ObservableCollection<CompanyContactModel> OCContacts =>
-            _ocContacts ?? (_ocContacts = new ObservableCollection<CompanyContactModel>(Contacts));
+        public ObservableCollection<CompanyAddressModel> Addresses { get; set; } = new ObservableCollection<CompanyAddressModel>();
+        public ObservableCollection<CompanyContactModel> Contacts { get; set; } = new ObservableCollection<CompanyContactModel>();
+        public ObservableCollection<CompanyCompanyTypeModel> CompanyTypesLink { get; set; } = new ObservableCollection<CompanyCompanyTypeModel>();
         #endregion
 
         #region overrides
         public override bool IsNew => (CompanyId == 0);
+        #endregion
+
+        #region public methods
+        public void AddCompanyType(CompanyTypeModel model)
+        {
+            CompanyTypesLink.Add(new CompanyCompanyTypeModel
+            {
+                CompanyId = this.CompanyId,
+                CompanyTypeId = model.CompanyTypeId,
+                CompanyType = model
+            });
+
+            RaisePropertyChanged(nameof(AddableCompanyTypes));
+        }
+
+        public void RemoveCompanyType(CompanyCompanyTypeModel model)
+        {
+
+            CompanyTypesLink.Remove(model);
+
+            RaisePropertyChanged(nameof(AddableCompanyTypes));
+        }
         #endregion
 
         #region dropdowns
@@ -45,6 +59,11 @@ namespace FMS.WPF.Models
 
         public IList<PriceListDropdownModel> PriceLists =>
             Dropdowns?.PriceLists.Where(pl => pl.CurrencyCode == CurrencyCode || pl.CurrencyCode == null).ToList();
+
+        public List<CompanyTypeModel> AddableCompanyTypes => Dropdowns.CompanyTypes
+            .Where(ct => CompanyTypesLink.All(l => l.CompanyType.CompanyTypeId != ct.CompanyTypeId))
+            .Select(ct => ct)
+            .ToList();
         #endregion
     }
 }

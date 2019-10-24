@@ -1,6 +1,4 @@
-﻿using FMS.WPF.Application.Interface.Dropdowns;
-using System;
-using System.Linq;
+﻿using System;
 
 namespace FMS.WPF.Models
 {
@@ -8,19 +6,7 @@ namespace FMS.WPF.Models
     {
         #region model properties
         public int CompanyAddressId { get; set; }
-
-        private int _countryId;
-        public int CountryId
-        { 
-            get => _countryId;
-            set
-            {
-                _countryId = value;
-                CountryNameString = Dropdowns.Countries.FirstOrDefault(c => c.CountryId == _countryId)?.Name;
-            }
-        }
-
-        public string CountryNameString { get; set; }
+        public int CountryId { get; set; }
         public string County { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
@@ -33,10 +19,6 @@ namespace FMS.WPF.Models
 
         #region overrides
         public override bool IsNew => (CompanyAddressId == 0);
-        #endregion
-
-        #region dropdowns
-        public ICompanyDropdowns Dropdowns => CompanyDropdownsProxy.Instance;
         #endregion
     }
 }

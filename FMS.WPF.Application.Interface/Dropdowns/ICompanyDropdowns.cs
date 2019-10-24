@@ -11,6 +11,7 @@ namespace FMS.WPF.Application.Interface.Dropdowns
         IList<LocationDropdownModel> Locations { get; set; }
         IList<DeliveryTermDropdownModel> DeliveryTerms { get; set; }
         IList<PaymentTermDropdownModel> PaymentTerms { get; set; }
+        IList<CompanyTypeModel> CompanyTypes { get; set; }
 
         void InitializeAsync();
     }

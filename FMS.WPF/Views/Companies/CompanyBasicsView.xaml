@@ -13,6 +13,8 @@
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
         <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
         <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MainCheckBoxStyle}"/>
+        <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource MainListBoxStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
     </UserControl.Resources>
     
     <Grid>
@@ -84,10 +86,47 @@
 
             <!-- Third column -->
             <StackPanel Grid.Column="2" Margin="20">
-                <TextBlock Text="Tüüp"/>
-                <TextBox Text="{Binding Path=Model.CompanyTypesString}"
-                         IsEnabled="False"/>
+                <StackPanel HorizontalAlignment="Left"
+                            Orientation="Horizontal"
+                            Margin="0,0,0,0"
+                            Visibility="{Binding Path=IsEditMode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ComboBox ItemsSource="{Binding Path=Model.AddableCompanyTypes}" 
+                              DisplayMemberPath="Name" 
+                              SelectedItem="{Binding Path=SelectedAddableCompanyType}"
+                              MinWidth="120"/>
+                    <Button Content="Lisa"
+                            Command="{Binding Path=AddCompanyTypeCommand}"
+                            Margin="5,0"/>
+                    <Button Content="Eemalda"
+                            Command="{Binding Path=RemoveCompanyTypeCommand}"
+                            Margin="0"/>
+                </StackPanel>
                 
+                <TextBlock Text="Tüüp"/>
+                <ListBox ItemsSource="{Binding Path=Model.CompanyTypesLink}"
+                         SelectedItem="{Binding Path=SelectedCompanyType}"
+                         DisplayMemberPath="CompanyType.Name"
+                         MinHeight="30"/>
+                <!--<ListBox x:Name="MyListBoxName"
+                         ItemsSource="{Binding Path=Model.CompanyTypesLink}"
+                         MinHeight="30">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Path=CompanyType.Name}" />
+                                <Button Content="x"
+                                        DockPanel.Dock="Right"
+                                        Command="{Binding ElementName=MyListBoxName, 
+                                                          Path=DataContext.RemoveCompanyTypeCommand}" 
+                                        CommandParameter="{Binding }" 
+                                        Padding="5,0" Margin="5,0"
+                                        VerticalContentAlignment="Center"
+                                        HorizontalContentAlignment="Center"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>-->
+
                 <TextBlock Text="Valuuta"/>
                 <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.Currencies}" 
                           DisplayMemberPath="CurrencyCode" 

@@ -7,36 +7,51 @@
              xmlns:controls="clr-namespace:FMS.WPF.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="1000">
-    
+
+    <UserControl.Resources>
+        <FrameworkElement x:Key="ProxyElement"
+                          DataContext="{Binding}"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <ContentControl Visibility="Collapsed"
+                        Content="{StaticResource ProxyElement}"/>
+
         <!-- Taskbar -->
-        <controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
+        <!--<controls:EditableTaskbar Grid.Row="0" Margin="20,20,20,0"
                                   AddCommand="{Binding Path=AddCommand}"
                                   IsAddVisible="True"
                                   EditCommand="{Binding Path=EditCommand}"
                                   IsEditVisible="True"
                                   DeleteCommand="{Binding Path=DeleteCommand}"
                                   IsDeleteVisible="True"
-                                  IsEnabled="{Binding Path=IsEditMode}"/>
+                                  IsEnabled="{Binding Path=IsEditMode}"/>-->
 
         <!-- List -->
         <DataGrid Grid.Row="1" 
-                  ItemsSource="{Binding Path=Models}" 
+                  ItemsSource="{Binding Path=Model.Addresses}" 
                   SelectedItem="{Binding Path=SelectedModel}"
-                  Style="{StaticResource MainDataGridStyle}"
-                  Margin="10">
+                  Style="{StaticResource MainEditableDataGridStyle}"
+                  Margin="10"
+                  IsReadOnly="{Binding Path=DataContext.IsEditMode, 
+                                       RelativeSource={RelativeSource AncestorType=UserControl},
+                                       Converter={StaticResource InverseBooleanConverter}}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Saaja" 
                                     Binding="{Binding Path=Description}" 
                                     Width="3*"/>
-                <DataGridTextColumn Header="Riik" 
-                                    Binding="{Binding Path=CountryNameString}" 
-                                    Width="2*"/>
+                <DataGridComboBoxColumn Header="Riik" 
+                                        ItemsSource="{Binding Path=DataContext.Model.Dropdowns.Countries,
+                                                              Source={StaticResource ProxyElement}}"
+                                        DisplayMemberPath="Name"
+                                        SelectedValuePath="CountryId"
+                                        SelectedValueBinding="{Binding Path=CountryId}" 
+                                        Width="2*"/>
                 <DataGridTextColumn Header="Linn" 
                                     Binding="{Binding Path=City}" 
                                     Width="2*"/>

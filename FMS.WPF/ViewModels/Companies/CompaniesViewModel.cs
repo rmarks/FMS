@@ -1,6 +1,5 @@
 ﻿using FMS.WPF.Models;
 using FMS.WPF.Utils;
-using System.Windows.Input;
 
 namespace FMS.WPF.ViewModels
 {
@@ -20,6 +19,7 @@ namespace FMS.WPF.ViewModels
             CompanyFacadeViewModel.ItemSaved += (model) => CompanyListViewModel.Refresh(model.CompanyId);
             CompanyFacadeViewModel.ItemDeleted += () => CompanyListViewModel.Refresh();
             CompanyFacadeViewModel.ItemEditCancelled += CompanyFacadeViewModel_CompanyEditCancelled;
+            CompanyFacadeViewModel.EditModeChanged += CompanyFacadeViewModel_EditModeChanged;
 
             CompanyListViewModel.Load();
         }
@@ -30,11 +30,7 @@ namespace FMS.WPF.ViewModels
         public CompanyListViewModel CompanyListViewModel { get; }
         public CompanyFacadeViewModel CompanyFacadeViewModel { get; }
         public bool IsCompanyAvailable => CompanyListViewModel.SelectedItem != null;
-        #endregion
-
-        #region IWorkspace
-        public IWorkspaceManager WorkspaceManager { get; }
-        public RelayCommand CloseWorkspaceCommand => new RelayCommand(() => WorkspaceManager.CloseWorkspace(this));
+        public bool IsInEditMode { get; set; }
         #endregion
 
         #region event handlers
@@ -52,6 +48,20 @@ namespace FMS.WPF.ViewModels
         {
             CompanyFacadeViewModel.Load(CompanyListViewModel.SelectedItem.CompanyId);
         }
+
+        private void CompanyFacadeViewModel_EditModeChanged(bool isEditMode)
+        {
+            IsInEditMode = isEditMode;
+            CloseWorkspaceCommand.RaiseCanExecuteChanged();
+        }
+        #endregion
+
+        #region IWorkspace
+        public IWorkspaceManager WorkspaceManager { get; }
+        private RelayCommand _closeWorkspaceCommand;
+        public RelayCommand CloseWorkspaceCommand => _closeWorkspaceCommand ??
+            (_closeWorkspaceCommand = new RelayCommand(() => WorkspaceManager.CloseWorkspace(this), () => CanCloseWorkspace));
+        public bool CanCloseWorkspace => !IsInEditMode;
         #endregion
     }
 }

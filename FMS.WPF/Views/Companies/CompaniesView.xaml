@@ -95,33 +95,35 @@
         </Grid>
 
         <!--list-->
-        <DataGrid Grid.Row="1"
+        <Grid Grid.Row="1" 
+              IsEnabled="{Binding Path=IsInEditMode, Converter={StaticResource InverseBooleanConverter}}">
+            <DataGrid Grid.Row="1"
                   DataContext="{Binding Path=CompanyListViewModel}"
                   ItemsSource="{Binding Path=Items}"
                   SelectedItem="{Binding Path=SelectedItem}"
                   Style="{StaticResource MainDataGridStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id"
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id"
                                     Binding="{Binding Path=CompanyId}"
                                     Width="*"/>
-                <DataGridTextColumn Header="Nimi"
+                    <DataGridTextColumn Header="Nimi"
                                     Binding="{Binding Path=Name}"
                                     Width="3*"/>
-                <DataGridTextColumn Header="Liigitus"
+                    <DataGridTextColumn Header="Liigitus"
                                     Binding="{Binding Path=CompanyTypesString}"
                                     Width="2*"/>
-                <DataGridTextColumn Header="Riik"
+                    <DataGridTextColumn Header="Riik"
                                     Binding="{Binding Path=BillingAddress.CountryName}"
                                     Width="2*"/>
-                <DataGridTextColumn Header="Linn"
+                    <DataGridTextColumn Header="Linn"
                                     Binding="{Binding Path=BillingAddress.City}"
                                     Width="2*"/>
-                <DataGridTextColumn Header="Aadress"
+                    <DataGridTextColumn Header="Aadress"
                                     Binding="{Binding Path=BillingAddress.Address}"
                                     Width="3*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
         <!--<ContentControl Grid.Row="1"
                         Content="{Binding Path=CompanyListViewModel}"
                         Margin="10"/>-->
