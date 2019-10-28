@@ -26,6 +26,10 @@
         <Setter Property="Padding" Value="5"/>
     </Style>
 
+    <Style x:Key="MainOptionTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}">
+        <Setter Property="Margin" Value="0,5"/>
+    </Style>
+
     <Style x:Key="MainComboBoxStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="5"/>

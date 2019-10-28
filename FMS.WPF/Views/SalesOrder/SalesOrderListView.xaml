@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="FMS.WPF.Views.SalesOrderListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainOptionCaptionLabelStyle}"/>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainOptionTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainOptionComboBoxStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--list options-->
+        <Grid Grid.Row="0"
+              Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--First column-->
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="Tellimuse nr."/>
+            <TextBox Grid.Row="0" Grid.Column="1" 
+                     Text="{Binding Path=OptionsModel.OrderNo, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!--Second column-->
+            <Label Grid.Row="0" Grid.Column="2" 
+                   Content="Klient"/>
+            <TextBox Grid.Row="0" Grid.Column="3" 
+                     Text="{Binding Path=OptionsModel.CompanyName, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label Grid.Row="1" Grid.Column="2" 
+                   Content="Saaja"/>
+            <TextBox Grid.Row="1" Grid.Column="3" 
+                     Text="{Binding Path=OptionsModel.ShippingAddressDescription, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!--Third column-->
+            <Label Grid.Row="0" Grid.Column="4" 
+                   Content="Riik"/>
+            <ComboBox Grid.Row="0" Grid.Column="5" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.Countries}" 
+                      DisplayMemberPath="Name" 
+                      SelectedValuePath="CountryId"
+                      SelectedValue="{Binding Path=OptionsModel.CompanyCountryId}"/>
+
+            <!--Fourht column-->
+            <Label Grid.Row="0" Grid.Column="6" 
+                   Content="Olek"/>
+            <ComboBox Grid.Row="0" Grid.Column="7" 
+                      ItemsSource="{Binding Path=OptionsModel.Dropdowns.DocumentStates}" 
+                      DisplayMemberPath="StateName" 
+                      SelectedValuePath="IsClosed"
+                      SelectedValue="{Binding Path=OptionsModel.IsClosed}"/>
+
+            <!--Fifth column-->
+            <StackPanel Grid.Row="0" Grid.Column="8" Grid.RowSpan="3"
+                        VerticalAlignment="Center">
+                <Button Content="Otsi"
+                    Command="{Binding Path=RefreshCommand}"
+                    HorizontalAlignment="Center"/>
+                <Button Content="Tühjenda"
+                    Command="{Binding Path=ResetCommand}"
+                    HorizontalAlignment="Center"/>
+            </StackPanel>
+            
+        </Grid>
+
+        <!--list-->
+        <DataGrid Grid.Row="2" 
+                  ItemsSource="{Binding Path=Items}"
+                  SelectedItem="{Binding Path=SelectedItem}"
+                  Style="{StaticResource MainDataGridStyle}"
+                  Margin="20">
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick"
+                              Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
+                <KeyBinding Gesture="Enter"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=DataContext.OpenItemCommand}"/>
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tellimuse nr."
+                                    Binding="{Binding Path=OrderNo}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Klient"
+                                    Binding="{Binding Path=CompanyName}"
+                                    Width="3*"/>
+                <DataGridTextColumn Header="Saaja"
+                                    Binding="{Binding Path=ShippingAddressDescription}"
+                                    Width="3*"/>
+                <DataGridTextColumn Header="Kuupäev"
+                                    Binding="{Binding Path=OrderDate, StringFormat='\{0:dd.MM.yyyy\}'}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Tarneaeg"
+                                    Binding="{Binding Path=OrderDeliveryDate, StringFormat='\{0:dd.MM.yyyy\}'}"
+                                    Width="*"/>
+                <DataGridCheckBoxColumn Header="Suletud" 
+                                        Binding="{Binding Path=IsClosed}" 
+                                        Width="*"
+                                        HeaderStyle="{StaticResource MainDataGridColumnHeaderCenterStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--summary-->
+        <StackPanel Grid.Row="3" 
+                    Orientation="Horizontal" 
+                    Margin="20">
+            <TextBlock Text="Toodete arv: " 
+                       FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding Path=ItemsCount}" 
+                       FontWeight="SemiBold"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

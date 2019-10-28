@@ -43,6 +43,7 @@ namespace FMS.WPF
             CompanyDropdownsProxy.Instance = _container.Resolve<ICompanyDropdowns>();
             ProductDropdownsProxy.Instance = _container.Resolve<IProductDropdowns>();
             MaterialDropdownsProxy.Instance = _container.Resolve<IMaterialDropdowns>();
+            SalesOrderDropdownsProxy.Instance = _container.Resolve<ISalesOrderDropdowns>();
         }
         #endregion
     }

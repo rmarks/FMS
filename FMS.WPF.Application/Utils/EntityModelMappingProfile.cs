@@ -57,6 +57,10 @@ namespace FMS.WPF.Application.Utils
             CreateMap<PriceList, PriceListModel>();
             #endregion
 
+            #region salesorder
+            CreateMap<SalesOrder, SalesOrderListModel>();
+            #endregion
+
             #region dropdowns
             CreateMap<BusinessLine, BusinessLineDropdownModel>();
             CreateMap<ProductSourceType, ProductSourceTypeDropdownModel>();

@@ -91,6 +91,13 @@ namespace FMS.WPF.ViewModels
             CommandTreeItemViewModel commandMaterials =
                 new CommandTreeItemViewModel("Materjalid", new RelayCommand(() => WorkspaceManager.OpenWorkspace<MaterialsViewModel>()));
             groupPermanentData.CommandTreeItems.Add(commandMaterials);
+
+            CommandTreeGroupViewModel groupSale = new CommandTreeGroupViewModel("Müük");
+            Commands.Add(groupSale);
+
+            CommandTreeItemViewModel commandSalesOrders =
+                new CommandTreeItemViewModel("Müügitellimused", new RelayCommand(() => WorkspaceManager.OpenWorkspace<SalesOrderListViewModel>()));
+            groupSale.CommandTreeItems.Add(commandSalesOrders);
         }
 
         private void UpdateDataTransferDateTime(bool isOnlyClearNeeded = false)

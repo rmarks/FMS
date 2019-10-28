@@ -49,7 +49,12 @@
     <DataTemplate DataType="{x:Type vm:ProductFacadeViewModel}">
         <vw:ProductFacadeView/>
     </DataTemplate>
-    
+
+    <!--SalesOrders-->
+    <DataTemplate DataType="{x:Type vm:SalesOrderListViewModel}">
+        <vw:SalesOrderListView/>
+    </DataTemplate>
+
     <!--Materials-->
     <DataTemplate DataType="{x:Type vm:MaterialsViewModel}">
         <vw:MaterialsView/>
