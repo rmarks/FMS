@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="FMS.WPF.Views.MaterialView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainItemCaptionTextBlockStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" IsEnabled="{Binding Path=IsEditMode}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- First column -->
+            <StackPanel Grid.Column="0" Margin="20">
+                <TextBlock Text="Id"/>
+                <TextBox Text="{Binding Path=Model.MaterialId}"
+                         IsEnabled="False"/>
+
+                <TextBlock Text="Kood"/>
+                <TextBox Text="{Binding Path=Model.MaterialCode}"/>
+
+                <TextBlock Text="Nimetus"/>
+                <TextBox Text="{Binding Path=Model.MaterialName}"/>
+
+                <TextBlock Text="Sisestatud"/>
+                <TextBox Text="{Binding Path=Model.CreatedOn, StringFormat='\{0:dd.MM.yyyy\}'}"
+                         IsEnabled="False"/>
+            </StackPanel>
+
+            <!-- Second column -->
+            <StackPanel Grid.Column="1" Margin="20">
+                <TextBlock Text="Põhimaterjal"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.MaterialBases}" 
+                          DisplayMemberPath="MaterialBaseName" 
+                          SelectedValuePath="MaterialBaseId" 
+                          SelectedValue="{Binding Path=Model.MaterialBaseId}"/>
+
+                <TextBlock Text="Retsept"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.MaterialRecipes}" 
+                          DisplayMemberPath="MaterialRecipeName" 
+                          SelectedValuePath="MaterialRecipeId" 
+                          SelectedValue="{Binding Path=Model.MaterialRecipeId}"/>
+
+                <TextBlock Text="Kuju"/>
+                <ComboBox ItemsSource="{Binding Path=Model.Dropdowns.MaterialShapes}" 
+                          DisplayMemberPath="MaterialShapeName" 
+                          SelectedValuePath="MaterialShapeId" 
+                          SelectedValue="{Binding Path=Model.MaterialShapeId}"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>

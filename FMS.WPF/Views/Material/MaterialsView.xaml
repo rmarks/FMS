@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="FMS.WPF.Views.MaterialsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1400">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--list-->
+        <Grid Grid.Row="1" 
+              IsEnabled="{Binding Path=IsInEditMode, Converter={StaticResource InverseBooleanConverter}}">
+            <DataGrid Grid.Row="1"
+                  DataContext="{Binding Path=MaterialListViewModel}"
+                  ItemsSource="{Binding Path=Items}"
+                  SelectedItem="{Binding Path=SelectedItem}"
+                  Style="{StaticResource MainDataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id"
+                                    Binding="{Binding Path=MaterialId}"
+                                    Width="*"/>
+                    <DataGridTextColumn Header="Kood"
+                                    Binding="{Binding Path=MaterialCode}"
+                                    Width="*"/>
+                    <DataGridTextColumn Header="Nimi"
+                                    Binding="{Binding Path=MaterialName}"
+                                    Width="3*"/>
+                    <DataGridTextColumn Width="4*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <ContentControl Grid.Row="2" 
+                        Content="{Binding Path=MaterialViewModel}"
+                        Margin="10"
+                        Visibility="{Binding Path=IsMaterialVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    
+    </Grid>
+</UserControl>

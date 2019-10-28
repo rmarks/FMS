@@ -49,4 +49,13 @@
     <DataTemplate DataType="{x:Type vm:ProductFacadeViewModel}">
         <vw:ProductFacadeView/>
     </DataTemplate>
+    
+    <!--Materials-->
+    <DataTemplate DataType="{x:Type vm:MaterialsViewModel}">
+        <vw:MaterialsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:MaterialViewModel}">
+        <vw:MaterialView/>
+    </DataTemplate>
 </ResourceDictionary>
