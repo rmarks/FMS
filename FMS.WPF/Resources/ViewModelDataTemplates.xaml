@@ -55,6 +55,10 @@
         <vw:SalesOrderListView/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:SalesOrderViewModel}">
+        <vw:SalesOrderView/>
+    </DataTemplate>
+
     <!--Materials-->
     <DataTemplate DataType="{x:Type vm:MaterialsViewModel}">
         <vw:MaterialsView/>

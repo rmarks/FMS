@@ -31,7 +31,7 @@ namespace FMS.Domain.Model
         //----------------------------------
         //relationships
         public int CompanyId { get; set; }
-        public Company Company { get; set; }
+        //public Company Company { get; set; }
 
         public int CountryId { get; set; }
         public Country Country { get; set; }

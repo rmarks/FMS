@@ -19,6 +19,10 @@ namespace FMS.WPF.Utils
 
             CreateMap<PriceListModel, PriceListModel>();
             CreateMap<PriceModel, PriceModel>();
+
+            CreateMap<SalesOrderModel, SalesOrderModel>();
+            CreateMap<CustomerModel, CustomerModel>();
+            CreateMap<CustomerAddressModel, CustomerAddressModel>();
         }
     }
 }

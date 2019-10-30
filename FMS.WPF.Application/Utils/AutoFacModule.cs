@@ -19,6 +19,7 @@ namespace FMS.WPF.Application.Utils
                 .AsImplementedInterfaces();
 
             builder.RegisterType<DataTransferService>().As<IDataTransferService>();
+            builder.RegisterType<SalesOrderService>().As<ISalesOrderService>();
         }
     }
 }

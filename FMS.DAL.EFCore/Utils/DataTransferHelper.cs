@@ -22,7 +22,7 @@ namespace FMS.DAL.EFCore.Utils
             try
             {
                 var context = new SQLServerDbContext();
-                context.Database.SetCommandTimeout(5 * 60);
+                context.Database.SetCommandTimeout(10 * 60);
 
                 var sqlFiles = Directory.GetFiles(@"C:\Temp\juveel\scripts", "*.sql").OrderBy(x => x);
 

@@ -8,10 +8,10 @@
              d:DesignHeight="800" d:DesignWidth="1400">
 
     <UserControl.Resources>
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainOptionCaptionLabelStyle}"/>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainHeaderLabelStyle}"/>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
-        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainOptionTextBoxStyle}"/>
-        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainOptionComboBoxStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainHeaderTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainHeaderComboBoxStyle}"/>
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
     </UserControl.Resources>
     

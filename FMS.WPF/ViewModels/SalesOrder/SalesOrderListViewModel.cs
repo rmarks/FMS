@@ -33,6 +33,11 @@ namespace FMS.WPF.ViewModels
         {
             OptionsModel.Reset();
         }
+
+        protected override void OpenItem()
+        {
+            OpenWorkspace(SelectedItem.SalesOrderId);
+        }
         #endregion
 
         #region helpers
@@ -47,6 +52,11 @@ namespace FMS.WPF.ViewModels
         {
             Items = null;
             ItemsCount = null;
+        }
+
+        private void OpenWorkspace(int salesOrderId)
+        {
+            WorkspaceManager.OpenWorkspace<SalesOrderViewModel>(salesOrderId);
         }
         #endregion
 

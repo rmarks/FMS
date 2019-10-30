@@ -16,9 +16,9 @@
         <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
 
-    <Style x:Key="MainOptionCaptionLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MainLabelStyle}">
+    <Style x:Key="MainHeaderLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MainLabelStyle}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Margin" Value="20,0,20,0"/>
+        <Setter Property="Margin" Value="0,0,20,0"/>
     </Style>
 
     <Style x:Key="MainTextBoxStyle" TargetType="{x:Type TextBox}">
@@ -26,7 +26,7 @@
         <Setter Property="Padding" Value="5"/>
     </Style>
 
-    <Style x:Key="MainOptionTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}">
+    <Style x:Key="MainHeaderTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}">
         <Setter Property="Margin" Value="0,5"/>
     </Style>
 
@@ -35,7 +35,7 @@
         <Setter Property="Padding" Value="5"/>
     </Style>
 
-    <Style x:Key="MainOptionComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}">
+    <Style x:Key="MainHeaderComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainComboBoxStyle}">
         <Setter Property="Margin" Value="0,5"/>
     </Style>
 

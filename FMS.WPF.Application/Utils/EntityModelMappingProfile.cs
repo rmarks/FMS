@@ -59,6 +59,11 @@ namespace FMS.WPF.Application.Utils
 
             #region salesorder
             CreateMap<SalesOrder, SalesOrderListModel>();
+            CreateMap<SalesOrder, SalesOrderModel>();
+            CreateMap<SalesOrderLine, SalesOrderLineModel>();
+            CreateMap<CompanyAddress, CustomerAddressModel>();
+            CreateMap<Company, CustomerModel>()
+                .ForMember(d => d.Addresses, o => o.MapFrom(s => s.Addresses.OrderBy(a => a.Description)));
             #endregion
 
             #region dropdowns

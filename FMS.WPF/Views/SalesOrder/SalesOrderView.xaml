@@ -1,0 +1,429 @@
+﻿<UserControl x:Class="FMS.WPF.Views.SalesOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             xmlns:controls="clr-namespace:FMS.WPF.Controls"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainHeaderLabelStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainHeaderTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainHeaderComboBoxStyle}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
+
+        <Style x:Key="SumTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="IsEnabled" Value="False"/>
+        </Style>
+
+        <Style x:Key="SumLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MainLabelStyle}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        
+        <CollectionViewSource Source="{Binding Path=Lines}" x:Key="lines">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="ProductProductCode"/>
+                <scm:SortDescription PropertyName="LocationLocationName"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--buttons-->
+        <Grid Grid.Row="0"
+              Margin="10">
+            <controls:EditableTaskbar Margin="10,0"
+                                      EditCommand="{Binding Path=EditCommand}"
+                                      IsEditVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"
+                                      CancelCommand="{Binding Path=CancelCommand}"
+                                      IsCancelVisible="{Binding Path=IsEditMode}"
+                                      SaveCommand="{Binding Path=SaveCommand}"
+                                      IsSaveVisible="{Binding Path=IsEditMode}"
+                                      DeleteCommand="{Binding Path=DeleteCommand}"
+                                      IsDeleteVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"/>
+        </Grid>
+        
+        <!--header-->
+        <Grid Grid.Row="1"
+              Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--header first column-->
+            <Grid Grid.Column="0"
+                  Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Content="Klient"/>
+                <ComboBox Grid.Row="0" Grid.Column="2" 
+                          ItemsSource="{Binding Path=Model.Dropdowns.Customers}" 
+                          DisplayMemberPath="Name" 
+                          SelectedValuePath="CompanyId" 
+                          SelectedValue="{Binding Path=Model.CompanyId, ValidatesOnDataErrors=True}" 
+                          IsEnabled="{Binding Path=IsEditMode}"/>
+                <TextBox Grid.Row="1" Grid.Column="2" 
+                         Text="{Binding Path=Model.BillingAddress.AddressString, Mode=OneWay}"
+                         IsEnabled="False"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" 
+                       Content="Saaja"/>
+                <ComboBox Grid.Row="2" Grid.Column="2" 
+                          ItemsSource="{Binding Path=Model.ShipTos}" 
+                          DisplayMemberPath="Description" 
+                          SelectedValuePath="CompanyAddressId" 
+                          SelectedValue="{Binding Path=Model.ShippingAddressId, ValidatesOnDataErrors=True}" 
+                          IsEnabled="{Binding Path=IsEditMode}"/>
+                <TextBox Grid.Row="3" Grid.Column="2" 
+                         Text="{Binding Path=Model.ShippingAddress.AddressString, Mode=OneWay}"
+                         IsEnabled="False"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+
+            <!--header second column-->
+            <Grid Grid.Column="1"
+                  Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Content="Tellimuse nr."/>
+                <TextBox Grid.Row="0" Grid.Column="1" 
+                         Text="{Binding Path=Model.OrderNo, Mode=OneWay}" 
+                         IsEnabled="False"/>
+
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Content="Tellimuse kuupäev"
+                       Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" 
+                         Text="{Binding Path=Model.OrderDate, Mode=OneWay, StringFormat='\{0:dd.MM.yyyy\}'}"
+                         IsEnabled="False"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" 
+                       Content="Tellimuse tarneaeg"/>
+                <TextBox Grid.Row="2" Grid.Column="1" 
+                         Text="{Binding Path=Model.OrderDeliveryDate, ValidatesOnDataErrors=True, StringFormat='\{0:dd.MM.yyyy\}', TargetNullValue=''}" 
+                         IsEnabled="{Binding Path=IsEditMode}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" 
+                       Content="Kliendi tell. nr."
+                       Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" 
+                         Text="{Binding Path=Model.ClientOrderNo}" 
+                         IsEnabled="{Binding Path=IsEditMode}"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <Label Grid.Row="4" Grid.Column="0" 
+                       Content="Kliendi tell. kuup."
+                       Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Grid.Row="4" Grid.Column="1" 
+                         Text="{Binding Path=Model.ClientOrderDate, StringFormat='\{0:dd.MM.yyyy\}', TargetNullValue=''}" 
+                         IsEnabled="{Binding Path=IsEditMode}"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <Label Grid.Row="5" Grid.Column="0" 
+                       Content="Kliendi tarneaeg"
+                       Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Grid.Row="5" Grid.Column="2" 
+                         Text="{Binding Path=ClientOrderDeliveryDate, StringFormat='\{0:dd.MM.yyyy\}', TargetNullValue=''}"
+                         IsEnabled="{Binding Path=IsEditMode}"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+
+            <!--header third column-->
+            <Grid Grid.Column="2"
+                  Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Content="Ladu"
+                       Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" 
+                          ItemsSource="{Binding Path=Model.Dropdowns.Locations}" 
+                          DisplayMemberPath="LocationName" 
+                          SelectedValuePath="LocationId" 
+                          SelectedValue="{Binding Path=Model.LocationId, ValidatesOnDataErrors=True}"
+                          IsEnabled="{Binding Path=IsEditMode}"
+                          Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Content="Hinnakiri"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+                          ItemsSource="{Binding Path=Model.Dropdowns.PriceLists}" 
+                          DisplayMemberPath="PriceListName" 
+                          SelectedValuePath="PriceListId" 
+                          SelectedValue="{Binding Path=Model.PriceListId, ValidatesOnDataErrors=True}" 
+                          IsEnabled="{Binding Path=IsEditMode}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" 
+                       Content="Püsisoodustus"
+                       Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" 
+                         Text="{Binding Path=Model.FixedDiscountPercent, StringFormat={}{0}%}"
+                         IsEnabled="False"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+
+            <!--header fourth column-->
+            <Grid Grid.Column="3"
+                  Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Content="Tarnetingimus"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" 
+                          IsEditable="True" 
+                          IsTextSearchEnabled="True"
+                          ItemsSource="{Binding Path=Model.Dropdowns.DeliveryTerms}" 
+                          DisplayMemberPath="DeliveryTermName"
+                          Text="{Binding Path=Model.DeliveryTermName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                          IsEnabled="{Binding Path=IsEditMode}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Content="Maksetingimus"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+                          ItemsSource="{Binding Path=Model.Dropdowns.PaymentTerms}" 
+                          DisplayMemberPath="PaymentTermName" 
+                          SelectedValuePath="PaymentDays" 
+                          SelectedValue="{Binding Path=Model.PaymentDays}" 
+                          IsEnabled="{Binding Path=IsEditMode}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" 
+                       Content="Käibemaks"
+                       Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" 
+                         Text="{Binding Path=Model.VATPercent, StringFormat={}{0}%}"
+                         IsEnabled="False"
+                         Visibility="{Binding Path=IsExpandedMode, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+
+        </Grid>
+        
+        <!--lines-->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Source={StaticResource lines}}" 
+                  Style="{StaticResource MainDataGridStyle}"
+                  Margin="20">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ladu" 
+                                    Binding="{Binding Path=LocationLocationName}" 
+                                    Width="1.5*"/>
+                <DataGridTextColumn Header="Kood" 
+                                    Binding="{Binding Path=ProductProductCode}" 
+                                    Width="1.5*"/>
+                <DataGridTextColumn Header="Nimetus" 
+                                    Binding="{Binding Path=ProductProductName}" 
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Hind" 
+                                    Binding="{Binding Path=UnitPrice, StringFormat='\{0:F2\}'}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Ale%" 
+                                    Binding="{Binding Path=LineDiscountPercent, StringFormat=0;;#}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Kogus" 
+                                    Binding="{Binding Path=OrderedQuantity, StringFormat=0;;#}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Tarnitud" 
+                                    Binding="{Binding Path=InvoicedQuantity, StringFormat=0;;#}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Reserv." 
+                                    Binding="{Binding Path=ReservedQuantity, StringFormat=0;;#}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+                <DataGridTextColumn Header="Puudu" Binding="{Binding Path=MissingQuantity, StringFormat=0;;#}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--total quantities-->
+        <Grid Grid.Row="3"
+              Margin="20,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0"
+                   Content="Kogused kokku: "/>
+            <TextBox Grid.Column="1" 
+                     Text="{Binding Path=TotalOrderedQuantity, Mode=OneWay, StringFormat=0;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}"/>
+            <TextBox Grid.Column="2" 
+                     Text="{Binding Path=TotalInvoicedQuantity, Mode=OneWay, StringFormat=0;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="DarkGray"/>
+            <TextBox Grid.Column="3" 
+                     Text="{Binding Path=TotalReservedQuantity, Mode=OneWay, StringFormat=0;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Blue"/>
+            <TextBox Grid.Column="4" 
+                     Text="{Binding Path=TotalMissingQuantity, Mode=OneWay, StringFormat=0;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Red"/>
+        </Grid>
+
+        <!--total sums-->
+        <Border Grid.Row="4" 
+                Padding="0,10" 
+                Margin="0,10,0,0" 
+                Background="LightGray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <!--0-->
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <!--5-->
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <!--10-->
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" 
+                   Content="Summa km-ta: " 
+                   Style="{StaticResource SumLabelStyle}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" 
+                     Text="{Binding Path=OrderedSum, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}"/>
+                <TextBox Grid.Row="1" Grid.Column="2" 
+                     Text="{Binding Path=InvoicedSum, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="DarkGray"/>
+                <TextBox Grid.Row="1" Grid.Column="3" 
+                     Text="{Binding Path=ReservedSum, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Blue"/>
+                <TextBox Grid.Row="1" Grid.Column="4" 
+                     Text="{Binding Path=MissingSum, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Red"/>
+
+                <Label Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="2" 
+                   Content="Summa alega: " 
+                   Style="{StaticResource SumLabelStyle}"/>
+                <TextBox Grid.Row="1" Grid.Column="6" 
+                     Text="{Binding Path=OrderedSumWithDiscount, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}"/>
+                <TextBox Grid.Row="1" Grid.Column="7" 
+                     Text="{Binding Path=InvoicedSumWithDiscount, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="DarkGray"/>
+                <TextBox Grid.Row="1" Grid.Column="8" 
+                     Text="{Binding Path=ReservedSumWithDiscount, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Blue"/>
+                <TextBox Grid.Row="1" Grid.Column="9" 
+                     Text="{Binding Path=MissingSumWithDiscount, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Red"/>
+
+                <Label Grid.Row="0" Grid.Column="11" Grid.ColumnSpan="2" 
+                   Content="Summa km-ga: " 
+                   Style="{StaticResource SumLabelStyle}"/>
+                <TextBox Grid.Row="1" Grid.Column="11" 
+                     Text="{Binding Path=OrderedSumWithVAT, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}"/>
+                <TextBox Grid.Row="1" Grid.Column="12" 
+                     Text="{Binding Path=InvoicedSumWithVAT, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="DarkGray"/>
+                <TextBox Grid.Row="1" Grid.Column="13" 
+                     Text="{Binding Path=ReservedSumWithVAT, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Blue"/>
+                <TextBox Grid.Row="1" Grid.Column="14" 
+                     Text="{Binding Path=MissingSumWithVAT, Mode=OneWay, StringFormat=0.00;;#}" 
+                     Style="{StaticResource SumTextBoxStyle}" 
+                     Foreground="Red"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

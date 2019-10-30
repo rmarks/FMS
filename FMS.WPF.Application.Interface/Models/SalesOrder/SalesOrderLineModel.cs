@@ -1,27 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace FMS.Domain.Model
+﻿namespace FMS.WPF.Models
 {
-    public class SalesOrderLine
+    public class SalesOrderLineModel
     {
         public int SalesOrderLineId { get; set; }
 
         public int SalesOrderId { get; set; }
+        
         public int LocationId { get; set; }
-        public int ProductId { get; set; }
+        public string LocationLocationName { get; set; }
 
-        [Column(TypeName = "decimal(9,2)")]
+        public int ProductId { get; set; }
+        public string ProductProductCode { get; set; }
+        public string ProductProductName { get; set; }
+
         public decimal UnitPrice { get; set; }
         public int LineDiscountPercent { get; set; }
 
         public int OrderedQuantity { get; set; }
         public int InvoicedQuantity { get; set; }
         public int ReservedQuantity { get; set; }
-
-        //-------------------------------------
-        //relationships
-        public SalesOrder SalesOrder { get; set; }
-        public Location Location { get; set; }
-        public Product Product { get; set; }
+        public int MissingQuantity => OrderedQuantity - InvoicedQuantity - ReservedQuantity;
     }
 }

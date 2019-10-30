@@ -9,8 +9,8 @@
 
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainTextBoxStyle}"/>
-        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainOptionComboBoxStyle}"/>
-        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainOptionCaptionLabelStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainHeaderComboBoxStyle}"/>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainHeaderLabelStyle}"/>
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MainButtonStyle}"/>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MainTextBlockStyle}"/>
     </UserControl.Resources>

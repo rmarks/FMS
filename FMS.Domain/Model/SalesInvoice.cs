@@ -14,8 +14,8 @@ namespace FMS.Domain.Model
         public DateTime InvoiceDate { get; set; }
 
         public int CompanyId { get; set; }
-        public int BillingAddressId { get; set; }
-        public int ShippingAddressId { get; set; }
+        public int? BillingAddressId { get; set; }
+        public int? ShippingAddressId { get; set; }
 
         [MaxLength(50)]
         public string DeliveryTermName { get; set; }
