@@ -20,19 +20,25 @@ namespace FMS.Domain.Model
         public DateTime? ClientOrderDeliveryDate { get; set; }
 
         public int CompanyId { get; set; }
+        public Company Company { get; set; }
+        
         public int? BillingAddressId { get; set; }
+        [ForeignKey(nameof(BillingAddressId))]
+        public CompanyAddress BillingAddress { get; set; }
+
         public int? ShippingAddressId { get; set; }
+        [ForeignKey(nameof(ShippingAddressId))]
+        public CompanyAddress ShippingAddress { get; set; }
+
+        public int? DeliveryLocationId { get; set; }
 
         public int LocationId { get; set; }
-
         [Required, MaxLength(3)]
         public string CurrencyCode { get; set; }
         public int PriceListId { get; set; }
-
         [MaxLength(50)]
         public string DeliveryTermName { get; set; }
         public int PaymentDays { get; set; }
-
         public int FixedDiscountPercent { get; set; }
         public int VATPercent { get; set; }
 
@@ -41,18 +47,5 @@ namespace FMS.Domain.Model
         public DateTime? CreatedOn { get; set; }
 
         public List<SalesOrderLine> SalesOrderLines { get; set; } = new List<SalesOrderLine>();
-
-        //----------------------------------
-        //relationships
-        public Company Company { get; set; }
-
-        [ForeignKey(nameof(BillingAddressId))]
-        public CompanyAddress BillingAddress { get; set; }
-
-        [ForeignKey(nameof(ShippingAddressId))]
-        public CompanyAddress ShippingAddress { get; set; }
-
-        public PriceList PriceList { get; set; }
-        //public Location Location { get; set; }
     }
 }

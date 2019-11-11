@@ -16,12 +16,18 @@ namespace FMS.DAL.EFCore
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<DeliveryTerm> DeliveryTerms { get; set; }
         public DbSet<PaymentTerm> PaymentTerms { get; set; }
+        public DbSet<SalesOrderType> SalesOrderTypes { get; set; }
         public DbSet<SalesOrder> SalesOrders { get; set; }
         public DbSet<SalesOrderLine> SalesOrderLines { get; set; }
-        public DbSet<SalesInvoice> SalesInvoices { get; set; }
-        public DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
+        public DbSet<DeliveryType> DeliveryTypes { get; set; }
+        public DbSet<DeliveryHeader> DeliveryHeaders { get; set; }
+        public DbSet<DeliveryLine> DeliveryLines { get; set; }
+        public DbSet<SalesType> SalesTypes { get; set; }
+        public DbSet<SalesHeader> SalesHeaders { get; set; }
+        public DbSet<SalesLine> SalesLines { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
         public DbSet<Price> Prices { get; set; }
+        public DbSet<LocationType> LocationTypes { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<ProductBase> ProductBases { get; set; }
         public DbSet<Product> Products { get; set; }

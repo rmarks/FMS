@@ -91,10 +91,10 @@ namespace FMS.WPF.Application.Services
 
             using (var context = _contextFactory.CreateContext())
             {
-                return await context.SalesInvoices
+                return await context.SalesHeaders
                     .AsNoTracking()
                     .Where(o => o.CompanyId == companyId)
-                    .OrderByDescending(o => o.InvoiceNo)
+                    .OrderByDescending(o => o.DocNo)
                     .MapToModel()
                     .ToListAsync();
             }

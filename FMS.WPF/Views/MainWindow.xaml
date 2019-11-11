@@ -86,7 +86,8 @@
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type vm:CommandTreeItemViewModel}">
                                 <TreeViewItem FontSize="18" 
-                                              Margin="-40,2">
+                                              Margin="-40,2"
+                                              IsEnabled="{Binding Path=IsEnabled}">
                                     <TreeViewItem.Header>
                                         <Hyperlink Command="{Binding Path=Command}">
                                             <TextBlock Text="{Binding Path=DisplayName}"/>

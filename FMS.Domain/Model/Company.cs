@@ -13,36 +13,27 @@ namespace FMS.Domain.Model
 
         [MaxLength(20)]
         public string VATNo { get; set; }
-
         [MaxLength(20)]
         public string RegNo { get; set; }
 
+        public int? LocationId { get; set; }
         [Required, MaxLength(3)]
         public string CurrencyCode { get; set; }
-
-        public int PaymentDays { get; set; }
-
-        [MaxLength(50)]
+        public int? PriceListId { get; set; }
         public string DeliveryTermName { get; set; }
-
+        public int PaymentDays { get; set; }
+        [MaxLength(50)]
         public int FixedDiscountPercent { get; set; }
-
         public bool IsVAT { get; set; }
 
         public DateTime? CreatedOn { get; set; }
 
         //-----------------------------------------
         //relationships
-        public int? PriceListId { get; set; }
-        public PriceList PriceList { get; set; }
-
-        public int? LocationId { get; set; }
-        public Location Location { get; set;}
-
         public List<CompanyAddress> Addresses { get; set; }
         public List<Contact> Contacts { get; set; }
         public List<SalesOrder> SalesOrders { get; set; }
-        public List<SalesInvoice> SalesInvoices { get; set; }
+        public List<SalesHeader> SalesInvoices { get; set; }
         public List<CompanyCompanyType> CompanyTypesLink { get; set; }
 
         //--------------------------------------

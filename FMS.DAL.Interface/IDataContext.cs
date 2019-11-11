@@ -16,13 +16,19 @@ namespace FMS.DAL.Interfaces
         DbSet<Currency> Currencies { get; set; }
         DbSet<DeliveryTerm> DeliveryTerms { get; set; }
         DbSet<PaymentTerm> PaymentTerms { get; set; }
+        DbSet<SalesOrderType> SalesOrderTypes { get; set; }
         DbSet<SalesOrder> SalesOrders { get; set; }
         DbSet<SalesOrderLine> SalesOrderLines { get; set; }
-        DbSet<SalesInvoice> SalesInvoices { get; set; }
-        DbSet<SalesInvoiceLine> SalesInvoiceLines { get; set; }
+        DbSet<DeliveryType> DeliveryTypes { get; set; }
+        DbSet<DeliveryHeader> DeliveryHeaders { get; set; }
+        DbSet<DeliveryLine> DeliveryLines { get; set; }
+        DbSet<SalesType> SalesTypes { get; set; }
+        DbSet<SalesHeader> SalesHeaders { get; set; }
+        DbSet<SalesLine> SalesLines { get; set; }
         DbSet<PriceList> PriceLists { get; set; }
         DbSet<Price> Prices { get; set; }
         DbSet<Location> Locations { get; set; }
+        DbSet<LocationType> LocationTypes { get; set; }
         DbSet<ProductBase> ProductBases { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<ProductSourceType> ProductSourceTypes { get; set; }

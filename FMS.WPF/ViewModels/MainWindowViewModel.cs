@@ -79,6 +79,66 @@ namespace FMS.WPF.ViewModels
         #region helpers
         private void CreateCommands()
         {
+            //sale
+            CommandTreeGroupViewModel groupSale = new CommandTreeGroupViewModel("Müük");
+            Commands.Add(groupSale);
+
+            CommandTreeItemViewModel commandSalesOrders =
+                new CommandTreeItemViewModel("Müügitellimused", new RelayCommand(() => WorkspaceManager.OpenWorkspace<SalesOrderListViewModel>()));
+            groupSale.CommandTreeItems.Add(commandSalesOrders);
+
+            //purchase
+            CommandTreeGroupViewModel groupPurchase = new CommandTreeGroupViewModel("Ost");
+            Commands.Add(groupPurchase);
+
+            CommandTreeItemViewModel commandPurchaseDeliveryNotes =
+                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
+            commandPurchaseDeliveryNotes.IsEnabled = false;
+            groupPurchase.CommandTreeItems.Add(commandPurchaseDeliveryNotes);
+
+            //warehouses
+            CommandTreeGroupViewModel groupWarehouses = new CommandTreeGroupViewModel("Valmiskaubalaod");
+            Commands.Add(groupWarehouses);
+
+            CommandTreeItemViewModel commandWarehouses =
+                new CommandTreeItemViewModel("Valmiskaubalaod", new RelayCommand(() => { }));
+            commandWarehouses.IsEnabled = false;
+            groupWarehouses.CommandTreeItems.Add(commandWarehouses);
+
+            CommandTreeItemViewModel commandDeliveryNotes =
+                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
+            commandDeliveryNotes.IsEnabled = false;
+            groupWarehouses.CommandTreeItems.Add(commandDeliveryNotes);
+
+            //stores
+            CommandTreeGroupViewModel groupStores = new CommandTreeGroupViewModel("Poed");
+            Commands.Add(groupStores);
+
+            CommandTreeItemViewModel commandStores =
+                new CommandTreeItemViewModel("Poed", new RelayCommand(() => { }));
+            commandStores.IsEnabled = false;
+            groupStores.CommandTreeItems.Add(commandStores);
+
+            CommandTreeItemViewModel commandStoreDeliveryNotes =
+                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
+            commandStoreDeliveryNotes.IsEnabled = false;
+            groupStores.CommandTreeItems.Add(commandStoreDeliveryNotes);
+
+            //commission sale
+            CommandTreeGroupViewModel groupCommissionSale = new CommandTreeGroupViewModel("Komisjonimüük");
+            Commands.Add(groupCommissionSale);
+
+            CommandTreeItemViewModel commandCommissionWarehouses =
+                new CommandTreeItemViewModel("Komisjonilaod", new RelayCommand(() => { }));
+            commandCommissionWarehouses.IsEnabled = false;
+            groupCommissionSale.CommandTreeItems.Add(commandCommissionWarehouses);
+
+            CommandTreeItemViewModel commandCommissionDeliveryNotes =
+                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
+            commandCommissionDeliveryNotes.IsEnabled = false;
+            groupCommissionSale.CommandTreeItems.Add(commandCommissionDeliveryNotes);
+
+            //permanent data
             CommandTreeGroupViewModel groupPermanentData = new CommandTreeGroupViewModel("Püsiandmed");
             Commands.Add(groupPermanentData);
 
@@ -91,13 +151,6 @@ namespace FMS.WPF.ViewModels
             CommandTreeItemViewModel commandMaterials =
                 new CommandTreeItemViewModel("Materjalid", new RelayCommand(() => WorkspaceManager.OpenWorkspace<MaterialsViewModel>()));
             groupPermanentData.CommandTreeItems.Add(commandMaterials);
-
-            CommandTreeGroupViewModel groupSale = new CommandTreeGroupViewModel("Müük");
-            Commands.Add(groupSale);
-
-            CommandTreeItemViewModel commandSalesOrders =
-                new CommandTreeItemViewModel("Müügitellimused", new RelayCommand(() => WorkspaceManager.OpenWorkspace<SalesOrderListViewModel>()));
-            groupSale.CommandTreeItems.Add(commandSalesOrders);
         }
 
         private void UpdateDataTransferDateTime(bool isOnlyClearNeeded = false)
