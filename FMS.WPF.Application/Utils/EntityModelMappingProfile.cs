@@ -57,13 +57,17 @@ namespace FMS.WPF.Application.Utils
             CreateMap<PriceList, PriceListModel>();
             #endregion
 
-            #region salesorder
+            #region sales order
             CreateMap<SalesOrder, SalesOrderListModel>();
             CreateMap<SalesOrder, SalesOrderModel>();
             CreateMap<SalesOrderLine, SalesOrderLineModel>();
             CreateMap<CompanyAddress, CustomerAddressModel>();
             CreateMap<Company, CustomerModel>()
                 .ForMember(d => d.Addresses, o => o.MapFrom(s => s.Addresses.OrderBy(a => a.Description)));
+            #endregion
+
+            #region delivery notes
+            CreateMap<DeliveryHeader, DeliveryNoteListModel>();
             #endregion
 
             #region dropdowns
@@ -84,6 +88,8 @@ namespace FMS.WPF.Application.Utils
             CreateMap<Location, LocationDropdownModel>();
             CreateMap<DeliveryTerm, DeliveryTermDropdownModel>();
             CreateMap<PaymentTerm, PaymentTermDropdownModel>();
+
+            CreateMap<LocationType, LocationTypeDropdownModel>();
             #endregion
         }
     }

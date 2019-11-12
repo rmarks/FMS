@@ -58,6 +58,11 @@
     <DataTemplate DataType="{x:Type vm:SalesOrderViewModel}">
         <vw:SalesOrderView/>
     </DataTemplate>
+    
+    <!--DeliveryNotes-->
+    <DataTemplate DataType="{x:Type vm:DeliveryNoteListViewModel}">
+        <vw:DeliveryNoteListView/>
+    </DataTemplate>
 
     <!--Materials-->
     <DataTemplate DataType="{x:Type vm:MaterialsViewModel}">

@@ -1,11 +1,9 @@
 ﻿using FMS.WPF.Application.Interface.Dropdowns;
-using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace FMS.WPF.Models
 {
-    public class SalesOrderListOptionsModel : ModelBase
+    public class SalesOrderListOptionsModel : OptionsModelBase
     {
         #region options
         public string OrderNo { get; set; }
@@ -24,25 +22,6 @@ namespace FMS.WPF.Models
 
         #region dropdowns
         public ISalesOrderDropdowns Dropdowns => SalesOrderDropdownsProxy.Instance;
-        #endregion
-
-        #region options change notification and reset
-        public void Reset()
-        {
-            GetType().GetProperties()
-                //.Where(pi => pi.PropertyType == typeof(int?) || pi.PropertyType == typeof(string))
-                .Where(pi => pi.CanWrite)
-                .ToList()
-                .ForEach(pi => pi.SetValue(this, null));
-        }
-
-        public event Action OptionChanged;
-
-        public override void RaisePropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.RaisePropertyChanged(propertyName);
-            OptionChanged?.Invoke();
-        }
         #endregion
     }
 }

@@ -1,12 +1,10 @@
 ﻿using FMS.WPF.Application.Interface.Dropdowns;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace FMS.WPF.Models
 {
-    public class ProductListOptionsModel : ModelBase
+    public class ProductListOptionsModel : OptionsModelBase
     {
         #region options
         public int? BusinessLineId { get; set; }
@@ -42,23 +40,5 @@ namespace FMS.WPF.Models
         public IList<ProductDesignDropdownModel> ProductDesigns =>
             Dropdowns.ProductDesigns.Where(pd => pd.ProductCollectionId == ProductCollectionId || pd.ProductCollectionId == null).ToList();
         #endregion dropdowns
-
-        #region options change notification and reset
-        public void Reset()
-        {
-            GetType().GetProperties()
-                .Where(pi => pi.PropertyType == typeof(int?))
-                .ToList()
-                .ForEach(pi => pi.SetValue(this, null));
-        }
-
-        public event Action OptionChanged;
-
-        public override void RaisePropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.RaisePropertyChanged(propertyName);
-            OptionChanged?.Invoke();
-        }
-        #endregion
     }
 }

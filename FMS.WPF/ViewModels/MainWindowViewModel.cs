@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Threading.Tasks;
 using System;
 using System.Configuration;
+using FMS.WPF.Strategies;
 
 namespace FMS.WPF.ViewModels
 {
@@ -91,10 +92,18 @@ namespace FMS.WPF.ViewModels
             CommandTreeGroupViewModel groupPurchase = new CommandTreeGroupViewModel("Ost");
             Commands.Add(groupPurchase);
 
-            CommandTreeItemViewModel commandPurchaseDeliveryNotes =
-                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
-            commandPurchaseDeliveryNotes.IsEnabled = false;
-            groupPurchase.CommandTreeItems.Add(commandPurchaseDeliveryNotes);
+            CommandTreeSubGroupViewModel subGroupPurchaseDeliveryNotes = new CommandTreeSubGroupViewModel("Saatelehed");
+            groupPurchase.CommandTreeItems.Add(subGroupPurchaseDeliveryNotes);
+
+            CommandTreeItemViewModel commandInboundPurchaseDeliveryNotes =
+                new CommandTreeItemViewModel("Sissetulekud", new RelayCommand(() => 
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new InboundPurchaseDeliveryStrategy())));
+            subGroupPurchaseDeliveryNotes.CommandTreeItems.Add(commandInboundPurchaseDeliveryNotes);
+
+            CommandTreeItemViewModel commandOutboundPurchaseDeliveryNotes =
+                new CommandTreeItemViewModel("Väljaminekud", new RelayCommand(() =>
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new OutboundPurchaseDeliveryStrategy())));
+            subGroupPurchaseDeliveryNotes.CommandTreeItems.Add(commandOutboundPurchaseDeliveryNotes);
 
             //warehouses
             CommandTreeGroupViewModel groupWarehouses = new CommandTreeGroupViewModel("Valmiskaubalaod");
@@ -105,10 +114,18 @@ namespace FMS.WPF.ViewModels
             commandWarehouses.IsEnabled = false;
             groupWarehouses.CommandTreeItems.Add(commandWarehouses);
 
-            CommandTreeItemViewModel commandDeliveryNotes =
-                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
-            commandDeliveryNotes.IsEnabled = false;
-            groupWarehouses.CommandTreeItems.Add(commandDeliveryNotes);
+            CommandTreeSubGroupViewModel subGroupDeliveryNotes = new CommandTreeSubGroupViewModel("Saatelehed");
+            groupWarehouses.CommandTreeItems.Add(subGroupDeliveryNotes);
+
+            CommandTreeItemViewModel commandInboundDeliveryNotes =
+                new CommandTreeItemViewModel("Sissetulekud", new RelayCommand(() => 
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new InboundWarehouseDeliveryStrategy())));
+            subGroupDeliveryNotes.CommandTreeItems.Add(commandInboundDeliveryNotes);
+
+            CommandTreeItemViewModel commandOutboundDeliveryNotes =
+                new CommandTreeItemViewModel("Väljaminekud", new RelayCommand(() =>
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new OutboundWarehouseDeliveryStrategy())));
+            subGroupDeliveryNotes.CommandTreeItems.Add(commandOutboundDeliveryNotes);
 
             //stores
             CommandTreeGroupViewModel groupStores = new CommandTreeGroupViewModel("Poed");
@@ -119,10 +136,18 @@ namespace FMS.WPF.ViewModels
             commandStores.IsEnabled = false;
             groupStores.CommandTreeItems.Add(commandStores);
 
-            CommandTreeItemViewModel commandStoreDeliveryNotes =
-                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
-            commandStoreDeliveryNotes.IsEnabled = false;
-            groupStores.CommandTreeItems.Add(commandStoreDeliveryNotes);
+            CommandTreeSubGroupViewModel subGroupStoreDeliveryNotes = new CommandTreeSubGroupViewModel("Saatelehed");
+            groupStores.CommandTreeItems.Add(subGroupStoreDeliveryNotes);
+
+            CommandTreeItemViewModel commandInboundStoreDeliveryNotes =
+                new CommandTreeItemViewModel("Sissetulekud", new RelayCommand(() => 
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new InboundStoreDeliveryStrategy())));
+            subGroupStoreDeliveryNotes.CommandTreeItems.Add(commandInboundStoreDeliveryNotes);
+
+            CommandTreeItemViewModel commandOutboundStoreDeliveryNotes =
+                new CommandTreeItemViewModel("Väljaminekud", new RelayCommand(() => 
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new OutboundStoreDeliveryStrategy())));
+            subGroupStoreDeliveryNotes.CommandTreeItems.Add(commandOutboundStoreDeliveryNotes);
 
             //commission sale
             CommandTreeGroupViewModel groupCommissionSale = new CommandTreeGroupViewModel("Komisjonimüük");
@@ -133,10 +158,18 @@ namespace FMS.WPF.ViewModels
             commandCommissionWarehouses.IsEnabled = false;
             groupCommissionSale.CommandTreeItems.Add(commandCommissionWarehouses);
 
-            CommandTreeItemViewModel commandCommissionDeliveryNotes =
-                new CommandTreeItemViewModel("Saatelehed", new RelayCommand(() => { }));
-            commandCommissionDeliveryNotes.IsEnabled = false;
-            groupCommissionSale.CommandTreeItems.Add(commandCommissionDeliveryNotes);
+            CommandTreeSubGroupViewModel subGroupCommissionDeliveryNotes = new CommandTreeSubGroupViewModel("Saatelehed");
+            groupCommissionSale.CommandTreeItems.Add(subGroupCommissionDeliveryNotes);
+
+            CommandTreeItemViewModel commandInboundCommissionDeliveryNotes =
+                new CommandTreeItemViewModel("Sissetulekud", new RelayCommand(() => 
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new InboundCommissionDeliveryStrategy())));
+            subGroupCommissionDeliveryNotes.CommandTreeItems.Add(commandInboundCommissionDeliveryNotes);
+
+            CommandTreeItemViewModel commandOutboundCommissionDeliveryNotes =
+                new CommandTreeItemViewModel("Väljaminekud", new RelayCommand(() =>
+                    WorkspaceManager.OpenWorkspace<DeliveryNoteListViewModel, IDeliveryStrategy>(new OutboundCommissionDeliveryStrategy())));
+            subGroupCommissionDeliveryNotes.CommandTreeItems.Add(commandOutboundCommissionDeliveryNotes);
 
             //permanent data
             CommandTreeGroupViewModel groupPermanentData = new CommandTreeGroupViewModel("Püsiandmed");

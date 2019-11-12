@@ -12,6 +12,8 @@ namespace FMS.WPF.Utils
 
         void OpenWorkspace<T>(int id = 0) where T : ViewModelBase, IWorkspace;
 
+        void OpenWorkspace<T, P>(P param) where T : ViewModelBase, IWorkspace;
+
         void CloseWorkspace(IWorkspace workspace);
     }
 }

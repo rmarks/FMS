@@ -84,9 +84,16 @@
                                               IsExpanded="True"
                                               Margin="-20,10,0,0"/>
                             </DataTemplate>
+                            <DataTemplate DataType="{x:Type vm:CommandTreeSubGroupViewModel}">
+                                <TreeViewItem Header="{Binding Path=DisplayName}"
+                                              ItemsSource="{Binding Path=CommandTreeItems}"
+                                              IsExpanded="False"
+                                              FontSize="18"
+                                              Margin="-30,2,0,0"/>
+                            </DataTemplate>
                             <DataTemplate DataType="{x:Type vm:CommandTreeItemViewModel}">
                                 <TreeViewItem FontSize="18" 
-                                              Margin="-40,2"
+                                              Margin="-30,2,0,0"
                                               IsEnabled="{Binding Path=IsEnabled}">
                                     <TreeViewItem.Header>
                                         <Hyperlink Command="{Binding Path=Command}">

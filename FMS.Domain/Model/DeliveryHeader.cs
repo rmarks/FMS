@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FMS.Domain.Model
 {
@@ -14,9 +15,13 @@ namespace FMS.Domain.Model
         public DateTime DocDate { get; set; }
         
         public int? FromLocationId { get; set; }
+        [ForeignKey(nameof(FromLocationId))]
+        public Location FromLocation { get; set; }
         public bool IsDelivered { get; set; }
 
         public int? ToLocationId { get; set; }
+        [ForeignKey(nameof(ToLocationId))]
+        public Location ToLocation { get; set; }
         public bool IsReceived { get; set; }
 
         public int? SalesOrderId { get; set; }

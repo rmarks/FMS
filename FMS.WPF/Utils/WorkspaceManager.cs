@@ -24,6 +24,24 @@ namespace FMS.WPF.Utils
         {
             var newWs = _viewModelFactory.CreateInstance<T>(id);
 
+            SelectOrOpenWorkspace(newWs);
+        }
+
+        public void OpenWorkspace<T, P>(P param) where T : ViewModelBase, IWorkspace
+        {
+            var newWs = _viewModelFactory.CreateInstance<T, P>(param);
+
+            SelectOrOpenWorkspace(newWs);
+        }
+
+        public void CloseWorkspace(IWorkspace workspace)
+        {
+            Workspaces.Remove(workspace);
+        }
+
+        #region helpers
+        private void SelectOrOpenWorkspace(IWorkspace newWs)
+        {
             var ws = Workspaces.FirstOrDefault(w => w.DisplayName == newWs.DisplayName);
             if (ws == null)
             {
@@ -34,10 +52,6 @@ namespace FMS.WPF.Utils
             //_workspaceCollectionView.MoveCurrentTo(ws);
             WorkspaceSelected?.Invoke(ws);
         }
-
-        public void CloseWorkspace(IWorkspace workspace)
-        {
-            Workspaces.Remove(workspace);
-        }
+        #endregion
     }
 }

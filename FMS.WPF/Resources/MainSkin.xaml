@@ -18,7 +18,7 @@
 
     <Style x:Key="MainHeaderLabelStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource MainLabelStyle}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Margin" Value="0,0,20,0"/>
+        <Setter Property="Margin" Value="30,0,20,0"/>
     </Style>
 
     <Style x:Key="MainTextBoxStyle" TargetType="{x:Type TextBox}">
