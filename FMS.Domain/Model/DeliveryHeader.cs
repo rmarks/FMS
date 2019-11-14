@@ -9,6 +9,7 @@ namespace FMS.Domain.Model
         public int DeliveryHeaderId { get; set; }
 
         public int DeliveryTypeId { get; set; }
+        public DeliveryType DeliveryType { get; set; }
 
         [Required, MaxLength(10)]
         public string DocNo { get; set; }

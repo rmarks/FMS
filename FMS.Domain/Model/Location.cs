@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FMS.Domain.Model
@@ -13,6 +14,8 @@ namespace FMS.Domain.Model
         public int LocationTypeId { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public List<Inventory> Inventory { get; set; }
 
         //--- legacy system fields ---
         [MaxLength(2)]

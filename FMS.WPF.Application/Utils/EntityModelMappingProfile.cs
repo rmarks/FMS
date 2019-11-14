@@ -66,8 +66,17 @@ namespace FMS.WPF.Application.Utils
                 .ForMember(d => d.Addresses, o => o.MapFrom(s => s.Addresses.OrderBy(a => a.Description)));
             #endregion
 
-            #region delivery notes
+            #region delivery header
             CreateMap<DeliveryHeader, DeliveryNoteListModel>();
+            #endregion
+
+            #region delivery line
+            CreateMap<DeliveryLine, StockMovementModel>()
+                .ForMember(d => d.DeliveryTypeName, o => o.MapFrom(s => s.DeliveryHeader.DeliveryType.DeliveryTypeName));
+            #endregion
+
+            #region location
+            CreateMap<Inventory, LocationInventoryListModel>();
             #endregion
 
             #region dropdowns

@@ -13,13 +13,23 @@ namespace FMS.WPF.Models
         #region options change notification and reset
         public virtual void Reset()
         {
+            //GetType().GetProperties()
+            //    //.Where(pi => pi.PropertyType == typeof(int?) || pi.PropertyType == typeof(string))
+            //    .Where(pi => pi.CanWrite && pi.PropertyType != typeof(Action))
+            //    .ToList()
+            //    .ForEach(pi => pi.SetValue(this, null));
+
             GetType().GetProperties()
-                //.Where(pi => pi.PropertyType == typeof(int?) || pi.PropertyType == typeof(string))
-                .Where(pi => pi.CanWrite && pi.PropertyType != typeof(Action))
+                .Where(pi => pi.CanWrite && (pi.PropertyType == typeof(int?) || pi.PropertyType == typeof(string)))
                 .ToList()
                 .ForEach(pi => pi.SetValue(this, null));
 
-            SetDefaultOptions();
+            GetType().GetProperties()
+                .Where(pi => pi.CanWrite && pi.PropertyType == typeof(bool))
+                .ToList()
+                .ForEach(pi => pi.SetValue(this, false));
+
+            SetDefaultOptions?.Invoke();
         }
 
         public event Action OptionChanged;

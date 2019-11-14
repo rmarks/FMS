@@ -110,8 +110,8 @@ namespace FMS.WPF.ViewModels
             Commands.Add(groupWarehouses);
 
             CommandTreeItemViewModel commandWarehouses =
-                new CommandTreeItemViewModel("Valmiskaubalaod", new RelayCommand(() => { }));
-            commandWarehouses.IsEnabled = false;
+                new CommandTreeItemViewModel("Valmiskaubalaod", new RelayCommand(() => 
+                    WorkspaceManager.OpenWorkspace<LocationListViewModel, ILocationListStrategy>(new WarehouseListStrategy())));
             groupWarehouses.CommandTreeItems.Add(commandWarehouses);
 
             CommandTreeSubGroupViewModel subGroupDeliveryNotes = new CommandTreeSubGroupViewModel("Saatelehed");
@@ -132,8 +132,8 @@ namespace FMS.WPF.ViewModels
             Commands.Add(groupStores);
 
             CommandTreeItemViewModel commandStores =
-                new CommandTreeItemViewModel("Poed", new RelayCommand(() => { }));
-            commandStores.IsEnabled = false;
+                new CommandTreeItemViewModel("Poed", new RelayCommand(() =>
+                    WorkspaceManager.OpenWorkspace<LocationListViewModel, ILocationListStrategy>(new StoreListStrategy())));
             groupStores.CommandTreeItems.Add(commandStores);
 
             CommandTreeSubGroupViewModel subGroupStoreDeliveryNotes = new CommandTreeSubGroupViewModel("Saatelehed");
@@ -154,8 +154,8 @@ namespace FMS.WPF.ViewModels
             Commands.Add(groupCommissionSale);
 
             CommandTreeItemViewModel commandCommissionWarehouses =
-                new CommandTreeItemViewModel("Komisjonilaod", new RelayCommand(() => { }));
-            commandCommissionWarehouses.IsEnabled = false;
+                new CommandTreeItemViewModel("Komisjonilaod", new RelayCommand(() =>
+                    WorkspaceManager.OpenWorkspace<LocationListViewModel, ILocationListStrategy>(new CommissionWarehouseListStrategy())));
             groupCommissionSale.CommandTreeItems.Add(commandCommissionWarehouses);
 
             CommandTreeSubGroupViewModel subGroupCommissionDeliveryNotes = new CommandTreeSubGroupViewModel("Saatelehed");

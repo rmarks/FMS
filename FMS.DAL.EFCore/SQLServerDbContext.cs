@@ -45,6 +45,7 @@ namespace FMS.DAL.EFCore
         public DbSet<ProductBaseProductVariation> ProductBaseProductVariations { get; set; }
         public DbSet<ProductSource> ProductSources { get; set; }
         public DbSet<ProductDestination> ProductDestinations { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

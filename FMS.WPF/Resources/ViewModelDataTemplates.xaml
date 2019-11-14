@@ -64,6 +64,15 @@
         <vw:DeliveryNoteListView/>
     </DataTemplate>
 
+    <!--Locations-->
+    <DataTemplate DataType="{x:Type vm:LocationListViewModel}">
+        <vw:LocationListView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:LocationInventoryListViewModel}">
+        <vw:LocationInventoryListView/>
+    </DataTemplate>
+
     <!--Materials-->
     <DataTemplate DataType="{x:Type vm:MaterialsViewModel}">
         <vw:MaterialsView/>

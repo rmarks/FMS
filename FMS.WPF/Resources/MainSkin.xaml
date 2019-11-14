@@ -48,6 +48,11 @@
         <Setter Property="VerticalAlignment" Value="Bottom"/>
     </Style>
 
+    <Style x:Key="MainRadioButtonStyle" TargetType="{x:Type RadioButton}">
+        <Setter Property="Margin" Value="0,5"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
     <Style x:Key="MainImageLabelButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
