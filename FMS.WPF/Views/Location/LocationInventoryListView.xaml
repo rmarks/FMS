@@ -56,8 +56,8 @@
         <!--list and stock movements-->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
 
             <!--list-->
@@ -75,7 +75,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Kood"
                                     Binding="{Binding Path=ProductProductCode}"
-                                    Width="*"/>
+                                    Width="1.5*"/>
                     <DataGridTextColumn Header="Nimi"
                                     Binding="{Binding Path=ProductProductName}"
                                     Width="3*"/>
@@ -115,23 +115,26 @@
                     <StackPanel Grid.Column="1"
                                     VerticalAlignment="Center"
                                     Margin="20">
-                        <TextBlock Text="{Binding Path=StockProductCode}"/>
-                        <TextBlock Text="{Binding Path=StockProductName}"/>
+                        <TextBlock Text="{Binding Path=StockProduct.ProductCode}"/>
+                        <TextBlock Text="{Binding Path=StockProduct.ProductName}"/>
                     </StackPanel>
                 </Grid>
 
                 <!--movements-->
                 <DataGrid Grid.Row="1" 
-                              ItemsSource="{Binding Path=StockMovementModels}" 
+                              ItemsSource="{Binding Path=StockProduct.DeliveryLines}" 
                               Style="{StaticResource MainDataGridStyle}" 
                               Margin="20">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Dok.nr." 
+                        <DataGridTextColumn Header="Dok. nr." 
                                                 Binding="{Binding Path=DeliveryHeaderDocNo}" 
                                                 Width="*"/>
-                        <DataGridTextColumn Header="Dokumendi tüüp" 
+                        <DataGridTextColumn Header="Dok. tüüp" 
                                                 Binding="{Binding Path=DeliveryTypeName}" 
-                                                Width="2*"/>
+                                                Width="*"/>
+                        <DataGridTextColumn Header="Saatja/saaja" 
+                                                Binding="{Binding Path=LocationName}" 
+                                                Width="1.5*"/>
                         <DataGridTextColumn Header="Kuupäev" 
                                                 Binding="{Binding Path=DeliveryHeaderDocDate, StringFormat='\{0:dd.MM.yyyy\}'}" 
                                                 Width="*"/>

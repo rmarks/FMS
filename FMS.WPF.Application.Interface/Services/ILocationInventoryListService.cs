@@ -7,6 +7,6 @@ namespace FMS.WPF.Application.Interface.Services
     {
         LocationInventoryListOptionModel GetLocationInventoryListOptionModel(int locationId);
         IList<LocationInventoryListModel> GetLocationInventoryListModels(LocationInventoryListOptionModel options);
-        IList<StockMovementModel> GetStockMovementModels(int productId, int locationId);
+        ProductDeliveriesModel GetProductDeliveriesModel(int productId, int locationId);
     }
 }

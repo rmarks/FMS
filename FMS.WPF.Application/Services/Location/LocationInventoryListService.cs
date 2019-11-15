@@ -44,24 +44,35 @@ namespace FMS.WPF.Application.Services
             return model;
         }
 
-        public IList<StockMovementModel> GetStockMovementModels(int productId, int locationId)
+        public ProductDeliveriesModel GetProductDeliveriesModel(int productId, int locationId)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return context.DeliveryLines
+                return context.Products
                     .AsNoTracking()
-                    .Where(d => d.ProductId == productId && 
-                        (d.DeliveryHeader.FromLocationId == locationId || d.DeliveryHeader.ToLocationId == locationId))
-                    //.ProjectBetween<DeliveryLine, StockMovementModel>()
-                    .Select(d => new StockMovementModel
+                    .Where(p => p.ProductId == productId)
+                    .Select(p => new ProductDeliveriesModel
                     {
-                        DeliveryHeaderDocNo = d.DeliveryHeader.DocNo,
-                        DeliveryHeaderDocDate = d.DeliveryHeader.DocDate,
-                        DeliveryTypeName = d.DeliveryHeader.DeliveryType.DeliveryTypeName,
-                        DeliveredQuantity = (d.DeliveryHeader.FromLocationId == locationId ? -d.DeliveredQuantity : d.DeliveredQuantity)
+                        ProductId = p.ProductId,
+                        ProductCode = p.ProductCode,
+                        ProductName = p.ProductName,
+                        DeliveryLines = p.DeliveryLines
+                            .Where(d => d.DeliveryHeader.FromLocationId == locationId || d.DeliveryHeader.ToLocationId == locationId)
+                            .Select(d => new ProductDeliveryModel
+                            {
+                                ProductId = d.ProductId,
+                                DeliveryHeaderDocNo = d.DeliveryHeader.DocNo,
+                                DeliveryHeaderDocDate = d.DeliveryHeader.DocDate,
+                                DeliveryTypeName = d.DeliveryHeader.DeliveryType.DeliveryTypeName,
+                                LocationName = d.DeliveryHeader.FromLocationId == locationId 
+                                                ? d.DeliveryHeader.ToLocation.LocationName
+                                                : d.DeliveryHeader.FromLocation.LocationName,
+                                DeliveredQuantity = d.DeliveryHeader.FromLocationId == locationId ? -d.DeliveredQuantity : d.DeliveredQuantity
+                            })
+                            .OrderByDescending(d => d.DeliveryHeaderDocDate)
+                            .ToList()
                     })
-                    .OrderByDescending(d => d.DeliveryHeaderDocDate)
-                    .ToList();
+                    .FirstOrDefault();
             }
         }
     }

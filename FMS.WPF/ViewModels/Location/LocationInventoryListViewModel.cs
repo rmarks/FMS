@@ -2,7 +2,6 @@
 using FMS.WPF.Helpers;
 using FMS.WPF.Models;
 using FMS.WPF.Utils;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FMS.WPF.ViewModels
@@ -23,12 +22,11 @@ namespace FMS.WPF.ViewModels
 
         #region properties
         public LocationInventoryListOptionModel OptionsModel { get; set; }
+        
         public int TotalReservedQuantity { get; set; }
         public int TotalStockQuantity { get; set; }
 
-        public string StockProductCode { get; set; }
-        public string StockProductName { get; set; }
-        public IList<StockMovementModel> StockMovementModels { get; set; }
+        public ProductDeliveriesModel StockProduct { get; set; }
         public string StockProductPicturePath { get; set; }
         #endregion
 
@@ -53,7 +51,7 @@ namespace FMS.WPF.ViewModels
         {
             DisplayName = $"{model.LocationName} laoseis";
 
-            SelectedItemChanged += (p) => LoadStockMovements();
+            SelectedItemChanged += (p) => LoadStockProduct();
 
             InitializeOptionsModel(model);
 
@@ -74,22 +72,18 @@ namespace FMS.WPF.ViewModels
             Items = null;
             ItemsCount = null;
 
-            ClearStockMovements();
+            ClearStockProduct();
         }
 
-        private void LoadStockMovements()
+        private void LoadStockProduct()
         {
-            StockProductCode = SelectedItem?.ProductProductCode;
-            StockProductName = SelectedItem?.ProductProductName;
-            StockMovementModels = _service.GetStockMovementModels(SelectedItem.ProductId, SelectedItem.LocationId);
+            StockProduct = _service.GetProductDeliveriesModel(SelectedItem.ProductId, SelectedItem.LocationId);
             StockProductPicturePath = PictureLocationHelper.GetPictureLocation(SelectedItem.ProductProductBaseProductBaseCode);
         }
 
-        private void ClearStockMovements()
+        private void ClearStockProduct()
         {
-            StockProductCode = null;
-            StockProductName = null;
-            StockMovementModels = null;
+            StockProduct = null;
             StockProductPicturePath = null;
         }
         #endregion
