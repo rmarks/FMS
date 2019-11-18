@@ -22,12 +22,12 @@ namespace FMS.WPF.ViewModels
 
         #region properties
         public LocationInventoryListOptionModel OptionsModel { get; set; }
-        
+        public ProductDeliveriesModel ProductDeliveriesModel { get; set; }
+
         public int TotalReservedQuantity { get; set; }
         public int TotalStockQuantity { get; set; }
 
-        public ProductDeliveriesModel StockProduct { get; set; }
-        public string StockProductPicturePath { get; set; }
+        public string ProductPicturePath { get; set; }
         #endregion
 
         #region overrides
@@ -51,7 +51,7 @@ namespace FMS.WPF.ViewModels
         {
             DisplayName = $"{model.LocationName} laoseis";
 
-            SelectedItemChanged += (p) => LoadStockProduct();
+            SelectedItemChanged += (p) => LoadProductDeliveriesModel();
 
             InitializeOptionsModel(model);
 
@@ -72,19 +72,19 @@ namespace FMS.WPF.ViewModels
             Items = null;
             ItemsCount = null;
 
-            ClearStockProduct();
+            ClearProductDeliveriesModel();
         }
 
-        private void LoadStockProduct()
+        private void LoadProductDeliveriesModel()
         {
-            StockProduct = _service.GetProductDeliveriesModel(SelectedItem.ProductId, SelectedItem.LocationId);
-            StockProductPicturePath = PictureLocationHelper.GetPictureLocation(SelectedItem.ProductProductBaseProductBaseCode);
+            ProductDeliveriesModel = _service.GetProductDeliveriesModel(SelectedItem.ProductId, SelectedItem.LocationId);
+            ProductPicturePath = PictureLocationHelper.GetPictureLocation(SelectedItem.ProductProductBaseProductBaseCode);
         }
 
-        private void ClearStockProduct()
+        private void ClearProductDeliveriesModel()
         {
-            StockProduct = null;
-            StockProductPicturePath = null;
+            ProductDeliveriesModel = null;
+            ProductPicturePath = null;
         }
         #endregion
 

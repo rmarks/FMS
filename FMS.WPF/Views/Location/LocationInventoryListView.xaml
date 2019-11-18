@@ -107,7 +107,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Image Grid.Column="0" 
-                           Source="{Binding StockProductPicturePath, IsAsync=True}"
+                           Source="{Binding ProductPicturePath, IsAsync=True}"
                            Height="128" 
                            Width="160" 
                            Margin="20"/>
@@ -115,14 +115,14 @@
                     <StackPanel Grid.Column="1"
                                     VerticalAlignment="Center"
                                     Margin="20">
-                        <TextBlock Text="{Binding Path=StockProduct.ProductCode}"/>
-                        <TextBlock Text="{Binding Path=StockProduct.ProductName}"/>
+                        <TextBlock Text="{Binding Path=ProductDeliveriesModel.ProductCode}"/>
+                        <TextBlock Text="{Binding Path=ProductDeliveriesModel.ProductName}"/>
                     </StackPanel>
                 </Grid>
 
                 <!--movements-->
                 <DataGrid Grid.Row="1" 
-                              ItemsSource="{Binding Path=StockProduct.DeliveryLines}" 
+                              ItemsSource="{Binding Path=ProductDeliveriesModel.DeliveryLines}" 
                               Style="{StaticResource MainDataGridStyle}" 
                               Margin="20">
                     <DataGrid.Columns>
@@ -131,7 +131,7 @@
                                                 Width="*"/>
                         <DataGridTextColumn Header="Dok. tüüp" 
                                                 Binding="{Binding Path=DeliveryTypeName}" 
-                                                Width="*"/>
+                                                Width="1.5*"/>
                         <DataGridTextColumn Header="Saatja/saaja" 
                                                 Binding="{Binding Path=LocationName}" 
                                                 Width="1.5*"/>
