@@ -68,6 +68,8 @@ namespace FMS.WPF.Application.Utils
 
             #region delivery header
             CreateMap<DeliveryHeader, DeliveryNoteListModel>();
+            CreateMap<DeliveryHeader, DeliveryNoteModel>();
+            CreateMap<DeliveryLine, DeliveryLineModel>();
             #endregion
 
             #region location

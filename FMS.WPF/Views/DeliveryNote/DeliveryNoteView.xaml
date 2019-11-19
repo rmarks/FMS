@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="FMS.WPF.Views.DeliveryNoteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FMS.WPF.Views"
+             xmlns:controls="clr-namespace:FMS.WPF.Controls"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MainHeaderLabelStyle}"/>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MainHeaderTextBoxStyle}"/>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MainHeaderComboBoxStyle}"/>
+
+        <CollectionViewSource Source="{Binding Path=Lines}" x:Key="lines">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="ProductProductCode"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--buttons-->
+        <Grid Grid.Row="0"
+              Margin="20">
+            <controls:EditableTaskbar Margin="10,0"
+                                      EditCommand="{Binding Path=EditCommand}"
+                                      IsEditVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"
+                                      CancelCommand="{Binding Path=CancelCommand}"
+                                      IsCancelVisible="{Binding Path=IsEditMode}"
+                                      SaveCommand="{Binding Path=SaveCommand}"
+                                      IsSaveVisible="{Binding Path=IsEditMode}"
+                                      DeleteCommand="{Binding Path=DeleteCommand}"
+                                      IsDeleteVisible="{Binding Path=IsEditMode, Converter={StaticResource InverseBooleanConverter}}"/>
+        </Grid>
+
+        <!--header-->
+        <Grid Grid.Row="1"
+              Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" 
+                   Content="Saatelehe nr."/>
+            <TextBox Grid.Column="1" 
+                     Text="{Binding Path=Model.DocNo, Mode=OneWay}" 
+                     IsEnabled="False"/>
+
+            <Label Grid.Column="2" 
+                   Content="Saatelehe kuupäev"/>
+            <TextBox Grid.Column="3" 
+                     Text="{Binding Path=Model.DocDate, Mode=OneWay, StringFormat='\{0:dd.MM.yyyy\}'}" 
+                     IsEnabled="False"/>
+
+            <Label Grid.Column="4" 
+                       Content="Saatja"/>
+            <ComboBox Grid.Column="5" 
+                          ItemsSource="{Binding Path=Model.Dropdowns.Locations}" 
+                          DisplayMemberPath="LocationName" 
+                          SelectedValuePath="LocationId" 
+                          SelectedValue="{Binding Path=Model.FromLocationId, ValidatesOnDataErrors=True}" 
+                          IsEnabled="{Binding Path=IsEditMode}"/>
+
+            <Label Grid.Column="6" 
+                       Content="Saaja"/>
+            <ComboBox Grid.Column="7" 
+                          ItemsSource="{Binding Path=Model.Dropdowns.Locations}" 
+                          DisplayMemberPath="LocationName" 
+                          SelectedValuePath="LocationId" 
+                          SelectedValue="{Binding Path=Model.ToLocationId, ValidatesOnDataErrors=True}" 
+                          IsEnabled="{Binding Path=IsEditMode}"/>
+        </Grid>
+
+        <!--lines-->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Source={StaticResource lines}}" 
+                  Style="{StaticResource MainDataGridStyle}"
+                  Margin="20">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Kood" 
+                                    Binding="{Binding Path=ProductProductCode}" 
+                                    Width="*"/>
+                <DataGridTextColumn Header="Nimetus" 
+                                    Binding="{Binding Path=ProductProductName}" 
+                                    Width="2*"/>
+                <DataGridTextColumn Header="Kogus" 
+                                    Binding="{Binding Path=DeliveredQuantity, StringFormat=0;;#}" 
+                                    Width="*"
+                                    HeaderStyle="{StaticResource MainDataGridColumnHeaderRightStyle}"
+                                    CellStyle="{StaticResource MainDataGridCellRightStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

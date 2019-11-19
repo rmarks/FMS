@@ -38,6 +38,11 @@ namespace FMS.WPF.ViewModels
         {
             OptionsModel.Reset();
         }
+
+        protected override void OpenItem()
+        {
+            OpenWorkspace(SelectedItem.DeliveryHeaderId);
+        }
         #endregion
 
         #region helpers
@@ -66,6 +71,11 @@ namespace FMS.WPF.ViewModels
         {
             Items = null;
             ItemsCount = null;
+        }
+
+        private void OpenWorkspace(int deliveryHeaderId)
+        {
+            WorkspaceManager.OpenWorkspace<DeliveryNoteViewModel>(deliveryHeaderId);
         }
         #endregion
 

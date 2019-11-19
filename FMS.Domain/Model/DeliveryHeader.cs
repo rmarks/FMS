@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,18 +19,20 @@ namespace FMS.Domain.Model
         public int? FromLocationId { get; set; }
         [ForeignKey(nameof(FromLocationId))]
         public Location FromLocation { get; set; }
-        public bool IsDelivered { get; set; }
-
+        
         public int? ToLocationId { get; set; }
         [ForeignKey(nameof(ToLocationId))]
         public Location ToLocation { get; set; }
-        public bool IsReceived { get; set; }
+
+        public bool IsDelivered { get; set; }
 
         public int? SalesOrderId { get; set; }
 
         public bool IsClosed { get; set; }
 
         public DateTime? CreatedOn { get; set; }
+
+        public List<DeliveryLine> DeliveryLines { get; set; }
 
         //--- legacy system fields ---
         [MaxLength(2)]
